@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { registry } from './lib/registry.js'
+import { registry, minHOf } from './lib/registry.js'
 import { alertOn } from './lib/alert.js'
 import { specialVisible } from './lib/special.js'
 import { isNight } from './lib/night.js'
@@ -74,7 +74,7 @@ export default function Stage({ cfg, preview = false, edit = null }) {
   const sl = [cfg.slogan, cfg.city, cfg.url].filter(Boolean).join('  •  ')
   const tk = visibleTicker(cfg.ticker, now)
   const q = tk.map((x, i) => <span key={i}>{x}</span>)
-  const minOf = (m) => registry[m.type]?.minH
+  const minOf = minHOf
 
   // ---- sürükle / boyutlandır ----
   const down = (e, m, mode) => {
