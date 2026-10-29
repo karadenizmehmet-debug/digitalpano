@@ -55,3 +55,4 @@ body.panelbody{overflow-x:hidden;overflow-y:auto;max-width:100vw;background:#eef
 .pnl .rs{width:calc(34px/var(--sc,.3));height:calc(34px/var(--sc,.3))}
 .pnl .p-bar{width:100%;box-sizing:border-box;z-index:50}
 .pnl .p-bar button.p-pri{min-width:130px;font-size:17px}
+.pnl .p-fld .p-ghost{align-self:flex-start;background:#eef3f8;color:#1b3a5c;border:1px solid #c5d3e0;border-radius:8px;padding:8px 12px;font-size:14px;cursor:pointer}
