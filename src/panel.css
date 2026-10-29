@@ -1,4 +1,4 @@
-body.panelbody{overflow:auto;background:#eef2f6;padding:0}
+body.panelbody{overflow-x:hidden;overflow-y:auto;max-width:100vw;background:#eef2f6;padding:0}
 .pnl{max-width:720px;margin:0 auto;padding:12px 14px 90px;font:16px/1.4 "Manrope","Segoe UI",system-ui,sans-serif;color:#0f2433}
 .pnl .p-top{display:flex;justify-content:space-between;align-items:center;padding:8px 0;font-size:18px}
 .pnl a{color:#0b6fb3}
@@ -48,3 +48,10 @@ body.panelbody{overflow:auto;background:#eef2f6;padding:0}
 .pnl .stg-pv .stage{pointer-events:auto}
 .pnl .stg.edit{touch-action:pan-y}
 .pnl .p-pvwrap{position:sticky;top:0;z-index:5;background:#eef2f6;padding-bottom:4px}
+
+.pnl{overflow-x:hidden}
+.pnl .p-tabs{flex-wrap:wrap}
+.pnl .p-tabs button{flex:1 1 auto;padding:8px 10px;font-size:15px;white-space:nowrap}
+.pnl .rs{width:calc(34px/var(--sc,.3));height:calc(34px/var(--sc,.3))}
+.pnl .p-bar{width:100%;box-sizing:border-box;z-index:50}
+.pnl .p-bar button.p-pri{min-width:130px;font-size:17px}

@@ -56,7 +56,7 @@ export default function Stage({ cfg, preview = false, edit = null }) {
   const wx = useLive(cfg.city, !preview && !!wmod && wmod.data.live !== false)
   const cond = wx ? wx.c : wmod?.data.cond
   const fxMode = cfg.fx || 'auto'
-  const fxKind = preview || fxMode === 'off' ? '' : (fxMode === 'auto' ? cond : fxMode)
+  const fxKind = fxMode === 'off' || (preview && fxMode === 'auto') ? '' : (fxMode === 'auto' ? cond : fxMode)
   const sp = preview ? null : specialVisible(cfg.sd, now)
   const spImg = useImg(sp)
   const logo = useImg({ img: cfg.logo, imgId: cfg.logoId })
