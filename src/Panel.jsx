@@ -89,7 +89,14 @@ function Field({ f, data, set, say, root, setRoot }) {
   if (isRoot) { data = root; set = (kk, vv) => setRoot({ [kk]: vv }) }
   const v = data[k]
   let input
-  if (kind === 'area') input = <textarea rows={6} value={v ?? ''} onChange={(e) => set(k, e.target.value)} />
+  if (kind === 'area') input = <textarea rows={6} value={v ?? ''} onChange={(e) => set(k, e.target.value)} onPaste={(e) => {
+    const t = e.clipboardData.getData('text');
+    if (!t || (t.indexOf('\t') < 0 && t.indexOf('\r') < 0)) return;
+    e.preventDefault();
+    const c = t.replace(/\r\n?/g, '\n').replace(/\n+$/, '').split('\n').map((l) => l.split('\t').map((x) => x.trim()).join(';').replace(/;+$/, '')).join('\n');
+    const el = e.target, a = el.selectionStart, b = el.selectionEnd, cur = el.value;
+    set(k, cur.slice(0, a) + c + cur.slice(b));
+  }} />
   else if (kind === 'fx') input = <select value={v || 'auto'} onChange={(e) => set(k, e.target.value)}>{[['auto', 'Otomatik (hava durumuna göre)'], ['rain', 'Yağmur'], ['snow', 'Kar'], ['wind', 'Rüzgar'], ['storm', 'Fırtına'], ['fog', 'Sis']].map(([a, b]) => <option key={a} value={a}>{b}</option>)}</select>
   else if (kind === 'check') return <label className="p-chk"><input type="checkbox" checked={k === 'fxOn' ? v !== false : !!v} onChange={(e) => set(k, e.target.checked)} /> {label}</label>
   else if (kind === 'num') input = <input type="number" value={v ?? ''} onChange={(e) => set(k, e.target.value === '' ? '' : +e.target.value)} />
