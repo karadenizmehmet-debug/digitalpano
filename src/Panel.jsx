@@ -154,7 +154,7 @@ const joinBell = (L) => L.map((r) => r.s + '-' + r.e + ' ' + r.n).join('\n')
 
 function BellEditor({ value, set }) {
   const L = parseBell(value)
-  const [gen, setGen] = useState({ s: '08:40', d: 40, b: 15, c: 8 }), [gopen, setGopen] = useState(false), [ask, setAsk] = useState(false)
+  const [gen, setGen] = useState({ s: '08:40', d: 40, b: 15, m: 4, l: 60, a: 4 }), [gopen, setGopen] = useState(false), [ask, setAsk] = useState(false)
   const put = (A) => set(joinBell(A))
   const upd = (i, p) => put(L.map((r, k) => (k === i ? { ...r, ...p } : r)))
   const add = () => {
@@ -162,8 +162,11 @@ function BellEditor({ value, set }) {
     put([...L, { s: hhmm(st), e: hhmm(st + 40), n: (L.length + 1) + '. Ders' }])
   }
   const make = () => {
-    const A = []; let t = tmin(gen.s)
-    for (let i = 0; i < gen.c; i++) { A.push({ s: hhmm(t), e: hhmm(t + gen.d), n: (i + 1) + '. Ders' }); t += +gen.d + +gen.b }
+    const A = []; let t = tmin(gen.s); const tot = gen.m + gen.a
+    for (let i = 0; i < tot; i++) {
+      A.push({ s: hhmm(t), e: hhmm(t + gen.d), n: (i + 1) + '. Ders' })
+      t += gen.d + (i === gen.m - 1 && gen.a > 0 ? gen.l : gen.b)
+    }
     put(A); setAsk(false); setGopen(false)
   }
   return (
@@ -192,13 +195,16 @@ function BellEditor({ value, set }) {
       </div>
       {gopen && (
         <div className="p-gen">
-          <small>Aynı sürede ve teneffüslü bir çizelge oluşturur. Sonra tek tek düzenleyebilirsiniz (öğle arası için ilgili saatleri kaydırın).</small>
-          <div className="p-pos" style={{ gridTemplateColumns: '1.3fr 1fr 1fr 1fr' }}>
-            <div className="p-fld"><label>İlk ders</label><input type="time" value={gen.s} onChange={(e) => setGen({ ...gen, s: e.target.value })} /></div>
-            <div className="p-fld"><label>Ders (dk)</label><input type="number" value={gen.d} onChange={(e) => setGen({ ...gen, d: +e.target.value })} /></div>
-            <div className="p-fld"><label>Teneffüs</label><input type="number" value={gen.b} onChange={(e) => setGen({ ...gen, b: +e.target.value })} /></div>
-            <div className="p-fld"><label>Ders sayısı</label><input type="number" value={gen.c} onChange={(e) => setGen({ ...gen, c: Math.max(1, Math.min(12, +e.target.value)) })} /></div>
+          <small>Sabah ve öğleden sonra derslerini, teneffüs ve öğle arasıyla birlikte tek seferde oluşturur. Sonra tek tek düzenleyebilirsiniz.</small>
+          <div className="p-g2">
+            <div className="p-fld"><label>İlk ders başlangıcı</label><input type="time" value={gen.s} onChange={(e) => e.target.value && setGen({ ...gen, s: e.target.value })} /></div>
+            <div className="p-fld"><label>Ders süresi (dk)</label><input type="number" inputMode="numeric" value={gen.d} onChange={(e) => setGen({ ...gen, d: Math.max(5, +e.target.value || 0) })} /></div>
+            <div className="p-fld"><label>Sabah ders sayısı</label><input type="number" inputMode="numeric" value={gen.m} onChange={(e) => setGen({ ...gen, m: Math.max(1, Math.min(8, +e.target.value || 1)) })} /></div>
+            <div className="p-fld"><label>Teneffüs (dk)</label><input type="number" inputMode="numeric" value={gen.b} onChange={(e) => setGen({ ...gen, b: Math.max(0, +e.target.value || 0) })} /></div>
+            <div className="p-fld"><label>Öğle arası (dk)</label><input type="number" inputMode="numeric" value={gen.l} onChange={(e) => setGen({ ...gen, l: Math.max(0, +e.target.value || 0) })} /></div>
+            <div className="p-fld"><label>Öğleden sonra ders sayısı</label><input type="number" inputMode="numeric" value={gen.a} onChange={(e) => setGen({ ...gen, a: Math.max(0, Math.min(8, +e.target.value || 0)) })} /></div>
           </div>
+          <small>Toplam {gen.m + gen.a} ders. Öğle arası, sabahın son dersinden sonra uygulanır.</small>
           {!ask ? <button className="p-pri" onClick={() => (L.length ? setAsk(true) : make())}>Oluştur</button>
             : <div className="p-btns"><button className="p-danger" onClick={make}>Evet, mevcut saatlerin yerine oluştur</button><button onClick={() => setAsk(false)}>Vazgeç</button></div>}
         </div>)}
