@@ -7,7 +7,7 @@ import { MON, p2 } from './lib/util.js'
 import Confetti from './lib/Confetti.jsx'
 import { loadImage } from './lib/firebase.js'
 import { useLive } from './lib/weather.js'
-import { visibleTicker } from './lib/ticker.js'
+import { visibleTicker, effectiveTicker } from './lib/ticker.js'
 import { colSnap, reflow } from './lib/reflow.js'
 import Fx, { FX_KINDS } from './lib/Fx.jsx'
 
@@ -77,7 +77,7 @@ export default function Stage({ cfg, preview = false, edit = null }) {
   const night = !preview && !(cfg.sd || []).some((d) => d.now) && isNight(cfg, now)
 
   const sl = [cfg.slogan, cfg.city, cfg.url].filter(Boolean).join('  •  ')
-  const tk = visibleTicker(cfg.ticker, now)
+  const tk = visibleTicker(effectiveTicker(cfg, now), now)
   const q = tk.map((x, i) => <span key={i}>{x}</span>)
   const minOf = minHOf
 

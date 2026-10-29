@@ -20,3 +20,13 @@ function check(line, n) {
 }
 export const visibleTicker = (txt, n = new Date()) =>
   String(txt || '').split('\n').filter((x) => x.trim()).map((x) => check(x, n)).filter((r) => r[1] && r[0]).map((r) => r[0])
+
+// Yapılandırılmış duyurular: cfg.anns = [{t, d (gün, 0=süresiz), on (başlangıç ISO tarih), r (isteğe bağlı gün kuralı)}]
+export const annLive = (x, n = new Date()) => {
+  if (!x.d) return true
+  const e = new Date((x.on || '1970-01-01') + 'T00:00:00'); e.setDate(e.getDate() + x.d)
+  const t = new Date(n); t.setHours(0, 0, 0, 0)
+  return e > t
+}
+export const effectiveTicker = (cfg, n = new Date()) =>
+  Array.isArray(cfg.anns) ? cfg.anns.filter((x) => x.t && annLive(x, n)).map((x) => x.t.replace(/\n/g, ' ') + (x.r ? ' | ' + x.r : '')).join('\n') : cfg.ticker

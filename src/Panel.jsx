@@ -40,6 +40,7 @@ function Thumb({ x }) {
   return src ? <img src={src} className="p-th" /> : <span className="p-th" />
 }
 
+const isoLocal = (d) => { const z = new Date(d.getTime() - d.getTimezoneOffset() * 60000); return z.toISOString().slice(0, 16) }
 const DUR = [[1, '1 gün'], [3, '3 gün'], [7, '1 hafta'], [30, '1 ay'], [365, '1 yıl'], [0, 'Süresiz']]
 const isoD = (d) => { const z = new Date(d.getTime() - d.getTimezoneOffset() * 60000); return z.toISOString().slice(0, 10) }
 const endOf = (x) => { if (!x.d) return null; const d = new Date((x.on || isoD(new Date())) + 'T00:00:00'); d.setDate(d.getDate() + x.d); return d }
@@ -51,6 +52,44 @@ function DurBar({ x, upd }) {
       <select value={x.d ?? 0} onChange={(ev) => upd({ d: +ev.target.value, on: x.on || isoD(new Date()) })}>{DUR.map(([a, b]) => <option key={a} value={a}>{'Yayın: ' + b}</option>)}</select>
       <button onClick={() => upd({ on: isoD(new Date()) })}>Süreyi yenile</button>
       <small style={{ color: dead ? '#b4232a' : '#5b6b7b' }}>{!e ? 'Süresiz yayında' : dead ? 'Süresi doldu (yayında değil)' : 'Bitiş: ' + trD(new Date(e.getTime() - 86400000))}</small>
+    </div>
+  )
+}
+
+function AnnEditor({ draft, set }) {
+  const L = Array.isArray(draft.anns) ? draft.anns : String(draft.ticker || '').split('\n').filter((l) => l.trim()).map((l) => { const i = l.lastIndexOf('|'); return i < 0 ? { t: l.trim(), d: 0 } : { t: l.slice(0, i).trim(), d: 0, r: l.slice(i + 1).trim() } })
+  const [nt, setNt] = useState(''), [nd, setNd] = useState(7), [op, setOp] = useState(-1)
+  const put = (a) => set({ anns: a })
+  const upd = (i, p) => put(L.map((x, k) => (k === i ? { ...x, ...p } : x)))
+  return (
+    <div className="p-card p-pad">
+      <div className="p-h">📢 Duyurular (alttaki kayan yazı)</div>
+      <div className="p-fld"><label>Yeni duyuru</label>
+        <textarea rows={2} value={nt} onChange={(e) => setNt(e.target.value)} placeholder="Duyuru metni" />
+        <div className="p-slr" style={{ marginTop: 8 }}>
+          <select value={nd} onChange={(e) => setNd(+e.target.value)}>{DUR.map(([a, b]) => <option key={a} value={a}>{'Yayın: ' + b}</option>)}</select>
+          <button className="p-pri" disabled={!nt.trim()} onClick={() => { put([{ t: nt.trim(), d: nd, on: isoD(new Date()) }, ...L]); setNt('') }}>+ Ekle</button>
+        </div>
+      </div>
+      <div className="p-h2">Yayındakiler ve eskiler ({L.length})</div>
+      {!L.length && <small>Henüz duyuru yok.</small>}
+      {L.map((x, i) => {
+        const e = endOf(x), dead = e && e <= new Date(isoD(new Date()) + 'T00:00:00')
+        const sum = (DUR.find(([a]) => a === (x.d || 0)) || [0, 'Süresiz'])[1] + (e ? (dead ? ' · süresi doldu' : ' · ' + trD(new Date(e.getTime() - 86400000)) + ' bitiş') : '')
+        return (
+          <div key={i} className={'p-slc' + (dead ? ' dead' : '')}>
+            <div className="p-slr" onClick={() => setOp(op === i ? -1 : i)} style={{ cursor: 'pointer' }}>
+              <span style={{ flex: 1, minWidth: 0 }}><b style={{ display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{x.t || '(boş)'}</b><small style={{ color: dead ? '#b4232a' : '#5b6b7b' }}>{sum}</small></span>
+              <button className="p-danger" onClick={(ev) => { ev.stopPropagation(); if (confirm('Bu duyuru silinsin mi?')) put(L.filter((_, k) => k !== i)) }}>🗑</button>
+              <span>{op === i ? '▴' : '▾'}</span>
+            </div>
+            {op === i && <>
+              <textarea rows={2} value={x.t} onChange={(ev) => upd(i, { t: ev.target.value })} />
+              <DurBar x={x} upd={(p) => upd(i, p)} />
+              <input placeholder="Yalnızca belirli günlerde (ör. 03.11 veya 03.11-07.11)" value={x.r || ''} onChange={(ev) => upd(i, { r: ev.target.value })} />
+            </>}
+          </div>)
+      })}
     </div>
   )
 }
@@ -497,10 +536,12 @@ function AlertEditor({ al, set }) {
         <div className="p-fld"><label>Yazı %</label><input type="number" value={a.fs || 100} onChange={(e) => up({ fs: +e.target.value })} /></div>
         <div className="p-fld"><label>Renk</label>
           <select value={a.tone} onChange={(e) => up({ tone: e.target.value })}><option value="r">Kırmızı</option><option value="o">Turuncu</option><option value="b">Mavi</option></select></div>
-        <div className="p-fld"><label>Süre (dk)</label><input type="number" value={a.dur || 0} onChange={(e) => up({ dur: +e.target.value })} /></div>
+        <div className="p-fld"><label>Ne kadar kalsın</label><select value={a.dur || 0} onChange={(e) => up({ dur: +e.target.value })}>{[[0, 'Ben kapatana kadar'], [5, '5 dakika'], [10, '10 dakika'], [15, '15 dakika'], [30, '30 dakika'], [60, '1 saat'], [120, '2 saat'], [240, '4 saat']].concat([5, 10, 15, 30, 60, 120, 240, 0].includes(+a.dur || 0) ? [] : [[+a.dur, a.dur + ' dakika']]).map(([x, y]) => <option key={x} value={x}>{y}</option>)}</select></div>
       </div>
-      <div className="p-fld"><label>Başlangıç (boşsa yayınlanınca başlar)</label>
-        <input type="datetime-local" value={a.from || ''} onChange={(e) => up({ from: e.target.value })} /></div>
+      <div className="p-fld"><label>Ne zaman başlasın</label>
+        <select value={a.from ? 'z' : 'h'} onChange={(e) => up({ from: e.target.value === 'h' ? '' : isoLocal(new Date(Date.now() + 36e5)) })}><option value="h">Hemen (Yayınla'ya basınca)</option><option value="z">Belirli tarih ve saatte</option></select>
+        {a.from ? <input type="datetime-local" value={a.from} onChange={(e) => up({ from: e.target.value })} style={{ marginTop: 8 }} /> : null}
+      </div>
       <small>Süre 0 ise siz kapatana kadar açık kalır. Durum: <b>{alertStatus(a)}</b></small>
       <div className="p-btns">
         <button className={a.on ? 'p-danger' : 'p-pri'} onClick={() => up({ on: !a.on, pend: a.on ? 0 : 1 })}>
@@ -608,11 +649,7 @@ export default function Panel({ cfg, fresh, err }) {
         </div>) })()}
       {tab === 'duy' && (
         <div className="p-body">
-          <div className="p-card p-pad">
-            <div className="p-h">📢 Duyurular (alttaki kayan yazı)</div>
-            <textarea rows={8} value={draft.ticker || ''} onChange={(e) => set({ ticker: e.target.value })} placeholder="Her satır ayrı bir duyuru" />
-            <small>Her satır ayrı duyuru. Belirli günlerde göstermek için satır sonuna | ve tarih ekleyin: Veli toplantısı yarın | 03.11 · Sınav haftası | 03.11-07.11 · Gezi | 03.11 08:00 - 03.11 16:00</small>
-          </div>
+          <AnnEditor draft={draft} set={set} />
         </div>
       )}
       {SETT.includes(tab) && !(tab === 'mods' && openId) && <div className="p-sub">{[['gen', 'Genel'], ['mods', 'Modüller'], ['lay', 'Düzen'], ['sd', 'Özel günler'], ['bak', 'Yedek']].map(([k, l]) => <button key={k} className={view === k ? 'p-on' : ''} onClick={() => { if (k === 'mods' || k === 'lay') { setTab(k); setOpenId(null) } else { setTab('set'); setSub(k) } window.scrollTo(0, 0) }}>{l}</button>)}</div>}
