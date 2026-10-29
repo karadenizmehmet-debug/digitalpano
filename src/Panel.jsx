@@ -5,6 +5,7 @@ import { login, logout, onUser, saveConfig, saveImage, removeImage, loadImage } 
 import { rows } from './lib/util.js'
 import { alertStatus } from './lib/alert.js'
 import Stage from './Stage.jsx'
+import { DG, mondayISO, weekShift } from './modules/duty.jsx'
 import { reflow } from './lib/reflow.js'
 import './panel.css'
 
@@ -108,16 +109,27 @@ function Field({ f, data, set, say, root, setRoot }) {
   else if (kind === 'slides') input = <SlidesEditor value={v} set={(x) => set(k, x)} say={say} />
   else if (kind === 'dgrid') {
     const P = rows({ rows: data.places }), g = data.g || {}
+    const k = weekShift(data, new Date())
     input = (
-      <div className="p-dg">
-        {DAYS.map((d, i) => (
-          <div key={d}><b>{d}</b>
-            {P.map((p, j) => (
-              <input key={j} placeholder={p} value={(g[i] || {})[j] || ''}
-                onChange={(e) => set('g', { ...g, [i]: { ...(g[i] || {}), [j]: e.target.value } })} />
-            ))}
-          </div>
-        ))}
+      <div>
+        <div className="p-dgw"><table className="p-dgt"><tbody>
+          <tr><th>Yer</th>{DG.map((d) => <th key={d}>{d}</th>)}</tr>
+          {P.map((p, j) => (
+            <tr key={j}><td><b>{p}</b></td>
+              {DG.map((d, i) => <td key={d}><input value={(g[i] || {})[j] || ''}
+                onChange={(e) => set('g', { ...g, [i]: { ...(g[i] || {}), [j]: e.target.value } })} /></td>)}
+            </tr>))}
+        </tbody></table></div>
+        {!P.length && <small>Önce yukarıya nöbet yerlerini yazın.</small>}
+        <label className="p-chk" style={{ marginTop: 10 }}>
+          <input type="checkbox" checked={!!data.rot} onChange={(e) => set('rot', e.target.checked ? mondayISO(new Date()) : '')} /> Dönüşümlü nöbet
+        </label>
+        {data.rot && <>
+          <small>Her hafta öğretmenler bir sonraki nöbet yerine geçer (tablodaki düzen aşağıdaki hafta için geçerlidir).</small>
+          <div className="p-fld"><label>Tablonun geçerli olduğu hafta (Pazartesi)</label>
+            <input type="date" value={data.rot || ''} onChange={(e) => set('rot', e.target.value || mondayISO(new Date()))} /></div>
+          <small>Bu hafta kaydırma: <b>{k}</b>{k < 0 ? ' (başlangıç tarihi ileride)' : ''}</small>
+        </>}
       </div>
     )
   } else input = <input type="text" value={v ?? ''} onChange={(e) => set(k, e.target.value)} />
