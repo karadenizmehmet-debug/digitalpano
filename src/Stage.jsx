@@ -107,6 +107,7 @@ export default function Stage({ cfg, preview = false, edit = null }) {
     const mods = cfg.mods.map((m) => ({ ...m }))
     const m = mods.find((x) => x.id === d.id)
     if (m && d.mode === 'move') colSnap(m)
+    if (m && d.mode === 'size') m.fixH = true  // elle boyutlandırılan modülün yüksekliği korunur
     if (cfg.autoFlow !== false) reflow(mods, m, minOf, wantH)
     edit.onChange(mods)
   }

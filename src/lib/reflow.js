@@ -28,17 +28,17 @@ export function reflow(mods, pref, minOf, wantOf) {
   }
   cols.forEach((A) => {
     if (!A.length) return
-    const D = A.map((m) => Math.max(wantOf?.(m) ?? m.h, mn(m))), fl = A.map((m) => FLEX.includes(m.type))
+    const D = A.map((m) => Math.max(m.fixH ? m.h : (wantOf?.(m) ?? m.h), mn(m))), fl = A.map((m) => FLEX.includes(m.type))
     const sum = () => D.reduce((q, v) => q + v, 0) + G * (A.length - 1)
     let ex = sum() - AV
     if (ex > 0) {
       for (const only of [true, false]) {
         if (ex <= 0) break
-        const sl = A.map((m, i) => (fl[i] === only || (!only && !fl[i]) ? D[i] - mn(m) : 0)), tot = sl.reduce((q, v) => q + v, 0)
+        const sl = A.map((m, i) => (m.fixH ? 0 : (fl[i] === only || (!only && !fl[i]) ? D[i] - mn(m) : 0))), tot = sl.reduce((q, v) => q + v, 0)
         if (tot > 0) { const t = Math.min(ex, tot); sl.forEach((v, i) => { D[i] -= Math.floor(t * v / tot) }); ex = sum() - AV }
       }
     } else if (ex < 0) {
-      const idx = A.map((m, i) => i).filter((i) => GROW.includes(A[i].type))
+      const idx = A.map((m, i) => i).filter((i) => GROW.includes(A[i].type) && !A[i].fixH)
       let add = -ex
       if (idx.length) {
         const tot = idx.reduce((q, i) => q + D[i], 0)
@@ -46,9 +46,11 @@ export function reflow(mods, pref, minOf, wantOf) {
         D[idx[idx.length - 1]] += Math.max(0, AV - sum())
       } else {
         // uzayabilen modül yoksa: boşluğu tüm modüllere dengeli dağıt, hiçbirini en çok %35'ten fazla büyütme
-        const all = A.map((m, i) => i), tot = D.reduce((q, v) => q + v, 0)
-        add = Math.min(add, Math.floor(tot * 0.35))
-        all.forEach((i) => { D[i] += Math.floor(add * D[i] / tot) })
+        const all = A.map((m, i) => i).filter((i) => !A[i].fixH), tot = all.reduce((q, i) => q + D[i], 0)
+        if (tot > 0) {
+          add = Math.min(add, Math.floor(tot * 0.35))
+          all.forEach((i) => { D[i] += Math.floor(add * D[i] / tot) })
+        }
       }
     }
     let y = TOP

@@ -378,6 +378,7 @@ function ModEditor({ m, upd, del, move, say, root, setRoot, open, setOpen }) {
           <label className="p-chk"><input type="checkbox" checked={m.showTitle !== false && (m.type !== 'slides' || m.showTitle)} onChange={(e) => upd({ showTitle: e.target.checked })} /> Başlığı göster</label>
           {(R?.fields || []).map((f) => <Field key={f[0]} f={f} data={m.data} set={setData} say={say} root={root} setRoot={setRoot} />)}
           <details className="p-adv"><summary>Gelişmiş (boyut, renk, konum)</summary>
+          <label className="p-chk" style={{ marginTop: 10 }}><input type="checkbox" checked={!!m.fixH} onChange={(e) => upd({ fixH: e.target.checked })} /> Yüksekliği sabitle (otomatik yerleşim değiştirmesin)</label>
           <div className="p-fld"><label>Yazı boyutu (%)</label><input type="number" value={m.fs || 100} onChange={(e) => upd({ fs: +e.target.value })} /></div>
           <div className="p-fld"><label>Renk</label><input type="color" value={m.color || '#0f9b8e'} onChange={(e) => upd({ color: e.target.value })} /></div>
           <div className="p-pos">
@@ -646,10 +647,10 @@ export default function Panel({ cfg, fresh, err }) {
             <Stage preview cfg={draft}
               edit={{ sel, onSelect: setSel, onChange: (mods) => set({ mods }) }} />
           </div>
-          <p className="p-hint">Modülü sürükleyip taşıyın, sağ alt köşedeki turuncu kareden boyutlandırın. Bırakınca sütuna oturur{draft.autoFlow === false ? '' : ' ve boşluklar otomatik düzenlenir'}.</p>
+          <p className="p-hint">Modülü sürükleyip taşıyın, sağ alt köşedeki turuncu kareden boyutlandırın (boyutlandırdığınız modülün yüksekliği korunur). Bırakınca sütuna oturur{draft.autoFlow === false ? '' : ' ve boşluklar otomatik düzenlenir'}.</p>
           <label className="p-chk"><input type="checkbox" checked={draft.autoFlow !== false} onChange={(e) => set({ autoFlow: e.target.checked })} /> Otomatik yerleşim</label>
           <div className="p-btns">
-            <button onClick={() => { const mods = draft.mods.map((m) => ({ ...m })); reflow(mods, null, minHOf, wantH); set({ mods }) }}>Hepsini otomatik düzenle</button>
+            <button onClick={() => { const mods = draft.mods.map((m) => { const c = { ...m }; delete c.fixH; return c }); reflow(mods, null, minHOf, wantH); set({ mods }) }}>Hepsini otomatik düzenle</button>
           </div>
           {sel && draft.mods.find((m) => m.id === sel) && (
             <div className="p-btns">

@@ -5,7 +5,7 @@ export const DAYN = ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma']
 // Hafta sonu Pazartesi'yi gösterir
 export const dayIdx = (d) => { const g = d.getDay(); return g === 0 || g === 6 ? 0 : g - 1 }
 export const meta = {
-  label: 'Ders Programı', minH: 200,
+  label: 'Ders Programı', minH: 140,
   def: { classes: IHO_CLASSES, lessons: IHO_LESSONS, n: 8, prog: ihoProgram(), speed: 1 },
   fields: [['n', 'num', 'Günlük ders sayısı'], ['sched', 'sched', 'Sınıflar, dersler ve program'], ['speed', 'num', 'Kaydırma hızı', '0 yazarsanız kaydırma kapanır']],
 }
