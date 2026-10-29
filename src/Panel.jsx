@@ -134,16 +134,23 @@ function ModEditor({ m, upd, del, move, say, root, setRoot, open, setOpen }) {
   const R = registry[m.type]
   const setData = (k, v) => upd({ data: { ...m.data, [k]: v } })
   return (
-    <div className={'p-card' + (m.active ? '' : ' p-off')} id={'mod-' + m.id}>
-      <div className="p-row" onClick={() => setOpen(open ? null : m.id)}>
-        <span className="p-ar">{open ? '▾' : '▸'}</span>
-        <span className="p-nm"><b>{m.title || R?.label}</b><small>{R?.label || m.type}</small></span>
-        <label className="p-sw" onClick={(e) => e.stopPropagation()}>
-          <input type="checkbox" checked={m.active} onChange={(e) => upd({ active: e.target.checked })} /><i />
-        </label>
-      </div>
+    <div className={open ? 'p-detail' : 'p-card' + (m.active ? '' : ' p-off')} id={'mod-' + m.id}>
+      {!open ? (
+        <div className="p-row" onClick={() => setOpen(m.id)}>
+          <span className="p-nm"><b>{m.title || R?.label}</b><small>{R?.label || m.type}</small></span>
+          <label className="p-sw" onClick={(e) => e.stopPropagation()}>
+            <input type="checkbox" checked={m.active} onChange={(e) => upd({ active: e.target.checked })} /><i />
+          </label>
+          <span className="p-ar">›</span>
+        </div>
+      ) : (
+        <div className="p-dh">
+          <button className="p-back" onClick={() => setOpen(null)}>← Modüller</button>
+          <label className="p-chk p-on-off"><input type="checkbox" checked={m.active} onChange={(e) => upd({ active: e.target.checked })} /> Panoda göster</label>
+        </div>
+      )}
       {open && (
-        <div className="p-body">
+        <div className="p-body p-dbody">
           <div className="p-fld"><label>Başlık</label><input value={m.title || ''} onChange={(e) => upd({ title: e.target.value })} /></div>
           <label className="p-chk"><input type="checkbox" checked={m.showTitle !== false && (m.type !== 'slides' || m.showTitle)} onChange={(e) => upd({ showTitle: e.target.checked })} /> Başlığı göster</label>
           {(R?.fields || []).map((f) => <Field key={f[0]} f={f} data={m.data} set={setData} say={say} root={root} setRoot={setRoot} />)}
@@ -154,8 +161,7 @@ function ModEditor({ m, upd, del, move, say, root, setRoot, open, setOpen }) {
             {['x', 'y', 'w', 'h'].map((k) => <div key={k} className="p-fld"><label>{k.toUpperCase()}</label><input type="number" value={m[k]} onChange={(e) => upd({ [k]: +e.target.value })} /></div>)}
           </div>
           <div className="p-btns">
-            <button onClick={() => move(-1)}>↑ Yukarı</button><button onClick={() => move(1)}>↓ Aşağı</button>
-            <button className="p-danger" onClick={() => confirm('Bu modül silinsin mi?') && del()}>Sil</button>
+            <button className="p-danger" onClick={() => confirm('Bu modül silinsin mi?') && (del(), setOpen(null))}>🗑 Modülü sil</button>
           </div>
           </details>
         </div>
@@ -299,7 +305,7 @@ export default function Panel({ cfg }) {
 
   const dirty = !!draft && JSON.stringify(draft) !== saved
   const view = tab === 'set' ? sub : tab
-  const goMod = (id) => { setTab('mods'); setOpenId(id); setTimeout(() => document.getElementById('mod-' + id)?.scrollIntoView({ block: 'start', behavior: 'smooth' }), 80) }
+  const goMod = (id) => { setTab('mods'); setOpenId(id); window.scrollTo(0, 0) }
 
   if (user === undefined) return <div className="pnl"><p>Yükleniyor…</p></div>
   if (!user) return (
@@ -394,13 +400,13 @@ export default function Panel({ cfg }) {
       )}
       {view === 'mods' && (
         <div className="p-body">
-          {draft.mods.map((m, i) => <ModEditor key={m.id} m={m} upd={(p) => updMod(i, p)} del={() => delMod(i)} move={(s) => moveMod(i, s)} say={setMsg} root={draft} setRoot={set} open={openId === m.id} setOpen={setOpenId} />)}
-          <div className="p-card p-pad"><div className="p-h">➕ Yeni modül ekle</div>
-            <select value="" onChange={(e) => e.target.value && addMod(e.target.value)}>
+          {draft.mods.map((m, i) => (!openId || openId === m.id) && <ModEditor key={m.id} m={m} upd={(p) => updMod(i, p)} del={() => delMod(i)} move={(s) => moveMod(i, s)} say={setMsg} root={draft} setRoot={set} open={openId === m.id} setOpen={setOpenId} />)}
+          {!openId && <div className="p-card p-pad"><div className="p-h">➕ Yeni modül ekle</div>
+            <select value="" onChange={(e) => { if (e.target.value) { addMod(e.target.value); window.scrollTo(0, 0) } }}>
               <option value="">Seçin…</option>
               {Object.values(registry).map((R) => <option key={R.type} value={R.type}>{R.label}</option>)}
             </select>
-          </div>
+          </div>}
         </div>
       )}
       {view === 'lay' && (
@@ -434,7 +440,7 @@ export default function Panel({ cfg }) {
         </div>
       )}
       <nav className="p-nav">
-        {[['home', '🏠', 'Ana sayfa'], ['mods', '🧩', 'Modüller'], ['lay', '🖼️', 'Düzen'], ['al', '🚨', 'Acil'], ['set', '⚙️', 'Ayarlar']].map(([k, i, l]) => <button key={k} className={tab === k ? 'p-on' : ''} onClick={() => setTab(k)}><span>{i}</span>{l}</button>)}
+        {[['home', '🏠', 'Ana sayfa'], ['mods', '🧩', 'Modüller'], ['lay', '🖼️', 'Düzen'], ['al', '🚨', 'Acil'], ['set', '⚙️', 'Ayarlar']].map(([k, i, l]) => <button key={k} className={tab === k ? 'p-on' : ''} onClick={() => { setTab(k); if (k === 'mods') setOpenId(null); window.scrollTo(0, 0) }}><span>{i}</span>{l}</button>)}
       </nav>
     </div>
   )
