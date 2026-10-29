@@ -19,6 +19,12 @@ export default function App() {
     const id = setInterval(() => { setNow(new Date()); setT((t) => t + 1) }, 1000)
     return () => clearInterval(id)
   }, [])
+  const isPanel = hash.startsWith('#/panel')
+  // Sayfa modu, ölçek hesabından ÖNCE ayarlanmalı
+  useLayoutEffect(() => {
+    document.body.classList.toggle('disp', !isPanel)
+    document.body.classList.toggle('panelbody', isPanel)
+  }, [isPanel])
   useLayoutEffect(() => {
     const f = () => {
       if (!sw.current) return
@@ -28,9 +34,9 @@ export default function App() {
     f()
     addEventListener('resize', f)
     return () => removeEventListener('resize', f)
-  }, [hash])
+  }, [isPanel])
 
-  if (hash.startsWith('#/panel')) return <Panel cfg={cfg} />
+  if (isPanel) return <Panel cfg={cfg} />
 
   const sl = [cfg.slogan, cfg.city, cfg.url].filter(Boolean).join('  •  ')
   const tk = String(cfg.ticker || '').split('\n').filter((x) => x.trim())

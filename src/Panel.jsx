@@ -75,7 +75,6 @@ export default function Panel({ cfg }) {
   const [em, setEm] = useState(''), [pw, setPw] = useState('')
 
   useEffect(() => onUser(setUser), [])
-  useEffect(() => { document.body.classList.remove('disp'); document.body.classList.add('panelbody'); return () => { document.body.classList.add('disp'); document.body.classList.remove('panelbody') } }, [])
   useEffect(() => { if (user && !draft) setDraft(JSON.parse(JSON.stringify(cfg))) }, [user, cfg, draft])
 
   const doLogin = async (e) => {
