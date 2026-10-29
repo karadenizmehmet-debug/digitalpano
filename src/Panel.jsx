@@ -209,6 +209,7 @@ function Tiles({ mods, go }) {
 
 function ModEditor({ m, upd, del, move, say, root, setRoot, open, setOpen }) {
   const R = registry[m.type]
+  const [ask, setAsk] = useState(false)
   const setData = (k, v) => upd({ data: { ...m.data, [k]: v } })
   return (
     <div className={open ? 'p-detail' : 'p-card' + (m.active ? '' : ' p-off')} id={'mod-' + m.id}>
@@ -237,10 +238,11 @@ function ModEditor({ m, upd, del, move, say, root, setRoot, open, setOpen }) {
           <div className="p-pos">
             {['x', 'y', 'w', 'h'].map((k) => <div key={k} className="p-fld"><label>{k.toUpperCase()}</label><input type="number" value={m[k]} onChange={(e) => upd({ [k]: +e.target.value })} /></div>)}
           </div>
-          <div className="p-btns">
-            <button className="p-danger" onClick={() => confirm('Bu modül silinsin mi?') && (del(), setOpen(null))}>🗑 Modülü sil</button>
-          </div>
           </details>
+          <div className="p-btns p-delrow">
+            {!ask ? <button className="p-danger" onClick={() => setAsk(true)}>🗑 Modülü sil</button>
+              : <><button className="p-danger" onClick={() => { del(); setOpen(null) }}>Evet, sil</button><button onClick={() => setAsk(false)}>Vazgeç</button></>}
+          </div>
         </div>
       )}
     </div>
