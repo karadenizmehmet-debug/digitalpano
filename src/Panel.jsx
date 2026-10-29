@@ -412,8 +412,13 @@ function AutoBackups({ onLoad, say }) {
   )
 }
 
-function ModList({ mods, go, toggle }) {
-  return <div className="p-mlist">{mods.map((m, i) => (
+function ModList({ mods, go, toggle, pre = [] }) {
+  return <div className="p-mlist">{pre.map((r) => (
+    <div key={r.t} className="p-mrow" onClick={r.go}>
+      <span className="p-mi">{r.i}</span>
+      <span className="p-nm"><b>{r.t}</b><small>{r.s}</small></span>
+      <span className="p-ar">›</span>
+    </div>))}{mods.map((m, i) => (
     <div key={m.id} className={'p-mrow' + (m.active ? '' : ' p-off')} onClick={() => go(m.id)}>
       <span className="p-mi">{ICO[m.type] || '🧩'}</span>
       <span className="p-nm"><b>{m.title || registry[m.type]?.label}</b><small>{registry[m.type]?.label || m.type}{m.active ? '' : ' · kapalı'}</small></span>
@@ -457,10 +462,10 @@ function ModEditor({ m, upd, del, move, say, root, setRoot, open, setOpen, noBac
             {['x', 'y', 'w', 'h'].map((k) => <div key={k} className="p-fld"><label>{k.toUpperCase()}</label><input type="number" value={m[k]} onChange={(e) => upd({ [k]: +e.target.value })} /></div>)}
           </div>
           </details>
-          <div className="p-btns p-delrow">
+          {!noBack && <div className="p-btns p-delrow">
             {!ask ? <button className="p-danger" onClick={() => setAsk(true)}>🗑 Modülü sil</button>
               : <><button className="p-danger" onClick={() => { del(); setOpen(null) }}>Evet, sil</button><button onClick={() => setAsk(false)}>Vazgeç</button></>}
-          </div>
+          </div>}
         </div>
       )}
     </div>
@@ -566,7 +571,7 @@ export default function Panel({ cfg, fresh, err }) {
   const [em, setEm] = useState(''), [pw, setPw] = useState('')
 
   useEffect(() => onUser(setUser), [])
-  useEffect(() => { if (user && fresh && !draft) { setDraft(JSON.parse(JSON.stringify(cfg))); setSaved(JSON.stringify(cfg)) } }, [user, cfg, draft, fresh])
+  useEffect(() => { if (user && fresh && !draft) { const d0 = JSON.parse(JSON.stringify(cfg)); (d0.mods || []).forEach((m) => { if (m.type === 'slides' && m.title === 'Hoş Geldiniz') m.title = 'Manşet Haber' }); setDraft(d0); setSaved(JSON.stringify(cfg)) } }, [user, cfg, draft, fresh])
 
   const doLogin = async (e) => {
     e.preventDefault()
@@ -704,7 +709,7 @@ export default function Panel({ cfg, fresh, err }) {
       )}
       {view === 'mods' && (
         <div className="p-body">
-          {!openId && <><div className="p-card" style={{ marginBottom: 10 }}><div className="p-mrow" onClick={() => { setTab('duy'); window.scrollTo(0, 0) }}><span style={{ fontSize: 22 }}>📢</span><b style={{ flex: 1 }}>Duyurular (kayan yazı)</b><span>›</span></div></div><ModList mods={draft.mods} go={setOpenId} toggle={(i, v) => updMod(i, { active: v })} /></>}
+          {!openId && <><ModList pre={[{ i: '📢', t: 'Duyurular', s: 'Kayan yazı', go: () => { setTab('duy'); window.scrollTo(0, 0) } }, { i: '🚨', t: 'Acil duyuru', s: 'Tam ekran uyarı', go: () => { setTab('al'); window.scrollTo(0, 0) } }]} mods={draft.mods} go={setOpenId} toggle={(i, v) => updMod(i, { active: v })} /></>}
           {draft.mods.map((m, i) => openId === m.id && <ModEditor key={m.id} m={m} upd={(p) => updMod(i, p)} del={() => delMod(i)} move={(s) => moveMod(i, s)} say={setMsg} root={draft} setRoot={set} open={openId === m.id} setOpen={setOpenId} />)}
           {!openId && <div className="p-card p-pad"><div className="p-h">➕ Yeni modül ekle</div>
             <select value="" onChange={(e) => { if (e.target.value) { addMod(e.target.value); window.scrollTo(0, 0) } }}>
