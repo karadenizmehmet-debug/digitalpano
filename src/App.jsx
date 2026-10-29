@@ -10,6 +10,15 @@ export default function App() {
   const [fresh, setFresh] = useState(false)    // sunucudan doğrulanmış güncel ayar
   const [err, setErr] = useState('')
   const [hash, setHash] = useState(location.hash)
+  // Pano ekranı (TV) günlerce açık kalır: yeni sürümler gelsin diye gece 03:00'te bir kez sayfayı yeniler
+  useEffect(() => {
+    const t0 = Date.now()
+    const id = setInterval(() => {
+      const n = new Date()
+      if (!location.hash.startsWith('#/panel') && n.getHours() === 3 && n.getMinutes() < 2 && Date.now() - t0 > 3600e3) location.reload()
+    }, 30000)
+    return () => clearInterval(id)
+  }, [])
   useEffect(() => { const h = () => setHash(location.hash); addEventListener('hashchange', h); return () => removeEventListener('hashchange', h) }, [])
   useEffect(() => {
     const t = setTimeout(() => setLoaded(true), 4000)  // hiç veri gelmezse yerleşik varsayılanlarla aç

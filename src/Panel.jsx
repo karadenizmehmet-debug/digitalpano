@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { registry, minHOf, wantH } from './lib/registry.js'
 import { THEMES } from './lib/themes.js'
-import { login, logout, onUser, saveConfig, saveImage, removeImage, loadImage } from './lib/firebase.js'
+import { login, logout, onUser, saveConfig, fetchServerConfig, saveImage, removeImage, loadImage } from './lib/firebase.js'
 import { rows } from './lib/util.js'
 import { alertStatus } from './lib/alert.js'
 import Stage from './Stage.jsx'
@@ -649,6 +649,9 @@ export default function Panel({ cfg, fresh, err }) {
     try {
       const d = { ...draft }
       if (d.al && d.al.on && d.al.pend) d.al = { ...d.al, at: Date.now(), pend: 0 }  // başlangıç anı yayın anıdır
+      const sv = await fetchServerConfig().catch(() => null)   // başka cihazdan yapılmış yayını yanlışlıkla ezme
+      if (sv && sv.rev && sv.rev !== draft.rev && !confirm('Bu ayarlar başka bir cihazdan (ör. telefon/bilgisayar) daha yeni yayınlanmış. Yine de buradakilerle üzerine yazılsın mı?\n\nİptal derseniz sayfayı yenileyip güncel hâli açın.')) return
+      d.rev = Date.now()
       await saveConfig(d); setDraft(d); setSaved(JSON.stringify(d)); setMsg('Yayınlandı ✓ Pano birkaç saniye içinde güncellenir.') }
     catch (e) { setMsg('Kaydedilemedi: ' + e.message) }
   }
