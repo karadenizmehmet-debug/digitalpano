@@ -142,6 +142,55 @@ function ModEditor({ m, upd, del, move, say }) {
 }
 
 
+function SpecialEditor({ list, set, say }) {
+  const L = list || []
+  const upd = (i, p) => set(L.map((x, k) => (k === i ? { ...x, ...p } : x)))
+  const live = L.findIndex((d) => d.now)
+  const pickImg = async (i, e) => {
+    const f = e.target.files[0]; e.target.value = ''
+    if (!f) return
+    try {
+      say('Görsel hazırlanıyor…')
+      const src = await shrink(f), id = 'i' + Date.now().toString(36)
+      await saveImage(id, src)
+      if (L[i].imgId) removeImage(L[i].imgId).catch(() => {})
+      upd(i, { imgId: id, img: '' })
+      say('Görsel yüklendi. Yayınla düğmesine basmayı unutmayın.')
+    } catch (er) { say('Görsel yüklenemedi: ' + er.message) }
+  }
+  const dropImg = (i) => { if (L[i].imgId) removeImage(L[i].imgId).catch(() => {}); upd(i, { imgId: '', img: '' }) }
+  return (
+    <div className="p-body">
+      <p className="p-hint">Gün gelince pano o gün tam ekran gösterir. Görsel eklenirse yalnızca görsel, eklenmezse yazı gösterilir.</p>
+      {L.map((d, i) => (
+        <div key={d.id || i} className="p-slc">
+          <div className="p-fld"><label>Tarih (GG.AA)</label><input value={d.date || ''} onChange={(e) => upd(i, { date: e.target.value })} placeholder="29.10" /></div>
+          <div className="p-fld"><label>Başlık</label><textarea rows={2} value={d.title || ''} onChange={(e) => upd(i, { title: e.target.value })} /><small>Enter ile alt satıra geçebilirsiniz</small></div>
+          <div className="p-fld"><label>Alt metin</label><textarea rows={2} value={d.sub || ''} onChange={(e) => upd(i, { sub: e.target.value })} /></div>
+          <div className="p-pos">
+            <div className="p-fld"><label>Yazı %</label><input type="number" value={d.fs || 100} onChange={(e) => upd(i, { fs: +e.target.value })} /></div>
+            <div className="p-fld"><label>Her … dk</label><input type="number" value={d.iv || 0} onChange={(e) => upd(i, { iv: +e.target.value })} /></div>
+            <div className="p-fld"><label>… sn göster</label><input type="number" value={d.ds || 30} onChange={(e) => upd(i, { ds: +e.target.value })} /></div>
+          </div>
+          <small>Dakika 0 ise gün boyu sürekli tam ekran. Örn. 10 dakikada bir 30 sn yazarsanız pano arada normale döner.</small>
+          <div className="p-slr">
+            {(d.img || d.imgId) ? <><Thumb x={{ src: d.img, img: d.imgId }} /><button onClick={() => dropImg(i)}>Görseli kaldır</button></>
+              : <label className="p-fbtn">+ Görsel<input type="file" accept="image/*" hidden onChange={(e) => pickImg(i, e)} /></label>}
+          </div>
+          <label className="p-chk"><input type="checkbox" checked={d.on !== false} onChange={(e) => upd(i, { on: e.target.checked })} /> Aktif (o gün otomatik)</label>
+          <label className="p-chk"><input type="checkbox" checked={!!d.conf} onChange={(e) => upd(i, { conf: e.target.checked })} /> Konfeti</label>
+          <div className="p-btns">
+            <button className={d.now ? 'p-danger' : ''} onClick={() => set(L.map((x, k) => ({ ...x, now: k === i ? !x.now : false })))}>{d.now ? 'Tam ekranı kapat' : 'Şimdi tam ekran aç'}</button>
+            <button className="p-danger" onClick={() => { if (!confirm('Bu özel gün silinsin mi?')) return; if (d.imgId) removeImage(d.imgId).catch(() => {}); set(L.filter((_, k) => k !== i)) }}>Sil</button>
+          </div>
+        </div>
+      ))}
+      {live >= 0 && <p className="p-hint">Şu an "Şimdi tam ekran" açık: Yayınla'dan sonra pano tam ekrana geçer.</p>}
+      <div className="p-btns"><button onClick={() => set([...L, { id: 's' + Date.now().toString(36), date: '', title: '', sub: '', fs: 100, on: true, now: false, conf: false, iv: 0, ds: 30 }])}>+ Özel gün ekle</button></div>
+    </div>
+  )
+}
+
 function AlertEditor({ al, set }) {
   const a = { on: false, title: 'ACİL DUYURU', text: '', tone: 'r', ic: '', ...al }
   const up = (p) => set({ ...a, ...p })
@@ -243,7 +292,7 @@ export default function Panel({ cfg }) {
         <span><a href="#/">Panoyu aç</a> · <a href="#/panel" onClick={logout}>Çıkış</a></span>
       </div>
       <div className="p-tabs">
-        {[['mods', 'Modüller'], ['al', 'Acil'], ['gen', 'Genel'], ['bak', 'Yedek']].map(([k, l]) => <button key={k} className={tab === k ? 'p-on' : ''} onClick={() => setTab(k)}>{l}</button>)}
+        {[['mods', 'Modüller'], ['al', 'Acil'], ['sd', 'Özel günler'], ['gen', 'Genel'], ['bak', 'Yedek']].map(([k, l]) => <button key={k} className={tab === k ? 'p-on' : ''} onClick={() => setTab(k)}>{l}</button>)}
       </div>
       {tab === 'gen' && (
         <div className="p-body">
@@ -271,6 +320,7 @@ export default function Panel({ cfg }) {
           </div>
         </div>
       )}
+      {tab === 'sd' && <SpecialEditor list={draft.sd} set={(sd) => set({ sd })} say={setMsg} />}
       {tab === 'al' && <AlertEditor al={draft.al} set={(al) => set({ al })} />}
       {tab === 'bak' && (
         <div className="p-body">

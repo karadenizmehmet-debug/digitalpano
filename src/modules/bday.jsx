@@ -1,4 +1,5 @@
 import { rows, p2 } from '../lib/util.js'
+import Confetti from '../lib/Confetti.jsx'
 export const meta = { label: 'Doğum Günü', minH: 110, def: {"rows": ""}, fields: [["rows", "area", "Doğum günleri", "Her satır: Ad Soyad;GG.AA"]] }
 export default function Bday({ data, now }) {
   const t = `${p2(now.getDate())}.${p2(now.getMonth() + 1)}`
@@ -10,6 +11,7 @@ export default function Bday({ data, now }) {
         : r.length > 1
           ? <div className="bdm"><div style={{ '--d': Math.max(14, nm.join('').length * 0.7) + 's' }}>{[...nm, ...nm, ...nm, ...nm].map((x, i) => <span key={i}>{x}</span>)}</div></div>
           : r.map((a, i) => <div key={i} className="ln">{a[0]}</div>)}
+      {r.length > 0 && <Confetti small />}
     </div>
   )
 }

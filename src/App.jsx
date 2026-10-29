@@ -4,8 +4,23 @@ import { registry } from './lib/registry.js'
 import { listenConfig } from './lib/firebase.js'
 import Panel from './Panel.jsx'
 import { alertOn } from './lib/alert.js'
+import { specialVisible } from './lib/special.js'
+import Confetti from './lib/Confetti.jsx'
+import { loadImage } from './lib/firebase.js'
 
 // Pano 1600x900'lük sabit bir sahnedir; ekrana sığacak şekilde ölçeklenir.
+function useImg(d) {
+  const [src, setSrc] = useState('')
+  useEffect(() => {
+    let dead = false
+    if (d?.img) setSrc(d.img)
+    else if (d?.imgId) loadImage(d.imgId).then((v) => !dead && setSrc(v)).catch(() => {})
+    else setSrc('')
+    return () => { dead = true }
+  }, [d?.img, d?.imgId])
+  return src
+}
+
 export default function App() {
   const [cfg, setCfg] = useState(defaults)
   const [now, setNow] = useState(new Date())
@@ -42,6 +57,8 @@ export default function App() {
     return () => { removeEventListener('resize', f); ro && ro.disconnect(); clearTimeout(t) }
   }, [isPanel])
 
+  const sp = isPanel ? null : specialVisible(cfg.sd, now)
+  const spImg = useImg(sp)
   if (isPanel) return <Panel cfg={cfg} />
 
   const sl = [cfg.slogan, cfg.city, cfg.url].filter(Boolean).join('  •  ')
@@ -75,6 +92,12 @@ export default function App() {
             </div>
           )
         })}
+        {sp && (
+          <div className={'ovl' + (spImg ? ' im' : '')} style={{ '--f': (sp.fs || 100) / 100 }}>
+            {spImg ? <img src={spImg} /> : <><b>{sp.title}</b><span>{sp.sub}</span></>}
+            {sp.conf && <Confetti />}
+          </div>
+        )}
         {alertOn(cfg.al, now.getTime()) && (
           <div className="alr" data-t={cfg.al.tone || 'r'} style={{ '--f': (cfg.al.fs || 100) / 100, '--i': (cfg.al.is || 100) / 100 }}>
             {cfg.al.ic ? <i>{cfg.al.ic}</i> : null}
