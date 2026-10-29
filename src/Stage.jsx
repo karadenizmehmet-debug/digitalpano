@@ -11,6 +11,7 @@ import { loadImage } from './lib/firebase.js'
 import { useLive } from './lib/weather.js'
 import { visibleTicker, effectiveTicker } from './lib/ticker.js'
 import { colSnap, reflow } from './lib/reflow.js'
+import { quoteTitle } from './modules/quote.jsx'
 import Fx, { FX_KINDS } from './lib/Fx.jsx'
 
 export function useImg(d) {
@@ -136,7 +137,7 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
             <div key={m.id} className={`mod t-${m.type}${edit && edit.sel === m.id ? ' sel' : ''}${m.active ? '' : ' off'}`} data-id={m.id}
               style={{ left: m.x, top: m.y, width: m.w, height: m.h, '--fs': (m.fs || 100) / 100, '--c': m.color }}
               onPointerDown={edit ? (e) => down(e, m, 'move') : undefined}>
-              {title && <div className="h">{m.title}</div>}
+              {title && <div className="h">{m.type === 'quote' ? quoteTitle(m.data, now, m.title) : m.title}</div>}
               <div className="b" style={m.type === 'slides' ? { padding: 0 } : undefined}>
                 {R ? <R.Component data={m.data} now={now} T={T} cfg={cfg} wx={wx} /> : <div className="ln">Bilinmeyen modül: {m.type}</div>}
               </div>

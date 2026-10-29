@@ -223,3 +223,5 @@ html,body,#root{height:100%}
 .stage .ln,.stage .dt{border-left:0!important}
 .stage .c .ln{border:0!important}
 .mod:has(>.h) .ct .cn{display:none}
+.mod:has(>.h) .qx em{display:none}
+.ci .cv{font-size:min(2.3em,52cqh,30cqw)}

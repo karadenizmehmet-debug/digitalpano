@@ -15,6 +15,11 @@ export function todayIx(data, now, Q, mode = 'soz') {
   if (mode !== 'ayet' && data.rnd && data.rnd.d === key && data.rnd.i < Q.length) return data.rnd.i
   return Math.floor(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) / 864e5) % Q.length
 }
+export function quoteTitle(data, now, fb) {
+  if (data.mode !== 'ayet') return fb
+  const Q = listOf(data, 'ayet'), ix = todayIx(data, now, Q, 'ayet')
+  return ix >= 0 && Q[ix][1].startsWith('Hz.') ? 'Günün Hadisi' : 'Günün Ayeti'
+}
 export default function Quote({ data, now }) {
   const mode = data.mode === 'ayet' ? 'ayet' : 'soz'
   const Q = listOf(data, mode), ix = todayIx(data, now, Q, mode)
