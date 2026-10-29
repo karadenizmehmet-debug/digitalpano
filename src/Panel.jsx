@@ -627,15 +627,21 @@ export default function Panel({ cfg, fresh, err }) {
 
   if (user === undefined) return <div className="pnl"><p>Yükleniyor…</p></div>
   if (!user) return (
-    <div className="pnl">
-      <form className="p-login" onSubmit={doLogin}>
-        <h2>Pano Paneli</h2>
-        <input type="email" placeholder="E-posta" value={em} onChange={(e) => setEm(e.target.value)} autoComplete="username" />
-        <input type="password" placeholder="Şifre" value={pw} onChange={(e) => setPw(e.target.value)} autoComplete="current-password" />
-        <button className="p-pri">Giriş</button>
-        {msg && <p className="p-err">{msg}</p>}
-        <a href="#/">← Panoya dön</a>
-      </form>
+    <div className="pnl p-lg">
+      <div className="p-lgc">
+        <div className="p-lgi">📺</div>
+        <h1>Dijital Pano</h1>
+        <p className="p-lgs">Hoş geldiniz</p>
+        <small className="p-lgo">{cfg?.name || ''}</small>
+        <form onSubmit={doLogin}>
+          <input type="email" placeholder="E-posta" value={em} onChange={(e) => setEm(e.target.value)} autoComplete="username" />
+          <input type="password" placeholder="Şifre" value={pw} onChange={(e) => setPw(e.target.value)} autoComplete="current-password" />
+          <button className="p-pri">Giriş yap</button>
+          {msg && <p className="p-err">{msg}</p>}
+        </form>
+        <a className="p-lgb" href="#/">← Panoya dön</a>
+      </div>
+      <div className="p-lgf">Mehmet Karadeniz tarafından geliştirilmiştir<br /><span>© 2026-2027 · Dijital Pano Sistemi</span></div>
     </div>
   )
   if (!draft) return <div className="pnl"><p>Ayarlar sunucudan alınıyor…</p>{slow && <p className="p-err">Sunucuya ulaşılamıyor. İnternet bağlantınızı kontrol edin. Kayıtlı ayarlarınız bozulmaması için bağlantı gelene kadar düzenleme açılmaz.{err ? ' (Hata: ' + err + ')' : ''}</p>}</div>
@@ -644,6 +650,8 @@ export default function Panel({ cfg, fresh, err }) {
     <div className="pnl">
       <div className="p-top">
         <div className="p-tt"><b>Pano Paneli</b><small>{dirty ? '● Yayınlanmamış değişiklik var' : '✓ Pano güncel'}</small></div>
+        <a className="p-ib" href="#/" title="Panoyu aç">📺</a>
+        <a className="p-ib" href="#/panel" onClick={logout} title="Çıkış">🚪</a>
         <button className={'p-pri p-pub' + (dirty ? ' p-dirty' : '')} onClick={publish}>Yayınla</button>
       </div>
       {msg && <div className="p-toast" onClick={() => setMsg('')}>{msg}</div>}
@@ -660,10 +668,6 @@ export default function Panel({ cfg, fresh, err }) {
       {SETT.includes(tab) && !(tab === 'mods' && openId) && <div className="p-sub">{[['gen', 'Genel'], ['mods', 'Modüller'], ['lay', 'Düzen'], ['sd', 'Özel günler'], ['bak', 'Yedek']].map(([k, l]) => <button key={k} className={view === k ? 'p-on' : ''} onClick={() => { if (k === 'mods' || k === 'lay') { setTab(k); setOpenId(null) } else { setTab('set'); setSub(k) } window.scrollTo(0, 0) }}>{l}</button>)}</div>}
       {view === 'gen' && (
         <div className="p-body">
-          <div className="p-links">
-            <a className="p-lk" href="#/">📺 Panoyu aç</a>
-            <a className="p-lk" href="#/panel" onClick={logout}>🚪 Çıkış</a>
-          </div>
           <div className="p-fld"><label>Okul adı</label><input value={draft.name || ''} onChange={(e) => set({ name: e.target.value })} /></div>
           <div className="p-fld"><label>Okul logosu</label>
             <div className="p-slr">
