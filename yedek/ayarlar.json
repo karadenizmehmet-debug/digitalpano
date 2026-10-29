@@ -1,20 +1,257 @@
 {
   "name": "projects/digitalpano-84947/databases/(default)/documents/config/pano",
   "fields": {
-    "bg": {
-      "stringValue": "#eef1f6"
+    "name": {
+      "stringValue": "Nimetullah Nahçivani İmam Hatip Ortaokulu"
     },
-    "fx": {
-      "stringValue": "auto"
+    "c3": {
+      "stringValue": "#e11d48"
+    },
+    "nmMode": {
+      "stringValue": "day"
+    },
+    "sd": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "id": {
+                  "stringValue": "s0"
+                },
+                "date": {
+                  "stringValue": "29.10"
+                },
+                "title": {
+                  "stringValue": "Cumhuriyet Bayramımız\n Kutlu Olsun!"
+                },
+                "sub": {
+                  "stringValue": ""
+                },
+                "img": {
+                  "stringValue": ""
+                },
+                "on": {
+                  "booleanValue": false
+                },
+                "now": {
+                  "booleanValue": false
+                },
+                "conf": {
+                  "booleanValue": false
+                },
+                "iv": {
+                  "integerValue": "1"
+                },
+                "ds": {
+                  "integerValue": "20"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "id": {
+                  "stringValue": "s1"
+                },
+                "date": {
+                  "stringValue": "10.11"
+                },
+                "title": {
+                  "stringValue": "Ulu Önder Atatürk'ü Saygı ve Özlemle Anıyoruz"
+                },
+                "sub": {
+                  "stringValue": "10 Kasım"
+                },
+                "img": {
+                  "stringValue": ""
+                },
+                "on": {
+                  "booleanValue": true
+                },
+                "now": {
+                  "booleanValue": false
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "id": {
+                  "stringValue": "s2"
+                },
+                "date": {
+                  "stringValue": "24.11"
+                },
+                "title": {
+                  "stringValue": "Öğretmenler Günümüz Kutlu Olsun!"
+                },
+                "sub": {
+                  "stringValue": ""
+                },
+                "img": {
+                  "stringValue": ""
+                },
+                "on": {
+                  "booleanValue": true
+                },
+                "now": {
+                  "booleanValue": false
+                },
+                "conf": {
+                  "booleanValue": true
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "id": {
+                  "stringValue": "s3"
+                },
+                "date": {
+                  "stringValue": "23.04"
+                },
+                "title": {
+                  "stringValue": "23 Nisan Ulusal Egemenlik ve Çocuk Bayramı Kutlu Olsun!"
+                },
+                "sub": {
+                  "stringValue": ""
+                },
+                "img": {
+                  "stringValue": ""
+                },
+                "on": {
+                  "booleanValue": true
+                },
+                "now": {
+                  "booleanValue": false
+                },
+                "conf": {
+                  "booleanValue": true
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "id": {
+                  "stringValue": "s4"
+                },
+                "date": {
+                  "stringValue": "19.05"
+                },
+                "title": {
+                  "stringValue": "19 Mayıs Atatürk'ü Anma, Gençlik ve Spor Bayramı Kutlu Olsun!"
+                },
+                "sub": {
+                  "stringValue": ""
+                },
+                "img": {
+                  "stringValue": ""
+                },
+                "on": {
+                  "booleanValue": true
+                },
+                "now": {
+                  "booleanValue": false
+                },
+                "conf": {
+                  "booleanValue": true
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "id": {
+                  "stringValue": "s5"
+                },
+                "date": {
+                  "stringValue": "30.08"
+                },
+                "title": {
+                  "stringValue": "Zafer Bayramımız Kutlu Olsun!"
+                },
+                "sub": {
+                  "stringValue": ""
+                },
+                "img": {
+                  "stringValue": ""
+                },
+                "on": {
+                  "booleanValue": true
+                },
+                "now": {
+                  "booleanValue": false
+                },
+                "conf": {
+                  "booleanValue": true
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "id": {
+                  "stringValue": "s1793183275061"
+                },
+                "date": {
+                  "stringValue": "28.10"
+                },
+                "title": {
+                  "stringValue": ""
+                },
+                "sub": {
+                  "stringValue": "İstiklal marşının kabulü kutlu olsun"
+                },
+                "img": {
+                  "stringValue": ""
+                },
+                "on": {
+                  "booleanValue": false
+                },
+                "now": {
+                  "booleanValue": false
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "slogan": {
+      "stringValue": ""
+    },
+    "c2": {
+      "stringValue": "#111827"
+    },
+    "nmPre": {
+      "integerValue": "60"
+    },
+    "theme": {
+      "integerValue": "4"
+    },
+    "c1": {
+      "stringValue": "#e11d48"
+    },
+    "nmPost": {
+      "integerValue": "60"
+    },
+    "bg": {
+      "stringValue": "#f2f2ef"
     },
     "al": {
       "mapValue": {
         "fields": {
-          "tone": {
-            "stringValue": "o"
-          },
-          "on": {
-            "booleanValue": false
+          "fs": {
+            "integerValue": "200"
           },
           "text": {
             "stringValue": "Deprem Tatbikatı"
@@ -28,257 +265,23 @@
           "ic": {
             "stringValue": "📣"
           },
-          "fs": {
-            "integerValue": "200"
+          "on": {
+            "booleanValue": false
+          },
+          "tone": {
+            "stringValue": "o"
           }
         }
       }
     },
-    "c1": {
-      "stringValue": "#b3262e"
-    },
-    "nmPost": {
-      "integerValue": "60"
-    },
-    "slogan": {
-      "stringValue": ""
-    },
-    "c2": {
-      "stringValue": "#1b2a5c"
-    },
-    "theme": {
-      "integerValue": "0"
-    },
-    "nmMode": {
-      "stringValue": "day"
-    },
-    "nmPre": {
-      "integerValue": "60"
-    },
     "nmWe": {
       "booleanValue": true
     },
-    "sd": {
-      "arrayValue": {
-        "values": [
-          {
-            "mapValue": {
-              "fields": {
-                "sub": {
-                  "stringValue": ""
-                },
-                "date": {
-                  "stringValue": "29.10"
-                },
-                "id": {
-                  "stringValue": "s0"
-                },
-                "on": {
-                  "booleanValue": false
-                },
-                "now": {
-                  "booleanValue": false
-                },
-                "conf": {
-                  "booleanValue": false
-                },
-                "ds": {
-                  "integerValue": "20"
-                },
-                "iv": {
-                  "integerValue": "1"
-                },
-                "img": {
-                  "stringValue": ""
-                },
-                "title": {
-                  "stringValue": "Cumhuriyet Bayramımız\n Kutlu Olsun!"
-                }
-              }
-            }
-          },
-          {
-            "mapValue": {
-              "fields": {
-                "id": {
-                  "stringValue": "s1"
-                },
-                "on": {
-                  "booleanValue": true
-                },
-                "title": {
-                  "stringValue": "Ulu Önder Atatürk'ü Saygı ve Özlemle Anıyoruz"
-                },
-                "date": {
-                  "stringValue": "10.11"
-                },
-                "sub": {
-                  "stringValue": "10 Kasım"
-                },
-                "img": {
-                  "stringValue": ""
-                },
-                "now": {
-                  "booleanValue": false
-                }
-              }
-            }
-          },
-          {
-            "mapValue": {
-              "fields": {
-                "title": {
-                  "stringValue": "Öğretmenler Günümüz Kutlu Olsun!"
-                },
-                "conf": {
-                  "booleanValue": true
-                },
-                "img": {
-                  "stringValue": ""
-                },
-                "now": {
-                  "booleanValue": false
-                },
-                "on": {
-                  "booleanValue": true
-                },
-                "id": {
-                  "stringValue": "s2"
-                },
-                "date": {
-                  "stringValue": "24.11"
-                },
-                "sub": {
-                  "stringValue": ""
-                }
-              }
-            }
-          },
-          {
-            "mapValue": {
-              "fields": {
-                "id": {
-                  "stringValue": "s3"
-                },
-                "on": {
-                  "booleanValue": true
-                },
-                "sub": {
-                  "stringValue": ""
-                },
-                "date": {
-                  "stringValue": "23.04"
-                },
-                "img": {
-                  "stringValue": ""
-                },
-                "now": {
-                  "booleanValue": false
-                },
-                "title": {
-                  "stringValue": "23 Nisan Ulusal Egemenlik ve Çocuk Bayramı Kutlu Olsun!"
-                },
-                "conf": {
-                  "booleanValue": true
-                }
-              }
-            }
-          },
-          {
-            "mapValue": {
-              "fields": {
-                "sub": {
-                  "stringValue": ""
-                },
-                "title": {
-                  "stringValue": "19 Mayıs Atatürk'ü Anma, Gençlik ve Spor Bayramı Kutlu Olsun!"
-                },
-                "now": {
-                  "booleanValue": false
-                },
-                "img": {
-                  "stringValue": ""
-                },
-                "on": {
-                  "booleanValue": true
-                },
-                "id": {
-                  "stringValue": "s4"
-                },
-                "date": {
-                  "stringValue": "19.05"
-                },
-                "conf": {
-                  "booleanValue": true
-                }
-              }
-            }
-          },
-          {
-            "mapValue": {
-              "fields": {
-                "title": {
-                  "stringValue": "Zafer Bayramımız Kutlu Olsun!"
-                },
-                "id": {
-                  "stringValue": "s5"
-                },
-                "on": {
-                  "booleanValue": true
-                },
-                "conf": {
-                  "booleanValue": true
-                },
-                "sub": {
-                  "stringValue": ""
-                },
-                "img": {
-                  "stringValue": ""
-                },
-                "now": {
-                  "booleanValue": false
-                },
-                "date": {
-                  "stringValue": "30.08"
-                }
-              }
-            }
-          },
-          {
-            "mapValue": {
-              "fields": {
-                "id": {
-                  "stringValue": "s1793183275061"
-                },
-                "on": {
-                  "booleanValue": false
-                },
-                "date": {
-                  "stringValue": "28.10"
-                },
-                "sub": {
-                  "stringValue": "İstiklal marşının kabulü kutlu olsun"
-                },
-                "img": {
-                  "stringValue": ""
-                },
-                "title": {
-                  "stringValue": ""
-                },
-                "now": {
-                  "booleanValue": false
-                }
-              }
-            }
-          }
-        ]
-      }
-    },
-    "c3": {
-      "stringValue": "#dcb43c"
-    },
     "ticker": {
       "stringValue": "Okulumuza hoş geldiniz\nDuyurular panelden düzenlenebilir"
+    },
+    "fx": {
+      "stringValue": "auto"
     },
     "city": {
       "stringValue": "Konya / Akşehir"
@@ -289,41 +292,41 @@
           {
             "mapValue": {
               "fields": {
-                "active": {
-                  "booleanValue": true
+                "id": {
+                  "stringValue": "m1"
                 },
-                "w": {
-                  "integerValue": "400"
-                },
-                "color": {
-                  "stringValue": "#e6b34a"
-                },
-                "h": {
-                  "integerValue": "92"
+                "type": {
+                  "stringValue": "clock"
                 },
                 "title": {
                   "stringValue": "Tarih ve Saat"
                 },
+                "active": {
+                  "booleanValue": true
+                },
                 "x": {
                   "integerValue": "1180"
-                },
-                "id": {
-                  "stringValue": "m1"
-                },
-                "data": {
-                  "mapValue": {}
-                },
-                "showTitle": {
-                  "booleanValue": false
-                },
-                "fs": {
-                  "integerValue": "100"
                 },
                 "y": {
                   "integerValue": "12"
                 },
-                "type": {
-                  "stringValue": "clock"
+                "w": {
+                  "integerValue": "400"
+                },
+                "h": {
+                  "integerValue": "92"
+                },
+                "color": {
+                  "stringValue": "#e6b34a"
+                },
+                "fs": {
+                  "integerValue": "100"
+                },
+                "showTitle": {
+                  "booleanValue": false
+                },
+                "data": {
+                  "mapValue": {}
                 }
               }
             }
@@ -331,59 +334,59 @@
           {
             "mapValue": {
               "fields": {
-                "w": {
-                  "integerValue": "440"
+                "id": {
+                  "stringValue": "m2"
                 },
-                "color": {
-                  "stringValue": "#2bb3a3"
+                "type": {
+                  "stringValue": "weather"
                 },
                 "title": {
                   "stringValue": "Hava Durumu"
                 },
+                "active": {
+                  "booleanValue": true
+                },
+                "x": {
+                  "integerValue": "20"
+                },
+                "y": {
+                  "integerValue": "124"
+                },
+                "w": {
+                  "integerValue": "440"
+                },
                 "h": {
                   "integerValue": "150"
                 },
-                "active": {
+                "color": {
+                  "stringValue": "#2bb3a3"
+                },
+                "fs": {
+                  "integerValue": "100"
+                },
+                "showTitle": {
                   "booleanValue": true
                 },
                 "data": {
                   "mapValue": {
                     "fields": {
-                      "lo": {
-                        "integerValue": "9"
+                      "cond": {
+                        "stringValue": "cloud"
+                      },
+                      "t": {
+                        "integerValue": "16"
                       },
                       "hi": {
                         "integerValue": "17"
                       },
-                      "cond": {
-                        "stringValue": "cloud"
+                      "lo": {
+                        "integerValue": "9"
                       },
                       "live": {
                         "booleanValue": true
-                      },
-                      "t": {
-                        "integerValue": "16"
                       }
                     }
                   }
-                },
-                "id": {
-                  "stringValue": "m2"
-                },
-                "x": {
-                  "integerValue": "20"
-                },
-                "showTitle": {
-                  "booleanValue": true
-                },
-                "fs": {
-                  "integerValue": "100"
-                },
-                "type": {
-                  "stringValue": "weather"
-                },
-                "y": {
-                  "integerValue": "124"
                 }
               }
             }
@@ -391,26 +394,38 @@
           {
             "mapValue": {
               "fields": {
-                "h": {
-                  "integerValue": "384"
-                },
-                "w": {
-                  "integerValue": "640"
-                },
-                "color": {
-                  "stringValue": "#4aa3e8"
-                },
                 "id": {
                   "stringValue": "m3"
-                },
-                "y": {
-                  "integerValue": "124"
                 },
                 "type": {
                   "stringValue": "slides"
                 },
+                "title": {
+                  "stringValue": "Hoş Geldiniz"
+                },
                 "active": {
                   "booleanValue": true
+                },
+                "x": {
+                  "integerValue": "480"
+                },
+                "y": {
+                  "integerValue": "124"
+                },
+                "w": {
+                  "integerValue": "640"
+                },
+                "h": {
+                  "integerValue": "484"
+                },
+                "color": {
+                  "stringValue": "#4aa3e8"
+                },
+                "fs": {
+                  "integerValue": "100"
+                },
+                "showTitle": {
+                  "booleanValue": false
                 },
                 "data": {
                   "mapValue": {
@@ -423,18 +438,6 @@
                       }
                     }
                   }
-                },
-                "x": {
-                  "integerValue": "480"
-                },
-                "title": {
-                  "stringValue": "Hoş Geldiniz"
-                },
-                "fs": {
-                  "integerValue": "100"
-                },
-                "showTitle": {
-                  "booleanValue": false
                 }
               }
             }
@@ -442,13 +445,88 @@
           {
             "mapValue": {
               "fields": {
+                "id": {
+                  "stringValue": "m4"
+                },
+                "type": {
+                  "stringValue": "table"
+                },
+                "title": {
+                  "stringValue": "Ders Programı"
+                },
+                "active": {
+                  "booleanValue": true
+                },
+                "x": {
+                  "integerValue": "1140"
+                },
+                "y": {
+                  "integerValue": "124"
+                },
+                "w": {
+                  "integerValue": "440"
+                },
+                "h": {
+                  "integerValue": "239"
+                },
+                "color": {
+                  "stringValue": "#4aa3e8"
+                },
+                "fs": {
+                  "integerValue": "100"
+                },
+                "showTitle": {
+                  "booleanValue": true
+                },
+                "data": {
+                  "mapValue": {
+                    "fields": {
+                      "rows": {
+                        "stringValue": "Sınıf;1. Ders;2. Ders;3. Ders;4. Ders\n5/A;Türkçe;Mat;Fen;Sosyal\n5/B;Mat;Mat;İng.;Türkçe\n6/A;Fen;Türkçe;Mat;Müzik\n6/B;İng.;Fen;Mat;Beden\n7/A;Mat;Türkçe;Fen;Din K."
+                      },
+                      "speed": {
+                        "integerValue": "1"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "id": {
+                  "stringValue": "m5"
+                },
                 "type": {
                   "stringValue": "duty"
                 },
-                "h": {
-                  "integerValue": "354"
+                "title": {
+                  "stringValue": "Nöbetçi Öğretmenler"
                 },
                 "active": {
+                  "booleanValue": true
+                },
+                "x": {
+                  "integerValue": "1140"
+                },
+                "y": {
+                  "integerValue": "485"
+                },
+                "w": {
+                  "integerValue": "440"
+                },
+                "h": {
+                  "integerValue": "215"
+                },
+                "color": {
+                  "stringValue": "#4aa3e8"
+                },
+                "fs": {
+                  "integerValue": "100"
+                },
+                "showTitle": {
                   "booleanValue": true
                 },
                 "data": {
@@ -457,44 +535,17 @@
                       "places": {
                         "stringValue": "Bahçe\nBina"
                       },
-                      "header": {
-                        "booleanValue": false
-                      },
                       "g": {
                         "mapValue": {}
                       },
                       "speed": {
                         "integerValue": "1"
                       },
-                      "rot": {
-                        "stringValue": ""
+                      "header": {
+                        "booleanValue": false
                       }
                     }
                   }
-                },
-                "w": {
-                  "integerValue": "440"
-                },
-                "y": {
-                  "integerValue": "346"
-                },
-                "id": {
-                  "stringValue": "m5"
-                },
-                "title": {
-                  "stringValue": "Nöbetçi Öğretmenler"
-                },
-                "x": {
-                  "integerValue": "1140"
-                },
-                "color": {
-                  "stringValue": "#4aa3e8"
-                },
-                "showTitle": {
-                  "booleanValue": true
-                },
-                "fs": {
-                  "integerValue": "100"
                 }
               }
             }
@@ -502,14 +553,26 @@
           {
             "mapValue": {
               "fields": {
-                "y": {
-                  "integerValue": "286"
+                "id": {
+                  "stringValue": "m6"
                 },
-                "showTitle": {
+                "type": {
+                  "stringValue": "days"
+                },
+                "title": {
+                  "stringValue": "Belirli Gün ve Haftalar"
+                },
+                "active": {
                   "booleanValue": true
                 },
                 "x": {
                   "integerValue": "20"
+                },
+                "y": {
+                  "integerValue": "286"
+                },
+                "w": {
+                  "integerValue": "440"
                 },
                 "h": {
                   "integerValue": "293"
@@ -520,6 +583,9 @@
                 "fs": {
                   "integerValue": "100"
                 },
+                "showTitle": {
+                  "booleanValue": true
+                },
                 "data": {
                   "mapValue": {
                     "fields": {
@@ -528,21 +594,6 @@
                       }
                     }
                   }
-                },
-                "w": {
-                  "integerValue": "440"
-                },
-                "title": {
-                  "stringValue": "Belirli Gün ve Haftalar"
-                },
-                "id": {
-                  "stringValue": "m6"
-                },
-                "active": {
-                  "booleanValue": true
-                },
-                "type": {
-                  "stringValue": "days"
                 }
               }
             }
@@ -550,32 +601,38 @@
           {
             "mapValue": {
               "fields": {
-                "h": {
-                  "integerValue": "110"
-                },
-                "active": {
-                  "booleanValue": true
-                },
-                "w": {
-                  "integerValue": "440"
-                },
-                "color": {
-                  "stringValue": "#9a86f2"
-                },
                 "id": {
                   "stringValue": "m7"
-                },
-                "y": {
-                  "integerValue": "722"
                 },
                 "type": {
                   "stringValue": "bday"
                 },
-                "showTitle": {
+                "title": {
+                  "stringValue": "Doğum Günün Kutlu Olsun"
+                },
+                "active": {
                   "booleanValue": true
                 },
                 "x": {
                   "integerValue": "20"
+                },
+                "y": {
+                  "integerValue": "722"
+                },
+                "w": {
+                  "integerValue": "440"
+                },
+                "h": {
+                  "integerValue": "110"
+                },
+                "color": {
+                  "stringValue": "#9a86f2"
+                },
+                "fs": {
+                  "integerValue": "100"
+                },
+                "showTitle": {
+                  "booleanValue": true
                 },
                 "data": {
                   "mapValue": {
@@ -585,12 +642,6 @@
                       }
                     }
                   }
-                },
-                "title": {
-                  "stringValue": "Doğum Günün Kutlu Olsun"
-                },
-                "fs": {
-                  "integerValue": "100"
                 }
               }
             }
@@ -598,50 +649,50 @@
           {
             "mapValue": {
               "fields": {
-                "data": {
-                  "mapValue": {
-                    "fields": {
-                      "at": {
-                        "stringValue": "2027-06-13T10:00"
-                      },
-                      "name": {
-                        "stringValue": "Lgs kalan süre"
-                      }
-                    }
-                  }
-                },
-                "w": {
-                  "integerValue": "440"
-                },
                 "id": {
                   "stringValue": "m9"
                 },
                 "type": {
                   "stringValue": "cnt"
                 },
-                "h": {
-                  "integerValue": "119"
-                },
-                "fs": {
-                  "integerValue": "100"
-                },
                 "title": {
                   "stringValue": "Lgs"
                 },
-                "showTitle": {
-                  "booleanValue": false
+                "active": {
+                  "booleanValue": true
                 },
                 "x": {
                   "integerValue": "20"
                 },
-                "color": {
-                  "stringValue": "#e6b34a"
-                },
                 "y": {
                   "integerValue": "591"
                 },
-                "active": {
-                  "booleanValue": true
+                "w": {
+                  "integerValue": "440"
+                },
+                "h": {
+                  "integerValue": "119"
+                },
+                "color": {
+                  "stringValue": "#e6b34a"
+                },
+                "fs": {
+                  "integerValue": "100"
+                },
+                "showTitle": {
+                  "booleanValue": false
+                },
+                "data": {
+                  "mapValue": {
+                    "fields": {
+                      "name": {
+                        "stringValue": "Lgs kalan süre"
+                      },
+                      "at": {
+                        "stringValue": "2027-06-22T14:00"
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -649,8 +700,38 @@
           {
             "mapValue": {
               "fields": {
+                "id": {
+                  "stringValue": "m10"
+                },
+                "type": {
+                  "stringValue": "cd"
+                },
+                "title": {
+                  "stringValue": "Geri Sayım"
+                },
+                "active": {
+                  "booleanValue": true
+                },
+                "x": {
+                  "integerValue": "480"
+                },
                 "y": {
-                  "integerValue": "732"
+                  "integerValue": "620"
+                },
+                "w": {
+                  "integerValue": "640"
+                },
+                "h": {
+                  "integerValue": "100"
+                },
+                "color": {
+                  "stringValue": "#e6b34a"
+                },
+                "fs": {
+                  "integerValue": "80"
+                },
+                "showTitle": {
+                  "booleanValue": false
                 },
                 "data": {
                   "mapValue": {
@@ -660,36 +741,6 @@
                       }
                     }
                   }
-                },
-                "x": {
-                  "integerValue": "480"
-                },
-                "showTitle": {
-                  "booleanValue": false
-                },
-                "type": {
-                  "stringValue": "cd"
-                },
-                "title": {
-                  "stringValue": "Geri Sayım"
-                },
-                "fs": {
-                  "integerValue": "80"
-                },
-                "h": {
-                  "integerValue": "100"
-                },
-                "id": {
-                  "stringValue": "m10"
-                },
-                "color": {
-                  "stringValue": "#e6b34a"
-                },
-                "w": {
-                  "integerValue": "640"
-                },
-                "active": {
-                  "booleanValue": true
                 }
               }
             }
@@ -697,26 +748,38 @@
           {
             "mapValue": {
               "fields": {
-                "x": {
-                  "integerValue": "1140"
+                "id": {
+                  "stringValue": "m8"
                 },
-                "showTitle": {
-                  "booleanValue": true
+                "type": {
+                  "stringValue": "bell"
                 },
-                "y": {
-                  "integerValue": "712"
+                "title": {
+                  "stringValue": "Zile Ne Kadar Kaldı?"
                 },
                 "active": {
                   "booleanValue": true
                 },
-                "fs": {
-                  "integerValue": "100"
+                "x": {
+                  "integerValue": "1140"
+                },
+                "y": {
+                  "integerValue": "712"
+                },
+                "w": {
+                  "integerValue": "440"
+                },
+                "h": {
+                  "integerValue": "120"
                 },
                 "color": {
                   "stringValue": "#ef6f61"
                 },
-                "w": {
-                  "integerValue": "440"
+                "fs": {
+                  "integerValue": "100"
+                },
+                "showTitle": {
+                  "booleanValue": true
                 },
                 "data": {
                   "mapValue": {
@@ -726,18 +789,6 @@
                       }
                     }
                   }
-                },
-                "title": {
-                  "stringValue": "Zile Ne Kadar Kaldı?"
-                },
-                "h": {
-                  "integerValue": "120"
-                },
-                "type": {
-                  "stringValue": "bell"
-                },
-                "id": {
-                  "stringValue": "m8"
                 }
               }
             }
@@ -745,131 +796,14 @@
           {
             "mapValue": {
               "fields": {
-                "active": {
-                  "booleanValue": true
-                },
-                "showTitle": {
-                  "booleanValue": false
-                },
-                "y": {
-                  "integerValue": "234"
-                },
-                "color": {
-                  "stringValue": "#2bb3a3"
-                },
-                "fs": {
-                  "integerValue": "100"
-                },
-                "x": {
-                  "integerValue": "1140"
-                },
                 "id": {
                   "stringValue": "m11"
-                },
-                "title": {
-                  "stringValue": "Namaz Vakitleri"
                 },
                 "type": {
                   "stringValue": "pray"
                 },
-                "h": {
-                  "integerValue": "100"
-                },
-                "data": {
-                  "mapValue": {
-                    "fields": {
-                      "lat": {
-                        "stringValue": "38.356"
-                      },
-                      "adj": {
-                        "stringValue": "0,0,5,4,7,0"
-                      },
-                      "lon": {
-                        "stringValue": "31.416"
-                      }
-                    }
-                  }
-                },
-                "w": {
-                  "integerValue": "440"
-                }
-              }
-            }
-          },
-          {
-            "mapValue": {
-              "fields": {
-                "y": {
-                  "integerValue": "124"
-                },
-                "active": {
-                  "booleanValue": true
-                },
-                "x": {
-                  "integerValue": "1140"
-                },
-                "color": {
-                  "stringValue": "#9a86f2"
-                },
-                "showTitle": {
-                  "booleanValue": false
-                },
-                "h": {
-                  "integerValue": "98"
-                },
-                "fs": {
-                  "integerValue": "100"
-                },
-                "type": {
-                  "stringValue": "quote"
-                },
-                "id": {
-                  "stringValue": "m12"
-                },
                 "title": {
-                  "stringValue": "Günün Sözü"
-                },
-                "w": {
-                  "integerValue": "440"
-                },
-                "data": {
-                  "mapValue": {
-                    "fields": {
-                      "rows": {
-                        "stringValue": "Dünyada her şey için, maddiyat için, maneviyat için, muvaffakiyet için en hakiki mürşit ilimdir, fendir.|M. Kemal Atatürk\nÖğretmenler! Yeni nesil sizin eseriniz olacaktır.|M. Kemal Atatürk\nEğitimdir ki bir milleti ya özgür, bağımsız, şanlı, yüksek bir toplum halinde yaşatır; ya da milleti esarete ve sefalete terk eder.|M. Kemal Atatürk\nBilim ve fen nerede ise oradan alacağız ve her millet ferdinin kafasına koyacağız.|M. Kemal Atatürk\nÖğrenip de zamanı geldikçe uygulamak ne büyük mutluluktur!|Konfüçyüs\nİlim ilim bilmektir, ilim kendin bilmektir.|Yunus Emre\nHiç bilenlerle bilmeyenler bir olur mu?|Zümer Suresi, 9\nRabbim, ilmimi artır.|Tâhâ Suresi, 114\nYaratan Rabbinin adıyla oku!|Alak Suresi, 1\nSizin en hayırlınız, Kur'an'ı öğrenen ve öğretendir.|Hz. Muhammed (s.a.v.)\nKim ilim öğrenmek için bir yola girerse, Allah ona cennetin yolunu kolaylaştırır.|Hz. Muhammed (s.a.v.)\nEğitim, dünyayı değiştirmek için kullanabileceğiniz en güçlü silahtır.|Nelson Mandela\nBir çocuk, bir öğretmen, bir kitap ve bir kalem dünyayı değiştirebilir.|Malala Yousafzai\nÖnemli olan sorgulamayı bırakmamaktır.|Albert Einstein\nBir bahçen ve bir kütüphanen varsa, ihtiyacın olan her şeye sahipsin.|Cicero\nBin millik yolculuk tek bir adımla başlar.|Lao Tzu\nBilgi güçtür.|Francis Bacon\nDahi, yüzde bir ilham, yüzde doksan dokuz terdir.|Thomas Edison\nDamlaya damlaya göl olur.|Atasözü\nAğaç yaşken eğilir.|Atasözü\nBugünün işini yarına bırakma.|Atasözü\nHer kitap yeni bir dünyaya açılan kapıdır.\nHata yapmak öğrenmenin bir parçasıdır; önemli olan yeniden denemektir.\nBaşarı, her gün tekrarlanan küçük çabaların toplamıdır.\nMerak et, sor, araştır; öğrenmenin anahtarı sorudur.\nBugün öğrendiğin her yeni bilgi, yarının cesaretidir.\nHayalin kadar çalış, çalıştığın kadar ulaşırsın.\nVazgeçmeyenler, kazananlardır.\nÖğrenmenin yaşı yoktur; her gün yeni bir başlangıçtır.\nDüşmek başarısızlık değildir; kalkmamak başarısızlıktır.\nKitap okuyan, bin hayat yaşar.\nZor olan başlamaktır; gerisi gelir.\nSabır ve çalışkanlık, en büyük yetenektir.\nÖğrendiğini paylaştıkça bilgin çoğalır.\nSaygı, sevgi ve çalışkanlık; başarının üç anahtarıdır.\nKendine inan; yarının başarısı bugünkü emeğindedir.\nDürüstlük, insanın en değerli sermayesidir.\nBugün yapabileceğinin en iyisini yap; yarın daha iyisini yaparsın.\nİyi bir arkadaş, iyi bir kitap gibidir: seni geliştirir.\nBirlikte çalışmak, tek başına çalışmaktan daha ileri götürür.\nPlanlı çalışan, yorulmadan ilerler.\nKüçük adımlar, büyük başarıların habercisidir.\nDinlemek, öğrenmenin yarısıdır.\nZamanı iyi kullanan, hayatı iyi kullanır.\nBir öğretmen, bir ömür boyu iz bırakır.\nHedefi olan, yolunu bulur.\nBaşarı tesadüf değil; emek ve istikrarın sonucudur.\nGüzel ahlak, ilmin tacıdır.\nGülümse; güzel bir gün, güzel bir başlangıçla başlar.\nBugün yeni bir sayfa; onu en güzel şekilde yaz."
-                      },
-                      "rnd": {
-                        "mapValue": {
-                          "fields": {
-                            "i": {
-                              "integerValue": "47"
-                            },
-                            "d": {
-                              "stringValue": "2026-10-28"
-                            }
-                          }
-                        }
-                      },
-                      "pin": {
-                        "integerValue": "0"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          {
-            "mapValue": {
-              "fields": {
-                "id": {
-                  "stringValue": "mmvtq1o1y"
-                },
-                "type": {
-                  "stringValue": "schedule"
-                },
-                "title": {
-                  "stringValue": "Ders Programı"
+                  "stringValue": "Namaz Vakitleri"
                 },
                 "active": {
                   "booleanValue": true
@@ -878,46 +812,97 @@
                   "integerValue": "480"
                 },
                 "y": {
-                  "integerValue": "520"
+                  "integerValue": "732"
                 },
                 "w": {
                   "integerValue": "640"
                 },
                 "h": {
-                  "integerValue": "200"
+                  "integerValue": "100"
                 },
                 "color": {
-                  "stringValue": "#0f9b8e"
+                  "stringValue": "#2bb3a3"
                 },
                 "fs": {
                   "integerValue": "100"
                 },
+                "showTitle": {
+                  "booleanValue": false
+                },
                 "data": {
                   "mapValue": {
                     "fields": {
-                      "classes": {
-                        "arrayValue": {
-                          "values": [
-                            {
-                              "stringValue": "5/A"
+                      "lat": {
+                        "stringValue": "38.356"
+                      },
+                      "lon": {
+                        "stringValue": "31.416"
+                      },
+                      "adj": {
+                        "stringValue": "0,0,5,4,7,0"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "id": {
+                  "stringValue": "m12"
+                },
+                "type": {
+                  "stringValue": "quote"
+                },
+                "title": {
+                  "stringValue": "Günün Sözü"
+                },
+                "active": {
+                  "booleanValue": true
+                },
+                "x": {
+                  "integerValue": "1140"
+                },
+                "y": {
+                  "integerValue": "375"
+                },
+                "w": {
+                  "integerValue": "440"
+                },
+                "h": {
+                  "integerValue": "98"
+                },
+                "color": {
+                  "stringValue": "#9a86f2"
+                },
+                "fs": {
+                  "integerValue": "100"
+                },
+                "showTitle": {
+                  "booleanValue": false
+                },
+                "data": {
+                  "mapValue": {
+                    "fields": {
+                      "rows": {
+                        "stringValue": "Dünyada her şey için, maddiyat için, maneviyat için, muvaffakiyet için en hakiki mürşit ilimdir, fendir.|M. Kemal Atatürk\nÖğretmenler! Yeni nesil sizin eseriniz olacaktır.|M. Kemal Atatürk\nEğitimdir ki bir milleti ya özgür, bağımsız, şanlı, yüksek bir toplum halinde yaşatır; ya da milleti esarete ve sefalete terk eder.|M. Kemal Atatürk\nBilim ve fen nerede ise oradan alacağız ve her millet ferdinin kafasına koyacağız.|M. Kemal Atatürk\nÖğrenip de zamanı geldikçe uygulamak ne büyük mutluluktur!|Konfüçyüs\nİlim ilim bilmektir, ilim kendin bilmektir.|Yunus Emre\nHiç bilenlerle bilmeyenler bir olur mu?|Zümer Suresi, 9\nRabbim, ilmimi artır.|Tâhâ Suresi, 114\nYaratan Rabbinin adıyla oku!|Alak Suresi, 1\nSizin en hayırlınız, Kur'an'ı öğrenen ve öğretendir.|Hz. Muhammed (s.a.v.)\nKim ilim öğrenmek için bir yola girerse, Allah ona cennetin yolunu kolaylaştırır.|Hz. Muhammed (s.a.v.)\nEğitim, dünyayı değiştirmek için kullanabileceğiniz en güçlü silahtır.|Nelson Mandela\nBir çocuk, bir öğretmen, bir kitap ve bir kalem dünyayı değiştirebilir.|Malala Yousafzai\nÖnemli olan sorgulamayı bırakmamaktır.|Albert Einstein\nBir bahçen ve bir kütüphanen varsa, ihtiyacın olan her şeye sahipsin.|Cicero\nBin millik yolculuk tek bir adımla başlar.|Lao Tzu\nBilgi güçtür.|Francis Bacon\nDahi, yüzde bir ilham, yüzde doksan dokuz terdir.|Thomas Edison\nDamlaya damlaya göl olur.|Atasözü\nAğaç yaşken eğilir.|Atasözü\nBugünün işini yarına bırakma.|Atasözü\nHer kitap yeni bir dünyaya açılan kapıdır.\nHata yapmak öğrenmenin bir parçasıdır; önemli olan yeniden denemektir.\nBaşarı, her gün tekrarlanan küçük çabaların toplamıdır.\nMerak et, sor, araştır; öğrenmenin anahtarı sorudur.\nBugün öğrendiğin her yeni bilgi, yarının cesaretidir.\nHayalin kadar çalış, çalıştığın kadar ulaşırsın.\nVazgeçmeyenler, kazananlardır.\nÖğrenmenin yaşı yoktur; her gün yeni bir başlangıçtır.\nDüşmek başarısızlık değildir; kalkmamak başarısızlıktır.\nKitap okuyan, bin hayat yaşar.\nZor olan başlamaktır; gerisi gelir.\nSabır ve çalışkanlık, en büyük yetenektir.\nÖğrendiğini paylaştıkça bilgin çoğalır.\nSaygı, sevgi ve çalışkanlık; başarının üç anahtarıdır.\nKendine inan; yarının başarısı bugünkü emeğindedir.\nDürüstlük, insanın en değerli sermayesidir.\nBugün yapabileceğinin en iyisini yap; yarın daha iyisini yaparsın.\nİyi bir arkadaş, iyi bir kitap gibidir: seni geliştirir.\nBirlikte çalışmak, tek başına çalışmaktan daha ileri götürür.\nPlanlı çalışan, yorulmadan ilerler.\nKüçük adımlar, büyük başarıların habercisidir.\nDinlemek, öğrenmenin yarısıdır.\nZamanı iyi kullanan, hayatı iyi kullanır.\nBir öğretmen, bir ömür boyu iz bırakır.\nHedefi olan, yolunu bulur.\nBaşarı tesadüf değil; emek ve istikrarın sonucudur.\nGüzel ahlak, ilmin tacıdır.\nGülümse; güzel bir gün, güzel bir başlangıçla başlar.\nBugün yeni bir sayfa; onu en güzel şekilde yaz."
+                      },
+                      "pin": {
+                        "integerValue": "0"
+                      },
+                      "rnd": {
+                        "mapValue": {
+                          "fields": {
+                            "d": {
+                              "stringValue": "2026-10-28"
                             },
-                            {
-                              "stringValue": "6/A"
+                            "i": {
+                              "integerValue": "47"
                             }
-                          ]
+                          }
                         }
-                      },
-                      "lessons": {
-                        "arrayValue": {}
-                      },
-                      "n": {
-                        "integerValue": "8"
-                      },
-                      "prog": {
-                        "mapValue": {}
-                      },
-                      "speed": {
-                        "integerValue": "1"
                       }
                     }
                   }
@@ -927,11 +912,8 @@
           }
         ]
       }
-    },
-    "name": {
-      "stringValue": "ŞEHİT COŞKUN KARABULUT İMAM HATİP ORTAOKULU "
     }
   },
   "createTime": "2026-10-29T10:42:09.265626Z",
-  "updateTime": "2026-10-29T15:58:46.454452Z"
+  "updateTime": "2026-10-29T16:48:25.732305Z"
 }
