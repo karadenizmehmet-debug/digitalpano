@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app'
-import { getFirestore, doc, onSnapshot, setDoc, getDoc, deleteDoc } from 'firebase/firestore'
+import { initializeFirestore, persistentLocalCache, persistentSingleTabManager, doc, onSnapshot, setDoc, getDoc, deleteDoc } from 'firebase/firestore'
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth'
 
 // Web yapılandırması gizli değildir (güvenlik Firestore kurallarındadır).
@@ -12,7 +12,10 @@ const cfg = {
 }
 
 const app = initializeApp(cfg)
-const db = getFirestore(app)
+// Ayarlar cihazda saklanır: internet kesilse ya da ekran yeniden başlasa son ayarlarla açılır
+let db
+try { db = initializeFirestore(app, { localCache: persistentLocalCache({ tabManager: persistentSingleTabManager() }) }) }
+catch { db = initializeFirestore(app, {}) }
 const auth = getAuth(app)
 const ref = doc(db, 'config', 'pano')
 

@@ -38,6 +38,14 @@ export default function Stage({ cfg, preview = false, edit = null }) {
     const id = setInterval(() => { setNow(new Date()); setT((t) => t + 1) }, 1000)
     return () => clearInterval(id)
   }, [])
+  // Pano ekranı: her gece 03:00'te sayfayı yenile (yeni sürüm gelirse yüklensin, bellek temizlensin)
+  useEffect(() => {
+    if (preview) return
+    const n = new Date(), t = new Date(n.getFullYear(), n.getMonth(), n.getDate(), 3, 0, 0)
+    if (t <= n) t.setDate(t.getDate() + 1)
+    const id = setTimeout(() => location.reload(), t - n)
+    return () => clearTimeout(id)
+  }, [preview])
   useLayoutEffect(() => {
     const f = () => {
       if (!sw.current) return
