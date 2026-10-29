@@ -206,3 +206,8 @@ html,body,#root{height:100%}
 .qx em{display:block;font-style:normal;font-size:clamp(9px,min(10cqh,2.4cqw),15px);letter-spacing:.12em;font-weight:800;color:var(--cr);margin-bottom:.3em}
 .qx.qxl span{font-size:clamp(9px,min(12cqh,3cqw),22px)}
 .qx span{-webkit-line-clamp:8}
+
+/* Dar sütunda ders tablosu sığsın */
+.tb{container-type:inline-size}
+.tb td,.tb th{padding:6px 3px;font-size:min(.82em,4.3cqw)}
+.tb th:first-child,.tb td:first-child{padding-left:8px;white-space:nowrap}

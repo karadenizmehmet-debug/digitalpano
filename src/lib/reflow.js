@@ -1,11 +1,11 @@
 // Otomatik yerleşim: modülleri 3 sütuna dizer, taşanı en boş sütuna alır, boşluğu esnek modüllerle doldurur.
-export const COLS = [[20, 440], [480, 640], [1140, 440]]
+export const COLS = [[20, 360], [392, 816], [1220, 360]]
 const FLEX = ['slides', 'table', 'days', 'duty', 'news', 'menu', 'text', 'schedule']
 // Artan boşluğun öncelikle verildiği (içeriği uzayabilen / kaydırmalı) modüller
 const GROW = ['slides', 'schedule', 'table', 'days', 'news', 'menu', 'text']
 
 export function colSnap(m) {
-  const c = m.x + m.w / 2, i = c < 470 ? 0 : c < 1130 ? 1 : 2
+  const c = m.x + m.w / 2, i = c < 386 ? 0 : c < 1214 ? 1 : 2
   m.x = COLS[i][0]; m.w = COLS[i][1]
 }
 

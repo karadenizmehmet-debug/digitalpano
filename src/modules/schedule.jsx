@@ -30,7 +30,7 @@ export default function Schedule({ data, now, cfg }) {
   return (
     <div className="tb" ref={ref}>
       <table><tbody>
-        <tr><th>{DAYN[di]}</th>{names.map((x, k) => <th key={k} className={c(k)}>{x.replace('. Ders', '.')}</th>)}</tr>
+        <tr><th title={DAYN[di]}>{DAYN[di].slice(0, 3)}</th>{names.map((x, k) => <th key={k} className={c(k)}>{x.replace('. Ders', '.')}</th>)}</tr>
         {cl.map((s) => <tr key={s}><td><b>{s}</b></td>{names.map((_, k) => <td key={k} className={c(k)}>{sh(data.prog?.[s]?.[di]?.[k])}</td>)}</tr>)}
       </tbody></table>
     </div>
