@@ -6,6 +6,7 @@ import { rows } from './lib/util.js'
 import { alertStatus } from './lib/alert.js'
 import Stage from './Stage.jsx'
 import { nOf, nMax } from './modules/schedule.jsx'
+import { parseQ, todayIx } from './modules/quote.jsx'
 import { DG, mondayISO, weekShift } from './modules/duty.jsx'
 import { IHO_CLASSES, IHO_LESSONS, ihoProgram } from './lib/ihoSample.js'
 import { reflow } from './lib/reflow.js'
@@ -215,6 +216,8 @@ function Field({ f, data, set, say, root, setRoot }) {
   else if (kind === 'dcount') input = (
     <div className="p-dc">{['Pzt', 'Sal', 'Çar', 'Per', 'Cum'].map((g, d) => (
       <label key={g}><span>{g}</span><select value={nOf(data, d)} onChange={(e) => { const dn = { 0: nOf(data, 0), 1: nOf(data, 1), 2: nOf(data, 2), 3: nOf(data, 3), 4: nOf(data, 4), [d]: +e.target.value }; set({ dn, n: Math.max(...Object.values(dn)) }) }}>{Array.from({ length: 12 }, (_, i) => <option key={i} value={i + 1}>{i + 1}</option>)}</select></label>))}</div>)
+  else if (kind === 'quotes') input = <QuoteEditor data={data} set={set} />
+  else if (kind === 'qpin') return null
   else if (kind === 'sched') input = <SchedEditor data={data} set={set} />
   else if (kind === 'slides') input = <SlidesEditor value={v} set={(x) => set(k, x)} say={say} />
   else if (kind === 'dgrid') {
@@ -600,6 +603,37 @@ function SpecialEditor({ list, set, say, cfg }) {
         </div>
       )}
       {live >= 0 && <p className="p-hint">Şu an "Şimdi tam ekran" açık: Yayınla'dan sonra pano tam ekrana geçer.</p>}
+    </div>
+  )
+}
+
+function QuoteEditor({ data, set }) {
+  const Q = parseQ(data), pin = parseInt(data.pin) || 0
+  const [t, setT] = useState(''), [a, setA] = useState(''), [all, setAll] = useState(false), [ed, setEd] = useState(-1)
+  const put = (L, extra) => set({ rows: L.map((x) => x[0] + (x[1] ? '|' + x[1] : '')).join('\n'), ...(extra || {}) })
+  const ti = todayIx(data, new Date(), Q), shown = all ? Q.map((x, i) => i) : Q.map((x, i) => i).slice(0, 6)
+  return (
+    <div className="p-qe">
+      {ti >= 0 && <div className="p-qtd"><small>{pin > 0 ? '📌 Sabit söz (her gün bu gösterilir)' : 'Bugün panoda gösterilen'}</small><b>“{Q[ti][0]}”</b>{Q[ti][1] && <i>— {Q[ti][1]}</i>}</div>}
+      <div className="p-fld"><label>Yeni söz ekle</label>
+        <textarea rows={2} value={t} onChange={(e) => setT(e.target.value)} placeholder="Söz" />
+        <div className="p-slr"><input value={a} onChange={(e) => setA(e.target.value)} placeholder="Söyleyen (isteğe bağlı)" style={{ flex: 1 }} />
+          <button className="p-pri" disabled={!t.trim()} onClick={() => { put([[t.trim().replace(/\|/g, '/'), a.trim().replace(/\|/g, '/')], ...Q]); setT(''); setA('') }}>+ Ekle</button></div>
+      </div>
+      <div className="p-h2">Sözler ({Q.length})</div>
+      {shown.map((i) => (
+        <div key={i} className={'p-slc' + (pin === i + 1 ? ' p-pinned' : '')}>
+          <div className="p-slr" onClick={() => setEd(ed === i ? -1 : i)} style={{ cursor: 'pointer' }}>
+            <span className="p-tx"><b style={{ display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{Q[i][0]}</b><small>{Q[i][1] || 'Söyleyen yok'}{ti === i ? ' · bugün' : ''}</small></span>
+            <button title="Sabitle" className={pin === i + 1 ? 'p-pri' : ''} onClick={(e) => { e.stopPropagation(); set({ pin: pin === i + 1 ? 0 : i + 1 }) }}>📌</button>
+            <button className="p-danger" onClick={(e) => { e.stopPropagation(); if (!confirm('Bu söz silinsin mi?')) return; put(Q.filter((_, k) => k !== i), pin === i + 1 ? { pin: 0 } : pin > i + 1 ? { pin: pin - 1 } : undefined) }}>🗑</button>
+          </div>
+          {ed === i && <>
+            <textarea rows={3} value={Q[i][0]} onChange={(e) => put(Q.map((x, k) => (k === i ? [e.target.value.replace(/\|/g, '/'), x[1]] : x)))} />
+            <input value={Q[i][1]} placeholder="Söyleyen" onChange={(e) => put(Q.map((x, k) => (k === i ? [x[0], e.target.value.replace(/\|/g, '/')] : x)))} />
+          </>}
+        </div>))}
+      {Q.length > 6 && <button onClick={() => setAll(!all)}>{all ? 'Daha az göster' : 'Tümünü göster (' + Q.length + ')'}</button>}
     </div>
   )
 }

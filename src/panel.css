@@ -239,3 +239,7 @@ body.panelbody{overflow-x:hidden;overflow-y:auto;max-width:100vw;background:#f3f
 .pnl .p-dc label{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:700;text-align:center}
 .pnl .p-dc select{padding:10px 2px;text-align:center}
 .pnl .p-na{text-align:center;color:#c3ccd6}
+
+.pnl .p-qtd{background:#fff7e0;border:1px solid #f0d98a;border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.pnl .p-qtd small{color:#8a6a10;font-weight:700}.pnl .p-qtd i{color:#8a3a1a;font-style:normal;font-weight:700}
+.pnl .p-slc.p-pinned{border-color:#0f9b8e;background:#eefaf8}
