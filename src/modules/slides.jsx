@@ -4,7 +4,7 @@ import { loadImage } from '../lib/firebase.js'
 export const meta = {
   label: 'Görsel slayt', minH: 150, bare: true,
   def: { imgs: [], sec: 6 },
-  fields: [['sec', 'num', 'Geçiş süresi (sn)'], ['fill', 'check', 'Görseli bannera doldur (kenarlar kırpılabilir)'], ['imgs', 'slides', 'Görseller ve yazılı duyurular', 'Görseller küçültülerek yüklenir. Sırayla döner']],
+  fields: [['sec', 'num', 'Geçiş süresi (sn)'], ['fill', 'check', 'Görseli bannera yay (kırpmaz, yatayda esnetir)'], ['imgs', 'slides', 'Görseller ve yazılı duyurular', 'Görseller küçültülerek yüklenir. Sırayla döner']],
 }
 
 function Pic({ x, on }) {
