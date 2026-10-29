@@ -6,6 +6,7 @@ import { rows } from './lib/util.js'
 import { alertStatus } from './lib/alert.js'
 import Stage from './Stage.jsx'
 import { DG, mondayISO, weekShift } from './modules/duty.jsx'
+import { IHO_CLASSES, IHO_LESSONS, ihoProgram } from './lib/ihoSample.js'
 import { reflow } from './lib/reflow.js'
 import './panel.css'
 
@@ -154,16 +155,15 @@ function SchedEditor({ data, set }) {
     const a = c.split(/[,\n]/).map((x) => x.trim()).filter((x) => x && !classes.includes(x))
     if (a.length) set('classes', [...classes, ...a]); setC('')
   }
-  const delCls = (x) => { set('classes', classes.filter((y) => y !== x)); const p = { ...prog }; delete p[x]; set('prog', p) }
+  const delCls = (x) => { const p = { ...prog }; delete p[x]; set({ classes: classes.filter((y) => y !== x), prog: p }) }
   const addLes = () => {
     const n = ln.trim(); if (!n || lessons.some((x) => x.n === n)) return
     set('lessons', [...lessons, { n, k: lk.trim() }]); setLn(''); setLk('')
   }
   const delLes = (n) => {
-    set('lessons', lessons.filter((x) => x.n !== n))
     const p = {}
     for (const k of Object.keys(prog)) p[k] = (prog[k] || []).map((d) => (d || []).map((x) => (x === n ? '' : x)))
-    set('prog', p)
+    set({ lessons: lessons.filter((x) => x.n !== n), prog: p })
   }
   const day = (cl, d) => { const x = (prog[cl] || [])[d] || []; return Array.from({ length: N }, (_, i) => x[i] || '') }
   const setCell = (cl, d, h, v) => {
@@ -173,6 +173,7 @@ function SchedEditor({ data, set }) {
   const copyDay = (cl, d) => { const all = Array.from({ length: 5 }, () => day(cl, d)); set('prog', { ...prog, [cl]: all }) }
   return (
     <div className="p-sched">
+      {!classes.length && !lessons.length && <div className="p-fld"><button className="p-pri" onClick={() => set({ classes: IHO_CLASSES, lessons: IHO_LESSONS, prog: ihoProgram(N), n: 8 })}>⚡ İmam hatip ortaokulu örneğini yükle</button><small>5–8. sınıf A/B şubeleri, tüm dersler (kısaltmalı) ve rastgele örnek program. Sonra ekleyip çıkarabilirsiniz.</small></div>}
       <div className="p-sub">{[['cls', '1. Sınıflar'], ['les', '2. Dersler'], ['prg', '3. Program']].map(([k, l]) => <button key={k} className={sec === k ? 'p-on' : ''} onClick={() => setSec(k)}>{l}</button>)}</div>
       {sec === 'cls' && (
         <div className="p-fld">
@@ -222,7 +223,7 @@ function Tiles({ mods, go }) {
 function ModEditor({ m, upd, del, move, say, root, setRoot, open, setOpen }) {
   const R = registry[m.type]
   const [ask, setAsk] = useState(false)
-  const setData = (k, v) => upd({ data: { ...m.data, [k]: v } })
+  const setData = (k, v) => upd({ data: { ...m.data, ...(typeof k === 'object' ? k : { [k]: v }) } })
   return (
     <div className={open ? 'p-detail' : 'p-card' + (m.active ? '' : ' p-off')} id={'mod-' + m.id}>
       {!open ? (
