@@ -64,6 +64,7 @@ function SlideCard({ x, i, upd, mv, del }) {
       <div className="p-slr" onClick={() => setOpen(!open)} style={{ cursor: 'pointer' }}>
         {img ? <Thumb x={x} /> : <span className="p-th" style={{ display: 'grid', placeItems: 'center' }}>📝</span>}
         <span style={{ flex: 1, minWidth: 0 }}><b style={{ display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{img ? (x.name || 'Görsel') : (x.t || 'Yazılı duyuru')}</b><small style={{ color: dead ? '#b4232a' : '#5b6b7b' }}>{sum}</small></span>
+        <button className="p-danger" title="Sil" onClick={(ev) => { ev.stopPropagation(); del(i) }}>🗑</button>
         <span>{open ? '▴' : '▾'}</span>
       </div>
       {open && <>
@@ -605,13 +606,17 @@ export default function Panel({ cfg, fresh, err }) {
             <a className="p-lk" href="#/">📺 Panoyu aç</a>
             <a className="p-lk" href="#/panel" onClick={logout}>🚪 Çıkış</a>
           </div>
-          <div className="p-card p-pad">
-            <div className="p-h">📢 Kayan duyurular</div>
-            <textarea rows={5} value={draft.ticker || ''} onChange={(e) => set({ ticker: e.target.value })} placeholder="Her satır ayrı bir duyuru" />
-            <small>Belirli günlerde göstermek için satır sonuna | ve tarih ekleyin: Veli toplantısı | 03.11</small>
-          </div>
           <div className="p-h2">Modülü düzenle</div>
           <Tiles mods={draft.mods} go={goMod} />
+        </div>
+      )}
+      {tab === 'duy' && (
+        <div className="p-body">
+          <div className="p-card p-pad">
+            <div className="p-h">📢 Duyurular (alttaki kayan yazı)</div>
+            <textarea rows={8} value={draft.ticker || ''} onChange={(e) => set({ ticker: e.target.value })} placeholder="Her satır ayrı bir duyuru" />
+            <small>Her satır ayrı duyuru. Belirli günlerde göstermek için satır sonuna | ve tarih ekleyin: Veli toplantısı yarın | 03.11 · Sınav haftası | 03.11-07.11 · Gezi | 03.11 08:00 - 03.11 16:00</small>
+          </div>
         </div>
       )}
       {tab === 'set' && <div className="p-sub">{[['gen', 'Genel'], ['sd', 'Özel günler'], ['bak', 'Yedek']].map(([k, l]) => <button key={k} className={sub === k ? 'p-on' : ''} onClick={() => setSub(k)}>{l}</button>)}</div>}
@@ -636,7 +641,6 @@ export default function Panel({ cfg, fresh, err }) {
             <small>Başlığın solunda görünür, otomatik küçültülür.</small>
           </div>
           <div className="p-fld"><label>Slogan</label><input value={draft.slogan || ''} onChange={(e) => set({ slogan: e.target.value })} /></div>
-          <div className="p-fld"><label>Kayan duyurular</label><textarea rows={5} value={draft.ticker || ''} onChange={(e) => set({ ticker: e.target.value })} /><small>Her satır ayrı duyuru. Belirli günlerde göstermek için satır sonuna | ve tarih ekleyin: Veli toplantısı yarın | 03.11 · Sınav haftası | 03.11-07.11 · Gezi | 03.11 08:00 - 03.11 16:00</small></div>
           <div className="p-fld"><label>Gece modu</label>
             <select value={draft.nmMode || 'auto'} onChange={(e) => set({ nmMode: e.target.value })}>
               <option value="auto">Otomatik (ders saatlerine göre)</option>
@@ -663,7 +667,7 @@ export default function Panel({ cfg, fresh, err }) {
       )}
       {view === 'mods' && (
         <div className="p-body">
-          {!openId && <ModList mods={draft.mods} go={setOpenId} toggle={(i, v) => updMod(i, { active: v })} />}
+          {!openId && <><div className="p-card" style={{ marginBottom: 10 }}><div className="p-mrow" onClick={() => { setTab('duy'); window.scrollTo(0, 0) }}><span style={{ fontSize: 22 }}>📢</span><b style={{ flex: 1 }}>Duyurular (kayan yazı)</b><span>›</span></div></div><ModList mods={draft.mods} go={setOpenId} toggle={(i, v) => updMod(i, { active: v })} /></>}
           {draft.mods.map((m, i) => openId === m.id && <ModEditor key={m.id} m={m} upd={(p) => updMod(i, p)} del={() => delMod(i)} move={(s) => moveMod(i, s)} say={setMsg} root={draft} setRoot={set} open={openId === m.id} setOpen={setOpenId} />)}
           {!openId && <div className="p-card p-pad"><div className="p-h">➕ Yeni modül ekle</div>
             <select value="" onChange={(e) => { if (e.target.value) { addMod(e.target.value); window.scrollTo(0, 0) } }}>
@@ -705,7 +709,7 @@ export default function Panel({ cfg, fresh, err }) {
         </div>
       )}
       <nav className="p-nav">
-        {[['home', '🏠', 'Ana sayfa'], ['mods', '🧩', 'Modüller'], ['lay', '🖼️', 'Düzen'], ['news', '📰', 'Manşet'], ['al', '🚨', 'Acil'], ['set', '⚙️', 'Ayarlar']].map(([k, i, l]) => <button key={k} className={(k === 'news' ? tab === 'mods' && openId === (draft.mods.find((m) => m.type === 'slides') || {}).id : tab === k && !(k === 'mods' && openId === (draft.mods.find((m) => m.type === 'slides') || {}).id)) ? 'p-on' : ''} onClick={() => { if (k === 'news') { const m = draft.mods.find((x) => x.type === 'slides'); if (m) goMod(m.id); else { setTab('mods'); setOpenId(null) } return } setTab(k); if (k === 'mods') setOpenId(null); window.scrollTo(0, 0) }}><span>{i}</span>{l}</button>)}
+        {[['home', '🏠', 'Ana sayfa'], ['mods', '🧩', 'Modüller'], ['lay', '🖼️', 'Düzen'], ['news', '📰', 'Manşet'], ['duy', '📢', 'Duyuru'], ['al', '🚨', 'Acil'], ['set', '⚙️', 'Ayarlar']].map(([k, i, l]) => <button key={k} className={(k === 'news' ? tab === 'mods' && openId === (draft.mods.find((m) => m.type === 'slides') || {}).id : tab === k && !(k === 'mods' && openId === (draft.mods.find((m) => m.type === 'slides') || {}).id)) ? 'p-on' : ''} onClick={() => { if (k === 'news') { const m = draft.mods.find((x) => x.type === 'slides'); if (m) goMod(m.id); else { setTab('mods'); setOpenId(null) } return } setTab(k); if (k === 'mods') setOpenId(null); window.scrollTo(0, 0) }}><span>{i}</span>{l}</button>)}
       </nav>
     </div>
   )
