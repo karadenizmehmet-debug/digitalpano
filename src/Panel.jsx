@@ -318,7 +318,7 @@ function BellEditor({ value, set }) {
 
 function SchedEditor({ data, set }) {
   const [sec, setSec] = useState('cls'), [c, setC] = useState(''), [ln, setLn] = useState(''), [lk, setLk] = useState('')
-  const [pc, setPc] = useState(''), [pd, setPd] = useState(0), [ask, setAsk] = useState(false)
+  const [pc, setPc] = useState(''), [ask, setAsk] = useState(false), [wk, setWk] = useState(null)
   const classes = data.classes || [], lessons = data.lessons || [], N = Math.max(1, Math.min(12, data.n || 8))
   const prog = data.prog || {}
   const load = () => { set({ classes: IHO_CLASSES, lessons: IHO_LESSONS, prog: ihoProgram(N), n: 8 }); setAsk(false) }
@@ -338,12 +338,13 @@ function SchedEditor({ data, set }) {
     set({ lessons: lessons.filter((x) => x.n !== n), prog: p })
   }
   const day = (cl, d) => { const x = (prog[cl] || [])[d] || []; return Array.from({ length: N }, (_, i) => x[i] || '') }
-  const setCell = (cl, d, h, v) => {
-    const all = {}; for (let i = 0; i < 5; i++) all[i] = day(cl, i)
-    all[d][h] = v
-    set('prog', { ...prog, [cl]: all })
-  }
-  const copyDay = (cl, d) => { const all = {}; for (let i = 0; i < 5; i++) all[i] = day(cl, d); set('prog', { ...prog, [cl]: all }) }
+  const weekOf = (cl) => { const all = {}; for (let i = 0; i < 5; i++) all[i] = day(cl, i); return all }
+  const saved0 = cur ? JSON.stringify(weekOf(cur)) : ''
+  useEffect(() => { setWk(cur ? weekOf(cur) : null) }, [cur, saved0])
+  const dirtyW = wk && JSON.stringify(wk) !== saved0
+  const setCell = (d, h, v) => setWk((w) => ({ ...w, [d]: w[d].map((x, i) => (i === h ? v : x)) }))
+  const saveWk = () => { set('prog', { ...prog, [cur]: wk }) }
+  const pickCls = (v) => { if (dirtyW && !confirm('Kaydedilmemiş değişiklikler silinsin mi?')) return; setPc(v) }
   return (
     <div className="p-sched">
       <div className="p-fld">
@@ -373,16 +374,26 @@ function SchedEditor({ data, set }) {
         ? <p className="p-hint">Program için önce en az bir sınıf ve bir ders ekleyin.</p>
         : <div className="p-fld">
           <label>Sınıf</label>
-          <select value={cur} onChange={(e) => setPc(e.target.value)}>{classes.map((x) => <option key={x}>{x}</option>)}</select>
-          <div className="p-sub">{['Pzt', 'Sal', 'Çar', 'Per', 'Cum'].map((d, i) => <button key={d} className={pd === i ? 'p-on' : ''} onClick={() => setPd(i)}>{d}</button>)}</div>
-          {day(cur, pd).map((v, h) => (
-            <div key={h} className="p-hr"><span>{h + 1}. Ders</span>
-              <select value={v} onChange={(e) => setCell(cur, pd, h, e.target.value)}>
-                <option value="">— boş —</option>
-                {lessons.map((x) => <option key={x.n} value={x.n}>{x.n}</option>)}
-              </select>
-            </div>))}
-          <button onClick={() => copyDay(cur, pd)}>Bu günü tüm günlere kopyala</button>
+          <select value={cur} onChange={(e) => pickCls(e.target.value)}>{classes.map((x) => <option key={x}>{x}</option>)}</select>
+          {wk && <>
+            <div className="p-wk" style={{ gridTemplateColumns: '38px repeat(5,1fr)' }}>
+              <span />{['Pzt', 'Sal', 'Çar', 'Per', 'Cum'].map((d) => <b key={d}>{d}</b>)}
+              {Array.from({ length: N }, (_, h) => [
+                <b key={'h' + h} className="p-wh">{h + 1}</b>,
+                ...[0, 1, 2, 3, 4].map((d) => (
+                  <select key={d + '-' + h} value={wk[d][h] || ''} onChange={(e) => setCell(d, h, e.target.value)} className={wk[d][h] ? '' : 'p-em'}>
+                    <option value="">—</option>
+                    {lessons.map((x) => <option key={x.n} value={x.n}>{x.k || x.n}</option>)}
+                  </select>))
+              ])}
+            </div>
+            <div className="p-btns">
+              <button className={dirtyW ? 'p-pri' : ''} disabled={!dirtyW} onClick={saveWk}>💾 {cur} programını kaydet</button>
+              <button disabled={!dirtyW} onClick={() => setWk(weekOf(cur))}>Vazgeç</button>
+              <button onClick={() => setWk((w) => ({ 0: w[0], 1: [...w[0]], 2: [...w[0]], 3: [...w[0]], 4: [...w[0]] }))}>Pzt'yi tüm günlere kopyala</button>
+            </div>
+            <small>{dirtyW ? '● Kaydedilmemiş değişiklik var. Kaydet\'e basınca taslağa işlenir; panoya yansıması için üstteki Yayınla\'ya basın.' : 'Her kutuda ders seçin. Kısaltması olan derslerde kısaltma görünür.'}</small>
+          </>}
         </div>)}
     </div>
   )

@@ -224,3 +224,9 @@ body.panelbody{overflow-x:hidden;overflow-y:auto;max-width:100vw;background:#f3f
   .pnl .p-top{margin:0 -24px 0 -250px;padding:12px 24px 12px 250px}
 }
 .pnl .p-mgrid+.p-card{margin-top:14px}
+
+.pnl .p-wk{display:grid;gap:5px;align-items:center;margin:10px 0}
+.pnl .p-wk b{text-align:center;font-size:13px;color:#35566f}
+.pnl .p-wk select{width:100%;min-width:0;padding:10px 2px;font-size:13px;text-align:center;text-align-last:center;border-radius:8px;background-image:none;-webkit-appearance:none;appearance:none}
+.pnl .p-wk select.p-em{color:#aab6c2;background:#f4f7fa}
+.pnl .p-wk .p-wh{background:#e3eaf1;border-radius:8px;padding:10px 0}
