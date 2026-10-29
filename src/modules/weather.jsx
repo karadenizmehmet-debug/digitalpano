@@ -1,4 +1,9 @@
-export const meta = { label: 'Hava Durumu', minH: 150, def: {"cond": "partly", "t": 12, "hi": 16, "lo": 10, "live": true}, fields: [["live", "check", "Canlı veri çek"], ["cond", "sel", "Durum (elle)", "Canlı veri alınamazsa kullanılır"], ["t", "num", "Sıcaklık °C (elle)"], ["hi", "num", "En yüksek °C"], ["lo", "num", "En düşük °C"]] }
+export const meta = {
+  label: 'Hava Durumu', minH: 150,
+  def: {},
+  // '@' ile başlayan anahtarlar modüle değil genel ayara yazılır
+  fields: [['@city', 'txt', 'Şehir', 'Örn: Konya / Akşehir. Hava durumu bu şehre göre otomatik gelir'], ['@fxOn', 'check', 'Hava efektleri açık'], ['@fx', 'fx', 'Efekt', 'Otomatik: yağmur, kar, rüzgar vb. varken gösterilir. Diğerleri deneme içindir']],
+}
 const WC = { sun: 'Güneşli', partly: 'Parçalı bulutlu', cloud: 'Bulutlu', rain: 'Yağmurlu', wind: 'Rüzgarlı', snow: 'Karlı', storm: 'Gök gürültülü', fog: 'Sisli' }
 const CL = 'M18 44h28a9 9 0 0 0 .8-18A13 13 0 0 0 21 28a8 8 0 0 0-3 16z'
 const Cl = ({ f, t }) => <g transform={t || ''}><path d={CL} fill={f} stroke="#8ea3b8" strokeWidth="1.5" /></g>
@@ -16,15 +21,15 @@ function Icon({ c }) {
   }
   return <svg viewBox="0 0 64 64">{I[c] || I.cloud}</svg>
 }
-export default function Weather({ data, cfg, wx }) {
-  const live = wx
-  const v = live || { c: data.cond, t: data.t, hi: data.hi, lo: data.lo }
+export default function Weather({ cfg, wx }) {
+  if (!cfg.city) return <div className="wt"><div className="wx"><div className="wd"><b>Şehir girin</b><span>Panel → Modüller → Hava Durumu</span></div></div></div>
+  if (!wx || wx.err) return <div className="wt"><div className="wx"><div className="wd"><b>{wx?.err ? 'Hava durumu alınamıyor' : 'Hava durumu alınıyor…'}</b><span>{cfg.city}</span></div></div></div>
   return (
     <div className="wt">
       <div className="wx">
-        <div className="wi"><Icon c={v.c} /></div>
-        <div className="wtt">{v.t}°</div>
-        <div className="wd"><b>{WC[v.c] || ''}</b>{cfg.city ? <span>{cfg.city}</span> : null}<span>↑ {v.hi}° ↓ {v.lo}°</span></div>
+        <div className="wi"><Icon c={wx.c} /></div>
+        <div className="wtt">{wx.t}°</div>
+        <div className="wd"><b>{WC[wx.c] || ''}</b><span>{cfg.city}</span><span>↑ {wx.hi}° ↓ {wx.lo}°</span></div>
       </div>
     </div>
   )

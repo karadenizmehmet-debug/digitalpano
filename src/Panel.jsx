@@ -83,12 +83,15 @@ function SlidesEditor({ value, set, say }) {
   )
 }
 
-function Field({ f, data, set, say }) {
-  const [k, kind, label, hint] = f
+function Field({ f, data, set, say, root, setRoot }) {
+  const [k0, kind, label, hint] = f
+  const isRoot = k0[0] === '@', k = isRoot ? k0.slice(1) : k0
+  if (isRoot) { data = root; set = (kk, vv) => setRoot({ [kk]: vv }) }
   const v = data[k]
   let input
   if (kind === 'area') input = <textarea rows={6} value={v ?? ''} onChange={(e) => set(k, e.target.value)} />
-  else if (kind === 'check') return <label className="p-chk"><input type="checkbox" checked={!!v} onChange={(e) => set(k, e.target.checked)} /> {label}</label>
+  else if (kind === 'fx') input = <select value={v || 'auto'} onChange={(e) => set(k, e.target.value)}>{[['auto', 'Otomatik (hava durumuna göre)'], ['rain', 'Yağmur'], ['snow', 'Kar'], ['wind', 'Rüzgar'], ['storm', 'Fırtına'], ['fog', 'Sis']].map(([a, b]) => <option key={a} value={a}>{b}</option>)}</select>
+  else if (kind === 'check') return <label className="p-chk"><input type="checkbox" checked={k === 'fxOn' ? v !== false : !!v} onChange={(e) => set(k, e.target.checked)} /> {label}</label>
   else if (kind === 'num') input = <input type="number" value={v ?? ''} onChange={(e) => set(k, e.target.value === '' ? '' : +e.target.value)} />
   else if (kind === 'dt') input = <input type="datetime-local" value={v ?? ''} onChange={(e) => set(k, e.target.value)} />
   else if (kind === 'sel') input = <select value={v} onChange={(e) => set(k, e.target.value)}>{Object.entries(COND).map(([a, b]) => <option key={a} value={a}>{b}</option>)}</select>
@@ -111,7 +114,7 @@ function Field({ f, data, set, say }) {
   return <div className="p-fld"><label>{label}</label>{input}{hint && <small>{hint}</small>}</div>
 }
 
-function ModEditor({ m, upd, del, move, say }) {
+function ModEditor({ m, upd, del, move, say, root, setRoot }) {
   const R = registry[m.type]
   const [open, setOpen] = useState(false)
   const setData = (k, v) => upd({ data: { ...m.data, [k]: v } })
@@ -127,7 +130,7 @@ function ModEditor({ m, upd, del, move, say }) {
         <div className="p-body">
           <div className="p-fld"><label>Başlık</label><input value={m.title || ''} onChange={(e) => upd({ title: e.target.value })} /></div>
           <label className="p-chk"><input type="checkbox" checked={m.showTitle !== false && (m.type !== 'slides' || m.showTitle)} onChange={(e) => upd({ showTitle: e.target.checked })} /> Başlığı göster</label>
-          {(R?.fields || []).map((f) => <Field key={f[0]} f={f} data={m.data} set={setData} say={say} />)}
+          {(R?.fields || []).map((f) => <Field key={f[0]} f={f} data={m.data} set={setData} say={say} root={root} setRoot={setRoot} />)}
           <div className="p-fld"><label>Yazı boyutu (%)</label><input type="number" value={m.fs || 100} onChange={(e) => upd({ fs: +e.target.value })} /></div>
           <div className="p-fld"><label>Renk</label><input type="color" value={m.color || '#0f9b8e'} onChange={(e) => upd({ color: e.target.value })} /></div>
           <div className="p-pos">
@@ -318,14 +321,7 @@ export default function Panel({ cfg }) {
             <small>Başlığın solunda görünür, otomatik küçültülür.</small>
           </div>
           <div className="p-fld"><label>Slogan</label><input value={draft.slogan || ''} onChange={(e) => set({ slogan: e.target.value })} /></div>
-          <div className="p-fld"><label>Şehir (hava durumu için)</label><input value={draft.city || ''} onChange={(e) => set({ city: e.target.value })} /><small>Örn: Konya / Akşehir</small></div>
           <div className="p-fld"><label>Kayan duyurular</label><textarea rows={5} value={draft.ticker || ''} onChange={(e) => set({ ticker: e.target.value })} /><small>Her satır ayrı duyuru. Belirli günlerde göstermek için satır sonuna | ve tarih ekleyin: Veli toplantısı yarın | 03.11 · Sınav haftası | 03.11-07.11 · Gezi | 03.11 08:00 - 03.11 16:00</small></div>
-          <div className="p-fld"><label>Hava efekti</label>
-            <select value={draft.fx || 'auto'} onChange={(e) => set({ fx: e.target.value })}>
-              {[['auto', 'Otomatik (hava durumuna göre)'], ['off', 'Kapalı'], ['rain', 'Yağmur'], ['snow', 'Kar'], ['wind', 'Rüzgar'], ['storm', 'Fırtına'], ['fog', 'Sis']].map(([a, b]) => <option key={a} value={a}>{b}</option>)}
-            </select>
-            <small>Otomatik: yağmur, kar, rüzgar, fırtına veya sis varken panoda efekt gösterilir. Diğerlerini deneme için seçebilirsiniz.</small>
-          </div>
           <div className="p-fld"><label>Gece modu</label>
             <select value={draft.nmMode || 'auto'} onChange={(e) => set({ nmMode: e.target.value })}>
               <option value="auto">Otomatik (ders saatlerine göre)</option>
@@ -352,7 +348,7 @@ export default function Panel({ cfg }) {
       )}
       {tab === 'mods' && (
         <div className="p-body">
-          {draft.mods.map((m, i) => <ModEditor key={m.id} m={m} upd={(p) => updMod(i, p)} del={() => delMod(i)} move={(s) => moveMod(i, s)} say={setMsg} />)}
+          {draft.mods.map((m, i) => <ModEditor key={m.id} m={m} upd={(p) => updMod(i, p)} del={() => delMod(i)} move={(s) => moveMod(i, s)} say={setMsg} root={draft} setRoot={set} />)}
           <div className="p-fld"><label>Yeni modül ekle</label>
             <select value="" onChange={(e) => e.target.value && addMod(e.target.value)}>
               <option value="">Seçin…</option>
