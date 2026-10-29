@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { registry, minHOf } from './lib/registry.js'
+import { registry, minHOf, wantH } from './lib/registry.js'
 import { THEMES } from './lib/themes.js'
 import { login, logout, onUser, saveConfig, saveImage, removeImage, loadImage } from './lib/firebase.js'
 import { rows } from './lib/util.js'
@@ -448,7 +448,7 @@ export default function Panel({ cfg }) {
     const mods = d.mods.map((m, k) => (k === i ? { ...m, ...p } : { ...m }))
     if ('showTitle' in p) {  // başlık açılınca modül içeriğe yetecek kadar büyür
       const m = mods[i]; m.h = Math.max(m.h, minHOf(m))
-      if (d.autoFlow !== false) reflow(mods, m, minHOf)
+      if (d.autoFlow !== false) reflow(mods, m, minHOf, wantH)
     }
     return { ...d, mods }
   })
@@ -456,7 +456,7 @@ export default function Panel({ cfg }) {
     const R = registry[type]
     setDraft((d) => {
       const mods = [...d.mods, { id: 'm' + Date.now().toString(36), type, title: R.label, active: true, x: 480, y: 124, w: 640, h: Math.max(R.minH || 100, 120), color: '#0f9b8e', fs: 100, data: JSON.parse(JSON.stringify(R.def || {})) }].map((m) => ({ ...m }))
-      if (d.autoFlow !== false) reflow(mods, mods[mods.length - 1], minHOf)
+      if (d.autoFlow !== false) reflow(mods, mods[mods.length - 1], minHOf, wantH)
       return { ...d, mods }
     })
   }
@@ -588,7 +588,7 @@ export default function Panel({ cfg }) {
           <p className="p-hint">Modülü sürükleyip taşıyın, sağ alt köşedeki turuncu kareden boyutlandırın. Bırakınca sütuna oturur{draft.autoFlow === false ? '' : ' ve boşluklar otomatik düzenlenir'}.</p>
           <label className="p-chk"><input type="checkbox" checked={draft.autoFlow !== false} onChange={(e) => set({ autoFlow: e.target.checked })} /> Otomatik yerleşim</label>
           <div className="p-btns">
-            <button onClick={() => { const mods = draft.mods.map((m) => ({ ...m })); reflow(mods, null, minHOf); set({ mods }) }}>Hepsini otomatik düzenle</button>
+            <button onClick={() => { const mods = draft.mods.map((m) => ({ ...m })); reflow(mods, null, minHOf, wantH); set({ mods }) }}>Hepsini otomatik düzenle</button>
           </div>
           {sel && draft.mods.find((m) => m.id === sel) && (
             <div className="p-btns">

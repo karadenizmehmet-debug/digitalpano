@@ -1,6 +1,8 @@
 // Otomatik yerleşim: modülleri 3 sütuna dizer, taşanı en boş sütuna alır, boşluğu esnek modüllerle doldurur.
 export const COLS = [[20, 440], [480, 640], [1140, 440]]
-const FLEX = ['slides', 'table', 'days', 'duty', 'news', 'menu', 'text']
+const FLEX = ['slides', 'table', 'days', 'duty', 'news', 'menu', 'text', 'schedule']
+// Artan boşluğun öncelikle verildiği (içeriği uzayabilen / kaydırmalı) modüller
+const GROW = ['slides', 'schedule', 'table', 'days', 'news', 'menu', 'text']
 
 export function colSnap(m) {
   const c = m.x + m.w / 2, i = c < 470 ? 0 : c < 1130 ? 1 : 2
@@ -8,7 +10,7 @@ export function colSnap(m) {
 }
 
 // mods: dizi (yerinde değiştirilir). pref: öncelikli modül. minOf(m): en küçük yükseklik
-export function reflow(mods, pref, minOf) {
+export function reflow(mods, pref, minOf, wantOf) {
   const TOP = 124, BOT = 832, G = 12, AV = BOT - TOP
   const mn = (m) => minOf(m) || 100
   const need = (A) => A.reduce((q, m) => q + mn(m), 0) + G * Math.max(0, A.length - 1)
@@ -24,7 +26,7 @@ export function reflow(mods, pref, minOf) {
   }
   cols.forEach((A) => {
     if (!A.length) return
-    const D = A.map((m) => Math.max(m.h, mn(m))), fl = A.map((m) => FLEX.includes(m.type))
+    const D = A.map((m) => Math.max(wantOf?.(m) ?? m.h, mn(m))), fl = A.map((m) => FLEX.includes(m.type))
     const sum = () => D.reduce((q, v) => q + v, 0) + G * (A.length - 1)
     let ex = sum() - AV
     if (ex > 0) {
@@ -34,13 +36,12 @@ export function reflow(mods, pref, minOf) {
         if (tot > 0) { const t = Math.min(ex, tot); sl.forEach((v, i) => { D[i] -= Math.floor(t * v / tot) }); ex = sum() - AV }
       }
     } else if (ex < 0) {
-      const idx = A.map((m, i) => i).filter((i) => fl[i])
-      if (idx.length) {
-        const tot = idx.reduce((q, i) => q + D[i], 0), add = -ex
-        idx.forEach((i) => { D[i] += Math.floor(add * D[i] / tot) })
-        const left = AV - sum()
-        D[idx[idx.length - 1]] += Math.max(0, left)
-      }
+      let idx = A.map((m, i) => i).filter((i) => GROW.includes(A[i].type))
+      if (!idx.length) idx = A.map((m, i) => i).filter((i) => fl[i])
+      if (!idx.length) idx = A.map((m, i) => i)
+      const tot = idx.reduce((q, i) => q + D[i], 0), add = -ex
+      idx.forEach((i) => { D[i] += Math.floor(add * D[i] / tot) })
+      D[idx[idx.length - 1]] += Math.max(0, AV - sum())
     }
     let y = TOP
     A.forEach((m, i) => { m.y = y; m.h = D[i]; y += D[i] + G })

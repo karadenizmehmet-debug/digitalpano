@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
-import { registry, minHOf } from './lib/registry.js'
+import { registry, minHOf, wantH } from './lib/registry.js'
 import { alertOn } from './lib/alert.js'
 import { specialVisible } from './lib/special.js'
 import { isNight } from './lib/night.js'
@@ -60,10 +60,10 @@ export default function Stage({ cfg, preview = false, edit = null }) {
     return () => { removeEventListener('resize', f); ro && ro.disconnect(); clearTimeout(t) }
   }, [])
 
-  // Kayıtlı yerleşimde içeriğe yetmeyen (ör. başlığı sonradan açılmış) modül varsa ekranda otomatik düzenle
+  // Otomatik yerleşim açıkken ekran, kayıtlı boyutlardan bağımsız olarak içeriğe göre dengeli yerleştirir
   const mods0 = useMemo(() => {
-    if (edit || cfg.autoFlow === false || !cfg.mods.some((m) => m.active && m.h < minHOf(m))) return cfg.mods
-    const c = cfg.mods.map((m) => ({ ...m })); reflow(c, null, minHOf); return c
+    if (edit || cfg.autoFlow === false) return cfg.mods
+    const c = cfg.mods.map((m) => ({ ...m })); reflow(c, null, minHOf, wantH); return c
   }, [cfg.mods, cfg.autoFlow, !!edit])
   const wmod = mods0.find((m) => m.type === 'weather' && m.active)
   const wx = useLive(cfg.city, !!wmod && !!cfg.city)
@@ -107,7 +107,7 @@ export default function Stage({ cfg, preview = false, edit = null }) {
     const mods = cfg.mods.map((m) => ({ ...m }))
     const m = mods.find((x) => x.id === d.id)
     if (m && d.mode === 'move') colSnap(m)
-    if (cfg.autoFlow !== false) reflow(mods, m, minOf)
+    if (cfg.autoFlow !== false) reflow(mods, m, minOf, wantH)
     edit.onChange(mods)
   }
 
