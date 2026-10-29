@@ -13,6 +13,7 @@ const DAYS = ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma']
 const COND = { sun: 'Güneşli', partly: 'Parçalı bulutlu', cloud: 'Bulutlu', rain: 'Yağmurlu', wind: 'Rüzgarlı', snow: 'Karlı', storm: 'Gök gürültülü', fog: 'Sisli' }
 
 
+const ICO = { clock: '🕒', text: '📝', table: '📋', slides: '🖼️', bell: '🔔', weather: '🌤️', duty: '🧑‍🏫', days: '📅', news: '📰', menu: '🍽️', bday: '🎂', cnt: '⏳', cd: '🗓️', pray: '🕌', quote: '💬' }
 const TONES = { r: 'Kırmızı', b: 'Mavi', g: 'Yeşil', o: 'Turuncu', p: 'Mor', k: 'Siyah' }
 
 // Görseli küçültüp JPEG'e çevirir (Firestore belgesi 1 MB'ı geçmesin)
@@ -128,6 +129,15 @@ function Field({ f, data, set, say, root, setRoot }) {
     } catch { say('Panoya erişim izni verilmedi. Kutuya uzun basıp Yapıştır deyin') }
   }}>📋 Excel/panodan satır ekle</button>
   return <div className="p-fld"><label>{label}</label>{input}{pasteBtn}{hint && <small>{hint}</small>}</div>
+}
+
+function Tiles({ mods, go }) {
+  return <div className="p-tiles">{mods.map((m) => (
+    <button key={m.id} className={'p-tile' + (m.active ? '' : ' p-qoff')} onClick={() => go(m.id)}>
+      <span className="p-ti">{ICO[m.type] || '🧩'}</span>
+      <b>{m.title || registry[m.type]?.label}</b>
+      {!m.active && <small>Kapalı</small>}
+    </button>))}</div>
 }
 
 function ModEditor({ m, upd, del, move, say, root, setRoot, open, setOpen }) {
@@ -346,9 +356,7 @@ export default function Panel({ cfg }) {
             <button className={draft.al?.on ? 'p-danger' : 'p-pri'} onClick={() => setTab('al')}>{draft.al?.on ? 'Yönet / kapat' : 'Acil duyuru hazırla'}</button>
           </div>
           <div className="p-h2">Modülü düzenle</div>
-          <div className="p-quick">
-            {draft.mods.map((m) => <button key={m.id} className={m.active ? '' : 'p-qoff'} onClick={() => goMod(m.id)}>{m.title || registry[m.type]?.label}</button>)}
-          </div>
+          <Tiles mods={draft.mods} go={goMod} />
         </div>
       )}
       {tab === 'set' && <div className="p-sub">{[['gen', 'Genel'], ['sd', 'Özel günler'], ['bak', 'Yedek']].map(([k, l]) => <button key={k} className={sub === k ? 'p-on' : ''} onClick={() => setSub(k)}>{l}</button>)}</div>}
@@ -400,7 +408,8 @@ export default function Panel({ cfg }) {
       )}
       {view === 'mods' && (
         <div className="p-body">
-          {draft.mods.map((m, i) => (!openId || openId === m.id) && <ModEditor key={m.id} m={m} upd={(p) => updMod(i, p)} del={() => delMod(i)} move={(s) => moveMod(i, s)} say={setMsg} root={draft} setRoot={set} open={openId === m.id} setOpen={setOpenId} />)}
+          {!openId && <Tiles mods={draft.mods} go={setOpenId} />}
+          {draft.mods.map((m, i) => openId === m.id && <ModEditor key={m.id} m={m} upd={(p) => updMod(i, p)} del={() => delMod(i)} move={(s) => moveMod(i, s)} say={setMsg} root={draft} setRoot={set} open={openId === m.id} setOpen={setOpenId} />)}
           {!openId && <div className="p-card p-pad"><div className="p-h">➕ Yeni modül ekle</div>
             <select value="" onChange={(e) => { if (e.target.value) { addMod(e.target.value); window.scrollTo(0, 0) } }}>
               <option value="">Seçin…</option>
