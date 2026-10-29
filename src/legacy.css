@@ -170,3 +170,17 @@ html,body,#root{height:100%}
 .fwb u{position:absolute;left:-90px;top:-90px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,var(--cl) 0,transparent 65%);opacity:0;animation:fwf 3.2s ease-out infinite;animation-delay:var(--dl)}
 @keyframes fwp{0%{transform:rotate(var(--a)) translateX(0) scale(1);opacity:0}6%{opacity:1}55%{opacity:1}100%{transform:rotate(var(--a)) translateX(var(--d)) translateY(26px) scale(.3);opacity:0}}
 @keyframes fwf{0%,4%{opacity:.8;transform:scale(.2)}22%{opacity:0;transform:scale(1.6)}100%{opacity:0}}
+
+.flo{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:2}
+.flo i{position:absolute;bottom:-14%;font-style:normal;animation:flup linear infinite}
+.flo.st i{bottom:auto;color:#ffe9a8;animation:fltw ease-in-out infinite}
+@keyframes flup{from{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-60vh) rotate(6deg)}to{transform:translateY(-125vh) rotate(-6deg)}}
+@keyframes fltw{0%,100%{opacity:.15;transform:scale(.6)}50%{opacity:1;transform:scale(1.15)}}
+.ovl[data-bf]{background-size:300% 300%}
+.ovl[data-bf=fade]{animation:ovi .7s ease,bgs 8s ease-in-out infinite alternate}
+.ovl[data-bf=rain]{background:linear-gradient(120deg,#ff0040,#ff9a00,#ffe600,#00d26a,#00b3ff,#7a3cff,#ff0040)!important;background-size:400% 400%;animation:ovi .7s ease,bgs 16s linear infinite}
+.ovl[data-bf=pulse]{animation:ovi .7s ease,bgp 2.2s ease-in-out infinite}
+.ovl[data-bf=shine]::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,#ffffff40 50%,transparent 65%);background-size:250% 100%;animation:bgsh 3.6s linear infinite;pointer-events:none}
+@keyframes bgs{from{background-position:0 50%}to{background-position:100% 50%}}
+@keyframes bgp{0%,100%{filter:brightness(1)}50%{filter:brightness(1.5) saturate(1.2)}}
+@keyframes bgsh{from{background-position:150% 0}to{background-position:-100% 0}}

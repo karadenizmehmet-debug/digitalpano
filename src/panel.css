@@ -197,3 +197,7 @@ body.panelbody{overflow-x:hidden;overflow-y:auto;max-width:100vw;background:#f3f
 .pnl .p-sws button:first-child{width:auto;border-radius:12px;padding:0 12px;height:38px;background:#e3e9ef;border:1px solid #c3ccd6;box-shadow:none}
 .pnl .p-sws button.p-on{box-shadow:0 0 0 3px #0f9b8e}
 .pnl .p-sws input[type=color]{width:44px;height:38px;padding:0;border:0;background:none}
+
+.pnl .p-chips{display:flex;flex-wrap:wrap;gap:8px}
+.pnl .p-chips button{padding:10px 14px;border-radius:999px;background:#e8eef4;border:1px solid #cfd9e3;font-weight:700}
+.pnl .p-chips button.p-on{background:#0f9b8e;color:#fff;border-color:#0f9b8e}

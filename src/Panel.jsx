@@ -552,14 +552,21 @@ function SpecialEditor({ list, set, say }) {
             {(d.img || d.imgId) ? <><Thumb x={{ src: d.img, img: d.imgId }} /><button onClick={() => dropImg(i)}>Görseli kaldır</button></>
               : <label className="p-fbtn">+ Görsel<input type="file" accept="image/*" hidden onChange={(e) => pickImg(i, e)} /></label>}
           </div>
-          <label className="p-chk"><input type="checkbox" checked={!!d.conf} onChange={(e) => upd(i, { conf: e.target.checked })} /> Konfeti</label>
-          <label className="p-chk"><input type="checkbox" checked={!!d.fw} onChange={(e) => upd(i, { fw: e.target.checked })} /> Havai fişek</label>
-          {!(d.img || d.imgId) && <div className="p-fld"><label>Arka plan rengi</label>
-            <div className="p-sws">
-              <button className={!d.bg ? 'p-on' : ''} onClick={() => upd(i, { bg: '' })}>Varsayılan</button>
-              {['#c8102e', '#0b3d91', '#0f7a4f', '#d9680b', '#6b46c1', '#111827'].map((c) => <button key={c} className={d.bg === c ? 'p-on' : ''} style={{ background: c }} onClick={() => upd(i, { bg: c })} />)}
-              <input type="color" value={d.bg || '#0b3d91'} onChange={(e) => upd(i, { bg: e.target.value })} />
-            </div></div>}
+          <div className="p-fld"><label>Efektler</label>
+            <div className="p-chips">{[['conf', '🎊 Konfeti'], ['fw', '🎆 Havai fişek'], ['bl', '🎈 Balon'], ['st', '✨ Yıldız'], ['sn', '❄️ Kar']].map(([k, l]) => <button key={k} className={d[k] ? 'p-on' : ''} onClick={() => upd(i, { [k]: !d[k] })}>{l}</button>)}</div></div>
+          {!(d.img || d.imgId) && <>
+            <div className="p-fld"><label>Arka plan rengi</label>
+              <div className="p-sws">
+                <button className={!d.bg ? 'p-on' : ''} onClick={() => upd(i, { bg: '' })}>Varsayılan</button>
+                {['#c8102e', '#0b3d91', '#0f7a4f', '#d9680b', '#6b46c1', '#111827'].map((c) => <button key={c} className={d.bg === c ? 'p-on' : ''} style={{ background: c }} onClick={() => upd(i, { bg: c })} />)}
+                <input type="color" value={d.bg || '#0b3d91'} onChange={(e) => upd(i, { bg: e.target.value })} />
+              </div></div>
+            <div className="p-fld"><label>Arka plan hareketi</label>
+              <select value={d.bgfx || ''} onChange={(e) => upd(i, { bgfx: e.target.value, bg: d.bg || (e.target.value === 'fade' ? '#c8102e' : d.bg) })}>
+                <option value="">Sabit</option><option value="fade">Renkten renge geçiş</option><option value="rain">Gökkuşağı</option><option value="pulse">Nabız (parlayıp sönme)</option><option value="shine">Parıltı (kayan ışık)</option>
+              </select></div>
+            {d.bgfx === 'fade' && <div className="p-fld"><label>İkinci renk</label><input type="color" value={d.bg2 || '#0b3d91'} onChange={(e) => upd(i, { bg2: e.target.value })} /></div>}
+          </>}
           <div className="p-btns">
             <button className={d.now ? 'p-danger' : ''} onClick={() => set(L.map((x, k) => ({ ...x, now: k === i ? !x.now : false })))}>{d.now ? 'Tam ekranı kapat' : 'Şimdi tam ekran aç'}</button>
           </div>
