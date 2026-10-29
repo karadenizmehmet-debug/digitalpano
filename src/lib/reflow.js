@@ -36,12 +36,18 @@ export function reflow(mods, pref, minOf, wantOf) {
         if (tot > 0) { const t = Math.min(ex, tot); sl.forEach((v, i) => { D[i] -= Math.floor(t * v / tot) }); ex = sum() - AV }
       }
     } else if (ex < 0) {
-      let idx = A.map((m, i) => i).filter((i) => GROW.includes(A[i].type))
-      if (!idx.length) idx = A.map((m, i) => i).filter((i) => fl[i])
-      if (!idx.length) idx = A.map((m, i) => i)
-      const tot = idx.reduce((q, i) => q + D[i], 0), add = -ex
-      idx.forEach((i) => { D[i] += Math.floor(add * D[i] / tot) })
-      D[idx[idx.length - 1]] += Math.max(0, AV - sum())
+      const idx = A.map((m, i) => i).filter((i) => GROW.includes(A[i].type))
+      let add = -ex
+      if (idx.length) {
+        const tot = idx.reduce((q, i) => q + D[i], 0)
+        idx.forEach((i) => { D[i] += Math.floor(add * D[i] / tot) })
+        D[idx[idx.length - 1]] += Math.max(0, AV - sum())
+      } else {
+        // uzayabilen modül yoksa: boşluğu tüm modüllere dengeli dağıt, hiçbirini en çok %35'ten fazla büyütme
+        const all = A.map((m, i) => i), tot = D.reduce((q, v) => q + v, 0)
+        add = Math.min(add, Math.floor(tot * 0.35))
+        all.forEach((i) => { D[i] += Math.floor(add * D[i] / tot) })
+      }
     }
     let y = TOP
     A.forEach((m, i) => { m.y = y; m.h = D[i]; y += D[i] + G })
