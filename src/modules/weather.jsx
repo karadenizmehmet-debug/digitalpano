@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 export const meta = { label: 'Hava Durumu', minH: 150, def: {"cond": "partly", "t": 12, "hi": 16, "lo": 10, "live": true}, fields: [["live", "check", "Canlı veri çek"], ["cond", "sel", "Durum (elle)", "Canlı veri alınamazsa kullanılır"], ["t", "num", "Sıcaklık °C (elle)"], ["hi", "num", "En yüksek °C"], ["lo", "num", "En düşük °C"]] }
 const WC = { sun: 'Güneşli', partly: 'Parçalı bulutlu', cloud: 'Bulutlu', rain: 'Yağmurlu', wind: 'Rüzgarlı', snow: 'Karlı', storm: 'Gök gürültülü', fog: 'Sisli' }
 const CL = 'M18 44h28a9 9 0 0 0 .8-18A13 13 0 0 0 21 28a8 8 0 0 0-3 16z'
@@ -17,32 +16,8 @@ function Icon({ c }) {
   }
   return <svg viewBox="0 0 64 64">{I[c] || I.cloud}</svg>
 }
-// Open-Meteo: anahtarsız, ücretsiz. Yalnızca Firebase Hosting'de (internet erişimi olan yerde) çalışır.
-function useLive(city, on) {
-  const [X, setX] = useState(null)
-  useEffect(() => {
-    if (!on || !city) return
-    let dead = false
-    const load = async () => {
-      try {
-        const P = city.split(/[/,-]/).map((s) => s.trim()).filter(Boolean), q = P[P.length - 1], il = P.length > 1 ? P[0].toLocaleLowerCase('tr') : ''
-        const g = await (await fetch('https://geocoding-api.open-meteo.com/v1/search?name=' + encodeURIComponent(q) + '&count=10&language=tr&country_code=TR')).json()
-        const r = g.results || [], p = r.find((x) => il && String(x.admin1 || '').toLocaleLowerCase('tr').includes(il)) || r[0]
-        if (!p) throw 0
-        const w = await (await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${p.latitude}&longitude=${p.longitude}&current=temperature_2m,weather_code,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=1`)).json()
-        const c = w.current.weather_code
-        const cond = c < 4 && w.current.wind_speed_10m >= 35 ? 'wind' : c < 2 ? 'sun' : c === 2 ? 'partly' : c === 3 ? 'cloud' : c < 50 ? 'fog' : c < 70 ? 'rain' : c < 80 ? 'snow' : c < 85 ? 'rain' : c < 90 ? 'snow' : 'storm'
-        if (!dead) setX({ c: cond, t: Math.round(w.current.temperature_2m), hi: Math.round(w.daily.temperature_2m_max[0]), lo: Math.round(w.daily.temperature_2m_min[0]) })
-      } catch { if (!dead) setX(null) }
-    }
-    load()
-    const id = setInterval(load, 30 * 6e4)
-    return () => { dead = true; clearInterval(id) }
-  }, [city, on])
-  return X
-}
-export default function Weather({ data, cfg }) {
-  const live = useLive(cfg.city, data.live !== false)
+export default function Weather({ data, cfg, wx }) {
+  const live = wx
   const v = live || { c: data.cond, t: data.t, hi: data.hi, lo: data.lo }
   return (
     <div className="wt">

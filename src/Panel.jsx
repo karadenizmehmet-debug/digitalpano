@@ -300,6 +300,12 @@ export default function Panel({ cfg }) {
           <div className="p-fld"><label>Slogan</label><input value={draft.slogan || ''} onChange={(e) => set({ slogan: e.target.value })} /></div>
           <div className="p-fld"><label>Şehir (hava durumu için)</label><input value={draft.city || ''} onChange={(e) => set({ city: e.target.value })} /><small>Örn: Konya / Akşehir</small></div>
           <div className="p-fld"><label>Kayan duyurular</label><textarea rows={5} value={draft.ticker || ''} onChange={(e) => set({ ticker: e.target.value })} /><small>Her satır ayrı duyuru</small></div>
+          <div className="p-fld"><label>Hava efekti</label>
+            <select value={draft.fx || 'auto'} onChange={(e) => set({ fx: e.target.value })}>
+              {[['auto', 'Otomatik (hava durumuna göre)'], ['off', 'Kapalı'], ['rain', 'Yağmur'], ['snow', 'Kar'], ['wind', 'Rüzgar'], ['storm', 'Fırtına'], ['fog', 'Sis']].map(([a, b]) => <option key={a} value={a}>{b}</option>)}
+            </select>
+            <small>Otomatik: yağmur, kar, rüzgar, fırtına veya sis varken panoda efekt gösterilir. Diğerlerini deneme için seçebilirsiniz.</small>
+          </div>
           <div className="p-fld"><label>Gece modu</label>
             <select value={draft.nmMode || 'auto'} onChange={(e) => set({ nmMode: e.target.value })}>
               <option value="auto">Otomatik (ders saatlerine göre)</option>

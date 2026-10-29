@@ -9,6 +9,8 @@ import { isNight } from './lib/night.js'
 import { MON, p2 } from './lib/util.js'
 import Confetti from './lib/Confetti.jsx'
 import { loadImage } from './lib/firebase.js'
+import { useLive } from './lib/weather.js'
+import Fx, { FX_KINDS } from './lib/Fx.jsx'
 
 // Pano 1600x900'lük sabit bir sahnedir; ekrana sığacak şekilde ölçeklenir.
 function useImg(d) {
@@ -59,10 +61,15 @@ export default function App() {
     return () => { removeEventListener('resize', f); ro && ro.disconnect(); clearTimeout(t) }
   }, [isPanel])
 
+  const wmod = cfg.mods.find((m) => m.type === 'weather' && m.active)
+  const wx = useLive(cfg.city, !isPanel && !!wmod && wmod.data.live !== false)
+  const cond = wx ? wx.c : wmod?.data.cond
+  const fxMode = cfg.fx || 'auto'
+  const fxKind = isPanel || fxMode === 'off' ? '' : (fxMode === 'auto' ? cond : fxMode)
   const sp = isPanel ? null : specialVisible(cfg.sd, now)
   const spImg = useImg(sp)
   const night = !isPanel && !(cfg.sd || []).some((d) => d.now) && isNight(cfg, now)
-  if (isPanel) return <Panel cfg={cfg} />
+  if (isPanel) return <Panel cfg={cfg} wx={wx} />
 
   const sl = [cfg.slogan, cfg.city, cfg.url].filter(Boolean).join('  •  ')
   const tk = String(cfg.ticker || '').split('\n').filter((x) => x.trim())
@@ -90,11 +97,12 @@ export default function App() {
               style={{ left: m.x, top: m.y, width: m.w, height: m.h, '--fs': (m.fs || 100) / 100, '--c': m.color }}>
               {title && <div className="h">{m.title}</div>}
               <div className="b" style={m.type === 'slides' ? { padding: 0 } : undefined}>
-                {R ? <R.Component data={m.data} now={now} T={T} cfg={cfg} /> : <div className="ln">Bilinmeyen modül: {m.type}</div>}
+                {R ? <R.Component data={m.data} now={now} T={T} cfg={cfg} wx={wx} /> : <div className="ln">Bilinmeyen modül: {m.type}</div>}
               </div>
             </div>
           )
         })}
+        {FX_KINDS.includes(fxKind) && <Fx kind={fxKind} />}
         {sp && (
           <div className={'ovl' + (spImg ? ' im' : '')} style={{ '--f': (sp.fs || 100) / 100 }}>
             {spImg ? <img src={spImg} /> : <><b>{sp.title}</b><span>{sp.sub}</span></>}
