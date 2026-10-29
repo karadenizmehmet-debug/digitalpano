@@ -325,6 +325,10 @@ export default function Panel({ cfg }) {
       {msg && <div className="p-toast" onClick={() => setMsg('')}>{msg}</div>}
       {tab === 'home' && (
         <div className="p-body">
+          <div className="p-links">
+            <a className="p-lk" href="#/">📺 Panoyu aç</a>
+            <a className="p-lk" href="#/panel" onClick={logout}>🚪 Çıkış</a>
+          </div>
           <div className="p-card p-pad">
             <div className="p-h">📢 Kayan duyurular</div>
             <textarea rows={5} value={draft.ticker || ''} onChange={(e) => set({ ticker: e.target.value })} placeholder="Her satır ayrı bir duyuru" />
