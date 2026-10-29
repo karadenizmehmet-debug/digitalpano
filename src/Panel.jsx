@@ -13,7 +13,7 @@ const DAYS = ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma']
 const COND = { sun: 'Güneşli', partly: 'Parçalı bulutlu', cloud: 'Bulutlu', rain: 'Yağmurlu', wind: 'Rüzgarlı', snow: 'Karlı', storm: 'Gök gürültülü', fog: 'Sisli' }
 
 
-const ICO = { clock: '🕒', text: '📝', table: '📋', slides: '🖼️', bell: '🔔', weather: '🌤️', duty: '🧑‍🏫', days: '📅', news: '📰', menu: '🍽️', bday: '🎂', cnt: '⏳', cd: '🗓️', pray: '🕌', quote: '💬' }
+const ICO = { schedule: '🗓️', clock: '🕒', text: '📝', table: '📋', slides: '🖼️', bell: '🔔', weather: '🌤️', duty: '🧑‍🏫', days: '📅', news: '📰', menu: '🍽️', bday: '🎂', cnt: '⏳', cd: '🗓️', pray: '🕌', quote: '💬' }
 const TONES = { r: 'Kırmızı', b: 'Mavi', g: 'Yeşil', o: 'Turuncu', p: 'Mor', k: 'Siyah' }
 
 // Görseli küçültüp JPEG'e çevirir (Firestore belgesi 1 MB'ı geçmesin)
@@ -104,6 +104,7 @@ function Field({ f, data, set, say, root, setRoot }) {
   else if (kind === 'num') input = <input type="number" value={v ?? ''} onChange={(e) => set(k, e.target.value === '' ? '' : +e.target.value)} />
   else if (kind === 'dt') input = <input type="datetime-local" value={v ?? ''} onChange={(e) => set(k, e.target.value)} />
   else if (kind === 'sel') input = <select value={v} onChange={(e) => set(k, e.target.value)}>{Object.entries(COND).map(([a, b]) => <option key={a} value={a}>{b}</option>)}</select>
+  else if (kind === 'sched') input = <SchedEditor data={data} set={set} />
   else if (kind === 'slides') input = <SlidesEditor value={v} set={(x) => set(k, x)} say={say} />
   else if (kind === 'dgrid') {
     const P = rows({ rows: data.places }), g = data.g || {}
@@ -129,6 +130,72 @@ function Field({ f, data, set, say, root, setRoot }) {
     } catch { say('Panoya erişim izni verilmedi. Kutuya uzun basıp Yapıştır deyin') }
   }}>📋 Excel/panodan satır ekle</button>
   return <div className="p-fld"><label>{label}</label>{input}{pasteBtn}{hint && <small>{hint}</small>}</div>
+}
+
+function SchedEditor({ data, set }) {
+  const [sec, setSec] = useState('cls'), [c, setC] = useState(''), [ln, setLn] = useState(''), [lk, setLk] = useState('')
+  const [pc, setPc] = useState(''), [pd, setPd] = useState(0)
+  const classes = data.classes || [], lessons = data.lessons || [], N = Math.max(1, Math.min(12, data.n || 8))
+  const prog = data.prog || {}
+  const cur = classes.includes(pc) ? pc : classes[0]
+  const addCls = () => {
+    const a = c.split(/[,\n]/).map((x) => x.trim()).filter((x) => x && !classes.includes(x))
+    if (a.length) set('classes', [...classes, ...a]); setC('')
+  }
+  const delCls = (x) => { set('classes', classes.filter((y) => y !== x)); const p = { ...prog }; delete p[x]; set('prog', p) }
+  const addLes = () => {
+    const n = ln.trim(); if (!n || lessons.some((x) => x.n === n)) return
+    set('lessons', [...lessons, { n, k: lk.trim() }]); setLn(''); setLk('')
+  }
+  const delLes = (n) => {
+    set('lessons', lessons.filter((x) => x.n !== n))
+    const p = {}
+    for (const k of Object.keys(prog)) p[k] = (prog[k] || []).map((d) => (d || []).map((x) => (x === n ? '' : x)))
+    set('prog', p)
+  }
+  const day = (cl, d) => { const x = (prog[cl] || [])[d] || []; return Array.from({ length: N }, (_, i) => x[i] || '') }
+  const setCell = (cl, d, h, v) => {
+    const all = Array.from({ length: 5 }, (_, i) => day(cl, i)); all[d][h] = v
+    set('prog', { ...prog, [cl]: all })
+  }
+  const copyDay = (cl, d) => { const all = Array.from({ length: 5 }, () => day(cl, d)); set('prog', { ...prog, [cl]: all }) }
+  return (
+    <div className="p-sched">
+      <div className="p-sub">{[['cls', '1. Sınıflar'], ['les', '2. Dersler'], ['prg', '3. Program']].map(([k, l]) => <button key={k} className={sec === k ? 'p-on' : ''} onClick={() => setSec(k)}>{l}</button>)}</div>
+      {sec === 'cls' && (
+        <div className="p-fld">
+          <label>Sınıf ekle</label>
+          <div className="p-slr"><input value={c} placeholder="Örn: 5/A (virgülle birden çok)" onChange={(e) => setC(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && addCls()} /><button className="p-pri" onClick={addCls}>Ekle</button></div>
+          <div className="p-chips">{classes.map((x) => <span key={x} className="p-chip">{x}<button onClick={() => delCls(x)}>×</button></span>)}</div>
+          {!classes.length && <small>Önce sınıfları ekleyin: 5/A, 5/B, 6/A…</small>}
+        </div>
+      )}
+      {sec === 'les' && (
+        <div className="p-fld">
+          <label>Ders ekle</label>
+          <input value={ln} placeholder="Ders adı (Matematik)" onChange={(e) => setLn(e.target.value)} />
+          <div className="p-slr"><input value={lk} placeholder="Kısaltma (Mat) – boş bırakılabilir" onChange={(e) => setLk(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && addLes()} /><button className="p-pri" onClick={addLes}>Ekle</button></div>
+          <div className="p-chips">{lessons.map((x) => <span key={x.n} className="p-chip">{x.n}{x.k ? ' (' + x.k + ')' : ''}<button onClick={() => delLes(x.n)}>×</button></span>)}</div>
+          <small>Kısaltma yazarsanız panoda küçük tabloda o görünür.</small>
+        </div>
+      )}
+      {sec === 'prg' && (!classes.length || !lessons.length
+        ? <p className="p-hint">Program için önce en az bir sınıf ve bir ders ekleyin.</p>
+        : <div className="p-fld">
+          <label>Sınıf</label>
+          <select value={cur} onChange={(e) => setPc(e.target.value)}>{classes.map((x) => <option key={x}>{x}</option>)}</select>
+          <div className="p-sub">{['Pzt', 'Sal', 'Çar', 'Per', 'Cum'].map((d, i) => <button key={d} className={pd === i ? 'p-on' : ''} onClick={() => setPd(i)}>{d}</button>)}</div>
+          {day(cur, pd).map((v, h) => (
+            <div key={h} className="p-hr"><span>{h + 1}. Ders</span>
+              <select value={v} onChange={(e) => setCell(cur, pd, h, e.target.value)}>
+                <option value="">— boş —</option>
+                {lessons.map((x) => <option key={x.n} value={x.n}>{x.n}</option>)}
+              </select>
+            </div>))}
+          <button onClick={() => copyDay(cur, pd)}>Bu günü tüm günlere kopyala</button>
+        </div>)}
+    </div>
+  )
 }
 
 function Tiles({ mods, go }) {
@@ -349,11 +416,6 @@ export default function Panel({ cfg }) {
             <div className="p-h">📢 Kayan duyurular</div>
             <textarea rows={5} value={draft.ticker || ''} onChange={(e) => set({ ticker: e.target.value })} placeholder="Her satır ayrı bir duyuru" />
             <small>Belirli günlerde göstermek için satır sonuna | ve tarih ekleyin: Veli toplantısı | 03.11</small>
-          </div>
-          <div className="p-card p-pad">
-            <div className="p-h">🚨 Acil duyuru</div>
-            <p className="p-st">{draft.al?.on ? 'Şu an AÇIK: ' + alertStatus(draft.al) : 'Kapalı'}</p>
-            <button className={draft.al?.on ? 'p-danger' : 'p-pri'} onClick={() => setTab('al')}>{draft.al?.on ? 'Yönet / kapat' : 'Acil duyuru hazırla'}</button>
           </div>
           <div className="p-h2">Modülü düzenle</div>
           <Tiles mods={draft.mods} go={goMod} />
