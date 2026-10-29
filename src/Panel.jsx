@@ -13,14 +13,14 @@ function Field({ f, data, set }) {
   const v = data[k]
   let input
   if (kind === 'area') input = <textarea rows={6} value={v ?? ''} onChange={(e) => set(k, e.target.value)} />
-  else if (kind === 'check') return <label className="chk"><input type="checkbox" checked={!!v} onChange={(e) => set(k, e.target.checked)} /> {label}</label>
+  else if (kind === 'check') return <label className="p-chk"><input type="checkbox" checked={!!v} onChange={(e) => set(k, e.target.checked)} /> {label}</label>
   else if (kind === 'num') input = <input type="number" value={v ?? ''} onChange={(e) => set(k, e.target.value === '' ? '' : +e.target.value)} />
   else if (kind === 'dt') input = <input type="datetime-local" value={v ?? ''} onChange={(e) => set(k, e.target.value)} />
   else if (kind === 'sel') input = <select value={v} onChange={(e) => set(k, e.target.value)}>{Object.entries(COND).map(([a, b]) => <option key={a} value={a}>{b}</option>)}</select>
   else if (kind === 'dgrid') {
     const P = rows({ rows: data.places }), g = data.g || {}
     input = (
-      <div className="dg">
+      <div className="p-dg">
         {DAYS.map((d, i) => (
           <div key={d}><b>{d}</b>
             {P.map((p, j) => (
@@ -32,7 +32,7 @@ function Field({ f, data, set }) {
       </div>
     )
   } else input = <input type="text" value={v ?? ''} onChange={(e) => set(k, e.target.value)} />
-  return <div className="fld"><label>{label}</label>{input}{hint && <small>{hint}</small>}</div>
+  return <div className="p-fld"><label>{label}</label>{input}{hint && <small>{hint}</small>}</div>
 }
 
 function ModEditor({ m, upd, del, move }) {
@@ -40,26 +40,26 @@ function ModEditor({ m, upd, del, move }) {
   const [open, setOpen] = useState(false)
   const setData = (k, v) => upd({ data: { ...m.data, [k]: v } })
   return (
-    <div className={'card' + (m.active ? '' : ' off')}>
-      <div className="row" onClick={() => setOpen(!open)}>
-        <b>{m.title || R?.label}</b><span className="tag">{R?.label || m.type}</span>
-        <label className="chk" onClick={(e) => e.stopPropagation()}>
+    <div className={'p-card' + (m.active ? '' : ' p-off')}>
+      <div className="p-row" onClick={() => setOpen(!open)}>
+        <b>{m.title || R?.label}</b><span className="p-tag">{R?.label || m.type}</span>
+        <label className="p-chk" onClick={(e) => e.stopPropagation()}>
           <input type="checkbox" checked={m.active} onChange={(e) => upd({ active: e.target.checked })} /> Açık
         </label>
       </div>
       {open && (
-        <div className="body">
-          <div className="fld"><label>Başlık</label><input value={m.title || ''} onChange={(e) => upd({ title: e.target.value })} /></div>
-          <label className="chk"><input type="checkbox" checked={m.showTitle !== false && (m.type !== 'slides' || m.showTitle)} onChange={(e) => upd({ showTitle: e.target.checked })} /> Başlığı göster</label>
+        <div className="p-body">
+          <div className="p-fld"><label>Başlık</label><input value={m.title || ''} onChange={(e) => upd({ title: e.target.value })} /></div>
+          <label className="p-chk"><input type="checkbox" checked={m.showTitle !== false && (m.type !== 'slides' || m.showTitle)} onChange={(e) => upd({ showTitle: e.target.checked })} /> Başlığı göster</label>
           {(R?.fields || []).map((f) => <Field key={f[0]} f={f} data={m.data} set={setData} />)}
-          <div className="fld"><label>Yazı boyutu (%)</label><input type="number" value={m.fs || 100} onChange={(e) => upd({ fs: +e.target.value })} /></div>
-          <div className="fld"><label>Renk</label><input type="color" value={m.color || '#0f9b8e'} onChange={(e) => upd({ color: e.target.value })} /></div>
-          <div className="pos">
-            {['x', 'y', 'w', 'h'].map((k) => <div key={k} className="fld"><label>{k.toUpperCase()}</label><input type="number" value={m[k]} onChange={(e) => upd({ [k]: +e.target.value })} /></div>)}
+          <div className="p-fld"><label>Yazı boyutu (%)</label><input type="number" value={m.fs || 100} onChange={(e) => upd({ fs: +e.target.value })} /></div>
+          <div className="p-fld"><label>Renk</label><input type="color" value={m.color || '#0f9b8e'} onChange={(e) => upd({ color: e.target.value })} /></div>
+          <div className="p-pos">
+            {['x', 'y', 'w', 'h'].map((k) => <div key={k} className="p-fld"><label>{k.toUpperCase()}</label><input type="number" value={m[k]} onChange={(e) => upd({ [k]: +e.target.value })} /></div>)}
           </div>
-          <div className="btns">
+          <div className="p-btns">
             <button onClick={() => move(-1)}>↑ Yukarı</button><button onClick={() => move(1)}>↓ Aşağı</button>
-            <button className="danger" onClick={() => confirm('Bu modül silinsin mi?') && del()}>Sil</button>
+            <button className="p-danger" onClick={() => confirm('Bu modül silinsin mi?') && del()}>Sil</button>
           </div>
         </div>
       )}
@@ -111,39 +111,39 @@ export default function Panel({ cfg }) {
   }
   const pickTheme = (i) => { const t = THEMES[i]; set({ theme: i, bg: t[1], c1: t[2], c2: t[3], c3: t[4] }) }
 
-  if (user === undefined) return <div className="pn"><p>Yükleniyor…</p></div>
+  if (user === undefined) return <div className="pnl"><p>Yükleniyor…</p></div>
   if (!user) return (
-    <div className="pn">
-      <form className="login" onSubmit={doLogin}>
+    <div className="pnl">
+      <form className="p-login" onSubmit={doLogin}>
         <h2>Pano Paneli</h2>
         <input type="email" placeholder="E-posta" value={em} onChange={(e) => setEm(e.target.value)} autoComplete="username" />
         <input type="password" placeholder="Şifre" value={pw} onChange={(e) => setPw(e.target.value)} autoComplete="current-password" />
-        <button className="pri">Giriş</button>
-        {msg && <p className="err">{msg}</p>}
+        <button className="p-pri">Giriş</button>
+        {msg && <p className="p-err">{msg}</p>}
         <a href="#/">← Panoya dön</a>
       </form>
     </div>
   )
-  if (!draft) return <div className="pn"><p>Yükleniyor…</p></div>
+  if (!draft) return <div className="pnl"><p>Yükleniyor…</p></div>
 
   return (
-    <div className="pn">
-      <div className="top">
+    <div className="pnl">
+      <div className="p-top">
         <b>Pano Paneli</b>
         <span><a href="#/">Panoyu aç</a> · <a href="#/panel" onClick={logout}>Çıkış</a></span>
       </div>
-      <div className="tabs">
-        {[['mods', 'Modüller'], ['gen', 'Genel'], ['bak', 'Yedek']].map(([k, l]) => <button key={k} className={tab === k ? 'on' : ''} onClick={() => setTab(k)}>{l}</button>)}
+      <div className="p-tabs">
+        {[['mods', 'Modüller'], ['gen', 'Genel'], ['bak', 'Yedek']].map(([k, l]) => <button key={k} className={tab === k ? 'p-on' : ''} onClick={() => setTab(k)}>{l}</button>)}
       </div>
       {tab === 'gen' && (
-        <div className="body">
-          <div className="fld"><label>Okul adı</label><input value={draft.name || ''} onChange={(e) => set({ name: e.target.value })} /></div>
-          <div className="fld"><label>Slogan</label><input value={draft.slogan || ''} onChange={(e) => set({ slogan: e.target.value })} /></div>
-          <div className="fld"><label>Şehir (hava durumu için)</label><input value={draft.city || ''} onChange={(e) => set({ city: e.target.value })} /><small>Örn: Konya / Akşehir</small></div>
-          <div className="fld"><label>Kayan duyurular</label><textarea rows={5} value={draft.ticker || ''} onChange={(e) => set({ ticker: e.target.value })} /><small>Her satır ayrı duyuru</small></div>
-          <div className="fld"><label>Tema</label>
-            <div className="themes">{THEMES.map((t, i) => (
-              <button key={t[0]} className={draft.theme === i ? 'on' : ''} onClick={() => pickTheme(i)}>
+        <div className="p-body">
+          <div className="p-fld"><label>Okul adı</label><input value={draft.name || ''} onChange={(e) => set({ name: e.target.value })} /></div>
+          <div className="p-fld"><label>Slogan</label><input value={draft.slogan || ''} onChange={(e) => set({ slogan: e.target.value })} /></div>
+          <div className="p-fld"><label>Şehir (hava durumu için)</label><input value={draft.city || ''} onChange={(e) => set({ city: e.target.value })} /><small>Örn: Konya / Akşehir</small></div>
+          <div className="p-fld"><label>Kayan duyurular</label><textarea rows={5} value={draft.ticker || ''} onChange={(e) => set({ ticker: e.target.value })} /><small>Her satır ayrı duyuru</small></div>
+          <div className="p-fld"><label>Tema</label>
+            <div className="p-themes">{THEMES.map((t, i) => (
+              <button key={t[0]} className={draft.theme === i ? 'p-on' : ''} onClick={() => pickTheme(i)}>
                 <i style={{ background: t[1] }} /><i style={{ background: t[2] }} /><i style={{ background: t[3] }} />{t[0]}
               </button>))}
             </div>
@@ -151,9 +151,9 @@ export default function Panel({ cfg }) {
         </div>
       )}
       {tab === 'mods' && (
-        <div className="body">
+        <div className="p-body">
           {draft.mods.map((m, i) => <ModEditor key={m.id} m={m} upd={(p) => updMod(i, p)} del={() => delMod(i)} move={(s) => moveMod(i, s)} />)}
-          <div className="fld"><label>Yeni modül ekle</label>
+          <div className="p-fld"><label>Yeni modül ekle</label>
             <select value="" onChange={(e) => e.target.value && addMod(e.target.value)}>
               <option value="">Seçin…</option>
               {Object.values(registry).map((R) => <option key={R.type} value={R.type}>{R.label}</option>)}
@@ -162,15 +162,15 @@ export default function Panel({ cfg }) {
         </div>
       )}
       {tab === 'bak' && (
-        <div className="body">
+        <div className="p-body">
           <p>Ayarları dosya olarak indirip saklayabilir, gerektiğinde geri yükleyebilirsiniz.</p>
-          <div className="btns"><button onClick={download}>Yedeği indir</button>
-            <label className="fbtn">Yedeği yükle<input type="file" accept="application/json" hidden onChange={upload} /></label></div>
+          <div className="p-btns"><button onClick={download}>Yedeği indir</button>
+            <label className="p-fbtn">Yedeği yükle<input type="file" accept="application/json" hidden onChange={upload} /></label></div>
         </div>
       )}
-      <div className="bar">
-        {msg && <span className="m">{msg}</span>}
-        <button className="pri" onClick={publish}>Yayınla</button>
+      <div className="p-bar">
+        {msg && <span className="p-m">{msg}</span>}
+        <button className="p-pri" onClick={publish}>Yayınla</button>
       </div>
     </div>
   )

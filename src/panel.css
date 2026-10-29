@@ -1,33 +1,36 @@
 body.panelbody{overflow:auto;background:#eef2f6;padding:0}
-.pn{max-width:720px;margin:0 auto;padding:12px 14px 90px;font:16px/1.4 "Manrope","Segoe UI",system-ui,sans-serif;color:#0f2433}
-.pn .top{display:flex;justify-content:space-between;align-items:center;padding:8px 0;font-size:18px}
-.pn a{color:#0b6fb3}
-.pn .tabs{display:flex;gap:6px;margin:6px 0 12px}
-.pn .tabs button{flex:1;padding:10px;border:0;border-radius:10px;background:#dde6ee;font:inherit;font-weight:700}
-.pn .tabs button.on{background:#0f9b8e;color:#fff}
-.pn .card{background:#fff;border-radius:14px;margin-bottom:10px;box-shadow:0 2px 8px #0a2a4a1a}
-.pn .card.off{opacity:.55}
-.pn .card .row{display:flex;align-items:center;gap:8px;padding:12px 14px;cursor:pointer;flex-wrap:wrap}
-.pn .tag{font-size:12px;background:#e8f1f7;border-radius:8px;padding:2px 8px;color:#35566f}
-.pn .row .chk{margin-left:auto}
-.pn .card .body{padding:0 14px 14px;border-top:1px solid #e6edf3}
-.pn .fld{margin:10px 0;display:flex;flex-direction:column;gap:4px}
-.pn .fld label{font-weight:700;font-size:14px}
-.pn .fld small{color:#5d7083}
-.pn input[type=text],.pn input[type=email],.pn input[type=password],.pn input[type=number],.pn input[type=datetime-local],.pn input:not([type]),.pn textarea,.pn select{width:100%;padding:10px;border:1px solid #cdd8e2;border-radius:10px;font:inherit;background:#fff}
-.pn .chk{display:flex;align-items:center;gap:8px;font-size:15px}
-.pn .pos{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.pn .btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-.pn button,.pn .fbtn{padding:10px 14px;border:0;border-radius:10px;background:#dde6ee;font:inherit;font-weight:700;cursor:pointer}
-.pn button.danger{background:#fde2e4;color:#b3262e}
-.pn button.pri{background:#0f9b8e;color:#fff}
-.pn .bar{position:fixed;left:0;right:0;bottom:0;background:#fff;box-shadow:0 -2px 12px #0002;padding:10px 14px;display:flex;gap:10px;align-items:center;justify-content:flex-end}
-.pn .bar .m{flex:1;font-size:14px}
-.pn .login{max-width:360px;margin:60px auto;display:flex;flex-direction:column;gap:10px}
-.pn .err{color:#b3262e}
-.pn .themes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.pn .themes button{display:flex;align-items:center;gap:4px;border:2px solid transparent}
-.pn .themes button.on{border-color:#0f9b8e}
-.pn .themes i{width:16px;height:16px;border-radius:50%;display:inline-block}
-.pn .dg{display:grid;gap:10px}
-.pn .dg div{display:flex;flex-direction:column;gap:4px}
+.pnl{max-width:720px;margin:0 auto;padding:12px 14px 90px;font:16px/1.4 "Manrope","Segoe UI",system-ui,sans-serif;color:#0f2433}
+.pnl .p-top{display:flex;justify-content:space-between;align-items:center;padding:8px 0;font-size:18px}
+.pnl a{color:#0b6fb3}
+.pnl .p-tabs{display:flex;gap:6px;margin:6px 0 12px}
+.pnl .p-tabs button{flex:1;padding:10px;border:0;border-radius:10px;background:#dde6ee;font:inherit;font-weight:700}
+.pnl .p-tabs button.p-on{background:#0f9b8e;color:#fff}
+.pnl .p-card{background:#fff;border-radius:14px;margin-bottom:10px;box-shadow:0 2px 8px #0a2a4a1a}
+.pnl .p-card.p-off{opacity:.55}
+.pnl .p-card .row{display:flex;align-items:center;gap:8px;padding:12px 14px;cursor:pointer;flex-wrap:wrap}
+.pnl .p-tag{font-size:12px;background:#e8f1f7;border-radius:8px;padding:2px 8px;color:#35566f}
+.pnl .p-row .chk{margin-left:auto}
+.pnl .p-card .body{padding:0 14px 14px;border-top:1px solid #e6edf3}
+.pnl .p-fld{margin:10px 0;display:flex;flex-direction:column;gap:4px}
+.pnl .p-fld label{font-weight:700;font-size:14px}
+.pnl .p-fld small{color:#5d7083}
+.pnl input[type=text],.pnl input[type=email],.pnl input[type=password],.pnl input[type=number],.pnl input[type=datetime-local],.pnl input:not([type]),.pnl textarea,.pnl select{width:100%;padding:10px;border:1px solid #cdd8e2;border-radius:10px;font:inherit;background:#fff}
+.pnl .p-chk{display:flex;align-items:center;gap:8px;font-size:15px}
+.pnl .p-pos{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.pnl .p-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.pnl button,.pnl .p-fbtn{padding:10px 14px;border:0;border-radius:10px;background:#dde6ee;font:inherit;font-weight:700;cursor:pointer}
+.pnl button.danger{background:#fde2e4;color:#b3262e}
+.pnl button.pri{background:#0f9b8e;color:#fff}
+.pnl .p-bar{position:fixed;left:0;right:0;bottom:0;background:#fff;box-shadow:0 -2px 12px #0002;padding:10px 14px;display:flex;gap:10px;align-items:center;justify-content:flex-end}
+.pnl .p-bar .m{flex:1;font-size:14px}
+.pnl .p-login{max-width:360px;margin:60px auto;display:flex;flex-direction:column;gap:10px}
+.pnl .p-err{color:#b3262e}
+.pnl .p-themes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pnl .p-themes button{display:flex;align-items:center;gap:4px;border:2px solid transparent}
+.pnl .p-themes button.p-on{border-color:#0f9b8e}
+.pnl .p-themes i{width:16px;height:16px;border-radius:50%;display:inline-block}
+.pnl .p-dg{display:grid;gap:10px}
+.pnl .p-dg div{display:flex;flex-direction:column;gap:4px}
+.pnl,.pnl *{letter-spacing:normal;text-transform:none}
+.pnl{font-size:16px}
+.pnl input[type=checkbox]{width:20px;height:20px;flex:none}
