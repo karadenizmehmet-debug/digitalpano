@@ -445,19 +445,19 @@ function AutoBackups({ onLoad, say }) {
 }
 
 function ModList({ mods, go, toggle, pre = [] }) {
-  return <div className="p-mlist">{pre.map((r) => (
-    <div key={r.t} className="p-mrow" onClick={r.go}>
-      <span className="p-mi">{r.i}</span>
-      <span className="p-nm"><b>{r.t}</b><small>{r.s}</small></span>
-      <span className="p-ar">›</span>
+  return <div className="p-mgrid">{pre.map((r) => (
+    <div key={r.t} className="p-mt" onClick={r.go}>
+      <span className="p-mti">{r.i}</span>
+      <b>{r.t}</b>
+      <small>Aç ›</small>
     </div>))}{mods.map((m, i) => (
-    <div key={m.id} className={'p-mrow' + (m.active ? '' : ' p-off')} onClick={() => go(m.id)}>
-      <span className="p-mi">{ICO[m.type] || '🧩'}</span>
-      <span className="p-nm"><b>{m.title || registry[m.type]?.label}</b><small>{registry[m.type]?.label || m.type}{m.active ? '' : ' · kapalı'}</small></span>
+    <div key={m.id} className={'p-mt' + (m.active ? '' : ' p-off')} onClick={() => go(m.id)}>
+      <span className="p-mti">{ICO[m.type] || '🧩'}</span>
+      <b>{m.title || registry[m.type]?.label}</b>
       <label className="p-sw" onClick={(e) => e.stopPropagation()}>
         <input type="checkbox" checked={m.active} onChange={(e) => toggle(i, e.target.checked)} /><i />
       </label>
-      <span className="p-ar">›</span>
+      <small>{m.active ? 'Aktif' : 'Pasif'}</small>
     </div>))}</div>
 }
 

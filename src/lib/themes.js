@@ -6,4 +6,8 @@ export const THEMES = [
   ['Gece (koyu)', '#0a0f24', '#8b6cff', '#0d1530', '#22d3ee'],
   ['Sade', '#f2f2ef', '#e11d48', '#111827', '#e11d48'],
   ['Gün batımı', '#fdf1e3', '#d9480f', '#6b1d3a', '#ffc857'],
+  ['Lavanta', '#f1eefb', '#6b46c1', '#2b1b5e', '#f2b84b'],
+  ['Bordo', '#f6eef0', '#8e1b3a', '#3b0f1c', '#e0b24a'],
+  ['Turkuaz', '#e8f5f5', '#0f8b8d', '#073b4c', '#ffd166'],
+  ['Grafit', '#eceff1', '#37474f', '#111a1f', '#ff9f1c'],
 ]
