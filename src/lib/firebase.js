@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app'
-import { initializeFirestore, persistentLocalCache, persistentSingleTabManager, doc, onSnapshot, setDoc, getDoc, deleteDoc } from 'firebase/firestore'
+import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager, doc, onSnapshot, setDoc, getDoc, getDocFromServer, deleteDoc } from 'firebase/firestore'
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth'
 
 // Web yapılandırması gizli değildir (güvenlik Firestore kurallarındadır).
@@ -14,8 +14,9 @@ const cfg = {
 const app = initializeApp(cfg)
 // Ayarlar cihazda saklanır: internet kesilse ya da ekran yeniden başlasa son ayarlarla açılır
 let db
-try { db = initializeFirestore(app, { localCache: persistentLocalCache({ tabManager: persistentSingleTabManager() }) }) }
-catch { db = initializeFirestore(app, {}) }
+// Çok sekmeli önbellek: panel ve pano aynı tarayıcıda birlikte açık olabilir. Ağ engelliyse uzun yoklamaya otomatik geçer.
+try { db = initializeFirestore(app, { localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() }), experimentalAutoDetectLongPolling: true }) }
+catch { db = initializeFirestore(app, { experimentalAutoDetectLongPolling: true }) }
 const auth = getAuth(app)
 const ref = doc(db, 'config', 'pano')
 
@@ -24,6 +25,8 @@ const ref = doc(db, 'config', 'pano')
 export const listenConfig = (cb) => onSnapshot(ref, { includeMetadataChanges: true },
   (s) => cb(s.exists() ? s.data() : null, { fromCache: s.metadata.fromCache }),
   (e) => console.warn('Firestore:', e.message))
+// Sunucudan tek seferlik doğrulanmış okuma (önbellek değil). Panel yalnızca bundan sonra düzenlemeye açılır.
+export const fetchServerConfig = async () => { const s = await getDocFromServer(ref); return s.exists() ? s.data() : null }
 export const saveConfig = (data) => setDoc(ref, JSON.parse(JSON.stringify(data)))
 export const login = (email, pw) => signInWithEmailAndPassword(auth, email, pw)
 export const logout = () => signOut(auth)

@@ -418,7 +418,7 @@ function AlertEditor({ al, set }) {
   )
 }
 
-export default function Panel({ cfg, fresh }) {
+export default function Panel({ cfg, fresh, err }) {
   const [user, setUser] = useState(undefined)
   const [draft, setDraft] = useState(null)
   const [msg, setMsg] = useState('')
@@ -498,7 +498,7 @@ export default function Panel({ cfg, fresh }) {
       </form>
     </div>
   )
-  if (!draft) return <div className="pnl"><p>Ayarlar sunucudan alınıyor…</p>{slow && <p className="p-err">Sunucuya ulaşılamıyor. İnternet bağlantınızı kontrol edin. Kayıtlı ayarlarınız bozulmaması için bağlantı gelene kadar düzenleme açılmaz.</p>}</div>
+  if (!draft) return <div className="pnl"><p>Ayarlar sunucudan alınıyor…</p>{slow && <p className="p-err">Sunucuya ulaşılamıyor. İnternet bağlantınızı kontrol edin. Kayıtlı ayarlarınız bozulmaması için bağlantı gelene kadar düzenleme açılmaz.{err ? ' (Hata: ' + err + ')' : ''}</p>}</div>
 
   return (
     <div className="pnl">
