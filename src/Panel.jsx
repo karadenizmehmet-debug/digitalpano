@@ -67,6 +67,7 @@ function SlideCard({ x, i, upd, mv, del }) {
         <span>{open ? '▴' : '▾'}</span>
       </div>
       {open && <>
+        {img && <input placeholder="Görsel adı" value={x.name || ''} onChange={(ev) => upd(i, { name: ev.target.value })} />}
         {!img && <>
           <input placeholder="Başlık" value={x.t || ''} onChange={(ev) => upd(i, { t: ev.target.value })} />
           <textarea rows={2} placeholder="Alt yazı (isteğe bağlı)" value={x.s || ''} onChange={(ev) => upd(i, { s: ev.target.value })} />
@@ -84,6 +85,7 @@ function SlideCard({ x, i, upd, mv, del }) {
 
 function SlidesEditor({ value, set, say }) {
   const L = value || []
+  const [nm, setNm] = useState('')
   const upd = (i, p) => set(L.map((x, k) => (k === i ? { ...x, ...p } : x)))
   const mv = (i, s) => { const a = [...L], j = i + s; if (j < 0 || j >= a.length) return; [a[i], a[j]] = [a[j], a[i]]; set(a) }
   const del = (i) => {
@@ -97,9 +99,10 @@ function SlidesEditor({ value, set, say }) {
     if (!f) return
     try {
       say('Görsel hazırlanıyor…')
+      setNm('')
       const src = await shrink(f), id = 'i' + Date.now().toString(36)
       await saveImage(id, src)
-      set([...L, { img: id, name: f.name, d: 7, on: isoD(new Date()) }])
+      set([...L, { img: id, name: nm.trim() || f.name, d: 7, on: isoD(new Date()) }])
       say('Görsel yüklendi. Yayınla düğmesine basmayı unutmayın.')
     } catch (er) { say('Görsel yüklenemedi: ' + er.message) }
   }
@@ -108,6 +111,7 @@ function SlidesEditor({ value, set, say }) {
       {L.map((x, i) => <SlideCard key={i} x={x} i={i} upd={upd} mv={mv} del={del} />)}
       <div className="p-btns">
         <button onClick={() => set([...L, { t: 'Duyuru başlığı', s: '', tone: 'b', fs: 100, d: 7, on: isoD(new Date()) }])}>+ Yazılı slayt</button>
+        <input placeholder="Yeni görselin adı (isteğe bağlı)" value={nm} onChange={(e) => setNm(e.target.value)} style={{ flex: '1 1 100%' }} />
         <label className="p-fbtn">+ Görsel<input type="file" accept="image/*" hidden onChange={addImg} /></label>
       </div>
     </div>
@@ -701,7 +705,7 @@ export default function Panel({ cfg, fresh, err }) {
         </div>
       )}
       <nav className="p-nav">
-        {[['home', '🏠', 'Ana sayfa'], ['mods', '🧩', 'Modüller'], ['lay', '🖼️', 'Düzen'], ['al', '🚨', 'Acil'], ['set', '⚙️', 'Ayarlar']].map(([k, i, l]) => <button key={k} className={tab === k ? 'p-on' : ''} onClick={() => { setTab(k); if (k === 'mods') setOpenId(null); window.scrollTo(0, 0) }}><span>{i}</span>{l}</button>)}
+        {[['home', '🏠', 'Ana sayfa'], ['mods', '🧩', 'Modüller'], ['lay', '🖼️', 'Düzen'], ['news', '📰', 'Manşet'], ['al', '🚨', 'Acil'], ['set', '⚙️', 'Ayarlar']].map(([k, i, l]) => <button key={k} className={(k === 'news' ? tab === 'mods' && openId === (draft.mods.find((m) => m.type === 'slides') || {}).id : tab === k && !(k === 'mods' && openId === (draft.mods.find((m) => m.type === 'slides') || {}).id)) ? 'p-on' : ''} onClick={() => { if (k === 'news') { const m = draft.mods.find((x) => x.type === 'slides'); if (m) goMod(m.id); else { setTab('mods'); setOpenId(null) } return } setTab(k); if (k === 'mods') setOpenId(null); window.scrollTo(0, 0) }}><span>{i}</span>{l}</button>)}
       </nav>
     </div>
   )

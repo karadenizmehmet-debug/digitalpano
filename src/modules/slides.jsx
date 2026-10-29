@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { loadImage } from '../lib/firebase.js'
 
 export const meta = {
-  label: 'Görsel slayt', minH: 150, bare: true,
+  label: 'Manşet haber', minH: 150, bare: true,
   def: { imgs: [], sec: 6 },
   fields: [['sec', 'num', 'Geçiş süresi (sn)'], ['fill', 'check', 'Görseli bannera yay (kırpmaz, yatayda esnetir)'], ['imgs', 'slides', 'Görseller ve yazılı duyurular', 'Görseller küçültülerek yüklenir. Sırayla döner']],
 }
