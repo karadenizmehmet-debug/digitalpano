@@ -31,7 +31,7 @@ export function ihoProgram(N = 8, seed = 2026) {
       const m = Math.min(...cand.map((d) => days[d].length)); cand = cand.filter((d) => days[d].length === m)
       days[cand[Math.floor(r() * cand.length)]].push(n)
     })
-    prog[c] = days.map((d) => { for (let i = d.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [d[i], d[j]] = [d[j], d[i]] } return Array.from({ length: N }, (_, i) => d[i] || '') })
+    prog[c] = Object.fromEntries(days.map((d) => { for (let i = d.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [d[i], d[j]] = [d[j], d[i]] } return Array.from({ length: N }, (_, i) => d[i] || '') }).map((x, i) => [i, x]))
   })
   return prog
 }

@@ -163,15 +163,16 @@ function SchedEditor({ data, set }) {
   }
   const delLes = (n) => {
     const p = {}
-    for (const k of Object.keys(prog)) p[k] = (prog[k] || []).map((d) => (d || []).map((x) => (x === n ? '' : x)))
+    for (const k of Object.keys(prog)) p[k] = Object.fromEntries(Object.entries(prog[k] || {}).map(([i, d]) => [i, (d || []).map((x) => (x === n ? '' : x))]))
     set({ lessons: lessons.filter((x) => x.n !== n), prog: p })
   }
   const day = (cl, d) => { const x = (prog[cl] || [])[d] || []; return Array.from({ length: N }, (_, i) => x[i] || '') }
   const setCell = (cl, d, h, v) => {
-    const all = Array.from({ length: 5 }, (_, i) => day(cl, i)); all[d][h] = v
+    const all = {}; for (let i = 0; i < 5; i++) all[i] = day(cl, i)
+    all[d][h] = v
     set('prog', { ...prog, [cl]: all })
   }
-  const copyDay = (cl, d) => { const all = Array.from({ length: 5 }, () => day(cl, d)); set('prog', { ...prog, [cl]: all }) }
+  const copyDay = (cl, d) => { const all = {}; for (let i = 0; i < 5; i++) all[i] = day(cl, d); set('prog', { ...prog, [cl]: all }) }
   return (
     <div className="p-sched">
       <div className="p-fld">
