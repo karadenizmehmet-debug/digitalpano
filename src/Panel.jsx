@@ -509,6 +509,7 @@ function SpecialEditor({ list, set, say }) {
   const L = list || []
   const upd = (i, p) => set(L.map((x, k) => (k === i ? { ...x, ...p } : x)))
   const live = L.findIndex((d) => d.now)
+  const [op, setOp] = useState(null)
   const pickImg = async (i, e) => {
     const f = e.target.files[0]; e.target.value = ''
     if (!f) return
@@ -525,8 +526,19 @@ function SpecialEditor({ list, set, say }) {
   return (
     <div className="p-body">
       <p className="p-hint">Gün gelince pano o gün tam ekran gösterir. Görsel eklenirse yalnızca görsel, eklenmezse yazı gösterilir.</p>
-      {L.map((d, i) => (
-        <div key={d.id || i} className="p-slc">
+      <div className="p-two"><button style={{ gridColumn: '1 / 3' }} onClick={() => { const id = 's' + Date.now().toString(36); set([{ id, date: '', title: '', sub: '', fs: 100, on: true, now: false, conf: false, iv: 0, ds: 30 }, ...L]); setOp(id); window.scrollTo(0, 0) }}>+ Özel gün ekle</button></div>
+      {L.map((d, i) => {
+        const o = op === (d.id || i), ttl = (d.title || '').replace(/\n/g, ' ') || '(başlıksız)'
+        return (
+        <div key={d.id || i} className={'p-slc' + (d.on === false ? ' dead' : '')}>
+          <div className="p-slr" onClick={() => setOp(o ? null : (d.id || i))} style={{ cursor: 'pointer' }}>
+            <span className="p-th p-dt">{d.date || '—'}</span>
+            <span className="p-tx"><b style={{ display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{ttl}</b><small style={{ color: d.now ? '#b4232a' : '#5b6b7b' }}>{d.now ? 'Şu an tam ekranda' : d.on === false ? 'Kapalı' : (d.img || d.imgId ? 'Görsel' : 'Yazı') + (d.conf ? ' · konfeti' : '')}</small></span>
+            <label className="p-sw" onClick={(e) => e.stopPropagation()}><input type="checkbox" checked={d.on !== false} onChange={(e) => upd(i, { on: e.target.checked })} /><i /></label>
+            <button className="p-danger" onClick={(ev) => { ev.stopPropagation(); if (!confirm('Bu özel gün silinsin mi?')) return; if (d.imgId) removeImage(d.imgId).catch(() => {}); set(L.filter((_, k) => k !== i)) }}>🗑</button>
+            <span>{o ? '▴' : '▾'}</span>
+          </div>
+          {o && <>
           <div className="p-fld"><label>Tarih (GG.AA)</label><input value={d.date || ''} onChange={(e) => upd(i, { date: e.target.value })} placeholder="29.10" /></div>
           <div className="p-fld"><label>Başlık</label><textarea rows={2} value={d.title || ''} onChange={(e) => upd(i, { title: e.target.value })} /><small>Enter ile alt satıra geçebilirsiniz</small></div>
           <div className="p-fld"><label>Alt metin</label><textarea rows={2} value={d.sub || ''} onChange={(e) => upd(i, { sub: e.target.value })} /></div>
@@ -540,16 +552,14 @@ function SpecialEditor({ list, set, say }) {
             {(d.img || d.imgId) ? <><Thumb x={{ src: d.img, img: d.imgId }} /><button onClick={() => dropImg(i)}>Görseli kaldır</button></>
               : <label className="p-fbtn">+ Görsel<input type="file" accept="image/*" hidden onChange={(e) => pickImg(i, e)} /></label>}
           </div>
-          <label className="p-chk"><input type="checkbox" checked={d.on !== false} onChange={(e) => upd(i, { on: e.target.checked })} /> Aktif (o gün otomatik)</label>
           <label className="p-chk"><input type="checkbox" checked={!!d.conf} onChange={(e) => upd(i, { conf: e.target.checked })} /> Konfeti</label>
           <div className="p-btns">
             <button className={d.now ? 'p-danger' : ''} onClick={() => set(L.map((x, k) => ({ ...x, now: k === i ? !x.now : false })))}>{d.now ? 'Tam ekranı kapat' : 'Şimdi tam ekran aç'}</button>
-            <button className="p-danger" onClick={() => { if (!confirm('Bu özel gün silinsin mi?')) return; if (d.imgId) removeImage(d.imgId).catch(() => {}); set(L.filter((_, k) => k !== i)) }}>Sil</button>
           </div>
-        </div>
-      ))}
+          </>}
+        </div>)
+      })}
       {live >= 0 && <p className="p-hint">Şu an "Şimdi tam ekran" açık: Yayınla'dan sonra pano tam ekrana geçer.</p>}
-      <div className="p-btns"><button onClick={() => set([...L, { id: 's' + Date.now().toString(36), date: '', title: '', sub: '', fs: 100, on: true, now: false, conf: false, iv: 0, ds: 30 }])}>+ Özel gün ekle</button></div>
     </div>
   )
 }
