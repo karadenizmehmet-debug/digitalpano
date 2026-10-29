@@ -10,6 +10,7 @@ import { MON, p2 } from './lib/util.js'
 import Confetti from './lib/Confetti.jsx'
 import { loadImage } from './lib/firebase.js'
 import { useLive } from './lib/weather.js'
+import { visibleTicker } from './lib/ticker.js'
 import Fx, { FX_KINDS } from './lib/Fx.jsx'
 
 // Pano 1600x900'lük sabit bir sahnedir; ekrana sığacak şekilde ölçeklenir.
@@ -72,7 +73,7 @@ export default function App() {
   if (isPanel) return <Panel cfg={cfg} wx={wx} />
 
   const sl = [cfg.slogan, cfg.city, cfg.url].filter(Boolean).join('  •  ')
-  const tk = String(cfg.ticker || '').split('\n').filter((x) => x.trim())
+  const tk = visibleTicker(cfg.ticker, now)
   const q = tk.map((x, i) => <span key={i}>{x}</span>)
 
   return (
