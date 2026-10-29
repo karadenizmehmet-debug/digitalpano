@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { registry, minHOf, wantH } from './lib/registry.js'
 import { THEMES } from './lib/themes.js'
-import { login, logout, onUser, saveConfig, fetchServerConfig, saveImage, removeImage, loadImage } from './lib/firebase.js'
+import { login, logout, changePassword, onUser, saveConfig, fetchServerConfig, saveImage, removeImage, loadImage } from './lib/firebase.js'
 import { rows } from './lib/util.js'
 import { alertStatus } from './lib/alert.js'
 import Stage from './Stage.jsx'
@@ -390,7 +390,6 @@ function SchedEditor({ data, set }) {
             <div className="p-btns">
               <button className={dirtyW ? 'p-pri' : ''} disabled={!dirtyW} onClick={saveWk}>💾 {cur} programını kaydet</button>
               <button disabled={!dirtyW} onClick={() => setWk(weekOf(cur))}>Vazgeç</button>
-              <button onClick={() => setWk((w) => ({ 0: w[0], 1: [...w[0]], 2: [...w[0]], 3: [...w[0]], 4: [...w[0]] }))}>Pzt'yi tüm günlere kopyala</button>
             </div>
             <small>{dirtyW ? '● Kaydedilmemiş değişiklik var. Kaydet\'e basınca taslağa işlenir; panoya yansıması için üstteki Yayınla\'ya basın.' : 'Her kutuda ders seçin. Kısaltması olan derslerde kısaltma görünür.'}</small>
           </>}
@@ -601,6 +600,28 @@ function SpecialEditor({ list, set, say, cfg }) {
   )
 }
 
+function PwEditor({ say }) {
+  const [o, setO] = useState(''), [n, setN] = useState(''), [n2, setN2] = useState(''), [busy, setBusy] = useState(false)
+  const go = async () => {
+    if (n.length < 8) { say('Yeni şifre en az 8 karakter olmalı.'); return }
+    if (n !== n2) { say('Yeni şifreler aynı değil.'); return }
+    setBusy(true)
+    try { await changePassword(o, n); setO(''); setN(''); setN2(''); say('Şifre değiştirildi ✓') }
+    catch (e) { say(/wrong|invalid|credential/i.test(e.code + e.message) ? 'Mevcut şifre hatalı.' : /recent|requires/i.test(e.code) ? 'Güvenlik için çıkış yapıp tekrar giriş yapın, sonra deneyin.' : 'Değiştirilemedi: ' + (e.code || e.message)) }
+    setBusy(false)
+  }
+  return (
+    <div className="p-body"><div className="p-card p-pad">
+      <div className="p-h">🔑 Şifre değiştir</div>
+      <div className="p-fld"><label>Mevcut şifre</label><input type="password" value={o} onChange={(e) => setO(e.target.value)} autoComplete="current-password" /></div>
+      <div className="p-fld"><label>Yeni şifre (en az 8 karakter)</label><input type="password" value={n} onChange={(e) => setN(e.target.value)} autoComplete="new-password" /></div>
+      <div className="p-fld"><label>Yeni şifre (tekrar)</label><input type="password" value={n2} onChange={(e) => setN2(e.target.value)} autoComplete="new-password" /></div>
+      <div className="p-btns"><button className="p-pri" disabled={busy || !o || !n} onClick={go}>{busy ? 'Değiştiriliyor…' : 'Şifreyi değiştir'}</button></div>
+      <small>Şifre hemen değişir. Bu panelin Yayınla düğmesiyle ilgisi yoktur.</small>
+    </div></div>
+  )
+}
+
 function AlertEditor({ al, set }) {
   const a = { on: false, title: 'ACİL DUYURU', text: '', tone: 'r', ic: '', ...al }
   const up = (p) => set({ ...a, ...p })
@@ -646,7 +667,7 @@ export default function Panel({ cfg, fresh, err }) {
   const [saved, setSaved] = useState('')
   const [slow, setSlow] = useState(false)
   useEffect(() => { const t = setTimeout(() => setSlow(true), 8000); return () => clearTimeout(t) }, [])
-  const [sel, setSel] = useState(null)
+  const [sel, setSel] = useState(null), [showPv, setShowPv] = useState(false)
   const [em, setEm] = useState(''), [pw, setPw] = useState('')
 
   useEffect(() => onUser(setUser), [])
@@ -732,10 +753,21 @@ export default function Panel({ cfg, fresh, err }) {
     <div className="pnl">
       <div className="p-top">
         <div className="p-tt"><b>Pano Paneli</b><small>{dirty ? '● Yayınlanmamış değişiklik var' : '✓ Pano güncel'}</small></div>
+        <button className="p-ib" title="Yayınlamadan önce önizle" onClick={() => setShowPv(true)}>👁</button>
         <a className="p-ib" href="#/" title="Panoyu aç">📺</a>
         <a className="p-ib" href="#/panel" onClick={logout} title="Çıkış">🚪</a>
         <button className={'p-pri p-pub' + (dirty ? ' p-dirty' : '')} onClick={publish}>Yayınla</button>
       </div>
+      {showPv && (
+        <div className="p-modal p-big" onClick={() => setShowPv(false)}>
+          <div className="p-mbox" onClick={(e) => e.stopPropagation()}>
+            <div className="p-h">👁 Yayınlanmadan önce önizleme</div>
+            <div className="stg-pv"><Stage preview cfg={draft} /></div>
+            <small>{dirty ? 'Henüz yayınlanmamış değişikliklerle böyle görünür.' : 'Şu an yayındaki hâli.'} Acil duyuru ve özel gün efektleri burada gösterilmez; özel günlerin kendi Önizle düğmesi vardır.</small>
+            <div className="p-btns">{dirty && <button className="p-pri" onClick={() => { setShowPv(false); publish() }}>Yayınla</button>}<button onClick={() => setShowPv(false)}>Kapat</button></div>
+          </div>
+        </div>
+      )}
       {msg && <div className="p-toast" onClick={() => setMsg('')}>{msg}</div>}
       {tab === 'news' && (() => { const i = draft.mods.findIndex((x) => x.type === 'slides'); const m = draft.mods[i]; return (
         <div className="p-body">
@@ -749,7 +781,7 @@ export default function Panel({ cfg, fresh, err }) {
       )}
       {tab === 'set' && !sub && (
         <div className="p-body"><div className="p-grid">
-          {[['gen', '🏫', 'Genel ayarlar'], ['mods', '🧩', 'Modüller'], ['lay', '🖼️', 'Düzen'], ['sd', '📅', 'Özel günler'], ['bak', '💾', 'Yedek']].map(([k, i, l]) => <button key={k} onClick={() => { if (k === 'mods' || k === 'lay') { setTab(k); setOpenId(null) } else setSub(k); window.scrollTo(0, 0) }}><span>{i}</span>{l}</button>)}
+          {[['gen', '🏫', 'Genel ayarlar'], ['mods', '🧩', 'Modüller'], ['lay', '🖼️', 'Düzen'], ['sd', '📅', 'Özel günler'], ['bak', '💾', 'Yedek'], ['pw', '🔑', 'Şifre']].map(([k, i, l]) => <button key={k} onClick={() => { if (k === 'mods' || k === 'lay') { setTab(k); setOpenId(null) } else setSub(k); window.scrollTo(0, 0) }}><span>{i}</span>{l}</button>)}
         </div></div>
       )}
       {SETT.includes(tab) && !(tab === 'set' && !sub) && !(tab === 'mods' && openId) && <div className="p-sub"><button onClick={() => { setTab('set'); setSub(null); setOpenId(null); window.scrollTo(0, 0) }}>← Ayarlar</button></div>}
@@ -833,6 +865,7 @@ export default function Panel({ cfg, fresh, err }) {
       )}
       {view === 'sd' && <SpecialEditor list={draft.sd} set={(sd) => set({ sd })} say={setMsg} cfg={draft} />}
       {view === 'al' && <AlertEditor al={draft.al} set={(al) => set({ al })} />}
+      {view === 'pw' && <PwEditor say={setMsg} />}
       {view === 'bak' && (
         <div className="p-body">
           <p>Ayarları dosya olarak indirip saklayabilir, gerektiğinde geri yükleyebilirsiniz.</p>

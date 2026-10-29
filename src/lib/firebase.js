@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager, doc, onSnapshot, setDoc, getDoc, getDocFromServer, deleteDoc } from 'firebase/firestore'
-import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth'
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, EmailAuthProvider, reauthenticateWithCredential, updatePassword } from 'firebase/auth'
 
 // Web yapılandırması gizli değildir (güvenlik Firestore kurallarındadır).
 // API anahtarını Google Cloud > Credentials'tan kendi alan adınıza kısıtlayın.
@@ -30,6 +30,11 @@ export const fetchServerConfig = async () => { const s = await getDocFromServer(
 export const saveConfig = (data) => setDoc(ref, JSON.parse(JSON.stringify(data)))
 export const login = (email, pw) => signInWithEmailAndPassword(auth, email, pw)
 export const logout = () => signOut(auth)
+export const changePassword = async (oldPw, newPw) => {
+  const u = auth.currentUser
+  await reauthenticateWithCredential(u, EmailAuthProvider.credential(u.email, oldPw))
+  await updatePassword(u, newPw)
+}
 export const onUser = (cb) => onAuthStateChanged(auth, cb)
 
 // Görseller ayrı belgelerde tutulur (images/{id}); ayar belgesi 1 MB sınırına takılmasın diye.

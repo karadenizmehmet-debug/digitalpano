@@ -191,3 +191,5 @@ html,body,#root{height:100%}
 .lfr{position:absolute;inset:0;z-index:3;pointer-events:none;border:14px solid transparent;border-radius:6px;box-shadow:inset 0 0 40px 6px #ffd23f,inset 0 0 90px 10px #ffd23f55;animation:lfa 3s linear infinite}
 @keyframes lfa{0%{filter:hue-rotate(0)}100%{filter:hue-rotate(360deg)}}
 .ovl span{font-size:calc(36px*var(--f2,var(--f,1)))}
+
+.tb .nx{background:#fff3cf!important;box-shadow:inset 0 0 0 2px #f6c64b}.tb th.nx{background:#ffe08a!important}

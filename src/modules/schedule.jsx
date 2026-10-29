@@ -16,10 +16,13 @@ export default function Schedule({ data, now, cfg }) {
   if (!cl.length) return <div className="tb"><p style={{ opacity: .6 }}>Ders programı için panelden sınıf ekleyin.</p></div>
   const sh = (name) => { if (!name) return ''; const L = (data.lessons || []).find((x) => x.n === name); return (L && L.k) || name }
   const B = bellOf(cfg), n2 = now.getHours() * 60 + now.getMinutes()
-  const cur = B && bellRows(B.data.rows).find((x) => n2 >= x.s && n2 < x.e)
+  const rows = B ? bellRows(B.data.rows).filter((x) => /ders/i.test(x.n) && /\d/.test(x.n)) : []
+  const num = (r) => (r ? +r.n.match(/\d+/)[0] - 1 : -1)
+  const cur = rows.find((x) => n2 >= x.s && n2 < x.e)
+  const nxt = !cur && di === dayIdx(now) ? rows.filter((x) => x.s > n2 && x.s - n2 <= 20).sort((a, b) => a.s - b.s)[0] : null
   const names = Array.from({ length: N }, (_, h) => (h + 1) + '. Ders')
-  const hi = cur ? names.findIndex((x) => x.toLowerCase() === cur.n.trim().toLowerCase()) : -1
-  const c = (k) => (hi >= 0 && k === hi ? 'hl' : undefined)
+  const hi = num(cur), ni = num(nxt)
+  const c = (k) => (hi >= 0 && k === hi ? 'hl' : ni >= 0 && k === ni ? 'nx' : undefined)
   return (
     <div className="tb" ref={ref}>
       <table><tbody>
