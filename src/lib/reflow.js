@@ -14,6 +14,8 @@ export function reflow(mods, pref, minOf, wantOf) {
   const TOP = 124, BOT = 832, G = 12, AV = BOT - TOP
   const mn = (m) => minOf(m) || 100
   const need = (A) => A.reduce((q, m) => q + mn(m), 0) + G * Math.max(0, A.length - 1)
+  // Sütuna tam oturmayan (ör. boyutlandırılmış) modülleri en yakın sütuna oturt; yoksa sütun dışında kalıp diğerleriyle üst üste biner
+  mods.forEach((m) => { if (m.active && m.y >= 100) colSnap(m) })
   const cols = COLS.map(([x, w]) => mods.filter((m) => m.active && m.x === x && m.w === w && m.y >= 100).sort((a, b) => (a.y + a.h / 2) - (b.y + b.h / 2)))
   for (let g = 0; g < 30; g++) {
     const o = cols.findIndex((A) => need(A) > AV)
