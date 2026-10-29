@@ -27,13 +27,11 @@ export default function Duty({ data, now }) {
   const w = (now.getDay() + 6) % 7, td = w > 4 ? 0 : w
   const k = weekShift(data, now), n = P.length
   if (!n) return <div className="du"><div className="ln">Nöbet yeri ekleyin</div></div>
-  const who = (d, j) => (g[d] || {})[(((j - k) % n) + n) % n] || ''
+  const who = (j) => (g[td] || {})[(((j - k) % n) + n) % n] || ''
   return (
-    <div className="tb" ref={ref}>
-      <table><tbody>
-        <tr><th>Yer</th>{DG.map((d, i) => <th key={d} className={i === td ? 'hl' : undefined}>{d}</th>)}</tr>
-        {P.map((p, j) => <tr key={j}><td><b>{p}</b></td>{DG.map((d, i) => <td key={d} className={i === td ? 'hl' : undefined}>{who(i, j) || '—'}</td>)}</tr>)}
-      </tbody></table>
+    <div className="du" ref={ref}>
+      {w > 4 && <div className="dn">Hafta sonu · Pazartesi nöbetçileri</div>}
+      {P.map((p, j) => <div key={j} className="dt"><b>{who(j) || '—'}</b><i>{p}</i></div>)}
     </div>
   )
 }
