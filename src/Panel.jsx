@@ -505,11 +505,11 @@ function ModEditor({ m, upd, del, move, say, root, setRoot, open, setOpen, noBac
 }
 
 
-function SpecialEditor({ list, set, say }) {
+function SpecialEditor({ list, set, say, cfg }) {
   const L = list || []
   const upd = (i, p) => set(L.map((x, k) => (k === i ? { ...x, ...p } : x)))
   const live = L.findIndex((d) => d.now)
-  const [op, setOp] = useState(null)
+  const [op, setOp] = useState(null), [pv, setPv] = useState(null)
   const pickImg = async (i, e) => {
     const f = e.target.files[0]; e.target.value = ''
     if (!f) return
@@ -553,7 +553,7 @@ function SpecialEditor({ list, set, say }) {
               : <label className="p-fbtn">+ Görsel<input type="file" accept="image/*" hidden onChange={(e) => pickImg(i, e)} /></label>}
           </div>
           <div className="p-fld"><label>Efektler</label>
-            <div className="p-chips">{[['conf', '🎊 Konfeti'], ['fw', '🎆 Havai fişek'], ['bl', '🎈 Balon'], ['st', '✨ Yıldız'], ['sn', '❄️ Kar']].map(([k, l]) => <button key={k} className={d[k] ? 'p-on' : ''} onClick={() => upd(i, { [k]: !d[k] })}>{l}</button>)}</div></div>
+            <div className="p-chips">{[['conf', '🎊 Konfeti'], ['fw', '🎆 Havai fişek'], ['bl', '🎈 Balon'], ['st', '✨ Yıldız'], ['sn', '❄️ Kar'], ['fl', '🇹🇷 Bayrak'], ['ht', '❤️ Kalp'], ['pt', '🌸 Yaprak'], ['fr', '💡 Işıklı çerçeve']].map(([k, l]) => <button key={k} className={d[k] ? 'p-on' : ''} onClick={() => upd(i, { [k]: !d[k] })}>{l}</button>)}</div></div>
           {!(d.img || d.imgId) && <>
             <div className="p-fld"><label>Arka plan rengi</label>
               <div className="p-sws">
@@ -568,11 +568,22 @@ function SpecialEditor({ list, set, say }) {
             {d.bgfx === 'fade' && <div className="p-fld"><label>İkinci renk</label><input type="color" value={d.bg2 || '#0b3d91'} onChange={(e) => upd(i, { bg2: e.target.value })} /></div>}
           </>}
           <div className="p-btns">
+            <button className="p-pri" onClick={() => setPv(i)}>👁 Önizle</button>
             <button className={d.now ? 'p-danger' : ''} onClick={() => set(L.map((x, k) => ({ ...x, now: k === i ? !x.now : false })))}>{d.now ? 'Tam ekranı kapat' : 'Şimdi tam ekran aç'}</button>
           </div>
           </>}
         </div>)
       })}
+      {pv !== null && L[pv] && (
+        <div className="p-modal" onClick={() => setPv(null)}>
+          <div className="p-mbox" onClick={(e) => e.stopPropagation()}>
+            <div className="p-h">👁 Önizleme</div>
+            <div className="stg-pv"><Stage preview cfg={cfg} forceSp={L[pv]} /></div>
+            <small>Pano bu özel günde böyle görünür. Değişiklik yapıp tekrar açarak yeniden bakabilirsiniz.</small>
+            <div className="p-btns"><button onClick={() => setPv(null)}>Kapat</button></div>
+          </div>
+        </div>
+      )}
       {live >= 0 && <p className="p-hint">Şu an "Şimdi tam ekran" açık: Yayınla'dan sonra pano tam ekrana geçer.</p>}
     </div>
   )
@@ -805,7 +816,7 @@ export default function Panel({ cfg, fresh, err }) {
           )}
         </div>
       )}
-      {view === 'sd' && <SpecialEditor list={draft.sd} set={(sd) => set({ sd })} say={setMsg} />}
+      {view === 'sd' && <SpecialEditor list={draft.sd} set={(sd) => set({ sd })} say={setMsg} cfg={draft} />}
       {view === 'al' && <AlertEditor al={draft.al} set={(al) => set({ al })} />}
       {view === 'bak' && (
         <div className="p-body">

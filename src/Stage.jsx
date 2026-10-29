@@ -6,7 +6,7 @@ import { isNight } from './lib/night.js'
 import { MON, p2 } from './lib/util.js'
 import Confetti from './lib/Confetti.jsx'
 import Fireworks from './lib/Fireworks.jsx'
-import { Balloons, Stars } from './lib/Floaters.jsx'
+import { Balloons, Stars, Hearts, Petals, Flags, Frame } from './lib/Floaters.jsx'
 import { loadImage } from './lib/firebase.js'
 import { useLive } from './lib/weather.js'
 import { visibleTicker, effectiveTicker } from './lib/ticker.js'
@@ -29,7 +29,7 @@ const snap = (v) => Math.round(v / 10) * 10
 
 // Pano sahnesi: 1600x900'lük sabit alan, kabına sığacak şekilde ölçeklenir.
 // preview: panel içi önizleme (örtüler ve efektler kapalı). edit: { sel, onSelect, onChange(mods) } sürükle-bırak için.
-export default function Stage({ cfg, preview = false, edit = null }) {
+export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
   const [now, setNow] = useState(new Date())
   const [T, setT] = useState(0)
   const [fit, setFit] = useState({ sc: 1, x: 0, y: 0 })
@@ -73,7 +73,7 @@ export default function Stage({ cfg, preview = false, edit = null }) {
   const cond = wx && !wx.err ? wx.c : undefined
   const fxMode = cfg.fxOn === false || cfg.fx === 'off' ? 'off' : (cfg.fx || 'auto')
   const fxKind = fxMode === 'off' || (preview && fxMode === 'auto') ? '' : (fxMode === 'auto' ? cond : fxMode)
-  const sp = preview ? null : specialVisible(cfg.sd, now)
+  const sp = forceSp || (preview ? null : specialVisible(cfg.sd, now))
   const spImg = useImg(sp)
   const logo = useImg({ img: cfg.logo, imgId: cfg.logoId })
   const night = !preview && !(cfg.sd || []).some((d) => d.now) && isNight(cfg, now)
@@ -153,6 +153,10 @@ export default function Stage({ cfg, preview = false, edit = null }) {
             {sp.bl && <Balloons />}
             {sp.st && <Stars />}
             {sp.sn && <Fx kind="snow" />}
+            {sp.ht && <Hearts />}
+            {sp.pt && <Petals />}
+            {sp.fl && <Flags />}
+            {sp.fr && <Frame />}
           </div>
         )}
         {night && (
