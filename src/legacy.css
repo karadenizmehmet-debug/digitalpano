@@ -211,3 +211,10 @@ html,body,#root{height:100%}
 .tb{container-type:inline-size}
 .tb td,.tb th{padding:6px 3px;font-size:min(.82em,4.3cqw)}
 .tb th:first-child,.tb td:first-child{padding-left:8px;white-space:nowrap}
+
+/* Dar sütunda namaz vakitleri taşmasın */
+.pry{container-type:inline-size}
+.pr{gap:4px}
+.pi{min-width:0;overflow:hidden}
+.pi b{font-size:min(1.05em,4.5cqw)}
+.pi small{font-size:min(.62em,3cqw)}
