@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { registry, minHOf } from './lib/registry.js'
 import { alertOn } from './lib/alert.js'
 import { specialVisible } from './lib/special.js'
@@ -60,7 +60,12 @@ export default function Stage({ cfg, preview = false, edit = null }) {
     return () => { removeEventListener('resize', f); ro && ro.disconnect(); clearTimeout(t) }
   }, [])
 
-  const wmod = cfg.mods.find((m) => m.type === 'weather' && m.active)
+  // Kayıtlı yerleşimde içeriğe yetmeyen (ör. başlığı sonradan açılmış) modül varsa ekranda otomatik düzenle
+  const mods0 = useMemo(() => {
+    if (edit || cfg.autoFlow === false || !cfg.mods.some((m) => m.active && m.h < minHOf(m))) return cfg.mods
+    const c = cfg.mods.map((m) => ({ ...m })); reflow(c, null, minHOf); return c
+  }, [cfg.mods, cfg.autoFlow, !!edit])
+  const wmod = mods0.find((m) => m.type === 'weather' && m.active)
   const wx = useLive(cfg.city, !!wmod && !!cfg.city)
   // Canlı veri açıksa yalnızca ona bakılır (yüklenirken elle girilen duruma düşmez); kapalıysa elle girilen durum kullanılır
   const cond = wx && !wx.err ? wx.c : undefined
@@ -121,7 +126,7 @@ export default function Stage({ cfg, preview = false, edit = null }) {
           {logo ? <img src={logo} /> : null}
           <div className="hb"><div className="n">{cfg.name}</div>{sl ? <div className="s">{sl}</div> : null}</div>
         </div>
-        {cfg.mods.filter((m) => m.active || edit).map((m) => {
+        {mods0.filter((m) => m.active || edit).map((m) => {
           const R = registry[m.type]
           const title = m.type === 'slides' ? m.showTitle : m.showTitle !== false
           return (
