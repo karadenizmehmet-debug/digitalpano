@@ -20,7 +20,10 @@ const auth = getAuth(app)
 const ref = doc(db, 'config', 'pano')
 
 // Canlı dinleme: panelden yayınlanınca pano anında güncellenir.
-export const listenConfig = (cb) => onSnapshot(ref, (s) => s.exists() && cb(s.data()), (e) => console.warn('Firestore:', e.message))
+// cb(data|null, { fromCache }) — fromCache=false: ayarlar sunucudan doğrulandı (panelin yazması ancak bundan sonra güvenli)
+export const listenConfig = (cb) => onSnapshot(ref, { includeMetadataChanges: true },
+  (s) => cb(s.exists() ? s.data() : null, { fromCache: s.metadata.fromCache }),
+  (e) => console.warn('Firestore:', e.message))
 export const saveConfig = (data) => setDoc(ref, JSON.parse(JSON.stringify(data)))
 export const login = (email, pw) => signInWithEmailAndPassword(auth, email, pw)
 export const logout = () => signOut(auth)

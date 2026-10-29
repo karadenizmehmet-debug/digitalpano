@@ -418,7 +418,7 @@ function AlertEditor({ al, set }) {
   )
 }
 
-export default function Panel({ cfg }) {
+export default function Panel({ cfg, fresh }) {
   const [user, setUser] = useState(undefined)
   const [draft, setDraft] = useState(null)
   const [msg, setMsg] = useState('')
@@ -426,11 +426,13 @@ export default function Panel({ cfg }) {
   const [sub, setSub] = useState('gen')
   const [openId, setOpenId] = useState(null)
   const [saved, setSaved] = useState('')
+  const [slow, setSlow] = useState(false)
+  useEffect(() => { const t = setTimeout(() => setSlow(true), 8000); return () => clearTimeout(t) }, [])
   const [sel, setSel] = useState(null)
   const [em, setEm] = useState(''), [pw, setPw] = useState('')
 
   useEffect(() => onUser(setUser), [])
-  useEffect(() => { if (user && !draft) { setDraft(JSON.parse(JSON.stringify(cfg))); setSaved(JSON.stringify(cfg)) } }, [user, cfg, draft])
+  useEffect(() => { if (user && fresh && !draft) { setDraft(JSON.parse(JSON.stringify(cfg))); setSaved(JSON.stringify(cfg)) } }, [user, cfg, draft, fresh])
 
   const doLogin = async (e) => {
     e.preventDefault()
@@ -496,7 +498,7 @@ export default function Panel({ cfg }) {
       </form>
     </div>
   )
-  if (!draft) return <div className="pnl"><p>Yükleniyor…</p></div>
+  if (!draft) return <div className="pnl"><p>Ayarlar sunucudan alınıyor…</p>{slow && <p className="p-err">Sunucuya ulaşılamıyor. İnternet bağlantınızı kontrol edin. Kayıtlı ayarlarınız bozulmaması için bağlantı gelene kadar düzenleme açılmaz.</p>}</div>
 
   return (
     <div className="pnl">
