@@ -542,8 +542,9 @@ function SpecialEditor({ list, set, say, cfg }) {
           <div className="p-fld"><label>Tarih (GG.AA)</label><input value={d.date || ''} onChange={(e) => upd(i, { date: e.target.value })} placeholder="29.10" /></div>
           <div className="p-fld"><label>Başlık</label><textarea rows={2} value={d.title || ''} onChange={(e) => upd(i, { title: e.target.value })} /><small>Enter ile alt satıra geçebilirsiniz</small></div>
           <div className="p-fld"><label>Alt metin</label><textarea rows={2} value={d.sub || ''} onChange={(e) => upd(i, { sub: e.target.value })} /></div>
+          <div className="p-fld"><label>Başlık boyutu: %{d.fs || 100}</label><input type="range" min="40" max="300" step="5" value={d.fs || 100} onChange={(e) => upd(i, { fs: +e.target.value })} /></div>
+          <div className="p-fld"><label>Alt metin boyutu: %{d.fs2 || d.fs || 100}</label><input type="range" min="40" max="300" step="5" value={d.fs2 || d.fs || 100} onChange={(e) => upd(i, { fs2: +e.target.value })} /></div>
           <div className="p-pos">
-            <div className="p-fld"><label>Yazı %</label><input type="number" value={d.fs || 100} onChange={(e) => upd(i, { fs: +e.target.value })} /></div>
             <div className="p-fld"><label>Her … dk</label><input type="number" value={d.iv || 0} onChange={(e) => upd(i, { iv: +e.target.value })} /></div>
             <div className="p-fld"><label>… sn göster</label><input type="number" value={d.ds || 30} onChange={(e) => upd(i, { ds: +e.target.value })} /></div>
           </div>

@@ -146,7 +146,7 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
         })}
         {FX_KINDS.includes(fxKind) && <Fx kind={fxKind} />}
         {sp && (
-          <div className={'ovl' + (spImg ? ' im' : '')} data-bf={!spImg && sp.bgfx ? sp.bgfx : undefined} style={{ '--f': (sp.fs || 100) / 100, ...(sp.bg && !spImg ? { background: sp.bgfx === 'fade' ? `linear-gradient(120deg,${sp.bg},${sp.bg2 || '#000'},${sp.bg})` : `linear-gradient(120deg,${sp.bg},color-mix(in srgb,${sp.bg} 55%,#000))` } : {}) }}>
+          <div className={'ovl' + (spImg ? ' im' : '')} data-bf={!spImg && sp.bgfx ? sp.bgfx : undefined} style={{ '--f': (sp.fs || 100) / 100, '--f2': (sp.fs2 || sp.fs || 100) / 100, ...(sp.bg && !spImg ? { background: sp.bgfx === 'fade' ? `linear-gradient(120deg,${sp.bg},${sp.bg2 || '#000'},${sp.bg})` : `linear-gradient(120deg,${sp.bg},color-mix(in srgb,${sp.bg} 55%,#000))` } : {}) }}>
             {spImg ? <img src={spImg} /> : <><b>{sp.title}</b><span>{sp.sub}</span></>}
             {sp.conf && <Confetti />}
             {sp.fw && <Fireworks />}
