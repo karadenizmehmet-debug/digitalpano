@@ -14,7 +14,7 @@ function Pic({ x, on }) {
     if (!x.src && x.img) loadImage(x.img).then((v) => !dead && setSrc(v)).catch(() => {})
     return () => { dead = true }
   }, [x.img, x.src])
-  return src ? <img src={src} className={on ? 'on' : ''} /> : null
+  return src ? <div className={'pc ' + (on ? 'on' : '')}><img src={src} className="bg" alt="" /><img src={src} alt="" /></div> : null
 }
 
 export default function Slides({ data, T }) {
