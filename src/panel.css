@@ -149,3 +149,13 @@ body.panelbody{overflow-x:hidden;overflow-y:auto;max-width:100vw;background:#f3f
 .pnl .p-g2 .p-fld{margin:0;min-width:0}
 .pnl .p-g2 .p-fld label{font-size:13px;min-height:2.9em;display:flex;align-items:flex-end}
 .pnl .p-g2 input{min-width:0}
+
+.pnl .p-mlist{background:#fff;border:1px solid #e3e9ef;border-radius:14px;overflow:hidden}
+.pnl .p-mrow{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid #edf1f5;cursor:pointer}
+.pnl .p-mrow:last-child{border-bottom:0}
+.pnl .p-mrow.p-off .p-nm,.pnl .p-mrow.p-off .p-mi{opacity:.5}
+.pnl .p-mi{font-size:26px;width:34px;text-align:center;flex:none}
+.pnl .p-mrow .p-sw{margin-left:0}
+.pnl .p-mrow .p-ar{font-size:24px;width:auto;color:#9aa9b8}
+.pnl .p-mrow .p-nm small{color:#7a8da0}
+.pnl .p-mlist+.p-card{margin-top:14px}

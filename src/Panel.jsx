@@ -293,6 +293,18 @@ function Tiles({ mods, go }) {
     </button>))}</div>
 }
 
+function ModList({ mods, go, toggle }) {
+  return <div className="p-mlist">{mods.map((m, i) => (
+    <div key={m.id} className={'p-mrow' + (m.active ? '' : ' p-off')} onClick={() => go(m.id)}>
+      <span className="p-mi">{ICO[m.type] || '🧩'}</span>
+      <span className="p-nm"><b>{m.title || registry[m.type]?.label}</b><small>{registry[m.type]?.label || m.type}{m.active ? '' : ' · kapalı'}</small></span>
+      <label className="p-sw" onClick={(e) => e.stopPropagation()}>
+        <input type="checkbox" checked={m.active} onChange={(e) => toggle(i, e.target.checked)} /><i />
+      </label>
+      <span className="p-ar">›</span>
+    </div>))}</div>
+}
+
 function ModEditor({ m, upd, del, move, say, root, setRoot, open, setOpen }) {
   const R = registry[m.type]
   const [ask, setAsk] = useState(false)
@@ -571,7 +583,7 @@ export default function Panel({ cfg, fresh, err }) {
       )}
       {view === 'mods' && (
         <div className="p-body">
-          {!openId && <Tiles mods={draft.mods} go={setOpenId} />}
+          {!openId && <ModList mods={draft.mods} go={setOpenId} toggle={(i, v) => updMod(i, { active: v })} />}
           {draft.mods.map((m, i) => openId === m.id && <ModEditor key={m.id} m={m} upd={(p) => updMod(i, p)} del={() => delMod(i)} move={(s) => moveMod(i, s)} say={setMsg} root={draft} setRoot={set} open={openId === m.id} setOpen={setOpenId} />)}
           {!openId && <div className="p-card p-pad"><div className="p-h">➕ Yeni modül ekle</div>
             <select value="" onChange={(e) => { if (e.target.value) { addMod(e.target.value); window.scrollTo(0, 0) } }}>

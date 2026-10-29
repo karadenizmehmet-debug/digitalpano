@@ -55,7 +55,7 @@
   },
   {
    "id": "m4",
-   "type": "table",
+   "type": "schedule",
    "title": "Ders Programı",
    "active": true,
    "x": 1140,
@@ -66,7 +66,509 @@
    "fs": 100,
    "showTitle": true,
    "data": {
-    "rows": "Sınıf;1. Ders;2. Ders;3. Ders;4. Ders\n5/A;Türkçe;Mat;Fen;Sosyal\n5/B;Mat;Mat;İng.;Türkçe\n6/A;Fen;Türkçe;Mat;Müzik\n6/B;İng.;Fen;Mat;Beden\n7/A;Mat;Türkçe;Fen;Din K.",
+    "classes": [
+     "5/A",
+     "5/B",
+     "6/A",
+     "6/B",
+     "7/A",
+     "7/B",
+     "8/A",
+     "8/B"
+    ],
+    "lessons": [
+     {
+      "n": "Türkçe",
+      "k": "Türk"
+     },
+     {
+      "n": "Matematik",
+      "k": "Mat"
+     },
+     {
+      "n": "Fen Bilimleri",
+      "k": "Fen"
+     },
+     {
+      "n": "Sosyal Bilgiler",
+      "k": "Sos"
+     },
+     {
+      "n": "T.C. İnkılap Tarihi ve Atatürkçülük",
+      "k": "İnk"
+     },
+     {
+      "n": "İngilizce",
+      "k": "İng"
+     },
+     {
+      "n": "Din Kültürü ve Ahlak Bilgisi",
+      "k": "DKAB"
+     },
+     {
+      "n": "Kur'an-ı Kerim",
+      "k": "Kur"
+     },
+     {
+      "n": "Arapça",
+      "k": "Arp"
+     },
+     {
+      "n": "Peygamberimizin Hayatı",
+      "k": "Peyg"
+     },
+     {
+      "n": "Temel Dini Bilgiler",
+      "k": "TDB"
+     },
+     {
+      "n": "Görsel Sanatlar",
+      "k": "Gör"
+     },
+     {
+      "n": "Müzik",
+      "k": "Müz"
+     },
+     {
+      "n": "Beden Eğitimi ve Spor",
+      "k": "Bed"
+     },
+     {
+      "n": "Bilişim Teknolojileri ve Yazılım",
+      "k": "Biliş"
+     },
+     {
+      "n": "Teknoloji ve Tasarım",
+      "k": "T&T"
+     },
+     {
+      "n": "Rehberlik ve Kariyer Planlama",
+      "k": "Reh"
+     },
+     {
+      "n": "Seçmeli Ders",
+      "k": "Seç"
+     }
+    ],
+    "n": 8,
+    "prog": {
+     "5/A": {
+      "0": [
+       "Sosyal Bilgiler",
+       "Türkçe",
+       "Fen Bilimleri",
+       "Beden Eğitimi ve Spor",
+       "Sosyal Bilgiler",
+       "Matematik",
+       "Türkçe",
+       "Peygamberimizin Hayatı"
+      ],
+      "1": [
+       "Matematik",
+       "Beden Eğitimi ve Spor",
+       "Kur'an-ı Kerim",
+       "Fen Bilimleri",
+       "Türkçe",
+       "Peygamberimizin Hayatı",
+       "Türkçe",
+       ""
+      ],
+      "2": [
+       "Fen Bilimleri",
+       "İngilizce",
+       "İngilizce",
+       "Din Kültürü ve Ahlak Bilgisi",
+       "Türkçe",
+       "Türkçe",
+       "Seçmeli Ders",
+       ""
+      ],
+      "3": [
+       "Sosyal Bilgiler",
+       "Müzik",
+       "Arapça",
+       "Bilişim Teknolojileri ve Yazılım",
+       "Fen Bilimleri",
+       "Arapça",
+       "Matematik",
+       ""
+      ],
+      "4": [
+       "Matematik",
+       "Matematik",
+       "Bilişim Teknolojileri ve Yazılım",
+       "Görsel Sanatlar",
+       "İngilizce",
+       "Din Kültürü ve Ahlak Bilgisi",
+       "Kur'an-ı Kerim",
+       ""
+      ]
+     },
+     "5/B": {
+      "0": [
+       "Matematik",
+       "Türkçe",
+       "Arapça",
+       "Matematik",
+       "Türkçe",
+       "Peygamberimizin Hayatı",
+       "Fen Bilimleri",
+       ""
+      ],
+      "1": [
+       "Müzik",
+       "Bilişim Teknolojileri ve Yazılım",
+       "Kur'an-ı Kerim",
+       "Matematik",
+       "İngilizce",
+       "Sosyal Bilgiler",
+       "Din Kültürü ve Ahlak Bilgisi",
+       ""
+      ],
+      "2": [
+       "Kur'an-ı Kerim",
+       "Bilişim Teknolojileri ve Yazılım",
+       "Arapça",
+       "Fen Bilimleri",
+       "Türkçe",
+       "İngilizce",
+       "Türkçe",
+       ""
+      ],
+      "3": [
+       "Seçmeli Ders",
+       "Beden Eğitimi ve Spor",
+       "İngilizce",
+       "Peygamberimizin Hayatı",
+       "Din Kültürü ve Ahlak Bilgisi",
+       "Fen Bilimleri",
+       "Sosyal Bilgiler",
+       "Matematik"
+      ],
+      "4": [
+       "Fen Bilimleri",
+       "Sosyal Bilgiler",
+       "Türkçe",
+       "Matematik",
+       "Türkçe",
+       "Görsel Sanatlar",
+       "Beden Eğitimi ve Spor",
+       ""
+      ]
+     },
+     "6/A": {
+      "0": [
+       "Matematik",
+       "Türkçe",
+       "Matematik",
+       "Fen Bilimleri",
+       "Fen Bilimleri",
+       "İngilizce",
+       "Türkçe",
+       ""
+      ],
+      "1": [
+       "Türkçe",
+       "Beden Eğitimi ve Spor",
+       "Temel Dini Bilgiler",
+       "Fen Bilimleri",
+       "Peygamberimizin Hayatı",
+       "Müzik",
+       "Sosyal Bilgiler",
+       ""
+      ],
+      "2": [
+       "Sosyal Bilgiler",
+       "İngilizce",
+       "Bilişim Teknolojileri ve Yazılım",
+       "Matematik",
+       "Kur'an-ı Kerim",
+       "Kur'an-ı Kerim",
+       "Matematik",
+       "Seçmeli Ders"
+      ],
+      "3": [
+       "Din Kültürü ve Ahlak Bilgisi",
+       "İngilizce",
+       "Türkçe",
+       "Matematik",
+       "Peygamberimizin Hayatı",
+       "Türkçe",
+       "Fen Bilimleri",
+       ""
+      ],
+      "4": [
+       "Sosyal Bilgiler",
+       "Din Kültürü ve Ahlak Bilgisi",
+       "Arapça",
+       "Arapça",
+       "Türkçe",
+       "Bilişim Teknolojileri ve Yazılım",
+       "Görsel Sanatlar",
+       ""
+      ]
+     },
+     "6/B": {
+      "0": [
+       "İngilizce",
+       "Türkçe",
+       "Matematik",
+       "Türkçe",
+       "Matematik",
+       "Bilişim Teknolojileri ve Yazılım",
+       "Kur'an-ı Kerim",
+       ""
+      ],
+      "1": [
+       "Fen Bilimleri",
+       "Din Kültürü ve Ahlak Bilgisi",
+       "Arapça",
+       "Peygamberimizin Hayatı",
+       "Sosyal Bilgiler",
+       "Görsel Sanatlar",
+       "Matematik",
+       ""
+      ],
+      "2": [
+       "Sosyal Bilgiler",
+       "Beden Eğitimi ve Spor",
+       "Türkçe",
+       "Kur'an-ı Kerim",
+       "Türkçe",
+       "Matematik",
+       "Matematik",
+       "Arapça"
+      ],
+      "3": [
+       "Din Kültürü ve Ahlak Bilgisi",
+       "Sosyal Bilgiler",
+       "Fen Bilimleri",
+       "İngilizce",
+       "Türkçe",
+       "İngilizce",
+       "Türkçe",
+       ""
+      ],
+      "4": [
+       "Müzik",
+       "Temel Dini Bilgiler",
+       "Peygamberimizin Hayatı",
+       "Seçmeli Ders",
+       "Fen Bilimleri",
+       "Fen Bilimleri",
+       "Bilişim Teknolojileri ve Yazılım",
+       ""
+      ]
+     },
+     "7/A": {
+      "0": [
+       "Fen Bilimleri",
+       "Fen Bilimleri",
+       "Matematik",
+       "Türkçe",
+       "Matematik",
+       "Türkçe",
+       "İngilizce",
+       ""
+      ],
+      "1": [
+       "Arapça",
+       "Türkçe",
+       "İngilizce",
+       "Beden Eğitimi ve Spor",
+       "İngilizce",
+       "Matematik",
+       "Kur'an-ı Kerim",
+       ""
+      ],
+      "2": [
+       "Arapça",
+       "Fen Bilimleri",
+       "Fen Bilimleri",
+       "Sosyal Bilgiler",
+       "Din Kültürü ve Ahlak Bilgisi",
+       "Türkçe",
+       "Müzik",
+       "Sosyal Bilgiler"
+      ],
+      "3": [
+       "İngilizce",
+       "Temel Dini Bilgiler",
+       "Beden Eğitimi ve Spor",
+       "Peygamberimizin Hayatı",
+       "Kur'an-ı Kerim",
+       "Teknoloji ve Tasarım",
+       "Peygamberimizin Hayatı",
+       "Türkçe"
+      ],
+      "4": [
+       "Matematik",
+       "Teknoloji ve Tasarım",
+       "Sosyal Bilgiler",
+       "Matematik",
+       "Din Kültürü ve Ahlak Bilgisi",
+       "Görsel Sanatlar",
+       "Seçmeli Ders",
+       ""
+      ]
+     },
+     "7/B": {
+      "0": [
+       "İngilizce",
+       "Beden Eğitimi ve Spor",
+       "Görsel Sanatlar",
+       "Matematik",
+       "Matematik",
+       "Sosyal Bilgiler",
+       "Sosyal Bilgiler",
+       "Türkçe"
+      ],
+      "1": [
+       "Türkçe",
+       "Müzik",
+       "Seçmeli Ders",
+       "İngilizce",
+       "Kur'an-ı Kerim",
+       "Matematik",
+       "Matematik",
+       ""
+      ],
+      "2": [
+       "İngilizce",
+       "Peygamberimizin Hayatı",
+       "Teknoloji ve Tasarım",
+       "Arapça",
+       "Matematik",
+       "Fen Bilimleri",
+       "Teknoloji ve Tasarım",
+       "Kur'an-ı Kerim"
+      ],
+      "3": [
+       "Türkçe",
+       "Beden Eğitimi ve Spor",
+       "İngilizce",
+       "Fen Bilimleri",
+       "Sosyal Bilgiler",
+       "Fen Bilimleri",
+       "Türkçe",
+       ""
+      ],
+      "4": [
+       "Türkçe",
+       "Temel Dini Bilgiler",
+       "Peygamberimizin Hayatı",
+       "Arapça",
+       "Fen Bilimleri",
+       "Din Kültürü ve Ahlak Bilgisi",
+       "Din Kültürü ve Ahlak Bilgisi",
+       ""
+      ]
+     },
+     "8/A": {
+      "0": [
+       "Arapça",
+       "İngilizce",
+       "Teknoloji ve Tasarım",
+       "Kur'an-ı Kerim",
+       "Din Kültürü ve Ahlak Bilgisi",
+       "İngilizce",
+       "Matematik",
+       ""
+      ],
+      "1": [
+       "Matematik",
+       "Türkçe",
+       "Matematik",
+       "Görsel Sanatlar",
+       "İngilizce",
+       "Seçmeli Ders",
+       "Türkçe",
+       "Seçmeli Ders"
+      ],
+      "2": [
+       "Türkçe",
+       "Beden Eğitimi ve Spor",
+       "Teknoloji ve Tasarım",
+       "Türkçe",
+       "Arapça",
+       "Peygamberimizin Hayatı",
+       "T.C. İnkılap Tarihi ve Atatürkçülük",
+       ""
+      ],
+      "3": [
+       "Matematik",
+       "Müzik",
+       "Rehberlik ve Kariyer Planlama",
+       "Fen Bilimleri",
+       "Fen Bilimleri",
+       "Din Kültürü ve Ahlak Bilgisi",
+       "İngilizce",
+       "Türkçe"
+      ],
+      "4": [
+       "Fen Bilimleri",
+       "Peygamberimizin Hayatı",
+       "Beden Eğitimi ve Spor",
+       "Fen Bilimleri",
+       "Kur'an-ı Kerim",
+       "Matematik",
+       "T.C. İnkılap Tarihi ve Atatürkçülük",
+       ""
+      ]
+     },
+     "8/B": {
+      "0": [
+       "Matematik",
+       "Peygamberimizin Hayatı",
+       "İngilizce",
+       "Arapça",
+       "T.C. İnkılap Tarihi ve Atatürkçülük",
+       "İngilizce",
+       "Matematik",
+       ""
+      ],
+      "1": [
+       "Fen Bilimleri",
+       "Din Kültürü ve Ahlak Bilgisi",
+       "Türkçe",
+       "Beden Eğitimi ve Spor",
+       "Matematik",
+       "Görsel Sanatlar",
+       "Seçmeli Ders",
+       ""
+      ],
+      "2": [
+       "T.C. İnkılap Tarihi ve Atatürkçülük",
+       "Matematik",
+       "Türkçe",
+       "Fen Bilimleri",
+       "Teknoloji ve Tasarım",
+       "İngilizce",
+       "Fen Bilimleri",
+       "Peygamberimizin Hayatı"
+      ],
+      "3": [
+       "Teknoloji ve Tasarım",
+       "Seçmeli Ders",
+       "Matematik",
+       "Müzik",
+       "Türkçe",
+       "Rehberlik ve Kariyer Planlama",
+       "İngilizce",
+       "Türkçe"
+      ],
+      "4": [
+       "Beden Eğitimi ve Spor",
+       "Fen Bilimleri",
+       "Din Kültürü ve Ahlak Bilgisi",
+       "Kur'an-ı Kerim",
+       "Türkçe",
+       "Arapça",
+       "Kur'an-ı Kerim",
+       ""
+      ]
+     }
+    },
     "speed": 1
    }
   },
