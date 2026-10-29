@@ -130,16 +130,16 @@ function Field({ f, data, set, say, root, setRoot }) {
   return <div className="p-fld"><label>{label}</label>{input}{pasteBtn}{hint && <small>{hint}</small>}</div>
 }
 
-function ModEditor({ m, upd, del, move, say, root, setRoot }) {
+function ModEditor({ m, upd, del, move, say, root, setRoot, open, setOpen }) {
   const R = registry[m.type]
-  const [open, setOpen] = useState(false)
   const setData = (k, v) => upd({ data: { ...m.data, [k]: v } })
   return (
-    <div className={'p-card' + (m.active ? '' : ' p-off')}>
-      <div className="p-row" onClick={() => setOpen(!open)}>
-        <b>{m.title || R?.label}</b><span className="p-tag">{R?.label || m.type}</span>
-        <label className="p-chk" onClick={(e) => e.stopPropagation()}>
-          <input type="checkbox" checked={m.active} onChange={(e) => upd({ active: e.target.checked })} /> Açık
+    <div className={'p-card' + (m.active ? '' : ' p-off')} id={'mod-' + m.id}>
+      <div className="p-row" onClick={() => setOpen(open ? null : m.id)}>
+        <span className="p-ar">{open ? '▾' : '▸'}</span>
+        <span className="p-nm"><b>{m.title || R?.label}</b><small>{R?.label || m.type}</small></span>
+        <label className="p-sw" onClick={(e) => e.stopPropagation()}>
+          <input type="checkbox" checked={m.active} onChange={(e) => upd({ active: e.target.checked })} /><i />
         </label>
       </div>
       {open && (
@@ -147,6 +147,7 @@ function ModEditor({ m, upd, del, move, say, root, setRoot }) {
           <div className="p-fld"><label>Başlık</label><input value={m.title || ''} onChange={(e) => upd({ title: e.target.value })} /></div>
           <label className="p-chk"><input type="checkbox" checked={m.showTitle !== false && (m.type !== 'slides' || m.showTitle)} onChange={(e) => upd({ showTitle: e.target.checked })} /> Başlığı göster</label>
           {(R?.fields || []).map((f) => <Field key={f[0]} f={f} data={m.data} set={setData} say={say} root={root} setRoot={setRoot} />)}
+          <details className="p-adv"><summary>Gelişmiş (boyut, renk, konum)</summary>
           <div className="p-fld"><label>Yazı boyutu (%)</label><input type="number" value={m.fs || 100} onChange={(e) => upd({ fs: +e.target.value })} /></div>
           <div className="p-fld"><label>Renk</label><input type="color" value={m.color || '#0f9b8e'} onChange={(e) => upd({ color: e.target.value })} /></div>
           <div className="p-pos">
@@ -156,6 +157,7 @@ function ModEditor({ m, upd, del, move, say, root, setRoot }) {
             <button onClick={() => move(-1)}>↑ Yukarı</button><button onClick={() => move(1)}>↓ Aşağı</button>
             <button className="p-danger" onClick={() => confirm('Bu modül silinsin mi?') && del()}>Sil</button>
           </div>
+          </details>
         </div>
       )}
     </div>
@@ -249,12 +251,15 @@ export default function Panel({ cfg }) {
   const [user, setUser] = useState(undefined)
   const [draft, setDraft] = useState(null)
   const [msg, setMsg] = useState('')
-  const [tab, setTab] = useState('mods')
+  const [tab, setTab] = useState('home')
+  const [sub, setSub] = useState('gen')
+  const [openId, setOpenId] = useState(null)
+  const [saved, setSaved] = useState('')
   const [sel, setSel] = useState(null)
   const [em, setEm] = useState(''), [pw, setPw] = useState('')
 
   useEffect(() => onUser(setUser), [])
-  useEffect(() => { if (user && !draft) setDraft(JSON.parse(JSON.stringify(cfg))) }, [user, cfg, draft])
+  useEffect(() => { if (user && !draft) { setDraft(JSON.parse(JSON.stringify(cfg))); setSaved(JSON.stringify(cfg)) } }, [user, cfg, draft])
 
   const doLogin = async (e) => {
     e.preventDefault()
@@ -264,7 +269,7 @@ export default function Panel({ cfg }) {
     try {
       const d = { ...draft }
       if (d.al && d.al.on && d.al.pend) d.al = { ...d.al, at: Date.now(), pend: 0 }  // başlangıç anı yayın anıdır
-      await saveConfig(d); setDraft(d); setMsg('Yayınlandı ✓ Pano birkaç saniye içinde güncellenir.') }
+      await saveConfig(d); setDraft(d); setSaved(JSON.stringify(d)); setMsg('Yayınlandı ✓ Pano birkaç saniye içinde güncellenir.') }
     catch (e) { setMsg('Kaydedilemedi: ' + e.message) }
   }
   const set = (p) => setDraft((d) => ({ ...d, ...p }))
@@ -292,6 +297,10 @@ export default function Panel({ cfg }) {
   }
   const pickTheme = (i) => { const t = THEMES[i]; set({ theme: i, bg: t[1], c1: t[2], c2: t[3], c3: t[4] }) }
 
+  const dirty = !!draft && JSON.stringify(draft) !== saved
+  const view = tab === 'set' ? sub : tab
+  const goMod = (id) => { setTab('mods'); setOpenId(id); setTimeout(() => document.getElementById('mod-' + id)?.scrollIntoView({ block: 'start', behavior: 'smooth' }), 80) }
+
   if (user === undefined) return <div className="pnl"><p>Yükleniyor…</p></div>
   if (!user) return (
     <div className="pnl">
@@ -310,13 +319,30 @@ export default function Panel({ cfg }) {
   return (
     <div className="pnl">
       <div className="p-top">
-        <b>Pano Paneli</b>
-        <span><a href="#/">Panoyu aç</a> · <a href="#/panel" onClick={logout}>Çıkış</a></span>
+        <div className="p-tt"><b>Pano Paneli</b><small>{dirty ? '● Yayınlanmamış değişiklik var' : '✓ Pano güncel'}</small></div>
+        <button className={'p-pri p-pub' + (dirty ? ' p-dirty' : '')} onClick={publish}>Yayınla</button>
       </div>
-      <div className="p-tabs">
-        {[['mods', 'Modüller'], ['lay', 'Yerleşim'], ['al', 'Acil'], ['sd', 'Özel günler'], ['gen', 'Genel'], ['bak', 'Yedek']].map(([k, l]) => <button key={k} className={tab === k ? 'p-on' : ''} onClick={() => setTab(k)}>{l}</button>)}
-      </div>
-      {tab === 'gen' && (
+      {msg && <div className="p-toast" onClick={() => setMsg('')}>{msg}</div>}
+      {tab === 'home' && (
+        <div className="p-body">
+          <div className="p-card p-pad">
+            <div className="p-h">📢 Kayan duyurular</div>
+            <textarea rows={5} value={draft.ticker || ''} onChange={(e) => set({ ticker: e.target.value })} placeholder="Her satır ayrı bir duyuru" />
+            <small>Belirli günlerde göstermek için satır sonuna | ve tarih ekleyin: Veli toplantısı | 03.11</small>
+          </div>
+          <div className="p-card p-pad">
+            <div className="p-h">🚨 Acil duyuru</div>
+            <p className="p-st">{draft.al?.on ? 'Şu an AÇIK: ' + alertStatus(draft.al) : 'Kapalı'}</p>
+            <button className={draft.al?.on ? 'p-danger' : 'p-pri'} onClick={() => setTab('al')}>{draft.al?.on ? 'Yönet / kapat' : 'Acil duyuru hazırla'}</button>
+          </div>
+          <div className="p-h2">Modülü düzenle</div>
+          <div className="p-quick">
+            {draft.mods.map((m) => <button key={m.id} className={m.active ? '' : 'p-qoff'} onClick={() => goMod(m.id)}>{m.title || registry[m.type]?.label}</button>)}
+          </div>
+        </div>
+      )}
+      {tab === 'set' && <div className="p-sub">{[['gen', 'Genel'], ['sd', 'Özel günler'], ['bak', 'Yedek']].map(([k, l]) => <button key={k} className={sub === k ? 'p-on' : ''} onClick={() => setSub(k)}>{l}</button>)}</div>}
+      {view === 'gen' && (
         <div className="p-body">
           <div className="p-fld"><label>Okul adı</label><input value={draft.name || ''} onChange={(e) => set({ name: e.target.value })} /></div>
           <div className="p-fld"><label>Okul logosu</label>
@@ -362,10 +388,10 @@ export default function Panel({ cfg }) {
           </div>
         </div>
       )}
-      {tab === 'mods' && (
+      {view === 'mods' && (
         <div className="p-body">
-          {draft.mods.map((m, i) => <ModEditor key={m.id} m={m} upd={(p) => updMod(i, p)} del={() => delMod(i)} move={(s) => moveMod(i, s)} say={setMsg} root={draft} setRoot={set} />)}
-          <div className="p-fld"><label>Yeni modül ekle</label>
+          {draft.mods.map((m, i) => <ModEditor key={m.id} m={m} upd={(p) => updMod(i, p)} del={() => delMod(i)} move={(s) => moveMod(i, s)} say={setMsg} root={draft} setRoot={set} open={openId === m.id} setOpen={setOpenId} />)}
+          <div className="p-card p-pad"><div className="p-h">➕ Yeni modül ekle</div>
             <select value="" onChange={(e) => e.target.value && addMod(e.target.value)}>
               <option value="">Seçin…</option>
               {Object.values(registry).map((R) => <option key={R.type} value={R.type}>{R.label}</option>)}
@@ -373,7 +399,7 @@ export default function Panel({ cfg }) {
           </div>
         </div>
       )}
-      {tab === 'lay' && (
+      {view === 'lay' && (
         <div className="p-body">
           <div className="p-pvwrap">
             <Stage preview cfg={draft}
@@ -394,19 +420,18 @@ export default function Panel({ cfg }) {
           )}
         </div>
       )}
-      {tab === 'sd' && <SpecialEditor list={draft.sd} set={(sd) => set({ sd })} say={setMsg} />}
-      {tab === 'al' && <AlertEditor al={draft.al} set={(al) => set({ al })} />}
-      {tab === 'bak' && (
+      {view === 'sd' && <SpecialEditor list={draft.sd} set={(sd) => set({ sd })} say={setMsg} />}
+      {view === 'al' && <AlertEditor al={draft.al} set={(al) => set({ al })} />}
+      {view === 'bak' && (
         <div className="p-body">
           <p>Ayarları dosya olarak indirip saklayabilir, gerektiğinde geri yükleyebilirsiniz.</p>
           <div className="p-btns"><button onClick={download}>Yedeği indir</button>
             <label className="p-fbtn">Yedeği yükle<input type="file" accept="application/json" hidden onChange={upload} /></label></div>
         </div>
       )}
-      <div className="p-bar">
-        {msg && <span className="p-m">{msg}</span>}
-        <button className="p-pri" onClick={publish}>Yayınla</button>
-      </div>
+      <nav className="p-nav">
+        {[['home', '🏠', 'Ana sayfa'], ['mods', '🧩', 'Modüller'], ['lay', '🖼️', 'Düzen'], ['al', '🚨', 'Acil'], ['set', '⚙️', 'Ayarlar']].map(([k, i, l]) => <button key={k} className={tab === k ? 'p-on' : ''} onClick={() => setTab(k)}><span>{i}</span>{l}</button>)}
+      </nav>
     </div>
   )
 }
