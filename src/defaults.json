@@ -1,0 +1,306 @@
+{
+ "name": "Nimetullah Nahçivani İmam Hatip Ortaokulu",
+ "bg": "#f2f2ef",
+ "mods": [
+  {
+   "id": "m1",
+   "type": "clock",
+   "title": "Tarih ve Saat",
+   "active": true,
+   "x": 1180,
+   "y": 12,
+   "w": 400,
+   "h": 92,
+   "color": "#e6b34a",
+   "fs": 100,
+   "showTitle": false,
+   "data": {}
+  },
+  {
+   "id": "m2",
+   "type": "weather",
+   "title": "Hava Durumu",
+   "active": true,
+   "x": 20,
+   "y": 124,
+   "w": 440,
+   "h": 150,
+   "color": "#2bb3a3",
+   "fs": 100,
+   "showTitle": true,
+   "data": {
+    "cond": "cloud",
+    "t": 16,
+    "hi": 17,
+    "lo": 9,
+    "live": true
+   }
+  },
+  {
+   "id": "m3",
+   "type": "slides",
+   "title": "Hoş Geldiniz",
+   "active": true,
+   "x": 480,
+   "y": 124,
+   "w": 640,
+   "h": 484,
+   "color": "#4aa3e8",
+   "fs": 100,
+   "showTitle": false,
+   "data": {
+    "imgs": [],
+    "sec": 6
+   }
+  },
+  {
+   "id": "m4",
+   "type": "table",
+   "title": "Ders Programı",
+   "active": true,
+   "x": 1140,
+   "y": 124,
+   "w": 440,
+   "h": 239,
+   "color": "#4aa3e8",
+   "fs": 100,
+   "showTitle": true,
+   "data": {
+    "rows": "Sınıf;1. Ders;2. Ders;3. Ders;4. Ders\n5/A;Türkçe;Mat;Fen;Sosyal\n5/B;Mat;Mat;İng.;Türkçe\n6/A;Fen;Türkçe;Mat;Müzik\n6/B;İng.;Fen;Mat;Beden\n7/A;Mat;Türkçe;Fen;Din K.",
+    "speed": 1
+   }
+  },
+  {
+   "id": "m5",
+   "type": "duty",
+   "title": "Nöbetçi Öğretmenler",
+   "active": true,
+   "x": 1140,
+   "y": 485,
+   "w": 440,
+   "h": 215,
+   "color": "#4aa3e8",
+   "fs": 100,
+   "showTitle": true,
+   "data": {
+    "places": "Bahçe\nGiriş\n1. Kat",
+    "g": {},
+    "speed": 1,
+    "header": false
+   }
+  },
+  {
+   "id": "m6",
+   "type": "days",
+   "title": "Belirli Gün ve Haftalar",
+   "active": true,
+   "x": 20,
+   "y": 286,
+   "w": 440,
+   "h": 293,
+   "color": "#2bb3a3",
+   "fs": 100,
+   "showTitle": true,
+   "data": {
+    "rows": "07.09;Uluslararası Temiz Hava Günü\n12.09.2026;Dünya İlk Yardım Günü\n19.09;Gaziler Günü\n28.09;Dünya Okul Sütü Günü\n04.10;Hayvanları Koruma Günü\n08.10-12.10;Ahilik Kültürü Haftası\n13.10;Dünya Afet Azaltma Günü\n24.10;Birleşmiş Milletler Günü\n29.10;Cumhuriyet Bayramı\n29.10-04.11;Kızılay Haftası\n02.11-08.11;Lösemili Çocuklar Haftası\n03.11-09.11;Organ Bağışı ve Nakli Haftası\n10.11-16.11;Atatürk Haftası\n12.11;Afet Eğitimi Hazırlık Günü\n14.11;Dünya Diyabet Günü\n20.11;Dünya Felsefe Günü\n20.11;Dünya Çocuk Hakları Günü\n21.11-27.11;Ağız ve Diş Sağlığı Haftası\n24.11;Öğretmenler Günü\n03.12;Dünya Engelliler Günü\n04.12;Dünya Madenciler Günü\n05.12;Türk Kadınına Seçme ve Seçilme Hakkının Verilişi\n07.12-17.12;Mevlana Haftası\n07.12.2026-13.12.2026;İnsan Hakları ve Demokrasi Haftası\n12.12-18.12;Tutum, Yatırım ve Türk Malları Haftası\n20.12-27.12;Mehmet Akif Ersoy'u Anma Haftası\n11.01.2027-17.01.2027;Enerji Tasarrufu Haftası\n22.02.2027-28.02.2027;Vergi Haftası\n01.03.2027-07.03.2027;Yeşilay Haftası\n01.03.2027-07.03.2027;Girişimcilik Haftası\n08.03;Dünya Kadınlar Günü\n08.03-14.03;Bilim ve Teknoloji Haftası\n12.03;İstiklâl Marşı'nın Kabulü ve Mehmet Akif Ersoy'u Anma Günü\n15.03-21.03;Tüketiciyi Koruma Haftası\n15.03.2027-21.03.2027;Türk Dünyası ve Toplulukları Haftası\n18.03;Şehitler Günü\n18.03-24.03;Yaşlılar Haftası\n21.03-26.03;Orman Haftası\n22.03;Dünya Su Günü\n27.03;Dünya Tiyatrolar Günü\n29.03.2027-04.04.2027;Kütüphaneler Haftası\n01.04-07.04;Kanser Haftası\n02.04;Dünya Otizm Farkındalık Günü\n07.04;Kişisel Verileri Koruma Günü\n07.04-13.04;Dünya Sağlık Günü / Dünya Sağlık Haftası\n15.04-22.04;Turizm Haftası\n23.04;Ulusal Egemenlik ve Çocuk Bayramı\n26.04;Dünya Fikrî Mülkiyet Günü\n29.04;Kût'ül Amâre Zaferi\n03.05.2027-09.05.2027;Bilişim Haftası\n03.05.2027-09.05.2027;Trafik ve İlkyardım Haftası\n04.05-10.05;İş Sağlığı ve Güvenliği Haftası\n10.05.2027-16.05.2027;Vakıflar Haftası\n09.05.2027;Anneler Günü\n10.05-16.05;Engelliler Haftası\n18.05-24.05;Müzeler Haftası\n19.05;Atatürk'ü Anma ve Gençlik ve Spor Bayramı\n25.05;Etik Günü\n29.05;İstanbul'un Fethi\n01.06.2027-06.06.2027;Hayat Boyu Öğrenme Haftası\n07.06.2027-13.06.2027;Çevre ve İklim Değişikliği Haftası\n20.06.2027;Babalar Günü\n30.08;Zafer Bayramı"
+   }
+  },
+  {
+   "id": "m7",
+   "type": "bday",
+   "title": "Doğum Günün Kutlu Olsun",
+   "active": true,
+   "x": 20,
+   "y": 722,
+   "w": 440,
+   "h": 110,
+   "color": "#9a86f2",
+   "fs": 100,
+   "showTitle": true,
+   "data": {
+    "rows": "Örnek Öğrenci; 01.01"
+   }
+  },
+  {
+   "id": "m9",
+   "type": "cnt",
+   "title": "Lgs",
+   "active": true,
+   "x": 20,
+   "y": 591,
+   "w": 440,
+   "h": 119,
+   "color": "#e6b34a",
+   "fs": 100,
+   "showTitle": false,
+   "data": {
+    "name": "Lgs kalan süre",
+    "at": "2027-06-22T14:00"
+   }
+  },
+  {
+   "id": "m10",
+   "type": "cd",
+   "title": "Geri Sayım",
+   "active": true,
+   "x": 480,
+   "y": 620,
+   "w": 640,
+   "h": 100,
+   "color": "#e6b34a",
+   "fs": 80,
+   "showTitle": false,
+   "data": {
+    "rows": "16.11.2026;Ara tatil\n25.01.2027;Yarıyıl tatili\n08.03.2027;Mart ara tatili\n28.06.2027;Yaz tatili"
+   }
+  },
+  {
+   "id": "m8",
+   "type": "bell",
+   "title": "Zile Ne Kadar Kaldı?",
+   "active": true,
+   "x": 1140,
+   "y": 712,
+   "w": 440,
+   "h": 120,
+   "color": "#ef6f61",
+   "fs": 100,
+   "showTitle": true,
+   "data": {
+    "rows": "08:30-09:10 1. Ders\n09:20-10:00 2. Ders\n10:10-10:50 3. Ders\n11:00-11:40 4. Ders\n12:30-13:10 5. Ders\n13:20-14:00 6. Ders"
+   }
+  },
+  {
+   "id": "m11",
+   "type": "pray",
+   "title": "Namaz Vakitleri",
+   "active": true,
+   "x": 480,
+   "y": 732,
+   "w": 640,
+   "h": 100,
+   "color": "#2bb3a3",
+   "fs": 100,
+   "showTitle": false,
+   "data": {
+    "lat": "38.356",
+    "lon": "31.416",
+    "adj": "0,0,5,4,7,0"
+   }
+  },
+  {
+   "id": "m12",
+   "type": "quote",
+   "title": "Günün Sözü",
+   "active": true,
+   "x": 1140,
+   "y": 375,
+   "w": 440,
+   "h": 98,
+   "color": "#9a86f2",
+   "fs": 100,
+   "showTitle": false,
+   "data": {
+    "rows": "Dünyada her şey için, maddiyat için, maneviyat için, muvaffakiyet için en hakiki mürşit ilimdir, fendir.|M. Kemal Atatürk\nÖğretmenler! Yeni nesil sizin eseriniz olacaktır.|M. Kemal Atatürk\nEğitimdir ki bir milleti ya özgür, bağımsız, şanlı, yüksek bir toplum halinde yaşatır; ya da milleti esarete ve sefalete terk eder.|M. Kemal Atatürk\nBilim ve fen nerede ise oradan alacağız ve her millet ferdinin kafasına koyacağız.|M. Kemal Atatürk\nÖğrenip de zamanı geldikçe uygulamak ne büyük mutluluktur!|Konfüçyüs\nİlim ilim bilmektir, ilim kendin bilmektir.|Yunus Emre\nHiç bilenlerle bilmeyenler bir olur mu?|Zümer Suresi, 9\nRabbim, ilmimi artır.|Tâhâ Suresi, 114\nYaratan Rabbinin adıyla oku!|Alak Suresi, 1\nSizin en hayırlınız, Kur'an'ı öğrenen ve öğretendir.|Hz. Muhammed (s.a.v.)\nKim ilim öğrenmek için bir yola girerse, Allah ona cennetin yolunu kolaylaştırır.|Hz. Muhammed (s.a.v.)\nEğitim, dünyayı değiştirmek için kullanabileceğiniz en güçlü silahtır.|Nelson Mandela\nBir çocuk, bir öğretmen, bir kitap ve bir kalem dünyayı değiştirebilir.|Malala Yousafzai\nÖnemli olan sorgulamayı bırakmamaktır.|Albert Einstein\nBir bahçen ve bir kütüphanen varsa, ihtiyacın olan her şeye sahipsin.|Cicero\nBin millik yolculuk tek bir adımla başlar.|Lao Tzu\nBilgi güçtür.|Francis Bacon\nDahi, yüzde bir ilham, yüzde doksan dokuz terdir.|Thomas Edison\nDamlaya damlaya göl olur.|Atasözü\nAğaç yaşken eğilir.|Atasözü\nBugünün işini yarına bırakma.|Atasözü\nHer kitap yeni bir dünyaya açılan kapıdır.\nHata yapmak öğrenmenin bir parçasıdır; önemli olan yeniden denemektir.\nBaşarı, her gün tekrarlanan küçük çabaların toplamıdır.\nMerak et, sor, araştır; öğrenmenin anahtarı sorudur.\nBugün öğrendiğin her yeni bilgi, yarının cesaretidir.\nHayalin kadar çalış, çalıştığın kadar ulaşırsın.\nVazgeçmeyenler, kazananlardır.\nÖğrenmenin yaşı yoktur; her gün yeni bir başlangıçtır.\nDüşmek başarısızlık değildir; kalkmamak başarısızlıktır.\nKitap okuyan, bin hayat yaşar.\nZor olan başlamaktır; gerisi gelir.\nSabır ve çalışkanlık, en büyük yetenektir.\nÖğrendiğini paylaştıkça bilgin çoğalır.\nSaygı, sevgi ve çalışkanlık; başarının üç anahtarıdır.\nKendine inan; yarının başarısı bugünkü emeğindedir.\nDürüstlük, insanın en değerli sermayesidir.\nBugün yapabileceğinin en iyisini yap; yarın daha iyisini yaparsın.\nİyi bir arkadaş, iyi bir kitap gibidir: seni geliştirir.\nBirlikte çalışmak, tek başına çalışmaktan daha ileri götürür.\nPlanlı çalışan, yorulmadan ilerler.\nKüçük adımlar, büyük başarıların habercisidir.\nDinlemek, öğrenmenin yarısıdır.\nZamanı iyi kullanan, hayatı iyi kullanır.\nBir öğretmen, bir ömür boyu iz bırakır.\nHedefi olan, yolunu bulur.\nBaşarı tesadüf değil; emek ve istikrarın sonucudur.\nGüzel ahlak, ilmin tacıdır.\nGülümse; güzel bir gün, güzel bir başlangıçla başlar.\nBugün yeni bir sayfa; onu en güzel şekilde yaz.",
+    "pin": 0,
+    "rnd": {
+     "d": "2026-10-28",
+     "i": 47
+    }
+   }
+  }
+ ],
+ "slogan": "",
+ "city": "Konya / Akşehir",
+ "ticker": "Okulumuza hoş geldiniz\nDuyurular panelden düzenlenebilir",
+ "sd": [
+  {
+   "id": "s0",
+   "date": "29.10",
+   "title": "Cumhuriyet Bayramımız\n Kutlu Olsun!",
+   "sub": "",
+   "img": "",
+   "on": false,
+   "now": false,
+   "conf": false,
+   "iv": 1,
+   "ds": 20
+  },
+  {
+   "id": "s1",
+   "date": "10.11",
+   "title": "Ulu Önder Atatürk'ü Saygı ve Özlemle Anıyoruz",
+   "sub": "10 Kasım",
+   "img": "",
+   "on": true,
+   "now": false
+  },
+  {
+   "id": "s2",
+   "date": "24.11",
+   "title": "Öğretmenler Günümüz Kutlu Olsun!",
+   "sub": "",
+   "img": "",
+   "on": true,
+   "now": false,
+   "conf": true
+  },
+  {
+   "id": "s3",
+   "date": "23.04",
+   "title": "23 Nisan Ulusal Egemenlik ve Çocuk Bayramı Kutlu Olsun!",
+   "sub": "",
+   "img": "",
+   "on": true,
+   "now": false,
+   "conf": true
+  },
+  {
+   "id": "s4",
+   "date": "19.05",
+   "title": "19 Mayıs Atatürk'ü Anma, Gençlik ve Spor Bayramı Kutlu Olsun!",
+   "sub": "",
+   "img": "",
+   "on": true,
+   "now": false,
+   "conf": true
+  },
+  {
+   "id": "s5",
+   "date": "30.08",
+   "title": "Zafer Bayramımız Kutlu Olsun!",
+   "sub": "",
+   "img": "",
+   "on": true,
+   "now": false,
+   "conf": true
+  },
+  {
+   "id": "s1793183275061",
+   "date": "28.10",
+   "title": "",
+   "sub": "İstiklal marşının kabulü kutlu olsun",
+   "img": "",
+   "on": false,
+   "now": false
+  }
+ ],
+ "al": {
+  "on": false,
+  "title": "Duyuru",
+  "text": "Deprem Tatbikatı",
+  "tone": "o",
+  "fs": 200,
+  "ic": "📣",
+  "is": 50
+ },
+ "nmMode": "day",
+ "nmPre": 60,
+ "nmPost": 60,
+ "nmWe": true,
+ "theme": 4,
+ "c1": "#e11d48",
+ "c2": "#111827",
+ "c3": "#e11d48",
+ "fx": "auto"
+}

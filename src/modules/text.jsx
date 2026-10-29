@@ -1,5 +1,8 @@
-export const meta = { label: 'Yazı / Duyuru', minH: 100 }
-
+export const meta = { label: 'Metin / Liste', minH: 100 }
 export default function Text({ data }) {
-  return <div className="mod-pad pre">{data?.text}</div>
+  return (
+    <div className={data.center ? 'c' : ''}>
+      {String(data.body || '').split('\n').filter((x) => x.trim()).map((l, i) => <div key={i} className="ln">{l}</div>)}
+    </div>
+  )
 }

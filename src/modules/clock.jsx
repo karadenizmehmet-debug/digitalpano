@@ -1,17 +1,10 @@
-import { useEffect, useState } from 'react'
-
-export const meta = { label: 'Tarih ve Saat', minH: 80 }
-
-export default function Clock() {
-  const [now, setNow] = useState(new Date())
-  useEffect(() => {
-    const t = setInterval(() => setNow(new Date()), 1000)
-    return () => clearInterval(t)
-  }, [])
+import { MON } from '../lib/util.js'
+export const meta = { label: 'Saat / Tarih', minH: 80 }
+export default function Clock({ now }) {
   return (
-    <div className="mod-center">
-      <div className="big">{now.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</div>
-      <div className="sub">{now.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric', weekday: 'long' })}</div>
+    <div className="clk">
+      <div className="d">{`${now.getDate()} ${MON[now.getMonth()]} ${now.getFullYear()}`}</div>
+      <div className="t">{now.toLocaleTimeString('tr-TR')}</div>
     </div>
   )
 }
