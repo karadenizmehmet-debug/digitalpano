@@ -848,7 +848,7 @@ export default function Panel({ cfg, fresh, err }) {
       {msg && <div className="p-toast" onClick={() => setMsg('')}>{msg}</div>}
       {tab === 'news' && (() => { const i = draft.mods.findIndex((x) => x.type === 'slides'); const m = draft.mods[i]; return (
         <div className="p-body">
-          <p className="p-hint">📐 Manşet alanı sabit boyuttadır: <b>840 × 480 piksel</b>. Görselleri bu ölçüde hazırlarsanız tam oturur.</p>
+          <p className="p-hint">📐 Manşet alanı sabit boyuttadır: <b>840 × 460 piksel</b>. Görselleri bu ölçüde hazırlarsanız tam oturur.</p>
           {m ? <ModEditor key={m.id} m={m} upd={(p) => updMod(i, p)} del={() => delMod(i)} move={(sd) => moveMod(i, sd)} say={setMsg} root={draft} setRoot={set} open setOpen={() => {}} noBack />
             : <div className="p-card p-pad">Manşet haber modülü yok. Ayarlar > Modüller'den "Manşet haber" ekleyin.</div>}
         </div>) })()}

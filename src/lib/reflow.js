@@ -1,7 +1,7 @@
 // Otomatik yerleşim: modülleri 3 sütuna dizer, taşanı en boş sütuna alır, boşluğu esnek modüllerle doldurur.
 export const COLS = [[20, 348], [380, 840], [1232, 348]]
 // Manşet (slides) boyutu sabittir: görseller bu ölçüde hazırlanır
-export const SLIDE = { w: 840, h: 480 }
+export const SLIDE = { w: 840, h: 460 }
 const FLEX = ['slides', 'table', 'days', 'duty', 'news', 'menu', 'text', 'schedule']
 // Artan boşluğun öncelikle verildiği (içeriği uzayabilen / kaydırmalı) modüller
 const GROW = ['slides', 'schedule', 'table', 'days', 'news', 'menu', 'text']
