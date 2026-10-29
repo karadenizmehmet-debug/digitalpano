@@ -1,0 +1,934 @@
+{
+  "name": "projects/digitalpano-84947/databases/(default)/documents/config/pano",
+  "fields": {
+    "logoId": {
+      "stringValue": ""
+    },
+    "c1": {
+      "stringValue": "#e11d48"
+    },
+    "bg": {
+      "stringValue": "#f2f2ef"
+    },
+    "mods": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "id": {
+                  "stringValue": "m1"
+                },
+                "h": {
+                  "integerValue": "92"
+                },
+                "type": {
+                  "stringValue": "clock"
+                },
+                "data": {
+                  "mapValue": {}
+                },
+                "fs": {
+                  "integerValue": "100"
+                },
+                "title": {
+                  "stringValue": "Tarih ve Saat"
+                },
+                "w": {
+                  "integerValue": "400"
+                },
+                "showTitle": {
+                  "booleanValue": false
+                },
+                "color": {
+                  "stringValue": "#e6b34a"
+                },
+                "active": {
+                  "booleanValue": true
+                },
+                "y": {
+                  "integerValue": "12"
+                },
+                "x": {
+                  "integerValue": "1180"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "y": {
+                  "integerValue": "124"
+                },
+                "x": {
+                  "integerValue": "20"
+                },
+                "color": {
+                  "stringValue": "#2bb3a3"
+                },
+                "showTitle": {
+                  "booleanValue": true
+                },
+                "w": {
+                  "integerValue": "440"
+                },
+                "title": {
+                  "stringValue": "Hava Durumu"
+                },
+                "data": {
+                  "mapValue": {
+                    "fields": {
+                      "cond": {
+                        "stringValue": "rain"
+                      },
+                      "live": {
+                        "booleanValue": false
+                      },
+                      "t": {
+                        "integerValue": "16"
+                      },
+                      "lo": {
+                        "integerValue": "9"
+                      },
+                      "hi": {
+                        "integerValue": "17"
+                      }
+                    }
+                  }
+                },
+                "fs": {
+                  "integerValue": "100"
+                },
+                "active": {
+                  "booleanValue": true
+                },
+                "type": {
+                  "stringValue": "weather"
+                },
+                "id": {
+                  "stringValue": "m2"
+                },
+                "h": {
+                  "integerValue": "150"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "h": {
+                  "integerValue": "596"
+                },
+                "color": {
+                  "stringValue": "#4aa3e8"
+                },
+                "title": {
+                  "stringValue": "Hoş Geldiniz"
+                },
+                "w": {
+                  "integerValue": "640"
+                },
+                "id": {
+                  "stringValue": "m3"
+                },
+                "showTitle": {
+                  "booleanValue": false
+                },
+                "data": {
+                  "mapValue": {
+                    "fields": {
+                      "sec": {
+                        "integerValue": "6"
+                      },
+                      "imgs": {
+                        "arrayValue": {}
+                      }
+                    }
+                  }
+                },
+                "active": {
+                  "booleanValue": true
+                },
+                "x": {
+                  "integerValue": "480"
+                },
+                "y": {
+                  "integerValue": "124"
+                },
+                "type": {
+                  "stringValue": "slides"
+                },
+                "fs": {
+                  "integerValue": "100"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "data": {
+                  "mapValue": {
+                    "fields": {
+                      "rows": {
+                        "stringValue": "Sınıf;1. Ders;2. Ders;3. Ders;4. Ders\n5/A;Türkçe;Mat;Fen;Sosyal\n5/B;Mat;Mat;İng.;Türkçe\n6/A;Fen;Türkçe;Mat;Müzik\n6/B;İng.;Fen;Mat;Beden\n7/A;Mat;Türkçe;Fen;Din K."
+                      },
+                      "speed": {
+                        "integerValue": "1"
+                      }
+                    }
+                  }
+                },
+                "w": {
+                  "integerValue": "440"
+                },
+                "type": {
+                  "stringValue": "table"
+                },
+                "active": {
+                  "booleanValue": true
+                },
+                "y": {
+                  "integerValue": "124"
+                },
+                "x": {
+                  "integerValue": "1140"
+                },
+                "showTitle": {
+                  "booleanValue": true
+                },
+                "h": {
+                  "integerValue": "239"
+                },
+                "fs": {
+                  "integerValue": "100"
+                },
+                "title": {
+                  "stringValue": "Ders Programı"
+                },
+                "id": {
+                  "stringValue": "m4"
+                },
+                "color": {
+                  "stringValue": "#4aa3e8"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "w": {
+                  "integerValue": "440"
+                },
+                "color": {
+                  "stringValue": "#4aa3e8"
+                },
+                "fs": {
+                  "integerValue": "100"
+                },
+                "y": {
+                  "integerValue": "485"
+                },
+                "x": {
+                  "integerValue": "1140"
+                },
+                "id": {
+                  "stringValue": "m5"
+                },
+                "showTitle": {
+                  "booleanValue": true
+                },
+                "title": {
+                  "stringValue": "Nöbetçi Öğretmenler"
+                },
+                "active": {
+                  "booleanValue": true
+                },
+                "h": {
+                  "integerValue": "215"
+                },
+                "data": {
+                  "mapValue": {
+                    "fields": {
+                      "places": {
+                        "stringValue": "Bahçe\nGiriş\n1. Kat"
+                      },
+                      "g": {
+                        "mapValue": {}
+                      },
+                      "speed": {
+                        "integerValue": "1"
+                      },
+                      "header": {
+                        "booleanValue": false
+                      }
+                    }
+                  }
+                },
+                "type": {
+                  "stringValue": "duty"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "data": {
+                  "mapValue": {
+                    "fields": {
+                      "rows": {
+                        "stringValue": "07.09;Uluslararası Temiz Hava Günü\n12.09.2026;Dünya İlk Yardım Günü\n19.09;Gaziler Günü\n28.09;Dünya Okul Sütü Günü\n04.10;Hayvanları Koruma Günü\n08.10-12.10;Ahilik Kültürü Haftası\n13.10;Dünya Afet Azaltma Günü\n24.10;Birleşmiş Milletler Günü\n29.10;Cumhuriyet Bayramı\n29.10-04.11;Kızılay Haftası\n02.11-08.11;Lösemili Çocuklar Haftası\n03.11-09.11;Organ Bağışı ve Nakli Haftası\n10.11-16.11;Atatürk Haftası\n12.11;Afet Eğitimi Hazırlık Günü\n14.11;Dünya Diyabet Günü\n20.11;Dünya Felsefe Günü\n20.11;Dünya Çocuk Hakları Günü\n21.11-27.11;Ağız ve Diş Sağlığı Haftası\n24.11;Öğretmenler Günü\n03.12;Dünya Engelliler Günü\n04.12;Dünya Madenciler Günü\n05.12;Türk Kadınına Seçme ve Seçilme Hakkının Verilişi\n07.12-17.12;Mevlana Haftası\n07.12.2026-13.12.2026;İnsan Hakları ve Demokrasi Haftası\n12.12-18.12;Tutum, Yatırım ve Türk Malları Haftası\n20.12-27.12;Mehmet Akif Ersoy'u Anma Haftası\n11.01.2027-17.01.2027;Enerji Tasarrufu Haftası\n22.02.2027-28.02.2027;Vergi Haftası\n01.03.2027-07.03.2027;Yeşilay Haftası\n01.03.2027-07.03.2027;Girişimcilik Haftası\n08.03;Dünya Kadınlar Günü\n08.03-14.03;Bilim ve Teknoloji Haftası\n12.03;İstiklâl Marşı'nın Kabulü ve Mehmet Akif Ersoy'u Anma Günü\n15.03-21.03;Tüketiciyi Koruma Haftası\n15.03.2027-21.03.2027;Türk Dünyası ve Toplulukları Haftası\n18.03;Şehitler Günü\n18.03-24.03;Yaşlılar Haftası\n21.03-26.03;Orman Haftası\n22.03;Dünya Su Günü\n27.03;Dünya Tiyatrolar Günü\n29.03.2027-04.04.2027;Kütüphaneler Haftası\n01.04-07.04;Kanser Haftası\n02.04;Dünya Otizm Farkındalık Günü\n07.04;Kişisel Verileri Koruma Günü\n07.04-13.04;Dünya Sağlık Günü / Dünya Sağlık Haftası\n15.04-22.04;Turizm Haftası\n23.04;Ulusal Egemenlik ve Çocuk Bayramı\n26.04;Dünya Fikrî Mülkiyet Günü\n29.04;Kût'ül Amâre Zaferi\n03.05.2027-09.05.2027;Bilişim Haftası\n03.05.2027-09.05.2027;Trafik ve İlkyardım Haftası\n04.05-10.05;İş Sağlığı ve Güvenliği Haftası\n10.05.2027-16.05.2027;Vakıflar Haftası\n09.05.2027;Anneler Günü\n10.05-16.05;Engelliler Haftası\n18.05-24.05;Müzeler Haftası\n19.05;Atatürk'ü Anma ve Gençlik ve Spor Bayramı\n25.05;Etik Günü\n29.05;İstanbul'un Fethi\n01.06.2027-06.06.2027;Hayat Boyu Öğrenme Haftası\n07.06.2027-13.06.2027;Çevre ve İklim Değişikliği Haftası\n20.06.2027;Babalar Günü\n30.08;Zafer Bayramı"
+                      }
+                    }
+                  }
+                },
+                "showTitle": {
+                  "booleanValue": true
+                },
+                "w": {
+                  "integerValue": "440"
+                },
+                "title": {
+                  "stringValue": "Belirli Gün ve Haftalar"
+                },
+                "type": {
+                  "stringValue": "days"
+                },
+                "x": {
+                  "integerValue": "20"
+                },
+                "y": {
+                  "integerValue": "286"
+                },
+                "color": {
+                  "stringValue": "#2bb3a3"
+                },
+                "active": {
+                  "booleanValue": true
+                },
+                "h": {
+                  "integerValue": "181"
+                },
+                "fs": {
+                  "integerValue": "100"
+                },
+                "id": {
+                  "stringValue": "m6"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "data": {
+                  "mapValue": {
+                    "fields": {
+                      "rows": {
+                        "stringValue": "Örnek Öğrenci; 01.01"
+                      }
+                    }
+                  }
+                },
+                "w": {
+                  "integerValue": "440"
+                },
+                "title": {
+                  "stringValue": "Doğum Günün Kutlu Olsun"
+                },
+                "type": {
+                  "stringValue": "bday"
+                },
+                "x": {
+                  "integerValue": "20"
+                },
+                "y": {
+                  "integerValue": "610"
+                },
+                "color": {
+                  "stringValue": "#9a86f2"
+                },
+                "active": {
+                  "booleanValue": true
+                },
+                "h": {
+                  "integerValue": "110"
+                },
+                "fs": {
+                  "integerValue": "100"
+                },
+                "showTitle": {
+                  "booleanValue": true
+                },
+                "id": {
+                  "stringValue": "m7"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "type": {
+                  "stringValue": "cnt"
+                },
+                "fs": {
+                  "integerValue": "100"
+                },
+                "w": {
+                  "integerValue": "440"
+                },
+                "id": {
+                  "stringValue": "m9"
+                },
+                "data": {
+                  "mapValue": {
+                    "fields": {
+                      "at": {
+                        "stringValue": "2027-06-22T14:00"
+                      },
+                      "name": {
+                        "stringValue": "Lgs kalan süre"
+                      }
+                    }
+                  }
+                },
+                "showTitle": {
+                  "booleanValue": false
+                },
+                "y": {
+                  "integerValue": "479"
+                },
+                "x": {
+                  "integerValue": "20"
+                },
+                "title": {
+                  "stringValue": "Lgs"
+                },
+                "h": {
+                  "integerValue": "119"
+                },
+                "color": {
+                  "stringValue": "#e6b34a"
+                },
+                "active": {
+                  "booleanValue": true
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "data": {
+                  "mapValue": {
+                    "fields": {
+                      "rows": {
+                        "stringValue": "16.11.2026;Ara tatil\n25.01.2027;Yarıyıl tatili\n08.03.2027;Mart ara tatili\n28.06.2027;Yaz tatili"
+                      }
+                    }
+                  }
+                },
+                "h": {
+                  "integerValue": "100"
+                },
+                "title": {
+                  "stringValue": "Geri Sayım"
+                },
+                "showTitle": {
+                  "booleanValue": false
+                },
+                "type": {
+                  "stringValue": "cd"
+                },
+                "color": {
+                  "stringValue": "#e6b34a"
+                },
+                "id": {
+                  "stringValue": "m10"
+                },
+                "active": {
+                  "booleanValue": true
+                },
+                "w": {
+                  "integerValue": "440"
+                },
+                "y": {
+                  "integerValue": "732"
+                },
+                "x": {
+                  "integerValue": "20"
+                },
+                "fs": {
+                  "integerValue": "80"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "color": {
+                  "stringValue": "#ef6f61"
+                },
+                "h": {
+                  "integerValue": "120"
+                },
+                "title": {
+                  "stringValue": "Zile Ne Kadar Kaldı?"
+                },
+                "id": {
+                  "stringValue": "m8"
+                },
+                "w": {
+                  "integerValue": "440"
+                },
+                "type": {
+                  "stringValue": "bell"
+                },
+                "active": {
+                  "booleanValue": true
+                },
+                "y": {
+                  "integerValue": "712"
+                },
+                "x": {
+                  "integerValue": "1140"
+                },
+                "data": {
+                  "mapValue": {
+                    "fields": {
+                      "rows": {
+                        "stringValue": "08:30-09:10 1. Ders\n09:20-10:00 2. Ders\n10:10-10:50 3. Ders\n11:00-11:40 4. Ders\n12:30-13:10 5. Ders\n13:20-14:00 6. Ders"
+                      }
+                    }
+                  }
+                },
+                "showTitle": {
+                  "booleanValue": true
+                },
+                "fs": {
+                  "integerValue": "100"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "id": {
+                  "stringValue": "m11"
+                },
+                "showTitle": {
+                  "booleanValue": false
+                },
+                "type": {
+                  "stringValue": "pray"
+                },
+                "fs": {
+                  "integerValue": "100"
+                },
+                "data": {
+                  "mapValue": {
+                    "fields": {
+                      "lat": {
+                        "stringValue": "38.356"
+                      },
+                      "lon": {
+                        "stringValue": "31.416"
+                      },
+                      "adj": {
+                        "stringValue": "0,0,5,4,7,0"
+                      }
+                    }
+                  }
+                },
+                "h": {
+                  "integerValue": "100"
+                },
+                "title": {
+                  "stringValue": "Namaz Vakitleri"
+                },
+                "y": {
+                  "integerValue": "732"
+                },
+                "x": {
+                  "integerValue": "480"
+                },
+                "color": {
+                  "stringValue": "#2bb3a3"
+                },
+                "active": {
+                  "booleanValue": true
+                },
+                "w": {
+                  "integerValue": "640"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "showTitle": {
+                  "booleanValue": false
+                },
+                "h": {
+                  "integerValue": "98"
+                },
+                "id": {
+                  "stringValue": "m12"
+                },
+                "type": {
+                  "stringValue": "quote"
+                },
+                "w": {
+                  "integerValue": "440"
+                },
+                "color": {
+                  "stringValue": "#9a86f2"
+                },
+                "title": {
+                  "stringValue": "Günün Sözü"
+                },
+                "data": {
+                  "mapValue": {
+                    "fields": {
+                      "rows": {
+                        "stringValue": "Dünyada her şey için, maddiyat için, maneviyat için, muvaffakiyet için en hakiki mürşit ilimdir, fendir.|M. Kemal Atatürk\nÖğretmenler! Yeni nesil sizin eseriniz olacaktır.|M. Kemal Atatürk\nEğitimdir ki bir milleti ya özgür, bağımsız, şanlı, yüksek bir toplum halinde yaşatır; ya da milleti esarete ve sefalete terk eder.|M. Kemal Atatürk\nBilim ve fen nerede ise oradan alacağız ve her millet ferdinin kafasına koyacağız.|M. Kemal Atatürk\nÖğrenip de zamanı geldikçe uygulamak ne büyük mutluluktur!|Konfüçyüs\nİlim ilim bilmektir, ilim kendin bilmektir.|Yunus Emre\nHiç bilenlerle bilmeyenler bir olur mu?|Zümer Suresi, 9\nRabbim, ilmimi artır.|Tâhâ Suresi, 114\nYaratan Rabbinin adıyla oku!|Alak Suresi, 1\nSizin en hayırlınız, Kur'an'ı öğrenen ve öğretendir.|Hz. Muhammed (s.a.v.)\nKim ilim öğrenmek için bir yola girerse, Allah ona cennetin yolunu kolaylaştırır.|Hz. Muhammed (s.a.v.)\nEğitim, dünyayı değiştirmek için kullanabileceğiniz en güçlü silahtır.|Nelson Mandela\nBir çocuk, bir öğretmen, bir kitap ve bir kalem dünyayı değiştirebilir.|Malala Yousafzai\nÖnemli olan sorgulamayı bırakmamaktır.|Albert Einstein\nBir bahçen ve bir kütüphanen varsa, ihtiyacın olan her şeye sahipsin.|Cicero\nBin millik yolculuk tek bir adımla başlar.|Lao Tzu\nBilgi güçtür.|Francis Bacon\nDahi, yüzde bir ilham, yüzde doksan dokuz terdir.|Thomas Edison\nDamlaya damlaya göl olur.|Atasözü\nAğaç yaşken eğilir.|Atasözü\nBugünün işini yarına bırakma.|Atasözü\nHer kitap yeni bir dünyaya açılan kapıdır.\nHata yapmak öğrenmenin bir parçasıdır; önemli olan yeniden denemektir.\nBaşarı, her gün tekrarlanan küçük çabaların toplamıdır.\nMerak et, sor, araştır; öğrenmenin anahtarı sorudur.\nBugün öğrendiğin her yeni bilgi, yarının cesaretidir.\nHayalin kadar çalış, çalıştığın kadar ulaşırsın.\nVazgeçmeyenler, kazananlardır.\nÖğrenmenin yaşı yoktur; her gün yeni bir başlangıçtır.\nDüşmek başarısızlık değildir; kalkmamak başarısızlıktır.\nKitap okuyan, bin hayat yaşar.\nZor olan başlamaktır; gerisi gelir.\nSabır ve çalışkanlık, en büyük yetenektir.\nÖğrendiğini paylaştıkça bilgin çoğalır.\nSaygı, sevgi ve çalışkanlık; başarının üç anahtarıdır.\nKendine inan; yarının başarısı bugünkü emeğindedir.\nDürüstlük, insanın en değerli sermayesidir.\nBugün yapabileceğinin en iyisini yap; yarın daha iyisini yaparsın.\nİyi bir arkadaş, iyi bir kitap gibidir: seni geliştirir.\nBirlikte çalışmak, tek başına çalışmaktan daha ileri götürür.\nPlanlı çalışan, yorulmadan ilerler.\nKüçük adımlar, büyük başarıların habercisidir.\nDinlemek, öğrenmenin yarısıdır.\nZamanı iyi kullanan, hayatı iyi kullanır.\nBir öğretmen, bir ömür boyu iz bırakır.\nHedefi olan, yolunu bulur.\nBaşarı tesadüf değil; emek ve istikrarın sonucudur.\nGüzel ahlak, ilmin tacıdır.\nGülümse; güzel bir gün, güzel bir başlangıçla başlar.\nBugün yeni bir sayfa; onu en güzel şekilde yaz."
+                      },
+                      "pin": {
+                        "integerValue": "0"
+                      },
+                      "rnd": {
+                        "mapValue": {
+                          "fields": {
+                            "i": {
+                              "integerValue": "47"
+                            },
+                            "d": {
+                              "stringValue": "2026-10-28"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "y": {
+                  "integerValue": "375"
+                },
+                "x": {
+                  "integerValue": "1140"
+                },
+                "active": {
+                  "booleanValue": true
+                },
+                "fs": {
+                  "integerValue": "100"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "ticker": {
+      "stringValue": "Okulumuza hoş geldiniz\nDuyurular panelden düzenlenebilir"
+    },
+    "nmWe": {
+      "booleanValue": true
+    },
+    "c2": {
+      "stringValue": "#111827"
+    },
+    "city": {
+      "stringValue": "İstanbul / Bakırköy"
+    },
+    "sd": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "date": {
+                  "stringValue": "29.10"
+                },
+                "sub": {
+                  "stringValue": ""
+                },
+                "img": {
+                  "stringValue": ""
+                },
+                "now": {
+                  "booleanValue": false
+                },
+                "on": {
+                  "booleanValue": false
+                },
+                "iv": {
+                  "integerValue": "1"
+                },
+                "title": {
+                  "stringValue": "Cumhuriyet Bayramımız\n Kutlu Olsun!"
+                },
+                "ds": {
+                  "integerValue": "20"
+                },
+                "conf": {
+                  "booleanValue": false
+                },
+                "id": {
+                  "stringValue": "s0"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "on": {
+                  "booleanValue": true
+                },
+                "title": {
+                  "stringValue": "Ulu Önder Atatürk'ü Saygı ve Özlemle Anıyoruz"
+                },
+                "sub": {
+                  "stringValue": "10 Kasım"
+                },
+                "img": {
+                  "stringValue": ""
+                },
+                "now": {
+                  "booleanValue": false
+                },
+                "date": {
+                  "stringValue": "10.11"
+                },
+                "id": {
+                  "stringValue": "s1"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "now": {
+                  "booleanValue": false
+                },
+                "date": {
+                  "stringValue": "24.11"
+                },
+                "on": {
+                  "booleanValue": true
+                },
+                "id": {
+                  "stringValue": "s2"
+                },
+                "img": {
+                  "stringValue": ""
+                },
+                "sub": {
+                  "stringValue": ""
+                },
+                "conf": {
+                  "booleanValue": true
+                },
+                "title": {
+                  "stringValue": "Öğretmenler Günümüz Kutlu Olsun!"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "conf": {
+                  "booleanValue": true
+                },
+                "id": {
+                  "stringValue": "s3"
+                },
+                "title": {
+                  "stringValue": "23 Nisan Ulusal Egemenlik ve Çocuk Bayramı Kutlu Olsun!"
+                },
+                "img": {
+                  "stringValue": ""
+                },
+                "sub": {
+                  "stringValue": ""
+                },
+                "date": {
+                  "stringValue": "23.04"
+                },
+                "on": {
+                  "booleanValue": true
+                },
+                "now": {
+                  "booleanValue": false
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "title": {
+                  "stringValue": "19 Mayıs Atatürk'ü Anma, Gençlik ve Spor Bayramı Kutlu Olsun!"
+                },
+                "id": {
+                  "stringValue": "s4"
+                },
+                "now": {
+                  "booleanValue": false
+                },
+                "conf": {
+                  "booleanValue": true
+                },
+                "sub": {
+                  "stringValue": ""
+                },
+                "on": {
+                  "booleanValue": true
+                },
+                "img": {
+                  "stringValue": ""
+                },
+                "date": {
+                  "stringValue": "19.05"
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "date": {
+                  "stringValue": "30.08"
+                },
+                "img": {
+                  "stringValue": ""
+                },
+                "title": {
+                  "stringValue": "Zafer Bayramımız Kutlu Olsun!"
+                },
+                "on": {
+                  "booleanValue": true
+                },
+                "sub": {
+                  "stringValue": ""
+                },
+                "id": {
+                  "stringValue": "s5"
+                },
+                "now": {
+                  "booleanValue": false
+                },
+                "conf": {
+                  "booleanValue": true
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "id": {
+                  "stringValue": "s1793183275061"
+                },
+                "now": {
+                  "booleanValue": false
+                },
+                "date": {
+                  "stringValue": "28.10"
+                },
+                "title": {
+                  "stringValue": ""
+                },
+                "img": {
+                  "stringValue": ""
+                },
+                "sub": {
+                  "stringValue": "İstiklal marşının kabulü kutlu olsun"
+                },
+                "on": {
+                  "booleanValue": false
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "fx": {
+      "stringValue": "auto"
+    },
+    "name": {
+      "stringValue": "Nimetullah Nahçivani İmam Hatip Ortaokulu"
+    },
+    "nmPre": {
+      "integerValue": "60"
+    },
+    "nmMode": {
+      "stringValue": "day"
+    },
+    "logo": {
+      "stringValue": ""
+    },
+    "nmPost": {
+      "integerValue": "60"
+    },
+    "theme": {
+      "integerValue": "4"
+    },
+    "al": {
+      "mapValue": {
+        "fields": {
+          "is": {
+            "integerValue": "50"
+          },
+          "fs": {
+            "integerValue": "200"
+          },
+          "pend": {
+            "integerValue": "0"
+          },
+          "on": {
+            "booleanValue": false
+          },
+          "text": {
+            "stringValue": "Deprem Tatbikatı"
+          },
+          "tone": {
+            "stringValue": "o"
+          },
+          "ic": {
+            "stringValue": "⚠️"
+          },
+          "at": {
+            "integerValue": "1793273431304"
+          },
+          "title": {
+            "stringValue": "Duyuru"
+          },
+          "dur": {
+            "integerValue": "0"
+          }
+        }
+      }
+    },
+    "slogan": {
+      "stringValue": ""
+    },
+    "c3": {
+      "stringValue": "#e11d48"
+    }
+  },
+  "createTime": "2026-10-29T10:42:09.265626Z",
+  "updateTime": "2026-10-29T11:34:59.100397Z"
+}
