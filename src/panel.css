@@ -175,3 +175,8 @@ body.panelbody{overflow-x:hidden;overflow-y:auto;max-width:100vw;background:#f3f
 .pnl .p-lgc .p-pri{padding:14px;font-size:17px;border-radius:12px;background:linear-gradient(135deg,#0f9b8e,#0b6f8e)}
 .pnl .p-lgb{display:inline-block;margin-top:16px;color:#5b6b7b;font-size:14px;text-decoration:none}
 .pnl .p-lgf{color:#c9d6ea;text-align:center;font-size:14px;line-height:1.6}.pnl .p-lgf span{font-size:12px;opacity:.7}
+
+.pnl .p-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;padding-top:6px}
+.pnl .p-grid button{display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 6px;background:#fff;border:1px solid #dbe4ec;border-radius:16px;font-size:14px;font-weight:700;color:#0f2433;box-shadow:0 2px 8px #0a2a4a12}
+.pnl .p-grid button span{font-size:40px}
+.pnl .p-sub button{flex:none}

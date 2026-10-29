@@ -142,18 +142,19 @@ function SlidesEditor({ value, set, say }) {
       setNm('')
       const src = await shrink(f), id = 'i' + Date.now().toString(36)
       await saveImage(id, src)
-      set([...L, { img: id, name: nm.trim() || f.name, d: 7, on: isoD(new Date()) }])
+      set([{ img: id, name: nm.trim() || f.name, d: 7, on: isoD(new Date()) }, ...L])
       say('Görsel yüklendi. Yayınla düğmesine basmayı unutmayın.')
     } catch (er) { say('Görsel yüklenemedi: ' + er.message) }
   }
   return (
     <div className="p-sl">
-      {L.map((x, i) => <SlideCard key={i} x={x} i={i} upd={upd} mv={mv} del={del} />)}
       <div className="p-btns">
-        <button onClick={() => set([...L, { t: 'Duyuru başlığı', s: '', tone: 'b', fs: 100, d: 7, on: isoD(new Date()) }])}>+ Yazılı slayt</button>
+        <button onClick={() => set([{ t: 'Duyuru başlığı', s: '', tone: 'b', fs: 100, d: 7, on: isoD(new Date()) }, ...L])}>+ Yazılı slayt</button>
         <input placeholder="Yeni görselin adı (isteğe bağlı)" value={nm} onChange={(e) => setNm(e.target.value)} style={{ flex: '1 1 100%' }} />
         <label className="p-fbtn">+ Görsel<input type="file" accept="image/*" hidden onChange={addImg} /></label>
       </div>
+      {L.length > 0 && <div className="p-h2">Eklenenler ({L.length})</div>}
+      {L.map((x, i) => <SlideCard key={i} x={x} i={i} upd={upd} mv={mv} del={del} />)}
     </div>
   )
 }
@@ -451,17 +452,17 @@ function ModEditor({ m, upd, del, move, say, root, setRoot, open, setOpen, noBac
       )}
       {open && (
         <div className="p-body p-dbody">
-          <div className="p-fld"><label>Başlık</label><input value={m.title || ''} onChange={(e) => upd({ title: e.target.value })} /></div>
-          <label className="p-chk"><input type="checkbox" checked={m.showTitle !== false && (m.type !== 'slides' || m.showTitle)} onChange={(e) => upd({ showTitle: e.target.checked })} /> Başlığı göster</label>
-          {(R?.fields || []).map((f) => <Field key={f[0]} f={f} data={m.data} set={setData} say={say} root={root} setRoot={setRoot} />)}
-          <details className="p-adv"><summary>Gelişmiş (boyut, renk, konum)</summary>
+          {!noBack && <><div className="p-fld"><label>Başlık</label><input value={m.title || ''} onChange={(e) => upd({ title: e.target.value })} /></div>
+          <label className="p-chk"><input type="checkbox" checked={m.showTitle !== false && (m.type !== 'slides' || m.showTitle)} onChange={(e) => upd({ showTitle: e.target.checked })} /> Başlığı göster</label></>}
+          {(R?.fields || []).filter((f) => !(noBack && m.type === 'slides' && f[1] !== 'slides')).map((f) => <Field key={f[0]} f={f} data={m.data} set={setData} say={say} root={root} setRoot={setRoot} />)}
+          {!noBack && <details className="p-adv"><summary>Gelişmiş (boyut, renk, konum)</summary>
           <label className="p-chk" style={{ marginTop: 10 }}><input type="checkbox" checked={!!m.fixH} onChange={(e) => upd({ fixH: e.target.checked })} /> Yüksekliği sabitle (otomatik yerleşim değiştirmesin)</label>
           <div className="p-fld"><label>Yazı boyutu (%)</label><input type="number" value={m.fs || 100} onChange={(e) => upd({ fs: +e.target.value })} /></div>
           <div className="p-fld"><label>Renk</label><input type="color" value={m.color || '#0f9b8e'} onChange={(e) => upd({ color: e.target.value })} /></div>
           <div className="p-pos">
             {['x', 'y', 'w', 'h'].map((k) => <div key={k} className="p-fld"><label>{k.toUpperCase()}</label><input type="number" value={m[k]} onChange={(e) => upd({ [k]: +e.target.value })} /></div>)}
           </div>
-          </details>
+          </details>}
           {!noBack && <div className="p-btns p-delrow">
             {!ask ? <button className="p-danger" onClick={() => setAsk(true)}>🗑 Modülü sil</button>
               : <><button className="p-danger" onClick={() => { del(); setOpen(null) }}>Evet, sil</button><button onClick={() => setAsk(false)}>Vazgeç</button></>}
@@ -562,7 +563,7 @@ export default function Panel({ cfg, fresh, err }) {
   const [draft, setDraft] = useState(null)
   const [msg, setMsg] = useState('')
   const [tab, setTab] = useState('news')
-  const [sub, setSub] = useState('gen')
+  const [sub, setSub] = useState(null)
   const [openId, setOpenId] = useState(null)
   const [saved, setSaved] = useState('')
   const [slow, setSlow] = useState(false)
@@ -665,7 +666,12 @@ export default function Panel({ cfg, fresh, err }) {
           <AnnEditor draft={draft} set={set} />
         </div>
       )}
-      {SETT.includes(tab) && !(tab === 'mods' && openId) && <div className="p-sub">{[['gen', 'Genel'], ['mods', 'Modüller'], ['lay', 'Düzen'], ['sd', 'Özel günler'], ['bak', 'Yedek']].map(([k, l]) => <button key={k} className={view === k ? 'p-on' : ''} onClick={() => { if (k === 'mods' || k === 'lay') { setTab(k); setOpenId(null) } else { setTab('set'); setSub(k) } window.scrollTo(0, 0) }}>{l}</button>)}</div>}
+      {tab === 'set' && !sub && (
+        <div className="p-body"><div className="p-grid">
+          {[['gen', '🏫', 'Genel ayarlar'], ['mods', '🧩', 'Modüller'], ['lay', '🖼️', 'Düzen'], ['sd', '📅', 'Özel günler'], ['bak', '💾', 'Yedek']].map(([k, i, l]) => <button key={k} onClick={() => { if (k === 'mods' || k === 'lay') { setTab(k); setOpenId(null) } else setSub(k); window.scrollTo(0, 0) }}><span>{i}</span>{l}</button>)}
+        </div></div>
+      )}
+      {SETT.includes(tab) && !(tab === 'set' && !sub) && !(tab === 'mods' && openId) && <div className="p-sub"><button onClick={() => { setTab('set'); setSub(null); setOpenId(null); window.scrollTo(0, 0) }}>← Ayarlar</button></div>}
       {view === 'gen' && (
         <div className="p-body">
           <div className="p-fld"><label>Okul adı</label><input value={draft.name || ''} onChange={(e) => set({ name: e.target.value })} /></div>
@@ -755,7 +761,7 @@ export default function Panel({ cfg, fresh, err }) {
         </div>
       )}
       <nav className="p-nav">
-        {[['news', '📰', 'Manşet'], ['duy', '📢', 'Duyuru'], ['al', '🚨', 'Acil'], ['set', '⚙️', 'Ayarlar']].map(([k, i, l]) => <button key={k} className={(k === 'set' ? SETT.includes(tab) : tab === k) ? 'p-on' : ''} onClick={() => { setTab(k); if (k === 'set') setOpenId(null); window.scrollTo(0, 0) }}><span>{i}</span>{l}</button>)}
+        {[['news', '📰', 'Manşet'], ['duy', '📢', 'Duyuru'], ['al', '🚨', 'Acil'], ['set', '⚙️', 'Ayarlar']].map(([k, i, l]) => <button key={k} className={(k === 'set' ? SETT.includes(tab) : tab === k) ? 'p-on' : ''} onClick={() => { setTab(k); if (k === 'set') { setOpenId(null); setSub(null) }; window.scrollTo(0, 0) }}><span>{i}</span>{l}</button>)}
       </nav>
     </div>
   )
