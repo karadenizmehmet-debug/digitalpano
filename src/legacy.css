@@ -218,3 +218,8 @@ html,body,#root{height:100%}
 .pi{min-width:0;overflow:hidden}
 .pi b{font-size:min(1.05em,4.5cqw)}
 .pi small{font-size:min(.62em,3cqw)}
+
+/* Satırlarda sol şerit yok; sayaç başlığı diğer modül başlıklarıyla aynı tarzda */
+.stage .ln,.stage .dt{border-left:0!important}
+.stage .c .ln{border:0!important}
+.mod:has(>.h) .ct .cn{display:none}

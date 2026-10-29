@@ -929,6 +929,7 @@ export default function Panel({ cfg, fresh, err }) {
           <label className="p-chk"><input type="checkbox" checked={draft.autoFlow !== false} onChange={(e) => set({ autoFlow: e.target.checked })} /> Otomatik yerleşim</label>
           <div className="p-btns">
             <button onClick={() => { const mods = draft.mods.map((m) => { const c = { ...m }; delete c.fixH; return c }); reflow(mods, null, minHOf, wantH); set({ mods }) }}>Hepsini otomatik düzenle</button>
+            <button onClick={() => { const mods = draft.mods.map((m) => { const c = { ...m }; delete c.fixH; if (c.type !== 'slides' && c.type !== 'clock') c.showTitle = true; return c }); reflow(mods, null, minHOf, wantH); set({ mods }) }}>Tüm başlıkları göster</button>
           </div>
           {sel && draft.mods.find((m) => m.id === sel) && (
             <div className="p-btns">
