@@ -13,7 +13,11 @@ export default function Bell({ data, now }) {
   if (c) inner = bx(Math.ceil(c.e - t), c.n, 'zile kalan süre')
   else {
     const nx = L.filter((x) => x.s > t).sort((a, b) => a.s - b.s)[0]
-    inner = nx ? bx(Math.ceil(nx.s - t), 'Teneffüs', 'sonraki: ' + nx.n) : <div className="bt"><b>Ders saatleri dışında</b></div>
+    const first = L.length ? Math.min(...L.map((x) => x.s)) : 0, last = L.length ? Math.max(...L.map((x) => x.e)) : 0
+    if (!L.length || t < 480 || (!nx && t < last)) inner = <div className="bt"><b>Ders saatleri dışında</b></div>
+    else if (!nx) inner = <div className="bt"><b>Dersler bitti</b><span>Yarın görüşmek üzere</span></div>
+    else if (t < first) inner = bx(Math.ceil(nx.s - t), 'Ders başlamadı', nx.n + ' için kalan süre')
+    else inner = bx(Math.ceil(nx.s - t), 'Teneffüs', 'sonraki: ' + nx.n)
   }
   return <div className="bel">{inner}</div>
 }
