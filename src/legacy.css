@@ -162,3 +162,4 @@ input[type=checkbox]{width:22px;height:22px}
 html,body,#root{height:100%}
 
 .sl .pc{position:absolute;inset:0;overflow:hidden;opacity:0;transition:opacity .9s}.sl .pc.on{opacity:1}.sl .pc img{position:absolute;inset:0;width:100%;height:100%;opacity:1;transition:none;object-fit:contain}.sl .pc img.bg{object-fit:cover;filter:blur(28px) brightness(.55);transform:scale(1.2)}
+.sl.fill .pc img{object-fit:cover}.sl.fill .pc img.bg{display:none}
