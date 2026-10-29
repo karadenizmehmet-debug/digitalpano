@@ -32,8 +32,13 @@ export default function App() {
       setFit({ sc, x: (w - 1600 * sc) / 2, y: (h - 900 * sc) / 2 })
     }
     f()
+    scrollTo(0, 0)
     addEventListener('resize', f)
-    return () => removeEventListener('resize', f)
+    // Kap elemanının boyutu değişince (geçiş, adres çubuğu vb.) yeniden ölç
+    const ro = typeof ResizeObserver !== 'undefined' && sw.current ? new ResizeObserver(f) : null
+    if (ro) ro.observe(sw.current)
+    const t = setTimeout(f, 150)
+    return () => { removeEventListener('resize', f); ro && ro.disconnect(); clearTimeout(t) }
   }, [isPanel])
 
   if (isPanel) return <Panel cfg={cfg} />
