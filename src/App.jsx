@@ -3,6 +3,7 @@ import defaults from './defaults.json'
 import { registry } from './lib/registry.js'
 import { listenConfig } from './lib/firebase.js'
 import Panel from './Panel.jsx'
+import { alertOn } from './lib/alert.js'
 
 // Pano 1600x900'lük sabit bir sahnedir; ekrana sığacak şekilde ölçeklenir.
 export default function App() {
@@ -74,6 +75,13 @@ export default function App() {
             </div>
           )
         })}
+        {alertOn(cfg.al, now.getTime()) && (
+          <div className="alr" data-t={cfg.al.tone || 'r'} style={{ '--f': (cfg.al.fs || 100) / 100, '--i': (cfg.al.is || 100) / 100 }}>
+            {cfg.al.ic ? <i>{cfg.al.ic}</i> : null}
+            <b>{cfg.al.title}</b>
+            <span>{cfg.al.text}</span>
+          </div>
+        )}
         {tk.length > 0 && (
           <div className="ftr">
             <div className="tg">DUYURU</div>

@@ -3,8 +3,10 @@ import { registry } from './lib/registry.js'
 import { THEMES } from './lib/themes.js'
 import { login, logout, onUser, saveConfig, saveImage, removeImage, loadImage } from './lib/firebase.js'
 import { rows } from './lib/util.js'
+import { alertStatus } from './lib/alert.js'
 import './panel.css'
 
+const ALI = ['🚨','⚠️','🔥','🌍','🌧️','❄️','⚡','🌪️','📢','🏥','🚑','🚒','🚫','⛔','😷','🚸','🔒','📣','ℹ️','✅','🕌','🎓','🚌','⏰']
 const DAYS = ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma']
 const COND = { sun: 'Güneşli', partly: 'Parçalı bulutlu', cloud: 'Bulutlu', rain: 'Yağmurlu', wind: 'Rüzgarlı', snow: 'Karlı', storm: 'Gök gürültülü', fog: 'Sisli' }
 
@@ -139,6 +141,40 @@ function ModEditor({ m, upd, del, move, say }) {
   )
 }
 
+
+function AlertEditor({ al, set }) {
+  const a = { on: false, title: 'ACİL DUYURU', text: '', tone: 'r', ic: '', ...al }
+  const up = (p) => set({ ...a, ...p })
+  return (
+    <div className="p-body">
+      <p className="p-hint">Açtığınız anda pano tam ekran acil duyuruya geçer (her şeyin üstünde görünür). Yayınla'dan sonra panoya yansır.</p>
+      <div className="p-fld"><label>Simge</label>
+        <div className="p-ico">
+          <button className={!a.ic ? 'p-on' : ''} onClick={() => up({ ic: '' })}>Yok</button>
+          {ALI.map((x) => <button key={x} className={a.ic === x ? 'p-on' : ''} onClick={() => up({ ic: x })}>{x}</button>)}
+        </div>
+      </div>
+      <div className="p-fld"><label>Başlık</label><input value={a.title} onChange={(e) => up({ title: e.target.value })} /></div>
+      <div className="p-fld"><label>Duyuru metni</label><textarea rows={4} value={a.text} onChange={(e) => up({ text: e.target.value })} /></div>
+      <div className="p-pos">
+        <div className="p-fld"><label>Simge %</label><input type="number" value={a.is || 100} onChange={(e) => up({ is: +e.target.value })} /></div>
+        <div className="p-fld"><label>Yazı %</label><input type="number" value={a.fs || 100} onChange={(e) => up({ fs: +e.target.value })} /></div>
+        <div className="p-fld"><label>Renk</label>
+          <select value={a.tone} onChange={(e) => up({ tone: e.target.value })}><option value="r">Kırmızı</option><option value="o">Turuncu</option><option value="b">Mavi</option></select></div>
+        <div className="p-fld"><label>Süre (dk)</label><input type="number" value={a.dur || 0} onChange={(e) => up({ dur: +e.target.value })} /></div>
+      </div>
+      <div className="p-fld"><label>Başlangıç (boşsa yayınlanınca başlar)</label>
+        <input type="datetime-local" value={a.from || ''} onChange={(e) => up({ from: e.target.value })} /></div>
+      <small>Süre 0 ise siz kapatana kadar açık kalır. Durum: <b>{alertStatus(a)}</b></small>
+      <div className="p-btns">
+        <button className={a.on ? 'p-danger' : 'p-pri'} onClick={() => up({ on: !a.on, pend: a.on ? 0 : 1 })}>
+          {a.on ? 'Acil duyuruyu kapat' : 'Acil duyuruyu AÇ'}
+        </button>
+      </div>
+    </div>
+  )
+}
+
 export default function Panel({ cfg }) {
   const [user, setUser] = useState(undefined)
   const [draft, setDraft] = useState(null)
@@ -154,7 +190,10 @@ export default function Panel({ cfg }) {
     try { await login(em, pw); setMsg('') } catch { setMsg('E-posta veya şifre hatalı.') }
   }
   const publish = async () => {
-    try { await saveConfig(draft); setMsg('Yayınlandı ✓ Pano birkaç saniye içinde güncellenir.') }
+    try {
+      const d = { ...draft }
+      if (d.al && d.al.on && d.al.pend) d.al = { ...d.al, at: Date.now(), pend: 0 }  // başlangıç anı yayın anıdır
+      await saveConfig(d); setDraft(d); setMsg('Yayınlandı ✓ Pano birkaç saniye içinde güncellenir.') }
     catch (e) { setMsg('Kaydedilemedi: ' + e.message) }
   }
   const set = (p) => setDraft((d) => ({ ...d, ...p }))
@@ -204,7 +243,7 @@ export default function Panel({ cfg }) {
         <span><a href="#/">Panoyu aç</a> · <a href="#/panel" onClick={logout}>Çıkış</a></span>
       </div>
       <div className="p-tabs">
-        {[['mods', 'Modüller'], ['gen', 'Genel'], ['bak', 'Yedek']].map(([k, l]) => <button key={k} className={tab === k ? 'p-on' : ''} onClick={() => setTab(k)}>{l}</button>)}
+        {[['mods', 'Modüller'], ['al', 'Acil'], ['gen', 'Genel'], ['bak', 'Yedek']].map(([k, l]) => <button key={k} className={tab === k ? 'p-on' : ''} onClick={() => setTab(k)}>{l}</button>)}
       </div>
       {tab === 'gen' && (
         <div className="p-body">
@@ -232,6 +271,7 @@ export default function Panel({ cfg }) {
           </div>
         </div>
       )}
+      {tab === 'al' && <AlertEditor al={draft.al} set={(al) => set({ al })} />}
       {tab === 'bak' && (
         <div className="p-body">
           <p>Ayarları dosya olarak indirip saklayabilir, gerektiğinde geri yükleyebilirsiniz.</p>

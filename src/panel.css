@@ -39,3 +39,8 @@ body.panelbody{overflow:auto;background:#eef2f6;padding:0}
 .pnl .p-slc{border:1px solid #d3dce5;border-radius:12px;padding:10px;display:grid;gap:8px;background:#f8fafc}
 .pnl .p-slr{display:flex;gap:8px;align-items:center}
 .pnl .p-th{width:72px;height:48px;object-fit:cover;border-radius:8px;background:#dde6ee;display:inline-block}
+
+.pnl .p-hint{color:#5d7083;margin:6px 0}
+.pnl .p-ico{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.pnl .p-ico button{padding:8px 0;font-size:20px;border:2px solid transparent}
+.pnl .p-ico button.p-on{border-color:#0f9b8e}
