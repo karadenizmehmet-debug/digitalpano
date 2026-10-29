@@ -55,6 +55,33 @@ function DurBar({ x, upd }) {
   )
 }
 
+function SlideCard({ x, i, upd, mv, del }) {
+  const [open, setOpen] = useState(false)
+  const img = x.img || x.src, e = endOf(x), dead = e && e <= new Date(isoD(new Date()) + 'T00:00:00')
+  const sum = (DUR.find(([a]) => a === (x.d || 0)) || [0, 'Süresiz'])[1] + (e ? (dead ? ' · süresi doldu' : ' · ' + trD(new Date(e.getTime() - 86400000)) + ' bitiş') : '')
+  return (
+    <div className={'p-slc' + (dead ? ' dead' : '')}>
+      <div className="p-slr" onClick={() => setOpen(!open)} style={{ cursor: 'pointer' }}>
+        {img ? <Thumb x={x} /> : <span className="p-th" style={{ display: 'grid', placeItems: 'center' }}>📝</span>}
+        <span style={{ flex: 1, minWidth: 0 }}><b style={{ display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{img ? (x.name || 'Görsel') : (x.t || 'Yazılı duyuru')}</b><small style={{ color: dead ? '#b4232a' : '#5b6b7b' }}>{sum}</small></span>
+        <span>{open ? '▴' : '▾'}</span>
+      </div>
+      {open && <>
+        {!img && <>
+          <input placeholder="Başlık" value={x.t || ''} onChange={(ev) => upd(i, { t: ev.target.value })} />
+          <textarea rows={2} placeholder="Alt yazı (isteğe bağlı)" value={x.s || ''} onChange={(ev) => upd(i, { s: ev.target.value })} />
+          <div className="p-slr">
+            <select value={x.tone || 'r'} onChange={(ev) => upd(i, { tone: ev.target.value })}>{Object.entries(TONES).map(([a, b]) => <option key={a} value={a}>{b}</option>)}</select>
+            <input type="number" title="Yazı boyutu %" value={x.fs || 100} onChange={(ev) => upd(i, { fs: +ev.target.value })} />
+          </div>
+        </>}
+        <DurBar x={x} upd={(p) => upd(i, p)} />
+        <div className="p-btns"><button onClick={() => mv(i, -1)}>↑</button><button onClick={() => mv(i, 1)}>↓</button><button className="p-danger" onClick={() => del(i)}>Sil</button></div>
+      </>}
+    </div>
+  )
+}
+
 function SlidesEditor({ value, set, say }) {
   const L = value || []
   const upd = (i, p) => set(L.map((x, k) => (k === i ? { ...x, ...p } : x)))
@@ -78,22 +105,7 @@ function SlidesEditor({ value, set, say }) {
   }
   return (
     <div className="p-sl">
-      {L.map((x, i) => (
-        <div key={i} className="p-slc">
-          {(x.img || x.src)
-            ? <div className="p-slr"><Thumb x={x} /><span>{x.name || 'Görsel'}</span></div>
-            : <>
-                <input placeholder="Başlık" value={x.t || ''} onChange={(e) => upd(i, { t: e.target.value })} />
-                <textarea rows={2} placeholder="Alt yazı (isteğe bağlı)" value={x.s || ''} onChange={(e) => upd(i, { s: e.target.value })} />
-                <div className="p-slr">
-                  <select value={x.tone || 'r'} onChange={(e) => upd(i, { tone: e.target.value })}>{Object.entries(TONES).map(([a, b]) => <option key={a} value={a}>{b}</option>)}</select>
-                  <input type="number" title="Yazı boyutu %" value={x.fs || 100} onChange={(e) => upd(i, { fs: +e.target.value })} />
-                </div>
-              </>}
-          <DurBar x={x} upd={(p) => upd(i, p)} />
-          <div className="p-btns"><button onClick={() => mv(i, -1)}>↑</button><button onClick={() => mv(i, 1)}>↓</button><button className="p-danger" onClick={() => del(i)}>Sil</button></div>
-        </div>
-      ))}
+      {L.map((x, i) => <SlideCard key={i} x={x} i={i} upd={upd} mv={mv} del={del} />)}
       <div className="p-btns">
         <button onClick={() => set([...L, { t: 'Duyuru başlığı', s: '', tone: 'b', fs: 100, d: 7, on: isoD(new Date()) }])}>+ Yazılı slayt</button>
         <label className="p-fbtn">+ Görsel<input type="file" accept="image/*" hidden onChange={addImg} /></label>
