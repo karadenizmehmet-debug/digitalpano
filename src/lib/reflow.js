@@ -13,7 +13,8 @@ export function colSnap(m) {
 export function reflow(mods, pref, minOf, wantOf) {
   const TOP = 124, BOT = 832, G = 12, AV = BOT - TOP
   const mn = (m) => minOf(m) || 100
-  const need = (A) => A.reduce((q, m) => q + mn(m), 0) + G * Math.max(0, A.length - 1)
+  const eff = (m) => (m.fixH ? Math.max(m.h, mn(m)) : mn(m))
+  const need = (A) => A.reduce((q, m) => q + eff(m), 0) + G * Math.max(0, A.length - 1)
   // Sütuna tam oturmayan (ör. boyutlandırılmış) modülleri en yakın sütuna oturt; yoksa sütun dışında kalıp diğerleriyle üst üste biner
   mods.forEach((m) => { if (m.active && m.y >= 100) colSnap(m) })
   const cols = COLS.map(([x, w]) => mods.filter((m) => m.active && m.x === x && m.w === w && m.y >= 100).sort((a, b) => (a.y + a.h / 2) - (b.y + b.h / 2)))
@@ -36,6 +37,10 @@ export function reflow(mods, pref, minOf, wantOf) {
         if (ex <= 0) break
         const sl = A.map((m, i) => (m.fixH ? 0 : (fl[i] === only || (!only && !fl[i]) ? D[i] - mn(m) : 0))), tot = sl.reduce((q, v) => q + v, 0)
         if (tot > 0) { const t = Math.min(ex, tot); sl.forEach((v, i) => { D[i] -= Math.floor(t * v / tot) }); ex = sum() - AV }
+      }
+      if (ex > 0) { // elle sabitlenenler de sığmıyorsa onları da en küçüğe doğru kıs
+        const sl = A.map((m, i) => D[i] - mn(m)), tot = sl.reduce((q, v) => q + v, 0)
+        if (tot > 0) { const t = Math.min(ex, tot); sl.forEach((v, i) => { D[i] -= Math.floor(t * v / tot) }) }
       }
     } else if (ex < 0) {
       const idx = A.map((m, i) => i).filter((i) => GROW.includes(A[i].type) && !A[i].fixH)
