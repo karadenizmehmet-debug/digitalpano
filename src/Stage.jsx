@@ -54,7 +54,9 @@ export default function Stage({ cfg, preview = false, edit = null }) {
 
   const wmod = cfg.mods.find((m) => m.type === 'weather' && m.active)
   const wx = useLive(cfg.city, !preview && !!wmod && wmod.data.live !== false)
-  const cond = wx ? wx.c : wmod?.data.cond
+  // Canlı veri açıksa yalnızca ona bakılır (yüklenirken elle girilen duruma düşmez); kapalıysa elle girilen durum kullanılır
+  const liveOn = !!wmod && wmod.data.live !== false && !!cfg.city
+  const cond = liveOn ? wx?.c : wmod?.data.cond
   const fxMode = cfg.fx || 'auto'
   const fxKind = fxMode === 'off' || (preview && fxMode === 'auto') ? '' : (fxMode === 'auto' ? cond : fxMode)
   const sp = preview ? null : specialVisible(cfg.sd, now)
