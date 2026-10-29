@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import defaults from './defaults.json'
 import { registry } from './lib/registry.js'
 import { listenConfig } from './lib/firebase.js'
+import Panel from './Panel.jsx'
 
 // Pano 1600x900'lük sabit bir sahnedir; ekrana sığacak şekilde ölçeklenir.
 export default function App() {
@@ -10,6 +11,8 @@ export default function App() {
   const [T, setT] = useState(0)
   const [fit, setFit] = useState({ sc: 1, x: 0, y: 0 })
   const sw = useRef()
+  const [hash, setHash] = useState(location.hash)
+  useEffect(() => { const h = () => setHash(location.hash); addEventListener('hashchange', h); return () => removeEventListener('hashchange', h) }, [])
 
   useEffect(() => listenConfig(setCfg), [])
   useEffect(() => {
@@ -18,13 +21,16 @@ export default function App() {
   }, [])
   useLayoutEffect(() => {
     const f = () => {
+      if (!sw.current) return
       const w = sw.current.clientWidth, h = sw.current.clientHeight, sc = Math.min(w / 1600, h / 900)
       setFit({ sc, x: (w - 1600 * sc) / 2, y: (h - 900 * sc) / 2 })
     }
     f()
     addEventListener('resize', f)
     return () => removeEventListener('resize', f)
-  }, [])
+  }, [hash])
+
+  if (hash.startsWith('#/panel')) return <Panel cfg={cfg} />
 
   const sl = [cfg.slogan, cfg.city, cfg.url].filter(Boolean).join('  •  ')
   const tk = String(cfg.ticker || '').split('\n').filter((x) => x.trim())

@@ -1,5 +1,5 @@
 import { hm, fm } from '../lib/util.js'
-export const meta = { label: 'Namaz Vakitleri', minH: 100 }
+export const meta = { label: 'Namaz Vakitleri', minH: 100, def: {"lat": "38.356", "lon": "31.416", "adj": "0,0,5,4,7,0"}, fields: [["lat", "txt", "Enlem"], ["lon", "txt", "Boylam"], ["adj", "txt", "Dakika ayarı", "6 değer, virgülle"]] }
 const PN = ['İmsak', 'Güneş', 'Öğle', 'İkindi', 'Akşam', 'Yatsı']
 // Güneş konumuna göre hesaplama (dakika cinsinden, ayar: adj)
 function ptimes(dt, d) {

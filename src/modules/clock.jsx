@@ -1,5 +1,5 @@
 import { MON } from '../lib/util.js'
-export const meta = { label: 'Saat / Tarih', minH: 80 }
+export const meta = { label: 'Saat / Tarih', minH: 80, def: {}, fields: [] }
 export default function Clock({ now }) {
   return (
     <div className="clk">

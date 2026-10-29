@@ -1,5 +1,5 @@
 import { rows, p2 } from '../lib/util.js'
-export const meta = { label: 'Doğum Günü', minH: 110 }
+export const meta = { label: 'Doğum Günü', minH: 110, def: {"rows": ""}, fields: [["rows", "area", "Doğum günleri", "Her satır: Ad Soyad;GG.AA"]] }
 export default function Bday({ data, now }) {
   const t = `${p2(now.getDate())}.${p2(now.getMonth() + 1)}`
   const r = rows(data).map((l) => l.split(';')).filter((a) => (a[1] || '').trim().slice(0, 5) === t)

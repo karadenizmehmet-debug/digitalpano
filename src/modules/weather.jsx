@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-export const meta = { label: 'Hava Durumu', minH: 150 }
+export const meta = { label: 'Hava Durumu', minH: 150, def: {"cond": "partly", "t": 12, "hi": 16, "lo": 10, "live": true}, fields: [["live", "check", "Canlı veri çek"], ["cond", "sel", "Durum (elle)", "Canlı veri alınamazsa kullanılır"], ["t", "num", "Sıcaklık °C (elle)"], ["hi", "num", "En yüksek °C"], ["lo", "num", "En düşük °C"]] }
 const WC = { sun: 'Güneşli', partly: 'Parçalı bulutlu', cloud: 'Bulutlu', rain: 'Yağmurlu', wind: 'Rüzgarlı', snow: 'Karlı', storm: 'Gök gürültülü', fog: 'Sisli' }
 const CL = 'M18 44h28a9 9 0 0 0 .8-18A13 13 0 0 0 21 28a8 8 0 0 0-3 16z'
 const Cl = ({ f, t }) => <g transform={t || ''}><path d={CL} fill={f} stroke="#8ea3b8" strokeWidth="1.5" /></g>

@@ -22,8 +22,13 @@ npm run dev
 - Firebase web yapılandırması gizli değildir; API anahtarını kendi alan adınıza kısıtlayın.
 - Öğrenci adları (doğum günü vb.) Firestore'da tutulur, kodda değil.
 
+## Yayın
+- Pano: `https://karadenizmehmet-debug.github.io/digitalpano/`
+- Panel: aynı adres + `#/panel` (Firebase Authentication ile giriş; yazma yetkisi yalnızca `firestore.rules` içindeki hesapta)
+- `main`'e her gönderimde `.github/workflows/pages.yml` siteyi yeniler.
+
 ## Taşıma durumu
 Taşındı: saat, metin, tablo, görsel/yazılı slayt, zil sayacı, hava durumu (canlı veri), nöbetçi çizelgesi, belirli günler, manşet, yemek, doğum günü, sayaç, geri sayım, namaz vakitleri, günün sözü; 6 tema; kayan duyuru şeridi.
 
-Henüz taşınmadı (`legacy/` içinde çalışıyor): yönetim paneli ve giriş, acil duyuru, özel gün tam ekranı ve konfeti, gece modu, hava efektleri (yağmur/kar vb.), zamanlanmış duyuru satırları, sürükle-bırak yerleşim.
+Panel (giriş, modül ekle/düzenle, tema, yedek) yazıldı. Henüz taşınmadı (`legacy/` içinde çalışıyor): görsel yükleme, acil duyuru, özel gün tam ekranı ve konfeti, gece modu, hava efektleri (yağmur/kar vb.), zamanlanmış duyuru satırları, sürükle-bırak yerleşim.
 Varsayılan ayarlar `src/defaults.json` içindedir; Firestore bağlanınca `config/pano` belgesi bunun yerine geçer.

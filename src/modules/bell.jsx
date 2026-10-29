@@ -1,5 +1,5 @@
 import { bellRows } from '../lib/util.js'
-export const meta = { label: 'Zil sayacı', minH: 120 }
+export const meta = { label: 'Zil sayacı', minH: 120, def: {"rows": "08:30-09:10 1. Ders\n09:20-10:00 2. Ders"}, fields: [["rows", "area", "Zil saatleri", "Her satır: 08:30-09:10 1. Ders"]] }
 export default function Bell({ data, now }) {
   const L = bellRows(data.rows), t = now.getHours() * 60 + now.getMinutes() + now.getSeconds() / 60
   const bx = (m, a, b) => (

@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { rows, MON, useAutoScroll } from '../lib/util.js'
-export const meta = { label: 'Belirli Gün ve Haftalar', minH: 170 }
+export const meta = { label: 'Belirli Gün ve Haftalar', minH: 170, def: {"rows": ""}, fields: [["rows", "area", "Günler ve haftalar", "GG.AA-GG.AA;Ad veya GG.AA;Ad. Yalnızca bu ayın günleri gösterilir"], ["speed", "num", "Kaydırma hızı", "0 = kapalı"]] }
 export default function Days({ data, now }) {
   const ref = useRef()
   useAutoScroll(ref, data.speed ?? 1)

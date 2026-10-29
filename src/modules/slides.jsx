@@ -1,4 +1,4 @@
-export const meta = { label: 'Görsel slayt', minH: 150, bare: true }
+export const meta = { label: 'Görsel slayt', minH: 150, bare: true, def: {"imgs": [], "sec": 6}, fields: [["sec", "num", "Geçiş süresi (sn)", "Görsel yükleme sonraki sürümde eklenecek"]] }
 export default function Slides({ data, T }) {
   const im = data.imgs || []
   if (!im.length) return <div style={{ color: '#8a9bab', textAlign: 'center', paddingTop: 40 }}>Görsel veya yazılı duyuru ekleyin</div>

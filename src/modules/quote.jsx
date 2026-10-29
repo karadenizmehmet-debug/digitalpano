@@ -1,5 +1,5 @@
 import { rows } from '../lib/util.js'
-export const meta = { label: 'Günün Sözü', minH: 96 }
+export const meta = { label: 'Günün Sözü', minH: 96, def: {"rows": ""}, fields: [["rows", "area", "Sözler", "Her satır: Söz|Söyleyen"], ["pin", "num", "Sabit söz no", "0 = günlük otomatik"]] }
 export default function Quote({ data, now }) {
   const Q = rows(data).map((l) => { const i = l.lastIndexOf('|'); return i < 0 ? [l.trim(), ''] : [l.slice(0, i).trim(), l.slice(i + 1).trim()] })
   const pin = parseInt(data.pin) || 0

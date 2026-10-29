@@ -1,5 +1,5 @@
 import { rows, p2 } from '../lib/util.js'
-export const meta = { label: 'Yemek Listesi', minH: 120 }
+export const meta = { label: 'Yemek Listesi', minH: 120, def: {"rows": ""}, fields: [["rows", "area", "Yemek listesi", "Her satır: 28.10.2026;Mercimek çorbası, pilav"]] }
 export default function Menu({ data, now }) {
   const t = `${p2(now.getDate())}.${p2(now.getMonth() + 1)}.${now.getFullYear()}`
   const x = rows(data).map((l) => l.split(';')).find((a) => a[0].trim() === t)

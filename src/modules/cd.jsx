@@ -1,5 +1,5 @@
 import { rows, p2, fm, bellOf } from '../lib/util.js'
-export const meta = { label: 'Geri Sayım', minH: 100 }
+export const meta = { label: 'Geri Sayım', minH: 100, def: {"rows": "16.11.2026;Ara tatil"}, fields: [["rows", "area", "Tarihler", "Her satır: GG.AA.YYYY;Ad. En yakın 3 tarih gösterilir"]] }
 export default function Cd({ data, now, cfg }) {
   const d0 = new Date(now.getFullYear(), now.getMonth(), now.getDate())
   const L0 = rows(data).map((l) => {

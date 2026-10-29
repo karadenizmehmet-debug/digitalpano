@@ -1,4 +1,4 @@
-export const meta = { label: 'Metin / Liste', minH: 100 }
+export const meta = { label: 'Metin / Liste', minH: 100, def: {"body": "", "center": false}, fields: [["body", "area", "Satırlar", "Her satır ayrı bir madde olur"], ["center", "check", "Ortala"]] }
 export default function Text({ data }) {
   return (
     <div className={data.center ? 'c' : ''}>

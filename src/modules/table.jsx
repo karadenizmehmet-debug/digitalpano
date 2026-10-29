@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { useAutoScroll, bellRows, bellOf } from '../lib/util.js'
-export const meta = { label: 'Tablo', minH: 200 }
+export const meta = { label: 'Tablo', minH: 200, def: {"rows": "Başlık 1;Başlık 2\nA;B", "header": true, "speed": 1}, fields: [["rows", "area", "Satırlar", "Hücreleri ; ile ayırın. Örn: Bahçe;Ad Soyad"], ["header", "check", "İlk satır başlık"], ["speed", "num", "Kaydırma hızı", "0 yazarsanız kaydırma kapanır"]] }
 export default function Table({ data, now, cfg }) {
   const ref = useRef()
   useAutoScroll(ref, data.speed ?? 1)
