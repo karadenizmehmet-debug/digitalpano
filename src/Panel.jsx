@@ -380,7 +380,11 @@ export default function Panel({ cfg }) {
   const updMod = (i, p) => setDraft((d) => ({ ...d, mods: d.mods.map((m, k) => (k === i ? { ...m, ...p } : m)) }))
   const addMod = (type) => {
     const R = registry[type]
-    setDraft((d) => ({ ...d, mods: [...d.mods, { id: 'm' + Date.now().toString(36), type, title: R.label, active: true, x: 480, y: 124, w: 640, h: Math.max(R.minH || 100, 120), color: '#0f9b8e', fs: 100, data: JSON.parse(JSON.stringify(R.def || {})) }] }))
+    setDraft((d) => {
+      const mods = [...d.mods, { id: 'm' + Date.now().toString(36), type, title: R.label, active: true, x: 480, y: 124, w: 640, h: Math.max(R.minH || 100, 120), color: '#0f9b8e', fs: 100, data: JSON.parse(JSON.stringify(R.def || {})) }].map((m) => ({ ...m }))
+      if (d.autoFlow !== false) reflow(mods, mods[mods.length - 1], (m) => registry[m.type]?.minH)
+      return { ...d, mods }
+    })
   }
   const delMod = (i) => setDraft((d) => ({ ...d, mods: d.mods.filter((_, k) => k !== i) }))
   const moveMod = (i, s) => setDraft((d) => {
