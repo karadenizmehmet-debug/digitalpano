@@ -44,3 +44,7 @@ body.panelbody{overflow:auto;background:#eef2f6;padding:0}
 .pnl .p-ico{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
 .pnl .p-ico button{padding:8px 0;font-size:20px;border:2px solid transparent}
 .pnl .p-ico button.p-on{border-color:#0f9b8e}
+.pnl .stg-pv{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:12px;background:#000;margin:8px 0}
+.pnl .stg-pv .stage{pointer-events:auto}
+.pnl .stg.edit{touch-action:pan-y}
+.pnl .p-pvwrap{position:sticky;top:0;z-index:5;background:#eef2f6;padding-bottom:4px}

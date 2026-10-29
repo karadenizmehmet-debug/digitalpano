@@ -4,6 +4,8 @@ import { THEMES } from './lib/themes.js'
 import { login, logout, onUser, saveConfig, saveImage, removeImage, loadImage } from './lib/firebase.js'
 import { rows } from './lib/util.js'
 import { alertStatus } from './lib/alert.js'
+import Stage from './Stage.jsx'
+import { reflow } from './lib/reflow.js'
 import './panel.css'
 
 const ALI = ['🚨','⚠️','🔥','🌍','🌧️','❄️','⚡','🌪️','📢','🏥','🚑','🚒','🚫','⛔','😷','🚸','🔒','📣','ℹ️','✅','🕌','🎓','🚌','⏰']
@@ -14,16 +16,16 @@ const COND = { sun: 'Güneşli', partly: 'Parçalı bulutlu', cloud: 'Bulutlu', 
 const TONES = { r: 'Kırmızı', b: 'Mavi', g: 'Yeşil', o: 'Turuncu', p: 'Mor', k: 'Siyah' }
 
 // Görseli küçültüp JPEG'e çevirir (Firestore belgesi 1 MB'ı geçmesin)
-async function shrink(file) {
+async function shrink(file, maxDim = 1280, type = 'image/jpeg', limit = 700000) {
   const bmp = await createImageBitmap(file)
-  let max = 1280, q = 0.8, out = ''
+  let max = maxDim, q = 0.8, out = ''
   for (let i = 0; i < 5; i++) {
     const r = Math.min(1, max / Math.max(bmp.width, bmp.height))
     const c = document.createElement('canvas')
     c.width = Math.round(bmp.width * r); c.height = Math.round(bmp.height * r)
     c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height)
-    out = c.toDataURL('image/jpeg', q)
-    if (out.length < 700000) return out
+    out = c.toDataURL(type, q)
+    if (out.length < limit) return out
     max *= 0.8; q -= 0.08
   }
   throw new Error('Görsel çok büyük')
@@ -229,6 +231,7 @@ export default function Panel({ cfg }) {
   const [draft, setDraft] = useState(null)
   const [msg, setMsg] = useState('')
   const [tab, setTab] = useState('mods')
+  const [sel, setSel] = useState(null)
   const [em, setEm] = useState(''), [pw, setPw] = useState('')
 
   useEffect(() => onUser(setUser), [])
@@ -292,11 +295,28 @@ export default function Panel({ cfg }) {
         <span><a href="#/">Panoyu aç</a> · <a href="#/panel" onClick={logout}>Çıkış</a></span>
       </div>
       <div className="p-tabs">
-        {[['mods', 'Modüller'], ['al', 'Acil'], ['sd', 'Özel günler'], ['gen', 'Genel'], ['bak', 'Yedek']].map(([k, l]) => <button key={k} className={tab === k ? 'p-on' : ''} onClick={() => setTab(k)}>{l}</button>)}
+        {[['mods', 'Modüller'], ['lay', 'Yerleşim'], ['al', 'Acil'], ['sd', 'Özel günler'], ['gen', 'Genel'], ['bak', 'Yedek']].map(([k, l]) => <button key={k} className={tab === k ? 'p-on' : ''} onClick={() => setTab(k)}>{l}</button>)}
       </div>
       {tab === 'gen' && (
         <div className="p-body">
           <div className="p-fld"><label>Okul adı</label><input value={draft.name || ''} onChange={(e) => set({ name: e.target.value })} /></div>
+          <div className="p-fld"><label>Okul logosu</label>
+            <div className="p-slr">
+              {(draft.logoId || draft.logo) ? <><Thumb x={{ src: draft.logo, img: draft.logoId }} /><button onClick={() => { if (draft.logoId) removeImage(draft.logoId).catch(() => {}); set({ logoId: '', logo: '' }) }}>Kaldır</button></>
+                : <label className="p-fbtn">+ Logo yükle<input type="file" accept="image/*" hidden onChange={async (e) => {
+                  const f = e.target.files[0]; e.target.value = ''
+                  if (!f) return
+                  try {
+                    setMsg('Logo hazırlanıyor…')
+                    const src = await shrink(f, 300, 'image/png', 250000), id = 'logo' + Date.now().toString(36)
+                    await saveImage(id, src)
+                    set({ logoId: id, logo: '' })
+                    setMsg('Logo yüklendi. Yayınla düğmesine basmayı unutmayın.')
+                  } catch (er) { setMsg('Logo yüklenemedi: ' + er.message) }
+                }} /></label>}
+            </div>
+            <small>Başlığın solunda görünür, otomatik küçültülür.</small>
+          </div>
           <div className="p-fld"><label>Slogan</label><input value={draft.slogan || ''} onChange={(e) => set({ slogan: e.target.value })} /></div>
           <div className="p-fld"><label>Şehir (hava durumu için)</label><input value={draft.city || ''} onChange={(e) => set({ city: e.target.value })} /><small>Örn: Konya / Akşehir</small></div>
           <div className="p-fld"><label>Kayan duyurular</label><textarea rows={5} value={draft.ticker || ''} onChange={(e) => set({ ticker: e.target.value })} /><small>Her satır ayrı duyuru. Belirli günlerde göstermek için satır sonuna | ve tarih ekleyin: Veli toplantısı yarın | 03.11 · Sınav haftası | 03.11-07.11 · Gezi | 03.11 08:00 - 03.11 16:00</small></div>
@@ -339,6 +359,27 @@ export default function Panel({ cfg }) {
               {Object.values(registry).map((R) => <option key={R.type} value={R.type}>{R.label}</option>)}
             </select>
           </div>
+        </div>
+      )}
+      {tab === 'lay' && (
+        <div className="p-body">
+          <div className="p-pvwrap">
+            <Stage preview cfg={draft}
+              edit={{ sel, onSelect: setSel, onChange: (mods) => set({ mods }) }} />
+          </div>
+          <p className="p-hint">Modülü sürükleyip taşıyın, sağ alt köşedeki turuncu kareden boyutlandırın. Bırakınca sütuna oturur{draft.autoFlow === false ? '' : ' ve boşluklar otomatik düzenlenir'}.</p>
+          <label className="p-chk"><input type="checkbox" checked={draft.autoFlow !== false} onChange={(e) => set({ autoFlow: e.target.checked })} /> Otomatik yerleşim</label>
+          <div className="p-btns">
+            <button onClick={() => { const mods = draft.mods.map((m) => ({ ...m })); reflow(mods, null, (m) => registry[m.type]?.minH); set({ mods }) }}>Hepsini otomatik düzenle</button>
+          </div>
+          {sel && draft.mods.find((m) => m.id === sel) && (
+            <div className="p-btns">
+              <b>{draft.mods.find((m) => m.id === sel).title}</b>
+              <button onClick={() => { const m = draft.mods.find((x) => x.id === sel); set({ mods: draft.mods.map((x) => (x.id === sel ? { ...x, active: !m.active } : x)) }) }}>
+                {draft.mods.find((m) => m.id === sel).active ? 'Gizle' : 'Göster'}
+              </button>
+            </div>
+          )}
         </div>
       )}
       {tab === 'sd' && <SpecialEditor list={draft.sd} set={(sd) => set({ sd })} say={setMsg} />}

@@ -28,7 +28,6 @@ npm run dev
 - `main`'e her gönderimde `.github/workflows/pages.yml` siteyi yeniler.
 
 ## Taşıma durumu
-Taşındı: saat, metin, tablo, görsel/yazılı slayt, zil sayacı, hava durumu (canlı veri), nöbetçi çizelgesi, belirli günler, manşet, yemek, doğum günü, sayaç, geri sayım, namaz vakitleri, günün sözü; 6 tema; kayan duyuru şeridi.
-
-Panel (giriş, modül ekle/düzenle, tema, yedek) yazıldı. Görsel yükleme ve yazılı slayt eklendi (görseller `images/{id}` belgelerinde, küçültülmüş JPEG). Acil duyuru, özel günler (tam ekran, aralıklı gösterim, konfeti, görsel) ve doğum günü konfetisi eklendi. Gece modu, zamanlanmış duyuru satırları ve hava efektleri (yağmur, kar, rüzgar, fırtına, sis) eklendi. Henüz taşınmadı (`legacy/` içinde çalışıyor): sürükle-bırak yerleşim.
-Varsayılan ayarlar `src/defaults.json` içindedir; Firestore bağlanınca `config/pano` belgesi bunun yerine geçer.
+Eski tek dosyalı panonun tüm özellikleri taşındı: 15 modül, 6 tema, kayan zamanlanmış duyurular, acil duyuru, özel günler (tam ekran, aralıklı gösterim, konfeti, görsel), gece modu, hava efektleri, logo ve görsel yükleme, panel içi önizleme ve sürükle-bırak yerleşim (otomatik yerleşimle).
+Varsayılan ayarlar `src/defaults.json` içindedir; Firestore'daki `config/pano` belgesi bunun yerine geçer. Görseller `images/{id}` belgelerinde, küçültülmüş olarak saklanır.
+`legacy/` içindeki tek dosyalı sürüm yedek olarak kalır.
