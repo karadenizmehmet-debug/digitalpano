@@ -1,27 +1,30 @@
 // Otomatik yerleşim: modülleri 3 sütuna dizer, taşanı en boş sütuna alır, boşluğu esnek modüllerle doldurur.
-export const COLS = [[20, 360], [392, 816], [1220, 360]]
+export const COLS = [[20, 348], [380, 840], [1232, 348]]
+// Manşet (slides) boyutu sabittir: görseller bu ölçüde hazırlanır
+export const SLIDE = { w: 840, h: 480 }
 const FLEX = ['slides', 'table', 'days', 'duty', 'news', 'menu', 'text', 'schedule']
 // Artan boşluğun öncelikle verildiği (içeriği uzayabilen / kaydırmalı) modüller
 const GROW = ['slides', 'schedule', 'table', 'days', 'news', 'menu', 'text']
 
 export function colSnap(m) {
-  const c = m.x + m.w / 2, i = c < 386 ? 0 : c < 1214 ? 1 : 2
+  const c = m.x + m.w / 2, i = c < 374 ? 0 : c < 1226 ? 1 : 2
   m.x = COLS[i][0]; m.w = COLS[i][1]
 }
 
 // mods: dizi (yerinde değiştirilir). pref: öncelikli modül. minOf(m): en küçük yükseklik
 export function reflow(mods, pref, minOf, wantOf) {
   const TOP = 124, BOT = 832, G = 12, AV = BOT - TOP
-  const mn = (m) => minOf(m) || 100
+  const mn = (m) => (m.type === 'slides' ? SLIDE.h : minOf(m) || 100)
   const eff = (m) => (m.fixH ? Math.max(m.h, mn(m)) : mn(m))
   const need = (A) => A.reduce((q, m) => q + eff(m), 0) + G * Math.max(0, A.length - 1)
   // Sütuna tam oturmayan (ör. boyutlandırılmış) modülleri en yakın sütuna oturt; yoksa sütun dışında kalıp diğerleriyle üst üste biner
-  mods.forEach((m) => { if (m.active && m.y >= 100) colSnap(m) })
-  const cols = COLS.map(([x, w]) => mods.filter((m) => m.active && m.x === x && m.w === w && m.y >= 100).sort((a, b) => (a.y + a.h / 2) - (b.y + b.h / 2)))
+  mods.forEach((m) => { if (m.type === 'slides') { m.x = COLS[1][0]; m.w = SLIDE.w; m.h = SLIDE.h; m.fixH = true }; if (m.active && m.y >= 100) colSnap(m) })
+  const cols = COLS.map(([x, w]) => mods.filter((m) => m.active && m.x === x && m.w === w && m.y >= 100).sort((a, b) => (a.type === 'slides' ? -1e9 : a.y + a.h / 2) - (b.type === 'slides' ? -1e9 : b.y + b.h / 2)))
   for (let g = 0; g < 30; g++) {
     const o = cols.findIndex((A) => need(A) > AV)
     if (o < 0) break
-    const A = cols[o], ev = pref && A.includes(pref) ? pref : A[A.length - 1]
+    const A = cols[o], mv = A.filter((m) => m.type !== 'slides'), ev = pref && mv.includes(pref) ? pref : mv[mv.length - 1]
+    if (!ev) break
     let d = -1, best = -1
     cols.forEach((B, i) => { if (i === o) return; const rm = AV - need(B.concat([ev])); if (rm >= 0 && rm > best) { best = rm; d = i } })
     if (d < 0) break

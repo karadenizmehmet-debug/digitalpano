@@ -776,7 +776,7 @@ export default function Panel({ cfg, fresh, err }) {
   const addMod = (type) => {
     const R = registry[type]
     setDraft((d) => {
-      const mods = [...d.mods, { id: 'm' + Date.now().toString(36), type, title: R.label, active: true, x: 392, y: 124, w: 816, h: Math.max(R.minH || 100, 120), color: '#0f9b8e', fs: 100, data: JSON.parse(JSON.stringify(R.def || {})) }].map((m) => ({ ...m }))
+      const mods = [...d.mods, { id: 'm' + Date.now().toString(36), type, title: R.label, active: true, x: 380, y: 124, w: 840, h: Math.max(R.minH || 100, 120), color: '#0f9b8e', fs: 100, data: JSON.parse(JSON.stringify(R.def || {})) }].map((m) => ({ ...m }))
       if (d.autoFlow !== false) reflow(mods, mods[mods.length - 1], minHOf, wantH)
       return { ...d, mods }
     })
@@ -848,6 +848,7 @@ export default function Panel({ cfg, fresh, err }) {
       {msg && <div className="p-toast" onClick={() => setMsg('')}>{msg}</div>}
       {tab === 'news' && (() => { const i = draft.mods.findIndex((x) => x.type === 'slides'); const m = draft.mods[i]; return (
         <div className="p-body">
+          <p className="p-hint">📐 Manşet alanı sabit boyuttadır: <b>840 × 480 piksel</b>. Görselleri bu ölçüde hazırlarsanız tam oturur.</p>
           {m ? <ModEditor key={m.id} m={m} upd={(p) => updMod(i, p)} del={() => delMod(i)} move={(sd) => moveMod(i, sd)} say={setMsg} root={draft} setRoot={set} open setOpen={() => {}} noBack />
             : <div className="p-card p-pad">Manşet haber modülü yok. Ayarlar > Modüller'den "Manşet haber" ekleyin.</div>}
         </div>) })()}
