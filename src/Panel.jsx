@@ -385,7 +385,7 @@ function ModList({ mods, go, toggle }) {
     </div>))}</div>
 }
 
-function ModEditor({ m, upd, del, move, say, root, setRoot, open, setOpen }) {
+function ModEditor({ m, upd, del, move, say, root, setRoot, open, setOpen, noBack }) {
   const R = registry[m.type]
   const [ask, setAsk] = useState(false)
   const setData = (k, v) => upd({ data: { ...m.data, ...(typeof k === 'object' ? k : { [k]: v }) } })
@@ -401,7 +401,7 @@ function ModEditor({ m, upd, del, move, say, root, setRoot, open, setOpen }) {
         </div>
       ) : (
         <div className="p-dh">
-          <button className="p-back" onClick={() => setOpen(null)}>← Modüller</button>
+          {noBack ? <b>📰 Manşet haber</b> : <button className="p-back" onClick={() => setOpen(null)}>← Modüller</button>}
           <label className="p-chk p-on-off"><input type="checkbox" checked={m.active} onChange={(e) => upd({ active: e.target.checked })} /> Panoda göster</label>
         </div>
       )}
@@ -515,7 +515,7 @@ export default function Panel({ cfg, fresh, err }) {
   const [user, setUser] = useState(undefined)
   const [draft, setDraft] = useState(null)
   const [msg, setMsg] = useState('')
-  const [tab, setTab] = useState('home')
+  const [tab, setTab] = useState('news')
   const [sub, setSub] = useState('gen')
   const [openId, setOpenId] = useState(null)
   const [saved, setSaved] = useState('')
@@ -576,6 +576,7 @@ export default function Panel({ cfg, fresh, err }) {
 
   const dirty = !!draft && JSON.stringify(draft) !== saved
   const view = tab === 'set' ? sub : tab
+  const SETT = ['set', 'mods', 'lay']
   const goMod = (id) => { setTab('mods'); setOpenId(id); window.scrollTo(0, 0) }
 
   if (user === undefined) return <div className="pnl"><p>Yükleniyor…</p></div>
@@ -600,16 +601,11 @@ export default function Panel({ cfg, fresh, err }) {
         <button className={'p-pri p-pub' + (dirty ? ' p-dirty' : '')} onClick={publish}>Yayınla</button>
       </div>
       {msg && <div className="p-toast" onClick={() => setMsg('')}>{msg}</div>}
-      {tab === 'home' && (
+      {tab === 'news' && (() => { const i = draft.mods.findIndex((x) => x.type === 'slides'); const m = draft.mods[i]; return (
         <div className="p-body">
-          <div className="p-links">
-            <a className="p-lk" href="#/">📺 Panoyu aç</a>
-            <a className="p-lk" href="#/panel" onClick={logout}>🚪 Çıkış</a>
-          </div>
-          <div className="p-h2">Modülü düzenle</div>
-          <Tiles mods={draft.mods} go={goMod} />
-        </div>
-      )}
+          {m ? <ModEditor key={m.id} m={m} upd={(p) => updMod(i, p)} del={() => delMod(i)} move={(sd) => moveMod(i, sd)} say={setMsg} root={draft} setRoot={set} open setOpen={() => {}} noBack />
+            : <div className="p-card p-pad">Manşet haber modülü yok. Ayarlar > Modüller'den "Manşet haber" ekleyin.</div>}
+        </div>) })()}
       {tab === 'duy' && (
         <div className="p-body">
           <div className="p-card p-pad">
@@ -619,9 +615,13 @@ export default function Panel({ cfg, fresh, err }) {
           </div>
         </div>
       )}
-      {tab === 'set' && <div className="p-sub">{[['gen', 'Genel'], ['sd', 'Özel günler'], ['bak', 'Yedek']].map(([k, l]) => <button key={k} className={sub === k ? 'p-on' : ''} onClick={() => setSub(k)}>{l}</button>)}</div>}
+      {SETT.includes(tab) && !(tab === 'mods' && openId) && <div className="p-sub">{[['gen', 'Genel'], ['mods', 'Modüller'], ['lay', 'Düzen'], ['sd', 'Özel günler'], ['bak', 'Yedek']].map(([k, l]) => <button key={k} className={view === k ? 'p-on' : ''} onClick={() => { if (k === 'mods' || k === 'lay') { setTab(k); setOpenId(null) } else { setTab('set'); setSub(k) } window.scrollTo(0, 0) }}>{l}</button>)}</div>}
       {view === 'gen' && (
         <div className="p-body">
+          <div className="p-links">
+            <a className="p-lk" href="#/">📺 Panoyu aç</a>
+            <a className="p-lk" href="#/panel" onClick={logout}>🚪 Çıkış</a>
+          </div>
           <div className="p-fld"><label>Okul adı</label><input value={draft.name || ''} onChange={(e) => set({ name: e.target.value })} /></div>
           <div className="p-fld"><label>Okul logosu</label>
             <div className="p-slr">
@@ -709,7 +709,7 @@ export default function Panel({ cfg, fresh, err }) {
         </div>
       )}
       <nav className="p-nav">
-        {[['home', '🏠', 'Ana sayfa'], ['mods', '🧩', 'Modüller'], ['lay', '🖼️', 'Düzen'], ['news', '📰', 'Manşet'], ['duy', '📢', 'Duyuru'], ['al', '🚨', 'Acil'], ['set', '⚙️', 'Ayarlar']].map(([k, i, l]) => <button key={k} className={(k === 'news' ? tab === 'mods' && openId === (draft.mods.find((m) => m.type === 'slides') || {}).id : tab === k && !(k === 'mods' && openId === (draft.mods.find((m) => m.type === 'slides') || {}).id)) ? 'p-on' : ''} onClick={() => { if (k === 'news') { const m = draft.mods.find((x) => x.type === 'slides'); if (m) goMod(m.id); else { setTab('mods'); setOpenId(null) } return } setTab(k); if (k === 'mods') setOpenId(null); window.scrollTo(0, 0) }}><span>{i}</span>{l}</button>)}
+        {[['news', '📰', 'Manşet'], ['duy', '📢', 'Duyuru'], ['al', '🚨', 'Acil'], ['set', '⚙️', 'Ayarlar']].map(([k, i, l]) => <button key={k} className={(k === 'set' ? SETT.includes(tab) : tab === k) ? 'p-on' : ''} onClick={() => { setTab(k); if (k === 'set') setOpenId(null); window.scrollTo(0, 0) }}><span>{i}</span>{l}</button>)}
       </nav>
     </div>
   )
