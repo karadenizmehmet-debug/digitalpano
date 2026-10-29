@@ -300,6 +300,21 @@ export default function Panel({ cfg }) {
           <div className="p-fld"><label>Slogan</label><input value={draft.slogan || ''} onChange={(e) => set({ slogan: e.target.value })} /></div>
           <div className="p-fld"><label>Şehir (hava durumu için)</label><input value={draft.city || ''} onChange={(e) => set({ city: e.target.value })} /><small>Örn: Konya / Akşehir</small></div>
           <div className="p-fld"><label>Kayan duyurular</label><textarea rows={5} value={draft.ticker || ''} onChange={(e) => set({ ticker: e.target.value })} /><small>Her satır ayrı duyuru</small></div>
+          <div className="p-fld"><label>Gece modu</label>
+            <select value={draft.nmMode || 'auto'} onChange={(e) => set({ nmMode: e.target.value })}>
+              <option value="auto">Otomatik (ders saatlerine göre)</option>
+              <option value="day">Her zaman normal</option>
+              <option value="night">Her zaman gece modu</option>
+            </select>
+            <small>Otomatik: ilk dersten önce ve son dersten sonra ekran kararır, yalnızca saat görünür. Acil duyuru ve özel gün "şimdi aç" bunun üstünde görünür.</small>
+          </div>
+          {(draft.nmMode || 'auto') === 'auto' && (
+            <div className="p-pos">
+              <div className="p-fld"><label>İlk dersten önce (dk)</label><input type="number" value={draft.nmPre ?? 60} onChange={(e) => set({ nmPre: +e.target.value })} /></div>
+              <div className="p-fld"><label>Son dersten sonra (dk)</label><input type="number" value={draft.nmPost ?? 60} onChange={(e) => set({ nmPost: +e.target.value })} /></div>
+              <label className="p-chk"><input type="checkbox" checked={draft.nmWe !== false} onChange={(e) => set({ nmWe: e.target.checked })} /> Hafta sonu gece modu</label>
+            </div>
+          )}
           <div className="p-fld"><label>Tema</label>
             <div className="p-themes">{THEMES.map((t, i) => (
               <button key={t[0]} className={draft.theme === i ? 'p-on' : ''} onClick={() => pickTheme(i)}>

@@ -5,6 +5,8 @@ import { listenConfig } from './lib/firebase.js'
 import Panel from './Panel.jsx'
 import { alertOn } from './lib/alert.js'
 import { specialVisible } from './lib/special.js'
+import { isNight } from './lib/night.js'
+import { MON, p2 } from './lib/util.js'
 import Confetti from './lib/Confetti.jsx'
 import { loadImage } from './lib/firebase.js'
 
@@ -59,6 +61,7 @@ export default function App() {
 
   const sp = isPanel ? null : specialVisible(cfg.sd, now)
   const spImg = useImg(sp)
+  const night = !isPanel && !(cfg.sd || []).some((d) => d.now) && isNight(cfg, now)
   if (isPanel) return <Panel cfg={cfg} />
 
   const sl = [cfg.slogan, cfg.city, cfg.url].filter(Boolean).join('  •  ')
@@ -96,6 +99,15 @@ export default function App() {
           <div className={'ovl' + (spImg ? ' im' : '')} style={{ '--f': (sp.fs || 100) / 100 }}>
             {spImg ? <img src={spImg} /> : <><b>{sp.title}</b><span>{sp.sub}</span></>}
             {sp.conf && <Confetti />}
+          </div>
+        )}
+        {night && (
+          <div className="nmo">
+            <div className="nmc">
+              <div className="nt">{p2(now.getHours())}:{p2(now.getMinutes())}</div>
+              <div className="nd">{now.getDate()} {MON[now.getMonth()]} {now.getFullYear()}</div>
+              <div className="nn">{cfg.name}</div>
+            </div>
           </div>
         )}
         {alertOn(cfg.al, now.getTime()) && (

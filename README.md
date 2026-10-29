@@ -30,5 +30,5 @@ npm run dev
 ## Taşıma durumu
 Taşındı: saat, metin, tablo, görsel/yazılı slayt, zil sayacı, hava durumu (canlı veri), nöbetçi çizelgesi, belirli günler, manşet, yemek, doğum günü, sayaç, geri sayım, namaz vakitleri, günün sözü; 6 tema; kayan duyuru şeridi.
 
-Panel (giriş, modül ekle/düzenle, tema, yedek) yazıldı. Görsel yükleme ve yazılı slayt eklendi (görseller `images/{id}` belgelerinde, küçültülmüş JPEG). Acil duyuru, özel günler (tam ekran, aralıklı gösterim, konfeti, görsel) ve doğum günü konfetisi eklendi. Henüz taşınmadı (`legacy/` içinde çalışıyor): gece modu, hava efektleri (yağmur/kar vb.), zamanlanmış duyuru satırları, sürükle-bırak yerleşim.
+Panel (giriş, modül ekle/düzenle, tema, yedek) yazıldı. Görsel yükleme ve yazılı slayt eklendi (görseller `images/{id}` belgelerinde, küçültülmüş JPEG). Acil duyuru, özel günler (tam ekran, aralıklı gösterim, konfeti, görsel) ve doğum günü konfetisi eklendi. Gece modu eklendi. Henüz taşınmadı (`legacy/` içinde çalışıyor): hava efektleri (yağmur/kar vb.), zamanlanmış duyuru satırları, sürükle-bırak yerleşim.
 Varsayılan ayarlar `src/defaults.json` içindedir; Firestore bağlanınca `config/pano` belgesi bunun yerine geçer.
