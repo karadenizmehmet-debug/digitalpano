@@ -147,9 +147,10 @@ function Field({ f, data, set, say, root, setRoot }) {
 
 function SchedEditor({ data, set }) {
   const [sec, setSec] = useState('cls'), [c, setC] = useState(''), [ln, setLn] = useState(''), [lk, setLk] = useState('')
-  const [pc, setPc] = useState(''), [pd, setPd] = useState(0)
+  const [pc, setPc] = useState(''), [pd, setPd] = useState(0), [ask, setAsk] = useState(false)
   const classes = data.classes || [], lessons = data.lessons || [], N = Math.max(1, Math.min(12, data.n || 8))
   const prog = data.prog || {}
+  const load = () => { set({ classes: IHO_CLASSES, lessons: IHO_LESSONS, prog: ihoProgram(N), n: 8 }); setAsk(false) }
   const cur = classes.includes(pc) ? pc : classes[0]
   const addCls = () => {
     const a = c.split(/[,\n]/).map((x) => x.trim()).filter((x) => x && !classes.includes(x))
@@ -173,7 +174,11 @@ function SchedEditor({ data, set }) {
   const copyDay = (cl, d) => { const all = Array.from({ length: 5 }, () => day(cl, d)); set('prog', { ...prog, [cl]: all }) }
   return (
     <div className="p-sched">
-      {!classes.length && !lessons.length && <div className="p-fld"><button className="p-pri" onClick={() => set({ classes: IHO_CLASSES, lessons: IHO_LESSONS, prog: ihoProgram(N), n: 8 })}>⚡ İmam hatip ortaokulu örneğini yükle</button><small>5–8. sınıf A/B şubeleri, tüm dersler (kısaltmalı) ve rastgele örnek program. Sonra ekleyip çıkarabilirsiniz.</small></div>}
+      <div className="p-fld">
+        {!ask ? <button className={classes.length || lessons.length ? '' : 'p-pri'} onClick={() => (classes.length || lessons.length ? setAsk(true) : load())}>⚡ İmam hatip ortaokulu örneğini yükle</button>
+          : <div className="p-btns"><button className="p-danger" onClick={load}>Evet, mevcut sınıf/ders/programın yerine yükle</button><button onClick={() => setAsk(false)}>Vazgeç</button></div>}
+        <small>5–8. sınıf A/B şubeleri, tüm dersler (kısaltmalı) ve rastgele örnek program. Sonra ekleyip çıkarabilirsiniz.</small>
+      </div>
       <div className="p-sub">{[['cls', '1. Sınıflar'], ['les', '2. Dersler'], ['prg', '3. Program']].map(([k, l]) => <button key={k} className={sec === k ? 'p-on' : ''} onClick={() => setSec(k)}>{l}</button>)}</div>
       {sec === 'cls' && (
         <div className="p-fld">
