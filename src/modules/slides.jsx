@@ -18,7 +18,8 @@ function Pic({ x, on }) {
 }
 
 export default function Slides({ data, T }) {
-  const im = data.imgs || []
+  const td = new Date(); td.setHours(0, 0, 0, 0)
+  const im = (data.imgs || []).filter((x) => { if (!x.d) return true; const e = new Date((x.on || '1970-01-01') + 'T00:00:00'); e.setDate(e.getDate() + x.d); return e > td })
   if (!im.length) return <div style={{ color: '#8a9bab', textAlign: 'center', paddingTop: 40 }}>Görsel veya yazılı duyuru ekleyin</div>
   const on = Math.floor(T / (data.sec || 6)) % im.length
   return (

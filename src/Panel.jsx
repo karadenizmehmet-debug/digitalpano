@@ -40,6 +40,21 @@ function Thumb({ x }) {
   return src ? <img src={src} className="p-th" /> : <span className="p-th" />
 }
 
+const DUR = [[1, '1 gün'], [3, '3 gün'], [7, '1 hafta'], [30, '1 ay'], [365, '1 yıl'], [0, 'Süresiz']]
+const isoD = (d) => { const z = new Date(d.getTime() - d.getTimezoneOffset() * 60000); return z.toISOString().slice(0, 10) }
+const endOf = (x) => { if (!x.d) return null; const d = new Date((x.on || isoD(new Date())) + 'T00:00:00'); d.setDate(d.getDate() + x.d); return d }
+const trD = (d) => d.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long' })
+function DurBar({ x, upd }) {
+  const e = endOf(x), dead = e && e <= new Date(isoD(new Date()) + 'T00:00:00')
+  return (
+    <div className="p-slr">
+      <select value={x.d ?? 0} onChange={(ev) => upd({ d: +ev.target.value, on: x.on || isoD(new Date()) })}>{DUR.map(([a, b]) => <option key={a} value={a}>{'Yayın: ' + b}</option>)}</select>
+      <button onClick={() => upd({ on: isoD(new Date()) })}>Süreyi yenile</button>
+      <small style={{ color: dead ? '#b4232a' : '#5b6b7b' }}>{!e ? 'Süresiz yayında' : dead ? 'Süresi doldu (yayında değil)' : 'Bitiş: ' + trD(new Date(e.getTime() - 86400000))}</small>
+    </div>
+  )
+}
+
 function SlidesEditor({ value, set, say }) {
   const L = value || []
   const upd = (i, p) => set(L.map((x, k) => (k === i ? { ...x, ...p } : x)))
@@ -57,7 +72,7 @@ function SlidesEditor({ value, set, say }) {
       say('Görsel hazırlanıyor…')
       const src = await shrink(f), id = 'i' + Date.now().toString(36)
       await saveImage(id, src)
-      set([...L, { img: id, name: f.name }])
+      set([...L, { img: id, name: f.name, d: 7, on: isoD(new Date()) }])
       say('Görsel yüklendi. Yayınla düğmesine basmayı unutmayın.')
     } catch (er) { say('Görsel yüklenemedi: ' + er.message) }
   }
@@ -75,11 +90,12 @@ function SlidesEditor({ value, set, say }) {
                   <input type="number" title="Yazı boyutu %" value={x.fs || 100} onChange={(e) => upd(i, { fs: +e.target.value })} />
                 </div>
               </>}
+          <DurBar x={x} upd={(p) => upd(i, p)} />
           <div className="p-btns"><button onClick={() => mv(i, -1)}>↑</button><button onClick={() => mv(i, 1)}>↓</button><button className="p-danger" onClick={() => del(i)}>Sil</button></div>
         </div>
       ))}
       <div className="p-btns">
-        <button onClick={() => set([...L, { t: 'Duyuru başlığı', s: '', tone: 'b', fs: 100 }])}>+ Yazılı slayt</button>
+        <button onClick={() => set([...L, { t: 'Duyuru başlığı', s: '', tone: 'b', fs: 100, d: 7, on: isoD(new Date()) }])}>+ Yazılı slayt</button>
         <label className="p-fbtn">+ Görsel<input type="file" accept="image/*" hidden onChange={addImg} /></label>
       </div>
     </div>
