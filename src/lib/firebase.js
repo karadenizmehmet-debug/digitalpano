@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app'
-import { getFirestore, doc, onSnapshot, setDoc } from 'firebase/firestore'
+import { getFirestore, doc, onSnapshot, setDoc, getDoc, deleteDoc } from 'firebase/firestore'
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth'
 
 // Web yapılandırması gizli değildir (güvenlik Firestore kurallarındadır).
@@ -22,3 +22,15 @@ export const saveConfig = (data) => setDoc(ref, JSON.parse(JSON.stringify(data))
 export const login = (email, pw) => signInWithEmailAndPassword(auth, email, pw)
 export const logout = () => signOut(auth)
 export const onUser = (cb) => onAuthStateChanged(auth, cb)
+
+// Görseller ayrı belgelerde tutulur (images/{id}); ayar belgesi 1 MB sınırına takılmasın diye.
+const imgCache = new Map()
+export async function loadImage(id) {
+  if (imgCache.has(id)) return imgCache.get(id)
+  const s = await getDoc(doc(db, 'images', id))
+  const v = s.exists() ? s.data().src : ''
+  imgCache.set(id, v)
+  return v
+}
+export const saveImage = (id, src) => { imgCache.set(id, src); return setDoc(doc(db, 'images', id), { src }) }
+export const removeImage = (id) => { imgCache.delete(id); return deleteDoc(doc(db, 'images', id)) }

@@ -1,14 +1,85 @@
 import { useEffect, useState } from 'react'
 import { registry } from './lib/registry.js'
 import { THEMES } from './lib/themes.js'
-import { login, logout, onUser, saveConfig } from './lib/firebase.js'
+import { login, logout, onUser, saveConfig, saveImage, removeImage, loadImage } from './lib/firebase.js'
 import { rows } from './lib/util.js'
 import './panel.css'
 
 const DAYS = ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma']
 const COND = { sun: 'Güneşli', partly: 'Parçalı bulutlu', cloud: 'Bulutlu', rain: 'Yağmurlu', wind: 'Rüzgarlı', snow: 'Karlı', storm: 'Gök gürültülü', fog: 'Sisli' }
 
-function Field({ f, data, set }) {
+
+const TONES = { r: 'Kırmızı', b: 'Mavi', g: 'Yeşil', o: 'Turuncu', p: 'Mor', k: 'Siyah' }
+
+// Görseli küçültüp JPEG'e çevirir (Firestore belgesi 1 MB'ı geçmesin)
+async function shrink(file) {
+  const bmp = await createImageBitmap(file)
+  let max = 1280, q = 0.8, out = ''
+  for (let i = 0; i < 5; i++) {
+    const r = Math.min(1, max / Math.max(bmp.width, bmp.height))
+    const c = document.createElement('canvas')
+    c.width = Math.round(bmp.width * r); c.height = Math.round(bmp.height * r)
+    c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height)
+    out = c.toDataURL('image/jpeg', q)
+    if (out.length < 700000) return out
+    max *= 0.8; q -= 0.08
+  }
+  throw new Error('Görsel çok büyük')
+}
+
+function Thumb({ x }) {
+  const [src, setSrc] = useState(x.src || '')
+  useEffect(() => { if (!x.src && x.img) loadImage(x.img).then(setSrc).catch(() => {}) }, [x.img, x.src])
+  return src ? <img src={src} className="p-th" /> : <span className="p-th" />
+}
+
+function SlidesEditor({ value, set, say }) {
+  const L = value || []
+  const upd = (i, p) => set(L.map((x, k) => (k === i ? { ...x, ...p } : x)))
+  const mv = (i, s) => { const a = [...L], j = i + s; if (j < 0 || j >= a.length) return; [a[i], a[j]] = [a[j], a[i]]; set(a) }
+  const del = (i) => {
+    if (!confirm('Bu slayt silinsin mi?')) return
+    const x = L[i]
+    if (x.img) removeImage(x.img).catch(() => {})
+    set(L.filter((_, k) => k !== i))
+  }
+  const addImg = async (e) => {
+    const f = e.target.files[0]; e.target.value = ''
+    if (!f) return
+    try {
+      say('Görsel hazırlanıyor…')
+      const src = await shrink(f), id = 'i' + Date.now().toString(36)
+      await saveImage(id, src)
+      set([...L, { img: id, name: f.name }])
+      say('Görsel yüklendi. Yayınla düğmesine basmayı unutmayın.')
+    } catch (er) { say('Görsel yüklenemedi: ' + er.message) }
+  }
+  return (
+    <div className="p-sl">
+      {L.map((x, i) => (
+        <div key={i} className="p-slc">
+          {(x.img || x.src)
+            ? <div className="p-slr"><Thumb x={x} /><span>{x.name || 'Görsel'}</span></div>
+            : <>
+                <input placeholder="Başlık" value={x.t || ''} onChange={(e) => upd(i, { t: e.target.value })} />
+                <textarea rows={2} placeholder="Alt yazı (isteğe bağlı)" value={x.s || ''} onChange={(e) => upd(i, { s: e.target.value })} />
+                <div className="p-slr">
+                  <select value={x.tone || 'r'} onChange={(e) => upd(i, { tone: e.target.value })}>{Object.entries(TONES).map(([a, b]) => <option key={a} value={a}>{b}</option>)}</select>
+                  <input type="number" title="Yazı boyutu %" value={x.fs || 100} onChange={(e) => upd(i, { fs: +e.target.value })} />
+                </div>
+              </>}
+          <div className="p-btns"><button onClick={() => mv(i, -1)}>↑</button><button onClick={() => mv(i, 1)}>↓</button><button className="p-danger" onClick={() => del(i)}>Sil</button></div>
+        </div>
+      ))}
+      <div className="p-btns">
+        <button onClick={() => set([...L, { t: 'Duyuru başlığı', s: '', tone: 'b', fs: 100 }])}>+ Yazılı slayt</button>
+        <label className="p-fbtn">+ Görsel<input type="file" accept="image/*" hidden onChange={addImg} /></label>
+      </div>
+    </div>
+  )
+}
+
+function Field({ f, data, set, say }) {
   const [k, kind, label, hint] = f
   const v = data[k]
   let input
@@ -17,6 +88,7 @@ function Field({ f, data, set }) {
   else if (kind === 'num') input = <input type="number" value={v ?? ''} onChange={(e) => set(k, e.target.value === '' ? '' : +e.target.value)} />
   else if (kind === 'dt') input = <input type="datetime-local" value={v ?? ''} onChange={(e) => set(k, e.target.value)} />
   else if (kind === 'sel') input = <select value={v} onChange={(e) => set(k, e.target.value)}>{Object.entries(COND).map(([a, b]) => <option key={a} value={a}>{b}</option>)}</select>
+  else if (kind === 'slides') input = <SlidesEditor value={v} set={(x) => set(k, x)} say={say} />
   else if (kind === 'dgrid') {
     const P = rows({ rows: data.places }), g = data.g || {}
     input = (
@@ -35,7 +107,7 @@ function Field({ f, data, set }) {
   return <div className="p-fld"><label>{label}</label>{input}{hint && <small>{hint}</small>}</div>
 }
 
-function ModEditor({ m, upd, del, move }) {
+function ModEditor({ m, upd, del, move, say }) {
   const R = registry[m.type]
   const [open, setOpen] = useState(false)
   const setData = (k, v) => upd({ data: { ...m.data, [k]: v } })
@@ -51,7 +123,7 @@ function ModEditor({ m, upd, del, move }) {
         <div className="p-body">
           <div className="p-fld"><label>Başlık</label><input value={m.title || ''} onChange={(e) => upd({ title: e.target.value })} /></div>
           <label className="p-chk"><input type="checkbox" checked={m.showTitle !== false && (m.type !== 'slides' || m.showTitle)} onChange={(e) => upd({ showTitle: e.target.checked })} /> Başlığı göster</label>
-          {(R?.fields || []).map((f) => <Field key={f[0]} f={f} data={m.data} set={setData} />)}
+          {(R?.fields || []).map((f) => <Field key={f[0]} f={f} data={m.data} set={setData} say={say} />)}
           <div className="p-fld"><label>Yazı boyutu (%)</label><input type="number" value={m.fs || 100} onChange={(e) => upd({ fs: +e.target.value })} /></div>
           <div className="p-fld"><label>Renk</label><input type="color" value={m.color || '#0f9b8e'} onChange={(e) => upd({ color: e.target.value })} /></div>
           <div className="p-pos">
@@ -151,7 +223,7 @@ export default function Panel({ cfg }) {
       )}
       {tab === 'mods' && (
         <div className="p-body">
-          {draft.mods.map((m, i) => <ModEditor key={m.id} m={m} upd={(p) => updMod(i, p)} del={() => delMod(i)} move={(s) => moveMod(i, s)} />)}
+          {draft.mods.map((m, i) => <ModEditor key={m.id} m={m} upd={(p) => updMod(i, p)} del={() => delMod(i)} move={(s) => moveMod(i, s)} say={setMsg} />)}
           <div className="p-fld"><label>Yeni modül ekle</label>
             <select value="" onChange={(e) => e.target.value && addMod(e.target.value)}>
               <option value="">Seçin…</option>

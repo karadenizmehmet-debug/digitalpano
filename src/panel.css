@@ -34,3 +34,8 @@ body.panelbody{overflow:auto;background:#eef2f6;padding:0}
 .pnl,.pnl *{letter-spacing:normal;text-transform:none}
 .pnl{font-size:16px}
 .pnl input[type=checkbox]{width:20px;height:20px;flex:none}
+
+.pnl .p-sl{display:grid;gap:10px}
+.pnl .p-slc{border:1px solid #d3dce5;border-radius:12px;padding:10px;display:grid;gap:8px;background:#f8fafc}
+.pnl .p-slr{display:flex;gap:8px;align-items:center}
+.pnl .p-th{width:72px;height:48px;object-fit:cover;border-radius:8px;background:#dde6ee;display:inline-block}
