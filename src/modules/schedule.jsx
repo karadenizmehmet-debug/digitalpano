@@ -4,15 +4,19 @@ import { IHO_CLASSES, IHO_LESSONS, ihoProgram } from '../lib/ihoSample.js'
 export const DAYN = ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma']
 // Hafta sonu Pazartesi'yi gösterir
 export const dayIdx = (d) => { const g = d.getDay(); return g === 0 || g === 6 ? 0 : g - 1 }
+// Günlük ders sayısı: varsayılan Pzt–Per 7, Cuma 8
+export const DN0 = [7, 7, 7, 7, 8]
+export const nOf = (data, d) => Math.max(1, Math.min(12, +(data.dn?.[d] ?? DN0[d] ?? data.n ?? 8)))
+export const nMax = (data) => Math.max(...[0, 1, 2, 3, 4].map((d) => nOf(data, d)))
 export const meta = {
   label: 'Ders Programı', minH: 140,
   def: { classes: IHO_CLASSES, lessons: IHO_LESSONS, n: 8, prog: ihoProgram(), speed: 1 },
-  fields: [['n', 'num', 'Günlük ders sayısı'], ['sched', 'sched', 'Sınıflar, dersler ve program'], ['speed', 'num', 'Kaydırma hızı', '0 yazarsanız kaydırma kapanır']],
+  fields: [['dn', 'dcount', 'Günlük ders sayısı'], ['sched', 'sched', 'Sınıflar, dersler ve program'], ['speed', 'num', 'Kaydırma hızı', '0 yazarsanız kaydırma kapanır']],
 }
 export default function Schedule({ data, now, cfg }) {
   const ref = useRef()
   useAutoScroll(ref, data.speed ?? 1)
-  const cl = data.classes || [], N = Math.max(1, Math.min(12, data.n || 8)), di = dayIdx(now)
+  const cl = data.classes || [], di = dayIdx(now), N = nOf(data, di)
   if (!cl.length) return <div className="tb"><p style={{ opacity: .6 }}>Ders programı için panelden sınıf ekleyin.</p></div>
   const sh = (name) => { if (!name) return ''; const L = (data.lessons || []).find((x) => x.n === name); return (L && L.k) || name }
   const B = bellOf(cfg), n2 = now.getHours() * 60 + now.getMinutes()

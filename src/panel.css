@@ -234,3 +234,8 @@ body.panelbody{overflow-x:hidden;overflow-y:auto;max-width:100vw;background:#f3f
 .pnl button.p-ib{cursor:pointer}
 .pnl .p-modal.p-big .p-mbox{max-width:900px}
 @media (max-width:600px){.pnl .p-tt b{font-size:16px;white-space:nowrap}.pnl .p-ib{width:40px;height:40px;margin-left:4px;font-size:20px}.pnl .p-top .p-pub{padding:11px 12px;font-size:15px;margin-left:6px}.pnl .p-tt small{font-size:11px}}
+
+.pnl .p-dc{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.pnl .p-dc label{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:700;text-align:center}
+.pnl .p-dc select{padding:10px 2px;text-align:center}
+.pnl .p-na{text-align:center;color:#c3ccd6}

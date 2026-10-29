@@ -5,6 +5,7 @@ import { login, logout, changePassword, onUser, saveConfig, fetchServerConfig, s
 import { rows } from './lib/util.js'
 import { alertStatus } from './lib/alert.js'
 import Stage from './Stage.jsx'
+import { nOf, nMax } from './modules/schedule.jsx'
 import { DG, mondayISO, weekShift } from './modules/duty.jsx'
 import { IHO_CLASSES, IHO_LESSONS, ihoProgram } from './lib/ihoSample.js'
 import { reflow } from './lib/reflow.js'
@@ -211,6 +212,9 @@ function Field({ f, data, set, say, root, setRoot }) {
   else if (kind === 'dt') input = <input type="datetime-local" value={v ?? ''} onChange={(e) => set(k, e.target.value)} />
   else if (kind === 'sel') input = <select value={v} onChange={(e) => set(k, e.target.value)}>{Object.entries(COND).map(([a, b]) => <option key={a} value={a}>{b}</option>)}</select>
   else if (kind === 'bellrows') input = <BellEditor value={v} set={(x) => set(k, x)} />
+  else if (kind === 'dcount') input = (
+    <div className="p-dc">{['Pzt', 'Sal', 'Çar', 'Per', 'Cum'].map((g, d) => (
+      <label key={g}><span>{g}</span><select value={nOf(data, d)} onChange={(e) => { const dn = { 0: nOf(data, 0), 1: nOf(data, 1), 2: nOf(data, 2), 3: nOf(data, 3), 4: nOf(data, 4), [d]: +e.target.value }; set({ dn, n: Math.max(...Object.values(dn)) }) }}>{Array.from({ length: 12 }, (_, i) => <option key={i} value={i + 1}>{i + 1}</option>)}</select></label>))}</div>)
   else if (kind === 'sched') input = <SchedEditor data={data} set={set} />
   else if (kind === 'slides') input = <SlidesEditor value={v} set={(x) => set(k, x)} say={say} />
   else if (kind === 'dgrid') {
@@ -319,7 +323,7 @@ function BellEditor({ value, set }) {
 function SchedEditor({ data, set }) {
   const [sec, setSec] = useState('cls'), [c, setC] = useState(''), [ln, setLn] = useState(''), [lk, setLk] = useState('')
   const [pc, setPc] = useState(''), [ask, setAsk] = useState(false), [wk, setWk] = useState(null)
-  const classes = data.classes || [], lessons = data.lessons || [], N = Math.max(1, Math.min(12, data.n || 8))
+  const classes = data.classes || [], lessons = data.lessons || [], N = nMax(data)
   const prog = data.prog || {}
   const load = () => { set({ classes: IHO_CLASSES, lessons: IHO_LESSONS, prog: ihoProgram(N), n: 8 }); setAsk(false) }
   const cur = classes.includes(pc) ? pc : classes[0]
@@ -381,7 +385,7 @@ function SchedEditor({ data, set }) {
               {Array.from({ length: N }, (_, h) => [
                 <b key={'h' + h} className="p-wh">{h + 1}</b>,
                 ...[0, 1, 2, 3, 4].map((d) => (
-                  <select key={d + '-' + h} value={wk[d][h] || ''} onChange={(e) => setCell(d, h, e.target.value)} className={wk[d][h] ? '' : 'p-em'}>
+                  h >= nOf(data, d) ? <span key={d + '-' + h} className="p-na">·</span> : <select key={d + '-' + h} value={wk[d][h] || ''} onChange={(e) => setCell(d, h, e.target.value)} className={wk[d][h] ? '' : 'p-em'}>
                     <option value="">—</option>
                     {lessons.map((x) => <option key={x.n} value={x.n}>{x.k || x.n}</option>)}
                   </select>))
