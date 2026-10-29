@@ -180,3 +180,8 @@ body.panelbody{overflow-x:hidden;overflow-y:auto;max-width:100vw;background:#f3f
 .pnl .p-grid button{display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 6px;background:#fff;border:1px solid #dbe4ec;border-radius:16px;font-size:14px;font-weight:700;color:#0f2433;box-shadow:0 2px 8px #0a2a4a12}
 .pnl .p-grid button span{font-size:40px}
 .pnl .p-sub button{flex:none}
+
+.pnl .p-two{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 4px}
+.pnl .p-two button{padding:16px 8px;font-size:16px;font-weight:700;background:#e3f4f1;color:#0b6f66;border:1px solid #b7e0da;border-radius:14px}
+.pnl .p-modal{position:fixed;inset:0;z-index:100;background:#0008;display:flex;align-items:flex-end;justify-content:center}
+.pnl .p-mbox{width:100%;max-width:520px;max-height:90vh;overflow:auto;background:#fff;border-radius:20px 20px 0 0;padding:18px 16px 24px;display:flex;flex-direction:column;gap:12px}

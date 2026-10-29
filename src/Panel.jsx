@@ -125,7 +125,7 @@ function SlideCard({ x, i, upd, mv, del }) {
 
 function SlidesEditor({ value, set, say }) {
   const L = value || []
-  const [nm, setNm] = useState('')
+  const [dlg, setDlg] = useState(null)
   const upd = (i, p) => set(L.map((x, k) => (k === i ? { ...x, ...p } : x)))
   const mv = (i, s) => { const a = [...L], j = i + s; if (j < 0 || j >= a.length) return; [a[i], a[j]] = [a[j], a[i]]; set(a) }
   const del = (i) => {
@@ -134,25 +134,56 @@ function SlidesEditor({ value, set, say }) {
     if (x.img) removeImage(x.img).catch(() => {})
     set(L.filter((_, k) => k !== i))
   }
-  const addImg = async (e) => {
-    const f = e.target.files[0]; e.target.value = ''
-    if (!f) return
+  const save = async () => {
+    const f = dlg
     try {
-      say('Görsel hazırlanıyor…')
-      setNm('')
-      const src = await shrink(f), id = 'i' + Date.now().toString(36)
-      await saveImage(id, src)
-      set([{ img: id, name: nm.trim() || f.name, d: 7, on: isoD(new Date()) }, ...L])
-      say('Görsel yüklendi. Yayınla düğmesine basmayı unutmayın.')
-    } catch (er) { say('Görsel yüklenemedi: ' + er.message) }
+      if (f.kind === 'img') {
+        if (!f.file) { say('Önce bir görsel seçin.'); return }
+        setDlg({ ...f, busy: true })
+        const src = await shrink(f.file), id = 'i' + Date.now().toString(36)
+        await saveImage(id, src)
+        set([{ img: id, name: f.name.trim() || f.file.name, d: f.d, on: isoD(new Date()) }, ...L])
+        say('Görsel eklendi. Yayınla düğmesine basmayı unutmayın.')
+      } else {
+        if (!f.t.trim()) { say('Başlık yazın.'); return }
+        set([{ t: f.t.trim(), s: f.s, tone: f.tone, fs: f.fs, d: f.d, on: isoD(new Date()) }, ...L])
+        say('Yazı eklendi. Yayınla düğmesine basmayı unutmayın.')
+      }
+      setDlg(null)
+    } catch (er) { setDlg({ ...f, busy: false }); say('Eklenemedi: ' + er.message) }
   }
+  const dd = (p) => setDlg({ ...dlg, ...p })
   return (
     <div className="p-sl">
-      <div className="p-btns">
-        <button onClick={() => set([{ t: 'Duyuru başlığı', s: '', tone: 'b', fs: 100, d: 7, on: isoD(new Date()) }, ...L])}>+ Yazılı slayt</button>
-        <input placeholder="Yeni görselin adı (isteğe bağlı)" value={nm} onChange={(e) => setNm(e.target.value)} style={{ flex: '1 1 100%' }} />
-        <label className="p-fbtn">+ Görsel<input type="file" accept="image/*" hidden onChange={addImg} /></label>
+      <div className="p-two">
+        <button onClick={() => setDlg({ kind: 'img', name: '', file: null, d: 7 })}>🖼️ Görsel ekle</button>
+        <button onClick={() => setDlg({ kind: 'txt', t: '', s: '', tone: 'b', fs: 100, d: 7 })}>📝 Yazı ekle</button>
       </div>
+      {dlg && (
+        <div className="p-modal" onClick={() => !dlg.busy && setDlg(null)}>
+          <div className="p-mbox" onClick={(e) => e.stopPropagation()}>
+            <div className="p-h">{dlg.kind === 'img' ? '🖼️ Görsel ekle' : '📝 Yazı ekle'}</div>
+            {dlg.kind === 'img' ? <>
+              <div className="p-fld"><label>Başlık</label><input value={dlg.name} onChange={(e) => dd({ name: e.target.value })} placeholder="Örn: Veli toplantısı afişi" /></div>
+              <div className="p-fld"><label>Görsel</label>
+                <label className="p-fbtn">{dlg.file ? '✓ ' + dlg.file.name : 'Görsel seç'}<input type="file" accept="image/*" hidden onChange={(e) => { const f = e.target.files[0]; e.target.value = ''; if (f) dd({ file: f, name: dlg.name || f.name.replace(/\.[^.]+$/, '') }) }} /></label></div>
+            </> : <>
+              <div className="p-fld"><label>Başlık</label><input value={dlg.t} onChange={(e) => dd({ t: e.target.value })} /></div>
+              <div className="p-fld"><label>Alt yazı (isteğe bağlı)</label><textarea rows={3} value={dlg.s} onChange={(e) => dd({ s: e.target.value })} /></div>
+              <div className="p-slr">
+                <select value={dlg.tone} onChange={(e) => dd({ tone: e.target.value })}>{Object.entries(TONES).map(([a, b]) => <option key={a} value={a}>{b}</option>)}</select>
+                <input type="number" title="Yazı boyutu %" value={dlg.fs} onChange={(e) => dd({ fs: +e.target.value })} />
+              </div>
+            </>}
+            <div className="p-fld"><label>Ne kadar yayında kalsın</label>
+              <select value={dlg.d} onChange={(e) => dd({ d: +e.target.value })}>{DUR.map(([a, b]) => <option key={a} value={a}>{b}</option>)}</select></div>
+            <div className="p-btns">
+              <button className="p-pri" disabled={dlg.busy} onClick={save}>{dlg.busy ? 'Yükleniyor…' : 'Kaydet'}</button>
+              <button disabled={dlg.busy} onClick={() => setDlg(null)}>Vazgeç</button>
+            </div>
+          </div>
+        </div>
+      )}
       {L.length > 0 && <div className="p-h2">Eklenenler ({L.length})</div>}
       {L.map((x, i) => <SlideCard key={i} x={x} i={i} upd={upd} mv={mv} del={del} />)}
     </div>
