@@ -5,6 +5,7 @@ import { specialVisible } from './lib/special.js'
 import { isNight } from './lib/night.js'
 import { MON, p2 } from './lib/util.js'
 import Confetti from './lib/Confetti.jsx'
+import Fireworks from './lib/Fireworks.jsx'
 import { loadImage } from './lib/firebase.js'
 import { useLive } from './lib/weather.js'
 import { visibleTicker, effectiveTicker } from './lib/ticker.js'
@@ -144,9 +145,10 @@ export default function Stage({ cfg, preview = false, edit = null }) {
         })}
         {FX_KINDS.includes(fxKind) && <Fx kind={fxKind} />}
         {sp && (
-          <div className={'ovl' + (spImg ? ' im' : '')} style={{ '--f': (sp.fs || 100) / 100 }}>
+          <div className={'ovl' + (spImg ? ' im' : '')} style={{ '--f': (sp.fs || 100) / 100, ...(sp.bg && !spImg ? { background: `linear-gradient(120deg,${sp.bg},color-mix(in srgb,${sp.bg} 55%,#000))` } : {}) }}>
             {spImg ? <img src={spImg} /> : <><b>{sp.title}</b><span>{sp.sub}</span></>}
             {sp.conf && <Confetti />}
+            {sp.fw && <Fireworks />}
           </div>
         )}
         {night && (

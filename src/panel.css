@@ -191,3 +191,9 @@ body.panelbody{overflow-x:hidden;overflow-y:auto;max-width:100vw;background:#f3f
 .pnl .p-slc>.p-slr:first-child{flex-wrap:nowrap}.pnl .p-slc>.p-slr:first-child>span:nth-child(2){flex:1 1 0}
 .pnl .p-slr>.p-tx{flex:1 1 0;min-width:0;overflow:hidden;width:0}
 .pnl .p-slc{min-width:0}
+
+.pnl .p-sws{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pnl .p-sws button{width:38px;height:38px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 1px #c3ccd6;padding:0}
+.pnl .p-sws button:first-child{width:auto;border-radius:12px;padding:0 12px;height:38px;background:#e3e9ef;border:1px solid #c3ccd6;box-shadow:none}
+.pnl .p-sws button.p-on{box-shadow:0 0 0 3px #0f9b8e}
+.pnl .p-sws input[type=color]{width:44px;height:38px;padding:0;border:0;background:none}
