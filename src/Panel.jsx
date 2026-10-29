@@ -106,6 +106,7 @@ function Field({ f, data, set, say, root, setRoot }) {
   else if (kind === 'num') input = <input type="number" value={v ?? ''} onChange={(e) => set(k, e.target.value === '' ? '' : +e.target.value)} />
   else if (kind === 'dt') input = <input type="datetime-local" value={v ?? ''} onChange={(e) => set(k, e.target.value)} />
   else if (kind === 'sel') input = <select value={v} onChange={(e) => set(k, e.target.value)}>{Object.entries(COND).map(([a, b]) => <option key={a} value={a}>{b}</option>)}</select>
+  else if (kind === 'bellrows') input = <BellEditor value={v} set={(x) => set(k, x)} />
   else if (kind === 'sched') input = <SchedEditor data={data} set={set} />
   else if (kind === 'slides') input = <SlidesEditor value={v} set={(x) => set(k, x)} say={say} />
   else if (kind === 'dgrid') {
@@ -143,6 +144,66 @@ function Field({ f, data, set, say, root, setRoot }) {
     } catch { say('Panoya erişim izni verilmedi. Kutuya uzun basıp Yapıştır deyin') }
   }}>📋 Excel/panodan satır ekle</button>
   return <div className="p-fld"><label>{label}</label>{input}{pasteBtn}{hint && <small>{hint}</small>}</div>
+}
+
+const tmin = (t) => { const m = /^(\d+):(\d+)/.exec(t || ''); return m ? +m[1] * 60 + +m[2] : 0 }
+const hhmm = (m) => { m = ((m % 1440) + 1440) % 1440; return String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0') }
+const parseBell = (txt) => String(txt || '').split('\n').map((l) => l.match(/(\d+):(\d+)\s*-\s*(\d+):(\d+)\s*(.*)/)).filter(Boolean)
+  .map((x) => ({ s: hhmm(+x[1] * 60 + +x[2]), e: hhmm(+x[3] * 60 + +x[4]), n: x[5] }))
+const joinBell = (L) => L.map((r) => r.s + '-' + r.e + ' ' + r.n).join('\n')
+
+function BellEditor({ value, set }) {
+  const L = parseBell(value)
+  const [gen, setGen] = useState({ s: '08:40', d: 40, b: 15, c: 8 }), [gopen, setGopen] = useState(false), [ask, setAsk] = useState(false)
+  const put = (A) => set(joinBell(A))
+  const upd = (i, p) => put(L.map((r, k) => (k === i ? { ...r, ...p } : r)))
+  const add = () => {
+    const last = L[L.length - 1], st = last ? tmin(last.e) + 15 : 8 * 60 + 40
+    put([...L, { s: hhmm(st), e: hhmm(st + 40), n: (L.length + 1) + '. Ders' }])
+  }
+  const make = () => {
+    const A = []; let t = tmin(gen.s)
+    for (let i = 0; i < gen.c; i++) { A.push({ s: hhmm(t), e: hhmm(t + gen.d), n: (i + 1) + '. Ders' }); t += +gen.d + +gen.b }
+    put(A); setAsk(false); setGopen(false)
+  }
+  return (
+    <div className="p-bell">
+      {L.map((r, i) => {
+        const nx = L[i + 1], br = nx ? tmin(nx.s) - tmin(r.e) : null, du = tmin(r.e) - tmin(r.s)
+        return (
+          <div key={i}>
+            <div className="p-bl">
+              <div className="p-bh"><input className="p-bn" value={r.n} onChange={(e) => upd(i, { n: e.target.value })} />
+                <button className="p-bx" onClick={() => put(L.filter((_, k) => k !== i))} aria-label="Sil">×</button></div>
+              <div className="p-bt">
+                <input type="time" value={r.s} onChange={(e) => e.target.value && upd(i, { s: e.target.value })} />
+                <span>→</span>
+                <input type="time" value={r.e} onChange={(e) => e.target.value && upd(i, { e: e.target.value })} />
+                <em>{du > 0 ? du + ' dk' : '⚠'}</em>
+              </div>
+            </div>
+            {br !== null && <div className={'p-bb' + (br < 0 ? ' p-bad' : '')}>{br >= 0 ? (br >= 30 ? '🍽️ ' + br + ' dk ara' : '☕ ' + br + ' dk teneffüs') : '⚠ Bir sonraki ders ile çakışıyor'}</div>}
+          </div>)
+      })}
+      {!L.length && <p className="p-hint">Henüz ders saati yok. Aşağıdan ekleyin ya da hızlı oluşturun.</p>}
+      <div className="p-btns">
+        <button className="p-pri" onClick={add}>+ Ders saati ekle</button>
+        <button onClick={() => setGopen(!gopen)}>⚡ Hızlı oluştur</button>
+      </div>
+      {gopen && (
+        <div className="p-gen">
+          <small>Aynı sürede ve teneffüslü bir çizelge oluşturur. Sonra tek tek düzenleyebilirsiniz (öğle arası için ilgili saatleri kaydırın).</small>
+          <div className="p-pos" style={{ gridTemplateColumns: '1.3fr 1fr 1fr 1fr' }}>
+            <div className="p-fld"><label>İlk ders</label><input type="time" value={gen.s} onChange={(e) => setGen({ ...gen, s: e.target.value })} /></div>
+            <div className="p-fld"><label>Ders (dk)</label><input type="number" value={gen.d} onChange={(e) => setGen({ ...gen, d: +e.target.value })} /></div>
+            <div className="p-fld"><label>Teneffüs</label><input type="number" value={gen.b} onChange={(e) => setGen({ ...gen, b: +e.target.value })} /></div>
+            <div className="p-fld"><label>Ders sayısı</label><input type="number" value={gen.c} onChange={(e) => setGen({ ...gen, c: Math.max(1, Math.min(12, +e.target.value)) })} /></div>
+          </div>
+          {!ask ? <button className="p-pri" onClick={() => (L.length ? setAsk(true) : make())}>Oluştur</button>
+            : <div className="p-btns"><button className="p-danger" onClick={make}>Evet, mevcut saatlerin yerine oluştur</button><button onClick={() => setAsk(false)}>Vazgeç</button></div>}
+        </div>)}
+    </div>
+  )
 }
 
 function SchedEditor({ data, set }) {

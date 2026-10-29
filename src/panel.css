@@ -131,3 +131,16 @@ body.panelbody{overflow-x:hidden;overflow-y:auto;max-width:100vw;background:#f3f
 .pnl .p-dgt input{min-width:96px;padding:8px}
 
 .pnl .stg.edit .mod,.pnl .stg.edit .rs{touch-action:none}
+
+.pnl .p-bl{background:#fff;border:1px solid #dbe4ec;border-radius:14px;padding:10px 12px;margin-top:8px}
+.pnl .p-bh{display:flex;gap:8px;align-items:center}
+.pnl .p-bn{font-weight:800;border:0!important;padding:4px 2px!important;background:transparent!important;font-size:17px!important}
+.pnl .p-bx{padding:2px 12px;font-size:22px;line-height:1.2;background:#fde2e4;color:#b3262e}
+.pnl .p-bt{display:flex;align-items:center;gap:8px;margin-top:6px}
+.pnl .p-bt input[type=time]{flex:1;min-width:0;padding:10px 4px;font-size:17px;text-align:center}
+.pnl .p-bt span{color:#7a8da0}
+.pnl .p-bt em{font-style:normal;color:#35566f;font-weight:700;white-space:nowrap;font-size:14px}
+.pnl .p-bb{text-align:center;color:#7a8da0;font-size:13px;padding:5px 0 0}
+.pnl .p-bb.p-bad{color:#b3262e;font-weight:700}
+.pnl .p-gen{background:#f3f7fa;border:1px dashed #c5d3e0;border-radius:12px;padding:10px;margin-top:10px;display:flex;flex-direction:column;gap:8px}
+.pnl .p-bell .p-btns{margin-top:12px}
