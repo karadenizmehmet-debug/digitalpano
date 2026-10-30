@@ -804,3 +804,23 @@ html,body,#root{height:100%}
 .sl [data-tr=burn].on::after{content:'';position:absolute;inset:0;z-index:3;background:radial-gradient(circle at 80% 15%,#ffb347cc,#ff5e3a66 45%,transparent 75%);animation:t-burn2 1.2s ease-out both}
 @keyframes t-burn{from{filter:brightness(4) sepia(1) saturate(4) blur(8px)}40%{filter:brightness(1.8) sepia(.8) saturate(2.5) blur(2px)}to{filter:none}}
 @keyframes t-burn2{from{opacity:1}to{opacity:0}}
+
+/* ===== Ek geçiş efektleri ===== */
+.sl [data-tr=wipel].on{animation:t-wl .9s ease-in-out both}@keyframes t-wl{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0)}}
+.sl [data-tr=wiper].on{animation:t-wr .9s ease-in-out both}@keyframes t-wr{from{clip-path:inset(0 0 0 100%)}to{clip-path:inset(0)}}
+.sl [data-tr=wipev].on{animation:t-wv .9s ease-in-out both}@keyframes t-wv{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0)}}
+.sl [data-tr=wipedg].on{animation:t-wd 1s ease-in-out both}@keyframes t-wd{from{clip-path:polygon(0 0,0 0,0 0)}to{clip-path:polygon(0 0,250% 0,0 250%)}}
+.sl [data-tr=circle].on{animation:t-cr 1s ease-in-out both}@keyframes t-cr{from{clip-path:circle(0% at 0% 0%)}to{clip-path:circle(150% at 0% 0%)}}
+.sl [data-tr=blur].on{animation:t-bl 1s ease-out both}@keyframes t-bl{from{filter:blur(24px);opacity:0}to{filter:none;opacity:1}}
+.sl [data-tr=zblur].on{animation:t-zb 1s ease-out both}@keyframes t-zb{from{transform:scale(.6);filter:blur(14px);opacity:0}to{transform:none;filter:none;opacity:1}}
+.sl [data-tr=parallax]{opacity:0;transform:translateX(-6%);transition:opacity .9s,transform .9s}
+.sl [data-tr=parallax].on{animation:t-px 1s cubic-bezier(.2,.7,.2,1) both}@keyframes t-px{from{transform:translateX(12%) scale(1.15);opacity:0}to{transform:none;opacity:1}}
+.sl [data-tr=flip].on{animation:t-fl .9s ease-out both}@keyframes t-fl{from{transform:perspective(1200px) rotateY(-90deg);opacity:.3}to{transform:none;opacity:1}}
+.sl [data-tr=cube]{opacity:1;transform-origin:right center;transform:perspective(1800px) translateX(-100%) rotateY(90deg);transition:transform .9s ease}
+.sl [data-tr=cube].on{transform-origin:left center;transform:none;animation:t-cb .9s ease both}@keyframes t-cb{from{transform:perspective(1800px) translateX(100%) rotateY(-90deg)}to{transform:none}}
+.sl [data-tr=rotate].on{animation:t-rt 1s ease-out both}@keyframes t-rt{from{transform:rotate(-180deg) scale(.15);opacity:0}to{transform:none;opacity:1}}
+.sl [data-tr=split].on{animation:t-sp .9s ease-in-out both}@keyframes t-sp{from{clip-path:inset(50% 0 50% 0)}to{clip-path:inset(0)}}
+.sl [data-tr=curtain].on::before,.sl [data-tr=curtain].on::after{content:'';position:absolute;top:0;bottom:0;width:50%;z-index:3;background:repeating-linear-gradient(90deg,#6b1020 0,#a3202f 30px,#6b1020 60px)}
+.sl [data-tr=curtain].on::before{left:0;animation:t-cl 1.3s cubic-bezier(.6,0,.2,1) .15s both}
+.sl [data-tr=curtain].on::after{right:0;animation:t-cr2 1.3s cubic-bezier(.6,0,.2,1) .15s both}
+@keyframes t-cl{from{transform:none}to{transform:translateX(-100%)}}@keyframes t-cr2{from{transform:none}to{transform:translateX(100%)}}
