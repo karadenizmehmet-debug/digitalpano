@@ -37,6 +37,15 @@ async function shrink(file, maxDim = 1280, type = 'image/jpeg', limit = 700000) 
   throw new Error('Görsel çok büyük')
 }
 
+// Sayı kutusu: silip yeniden yazmaya izin verir (boşken değeri zorla geri doldurmaz)
+function NumIn({ value, onChange, ...rest }) {
+  const [t, setT] = useState(String(value ?? ''))
+  useEffect(() => { setT((o) => (o !== '' && +o === +value ? o : String(value ?? ''))) }, [value])
+  return <input type="number" {...rest} value={t}
+    onChange={(e) => { setT(e.target.value); if (e.target.value !== '' && !isNaN(+e.target.value)) onChange(e) }}
+    onBlur={() => setT(String(value ?? ''))} />
+}
+
 function Thumb({ x }) {
   const [src, setSrc] = useState(x.src || '')
   useEffect(() => { if (!x.src && x.img) loadImage(x.img).then(setSrc).catch(() => {}) }, [x.img, x.src])
@@ -116,10 +125,10 @@ function SlideCard({ x, i, upd, mv, del, withSec }) {
           <textarea rows={2} placeholder="Alt yazı (isteğe bağlı)" value={x.s || ''} onChange={(ev) => upd(i, { s: ev.target.value })} />
           <div className="p-slr">
             <select value={x.tone || 'r'} onChange={(ev) => upd(i, { tone: ev.target.value })}>{Object.entries(TONES).map(([a, b]) => <option key={a} value={a}>{b}</option>)}</select>
-            <input type="number" title="Yazı boyutu %" value={x.fs || 100} onChange={(ev) => upd(i, { fs: +ev.target.value })} />
+            <NumIn title="Yazı boyutu %" value={x.fs || 100} onChange={(ev) => upd(i, { fs: +ev.target.value })} />
           </div>
         </>}
-        {withSec && <div className="p-fld"><label>Ekranda kalma süresi (sn) — boşsa genel süre</label><input type="number" min="2" value={x.sec || ''} onChange={(ev) => upd(i, { sec: +ev.target.value || 0 })} /></div>}
+        {withSec && <div className="p-fld"><label>Ekranda kalma süresi (sn) — boşsa genel süre</label><NumIn min="2" value={x.sec || ''} onChange={(ev) => upd(i, { sec: +ev.target.value || 0 })} /></div>}
         <DurBar x={x} upd={(p) => upd(i, p)} />
         <div className="p-btns"><button onClick={() => mv(i, -1)}>↑</button><button onClick={() => mv(i, 1)}>↓</button><button className="p-danger" onClick={() => del(i)}>Sil</button></div>
       </>}
@@ -176,7 +185,7 @@ function SlidesEditor({ value, set, say, withSec }) {
               <div className="p-fld"><label>Alt yazı (isteğe bağlı)</label><textarea rows={3} value={dlg.s} onChange={(e) => dd({ s: e.target.value })} /></div>
               <div className="p-slr">
                 <select value={dlg.tone} onChange={(e) => dd({ tone: e.target.value })}>{Object.entries(TONES).map(([a, b]) => <option key={a} value={a}>{b}</option>)}</select>
-                <input type="number" title="Yazı boyutu %" value={dlg.fs} onChange={(e) => dd({ fs: +e.target.value })} />
+                <NumIn title="Yazı boyutu %" value={dlg.fs} onChange={(e) => dd({ fs: +e.target.value })} />
               </div>
             </>}
             <div className="p-fld"><label>Ne kadar yayında kalsın</label>
@@ -203,8 +212,8 @@ function FsaEditor({ draft, set, say }) {
       <p className="p-hint">Eklediğiniz görsel veya yazılar belirli aralıkla panoyu tam ekran kaplar, sırayla gösterilir, sonra pano normale döner.</p>
       <label className="p-chk"><input type="checkbox" checked={f.on !== false} onChange={(e) => put({ on: e.target.checked })} /> Tam ekran duyurular açık</label>
       <div className="p-pos">
-        <div className="p-fld"><label>Her … dakikada bir gir</label><input type="number" min="1" value={f.every ?? 15} onChange={(e) => put({ every: +e.target.value })} /></div>
-        <div className="p-fld"><label>Her öğe … sn kalsın</label><input type="number" min="2" value={f.sec || 10} onChange={(e) => put({ sec: +e.target.value })} /></div>
+        <div className="p-fld"><label>Her … dakikada bir gir</label><NumIn min="1" value={f.every ?? 15} onChange={(e) => put({ every: +e.target.value })} /></div>
+        <div className="p-fld"><label>Her öğe … sn kalsın</label><NumIn min="2" value={f.sec || 10} onChange={(e) => put({ sec: +e.target.value })} /></div>
       </div>
       <div className="p-btns"><button className={f.now ? 'p-danger' : ''} onClick={() => put({ now: !f.now })}>{f.now ? 'Sürekli tam ekranı kapat' : 'Şimdi sürekli tam ekran yap'}</button></div>
       <SlidesEditor value={f.items || []} set={(items) => put({ items })} say={say} withSec />
@@ -229,7 +238,7 @@ function Field({ f, data, set, say, root, setRoot }) {
   }} />
   else if (kind === 'fx') input = <select value={v || 'auto'} onChange={(e) => set(k, e.target.value)}>{[['auto', 'Otomatik (hava durumuna göre)'], ['rain', 'Yağmur'], ['snow', 'Kar'], ['wind', 'Rüzgar'], ['storm', 'Fırtına'], ['fog', 'Sis']].map(([a, b]) => <option key={a} value={a}>{b}</option>)}</select>
   else if (kind === 'check') return <label className="p-chk"><input type="checkbox" checked={k === 'fxOn' ? v !== false : !!v} onChange={(e) => set(k, e.target.checked)} /> {label}</label>
-  else if (kind === 'num') input = <input type="number" value={v ?? ''} onChange={(e) => set(k, e.target.value === '' ? '' : +e.target.value)} />
+  else if (kind === 'num') input = <NumIn value={v ?? ''} onChange={(e) => set(k, e.target.value === '' ? '' : +e.target.value)} />
   else if (kind === 'dt') input = <input type="datetime-local" value={v ?? ''} onChange={(e) => set(k, e.target.value)} />
   else if (kind === 'sel') input = <select value={v} onChange={(e) => set(k, e.target.value)}>{Object.entries(COND).map(([a, b]) => <option key={a} value={a}>{b}</option>)}</select>
   else if (kind === 'bellrows') input = <BellEditor value={v} set={(x) => set(k, x)} />
@@ -330,11 +339,11 @@ function BellEditor({ value, set }) {
           <small>Sabah ve öğleden sonra derslerini, teneffüs ve öğle arasıyla birlikte tek seferde oluşturur. Sonra tek tek düzenleyebilirsiniz.</small>
           <div className="p-g2">
             <div className="p-fld"><label>İlk ders başlangıcı</label><input type="time" value={gen.s} onChange={(e) => e.target.value && setGen({ ...gen, s: e.target.value })} /></div>
-            <div className="p-fld"><label>Ders süresi (dk)</label><input type="number" inputMode="numeric" value={gen.d} onChange={(e) => setGen({ ...gen, d: Math.max(5, +e.target.value || 0) })} /></div>
-            <div className="p-fld"><label>Sabah ders sayısı</label><input type="number" inputMode="numeric" value={gen.m} onChange={(e) => setGen({ ...gen, m: Math.max(1, Math.min(8, +e.target.value || 1)) })} /></div>
-            <div className="p-fld"><label>Teneffüs (dk)</label><input type="number" inputMode="numeric" value={gen.b} onChange={(e) => setGen({ ...gen, b: Math.max(0, +e.target.value || 0) })} /></div>
-            <div className="p-fld"><label>Öğle arası (dk)</label><input type="number" inputMode="numeric" value={gen.l} onChange={(e) => setGen({ ...gen, l: Math.max(0, +e.target.value || 0) })} /></div>
-            <div className="p-fld"><label>Öğleden sonra ders sayısı</label><input type="number" inputMode="numeric" value={gen.a} onChange={(e) => setGen({ ...gen, a: Math.max(0, Math.min(8, +e.target.value || 0)) })} /></div>
+            <div className="p-fld"><label>Ders süresi (dk)</label><NumIn inputMode="numeric" value={gen.d} onChange={(e) => setGen({ ...gen, d: Math.max(5, +e.target.value || 0) })} /></div>
+            <div className="p-fld"><label>Sabah ders sayısı</label><NumIn inputMode="numeric" value={gen.m} onChange={(e) => setGen({ ...gen, m: Math.max(1, Math.min(8, +e.target.value || 1)) })} /></div>
+            <div className="p-fld"><label>Teneffüs (dk)</label><NumIn inputMode="numeric" value={gen.b} onChange={(e) => setGen({ ...gen, b: Math.max(0, +e.target.value || 0) })} /></div>
+            <div className="p-fld"><label>Öğle arası (dk)</label><NumIn inputMode="numeric" value={gen.l} onChange={(e) => setGen({ ...gen, l: Math.max(0, +e.target.value || 0) })} /></div>
+            <div className="p-fld"><label>Öğleden sonra ders sayısı</label><NumIn inputMode="numeric" value={gen.a} onChange={(e) => setGen({ ...gen, a: Math.max(0, Math.min(8, +e.target.value || 0)) })} /></div>
           </div>
           <small>Toplam {gen.m + gen.a} ders. Öğle arası, sabahın son dersinden sonra uygulanır.</small>
           {!ask ? <button className="p-pri" onClick={() => (L.length ? setAsk(true) : make())}>Oluştur</button>
@@ -526,10 +535,10 @@ function ModEditor({ m, upd, del, move, say, root, setRoot, open, setOpen, noBac
           {(R?.fields || []).filter((f) => !(noBack && m.type === 'slides' && f[1] !== 'slides')).map((f) => <Field key={f[0]} f={f} data={m.data} set={setData} say={say} root={root} setRoot={setRoot} />)}
           {!noBack && <details className="p-adv"><summary>Gelişmiş (boyut, renk, konum)</summary>
           <label className="p-chk" style={{ marginTop: 10 }}><input type="checkbox" checked={!!m.fixH} onChange={(e) => upd({ fixH: e.target.checked })} /> Yüksekliği sabitle (otomatik yerleşim değiştirmesin)</label>
-          <div className="p-fld"><label>Yazı boyutu (%)</label><input type="number" value={m.fs || 100} onChange={(e) => upd({ fs: +e.target.value })} /></div>
+          <div className="p-fld"><label>Yazı boyutu (%)</label><NumIn value={m.fs || 100} onChange={(e) => upd({ fs: +e.target.value })} /></div>
           <div className="p-fld"><label>Renk</label><input type="color" value={m.color || '#0f9b8e'} onChange={(e) => upd({ color: e.target.value })} /></div>
           <div className="p-pos">
-            {['x', 'y', 'w', 'h'].map((k) => <div key={k} className="p-fld"><label>{k.toUpperCase()}</label><input type="number" value={m[k]} onChange={(e) => upd({ [k]: +e.target.value })} /></div>)}
+            {['x', 'y', 'w', 'h'].map((k) => <div key={k} className="p-fld"><label>{k.toUpperCase()}</label><NumIn value={m[k]} onChange={(e) => upd({ [k]: +e.target.value })} /></div>)}
           </div>
           </details>}
           {!noBack && <div className="p-btns p-delrow">
@@ -583,8 +592,8 @@ function SpecialEditor({ list, set, say, cfg }) {
           <div className="p-fld"><label>Başlık boyutu: %{d.fs || 100}</label><input type="range" min="40" max="300" step="5" value={d.fs || 100} onChange={(e) => upd(i, { fs: +e.target.value })} /></div>
           <div className="p-fld"><label>Alt metin boyutu: %{d.fs2 || d.fs || 100}</label><input type="range" min="40" max="300" step="5" value={d.fs2 || d.fs || 100} onChange={(e) => upd(i, { fs2: +e.target.value })} /></div>
           <div className="p-pos">
-            <div className="p-fld"><label>Her … dk</label><input type="number" value={d.iv || 0} onChange={(e) => upd(i, { iv: +e.target.value })} /></div>
-            <div className="p-fld"><label>… sn göster</label><input type="number" value={d.ds || 30} onChange={(e) => upd(i, { ds: +e.target.value })} /></div>
+            <div className="p-fld"><label>Her … dk</label><NumIn value={d.iv || 0} onChange={(e) => upd(i, { iv: +e.target.value })} /></div>
+            <div className="p-fld"><label>… sn göster</label><NumIn value={d.ds || 30} onChange={(e) => upd(i, { ds: +e.target.value })} /></div>
           </div>
           <small>Dakika 0 ise gün boyu sürekli tam ekran. Örn. 10 dakikada bir 30 sn yazarsanız pano arada normale döner.</small>
           <div className="p-slr">
@@ -755,8 +764,8 @@ function AlertEditor({ al, set }) {
       <div className="p-fld"><label>Başlık</label><input value={a.title} onChange={(e) => up({ title: e.target.value })} /></div>
       <div className="p-fld"><label>Duyuru metni</label><textarea rows={4} value={a.text} onChange={(e) => up({ text: e.target.value })} /></div>
       <div className="p-pos">
-        <div className="p-fld"><label>Simge %</label><input type="number" value={a.is || 100} onChange={(e) => up({ is: +e.target.value })} /></div>
-        <div className="p-fld"><label>Yazı %</label><input type="number" value={a.fs || 100} onChange={(e) => up({ fs: +e.target.value })} /></div>
+        <div className="p-fld"><label>Simge %</label><NumIn value={a.is || 100} onChange={(e) => up({ is: +e.target.value })} /></div>
+        <div className="p-fld"><label>Yazı %</label><NumIn value={a.fs || 100} onChange={(e) => up({ fs: +e.target.value })} /></div>
         <div className="p-fld"><label>Renk</label>
           <select value={a.tone} onChange={(e) => up({ tone: e.target.value })}><option value="r">Kırmızı</option><option value="o">Turuncu</option><option value="b">Mavi</option></select></div>
         <div className="p-fld"><label>Ne kadar kalsın</label><select value={a.dur || 0} onChange={(e) => up({ dur: +e.target.value })}>{[[0, 'Ben kapatana kadar'], [5, '5 dakika'], [10, '10 dakika'], [15, '15 dakika'], [30, '30 dakika'], [60, '1 saat'], [120, '2 saat'], [240, '4 saat']].concat([5, 10, 15, 30, 60, 120, 240, 0].includes(+a.dur || 0) ? [] : [[+a.dur, a.dur + ' dakika']]).map(([x, y]) => <option key={x} value={x}>{y}</option>)}</select></div>
@@ -969,8 +978,8 @@ export default function Panel({ cfg, fresh, err }) {
           </div>
           {(draft.nmMode || 'auto') === 'auto' && (
             <div className="p-pos">
-              <div className="p-fld"><label>İlk dersten önce (dk)</label><input type="number" value={draft.nmPre ?? 60} onChange={(e) => set({ nmPre: +e.target.value })} /></div>
-              <div className="p-fld"><label>Son dersten sonra (dk)</label><input type="number" value={draft.nmPost ?? 60} onChange={(e) => set({ nmPost: +e.target.value })} /></div>
+              <div className="p-fld"><label>İlk dersten önce (dk)</label><NumIn value={draft.nmPre ?? 60} onChange={(e) => set({ nmPre: +e.target.value })} /></div>
+              <div className="p-fld"><label>Son dersten sonra (dk)</label><NumIn value={draft.nmPost ?? 60} onChange={(e) => set({ nmPost: +e.target.value })} /></div>
               <label className="p-chk"><input type="checkbox" checked={draft.nmWe !== false} onChange={(e) => set({ nmWe: e.target.checked })} /> Hafta sonu gece modu</label>
             </div>
           )}
