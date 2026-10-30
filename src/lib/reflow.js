@@ -55,6 +55,7 @@ export function reflow(mods, pref, minOf, wantOf, CL = COLS, SZ = SLIDE, order =
   }
   cols.forEach((A) => {
     if (!A.length) return
+    A.forEach((m) => { delete m.zs })
     const D = A.map((m) => Math.max(m.fixH ? m.h : (wantOf?.(m) ?? m.h), mn(m))), fl = A.map((m) => FLEX.includes(m.type))
     const sum = () => D.reduce((q, v) => q + v, 0) + G * (A.length - 1)
     let ex = sum() - AV
@@ -84,8 +85,8 @@ export function reflow(mods, pref, minOf, wantOf, CL = COLS, SZ = SLIDE, order =
         }
       }
     }
-    if (order && sum() > AV) { const k = (AV - G * (A.length - 1)) / (sum() - G * (A.length - 1)); D.forEach((v, i) => { D[i] = Math.floor(v * k) }) } // yan panelde hepsi sığsın diye orantılı sıkıştır
+    if (order && sum() > AV) { const k = (AV - G * (A.length - 1)) / (sum() - G * (A.length - 1)); D.forEach((v, i) => { D[i] = Math.floor(v * k); if (A[i].type !== 'slides') A[i].zs = k }) } // yan panelde hepsi sığsın diye orantılı sıkıştır
     let y = TOP
-    A.forEach((m, i) => { m.y = y; m.h = D[i]; y += D[i] + G })
+    const zk = A.map((m) => m.zs); A.forEach((m, i) => { if (zk[i] != null) m.zs = zk[i]; m.y = y; m.h = D[i]; y += D[i] + G })
   })
 }

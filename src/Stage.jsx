@@ -149,7 +149,7 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
           const title = m.type === 'slides' ? m.showTitle : m.showTitle !== false
           return (
             <div key={m.id} className={`mod t-${m.type}${m.strp ? ' strp' : ''}${edit && edit.sel === m.id ? ' sel' : ''}${m.active ? '' : ' off'}`} data-id={m.id}
-              style={{ left: m.x, top: m.y, width: m.w, height: m.h, '--fs': (m.fs || 100) / 100, '--c': m.color || cr, '--c16': mix(m.color || cr, '#fff', 16), '--c70': mix(m.color || cr, '#000', 70), '--c85': mix(m.color || cr, '#000', 85) }}
+              style={{ left: m.x, top: m.y, width: m.zs ? m.w / m.zs : m.w, height: m.zs ? m.h / m.zs : m.h, ...(m.zs ? { transform: 'scale(' + m.zs + ')', transformOrigin: '0 0' } : null), '--fs': (m.fs || 100) / 100, '--c': m.color || cr, '--c16': mix(m.color || cr, '#fff', 16), '--c70': mix(m.color || cr, '#000', 70), '--c85': mix(m.color || cr, '#000', 85) }}
               onPointerDown={edit ? (e) => down(e, m, 'move') : undefined}>
               {title && <div className="h">{m.type === 'quote' ? quoteTitle(m.data, now, m.title) : m.title}</div>}
               <div className="b" style={m.type === 'slides' ? { padding: 0 } : undefined}>
