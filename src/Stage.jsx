@@ -28,6 +28,14 @@ export function useImg(d) {
   return src
 }
 
+// "… İmam Hatip Ortaokulu" kısmı iki satırlı başlıkta alt satıra geçsin (tek satırda görünmez)
+const IH = /\s+(?=[İIiı][Mm][Aa][Mm]\s+[Hh][Aa][Tt][İIiı][Pp])/
+function nameParts(n) {
+  const m = IH.exec(n || '')
+  if (!m) return n
+  return <>{n.slice(0, m.index)}<span className="nb"> </span>{n.slice(m.index + m[0].length)}</>
+}
+
 const snap = (v) => Math.round(v / 10) * 10
 
 // Pano sahnesi: 1600x900'lük sabit alan, kabına sığacak şekilde ölçeklenir.
@@ -133,7 +141,7 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
       >
         <div className="hdr">
           {logo ? <img src={logo} /> : null}
-          <div className="hb"><div className="n">{cfg.name}</div>{sl ? <div className="s">{sl}</div> : null}</div>
+          <div className="hb"><div className="n">{nameParts(cfg.name)}</div>{sl ? <div className="s">{sl}</div> : null}</div>
         </div>
         {mods0.filter((m) => m.active || edit).map((m) => {
           const R = registry[m.type]

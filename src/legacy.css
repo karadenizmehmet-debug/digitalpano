@@ -547,3 +547,6 @@ html,body,#root{height:100%}
 .stg .stage[data-dsg="12"] .mod.t-clock,.stg .stage[data-dsg="13"] .mod.t-clock,.stg .stage[data-dsg="14"] .mod.t-clock{left:1010px!important;top:12px!important;width:570px!important;height:166px!important}
 .stg .stage[data-dsg="12"] .mod.t-clock .b .t,.stg .stage[data-dsg="13"] .mod.t-clock .b .t,.stg .stage[data-dsg="14"] .mod.t-clock .b .t{font-size:96px!important}
 .stg .stage[data-dsg="12"] .mod.t-clock .b .d,.stg .stage[data-dsg="13"] .mod.t-clock .b .d,.stg .stage[data-dsg="14"] .mod.t-clock .b .d{font-size:30px!important;width:130px}
+.hdr .n .nb{white-space:pre}
+.stg .stage[data-dsg="12"] .hdr .n .nb,.stg .stage[data-dsg="13"] .hdr .n .nb,.stg .stage[data-dsg="14"] .hdr .n .nb{display:block;white-space:normal;height:0;font-size:0;line-height:0;overflow:hidden}
+.stg .stage[data-dsg="12"] .hdr .n,.stg .stage[data-dsg="13"] .hdr .n,.stg .stage[data-dsg="14"] .hdr .n{white-space:nowrap}
