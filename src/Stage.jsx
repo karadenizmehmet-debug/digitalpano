@@ -122,6 +122,7 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
       <div
         className="stage"
         data-th={cfg.theme || 0}
+        data-dsg={cfg.design || 0}
         style={{
           background: cfg.bg, transform: `translate(${fit.x}px,${fit.y}px) scale(${fit.sc})`,
           '--cr': cr, '--nv': nv, '--crnv': mix(cr, nv, 50), '--nv75': mix(nv, '#000', 75), '--nv70': mix(nv, '#000', 70), '--gd': cfg.c3 || '#dcb43c', '--sc': fit.sc,

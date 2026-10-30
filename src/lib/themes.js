@@ -11,3 +11,10 @@ export const THEMES = [
   ['Turkuaz', '#e8f5f5', '#0f8b8d', '#073b4c', '#ffd166'],
   ['Grafit', '#eceff1', '#37474f', '#111a1f', '#ff9f1c'],
 ]
+
+// Tasarımlar: yalnızca görünümü değiştirir (0 = mevcut tasarım)
+export const DESIGNS = [
+  ['Klasik', 'Şu anki tasarım: altın çizgili başlıklar, beyaz kartlar'],
+  ['Yumuşak', 'Yuvarlak, gölgeli kartlar; başlıklar renkli etiket şeklinde'],
+  ['Şerit', 'Köşeli kartlar; başlıklar tam genişlikte renkli şerit'],
+]

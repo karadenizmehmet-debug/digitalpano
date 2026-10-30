@@ -225,3 +225,20 @@ html,body,#root{height:100%}
 .mod:has(>.h) .ct .cn{display:none}
 .mod:has(>.h) .qx em{display:none}
 .ci .cv{font-size:min(2.3em,52cqh,30cqw)}
+
+/* Tasarım 1: Yumuşak */
+.stg .stage[data-dsg="1"] .mod:not(.t-slides):not(.t-clock){border:0;border-radius:28px;box-shadow:0 10px 28px #1b2a5c24}
+.stg .stage[data-dsg="1"] .mod:not(.t-slides):not(.t-clock) .h{align-self:flex-start;height:auto;margin:14px 0 8px 20px;padding:6px 18px;border:0!important;border-radius:999px;background:var(--cr)!important;color:#fff!important;font-size:19px;font-weight:800}
+.stg .stage[data-dsg="1"] .mod .h::before{display:none}
+.stg .stage[data-dsg="1"] .mod:not(.t-slides):not(.t-clock) .b{padding:2px 20px 16px}
+.stg .stage[data-dsg="1"] .ln,.stg .stage[data-dsg="1"] .dt{background:#f3f6fb!important;border:0!important;border-radius:14px!important;padding:9px 14px!important;margin-bottom:7px!important}
+.stg .stage[data-dsg="1"] .pi,.stg .stage[data-dsg="1"] .cdc{border-radius:16px}
+
+/* Tasarım 2: Şerit */
+.stg .stage[data-dsg="2"] .mod:not(.t-slides):not(.t-clock){border:1px solid #d3dbe5;border-radius:8px;box-shadow:none}
+.stg .stage[data-dsg="2"] .mod:not(.t-slides):not(.t-clock) .h{height:46px;margin:0;padding:0 20px;border:0!important;border-bottom:3px solid var(--gd)!important;background:var(--nv)!important;color:#fff!important;font-size:20px;font-weight:800}
+.stg .stage[data-dsg="2"] .mod .h::before{display:none}
+.stg .stage[data-dsg="2"] .mod:not(.t-slides):not(.t-clock) .b{padding:10px 18px 12px}
+.stg .stage[data-dsg="2"] .ln,.stg .stage[data-dsg="2"] .dt{background:none!important;border:0!important;border-bottom:1px solid #e3e9ef!important;border-radius:0!important;padding:8px 2px!important;margin:0!important}
+.stg .stage[data-dsg="2"] .ln:last-child,.stg .stage[data-dsg="2"] .dt:last-child{border-bottom:0!important}
+.stg .stage[data-dsg="2"] .pi,.stg .stage[data-dsg="2"] .cdc,.stg .stage[data-dsg="2"] .ci{border-radius:6px}

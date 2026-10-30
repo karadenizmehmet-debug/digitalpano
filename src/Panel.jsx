@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { registry, minHOf, wantH } from './lib/registry.js'
-import { THEMES } from './lib/themes.js'
+import { THEMES, DESIGNS } from './lib/themes.js'
 import { login, logout, changePassword, onUser, saveConfig, fetchServerConfig, saveImage, removeImage, loadImage } from './lib/firebase.js'
 import { rows } from './lib/util.js'
 import { alertStatus } from './lib/alert.js'
@@ -766,7 +766,7 @@ export default function Panel({ cfg, fresh, err }) {
   const [saved, setSaved] = useState('')
   const [slow, setSlow] = useState(false)
   useEffect(() => { const t = setTimeout(() => setSlow(true), 8000); return () => clearTimeout(t) }, [])
-  const [sel, setSel] = useState(null), [showPv, setShowPv] = useState(false)
+  const [sel, setSel] = useState(null), [showPv, setShowPv] = useState(false), [pk, setPk] = useState(null)
   const [em, setEm] = useState(''), [pw, setPw] = useState('')
 
   useEffect(() => onUser(setUser), [])
@@ -857,6 +857,23 @@ export default function Panel({ cfg, fresh, err }) {
         <a className="p-ib" href="#/panel" onClick={logout} title="Çıkış">🚪</a>
         <button className={'p-pri p-pub' + (dirty ? ' p-dirty' : '')} onClick={publish}>Yayınla</button>
       </div>
+      {pk && (
+        <div className="p-modal" onClick={() => setPk(null)}>
+          <div className="p-mbox" onClick={(e) => e.stopPropagation()}>
+            <div className="p-h">{pk === 'pal' ? '🎨 Renk paleti seçin' : '🖼️ Tasarım seçin'}</div>
+            {pk === 'pal' ? (
+              <div className="p-themes">{THEMES.map((t, i) => (
+                <button key={t[0]} className={(draft.theme || 0) === i ? 'p-on' : ''} onClick={() => { pickTheme(i); setPk(null) }}>
+                  <i style={{ background: t[1] }} /><i style={{ background: t[2] }} /><i style={{ background: t[3] }} />{t[0]}
+                </button>))}
+              </div>
+            ) : DESIGNS.map((d, i) => (
+              <button key={d[0]} className={'p-dsg' + ((draft.design || 0) === i ? ' p-on' : '')} onClick={() => { set({ design: i }); setPk(null) }}>
+                <b>{d[0]}</b><small>{d[1]}</small>
+              </button>))}
+            <button onClick={() => setPk(null)}>Kapat</button>
+          </div>
+        </div>)}
       {showPv && (
         <div className="p-modal p-big" onClick={() => setShowPv(false)}>
           <div className="p-mbox" onClick={(e) => e.stopPropagation()}>
@@ -921,12 +938,17 @@ export default function Panel({ cfg, fresh, err }) {
               <label className="p-chk"><input type="checkbox" checked={draft.nmWe !== false} onChange={(e) => set({ nmWe: e.target.checked })} /> Hafta sonu gece modu</label>
             </div>
           )}
-          <div className="p-fld"><label>Tema</label>
-            <div className="p-themes">{THEMES.map((t, i) => (
-              <button key={t[0]} className={draft.theme === i ? 'p-on' : ''} onClick={() => pickTheme(i)}>
-                <i style={{ background: t[1] }} /><i style={{ background: t[2] }} /><i style={{ background: t[3] }} />{t[0]}
-              </button>))}
-            </div>
+          <div className="p-fld"><label>Renk paleti</label>
+            <button className="p-pick" onClick={() => setPk('pal')}>
+              <span className="p-sw">{[1, 2, 3].map((n) => <i key={n} style={{ background: THEMES[draft.theme || 0][n] }} />)}</span>
+              <b>{THEMES[draft.theme || 0][0]}</b><em>Değiştir ›</em>
+            </button>
+          </div>
+          <div className="p-fld"><label>Tasarım</label>
+            <button className="p-pick" onClick={() => setPk('dsg')}>
+              <span className="p-sw">🖼️</span><b>{DESIGNS[draft.design || 0][0]}</b><em>Değiştir ›</em>
+            </button>
+            <small>Tasarım yalnızca görünümü değiştirir, bilgileriniz aynen kalır. İstediğiniz zaman eskisine dönebilirsiniz.</small>
           </div>
         </div>
       )}
