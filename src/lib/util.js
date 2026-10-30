@@ -28,3 +28,17 @@ export function useAutoScroll(ref, speed = 1) {
     return () => clearInterval(id)
   }, [ref, speed])
 }
+
+// color-mix() yerine JS ile renk karıştırma (Chrome 109 / Windows 7 uyumu)
+const hex = (c) => {
+  let s = String(c || '').trim().replace('#', '')
+  if (s.length === 3) s = s.split('').map((x) => x + x).join('')
+  if (!/^[0-9a-f]{6}$/i.test(s)) return null
+  return [0, 2, 4].map((i) => parseInt(s.slice(i, i + 2), 16))
+}
+// mix(a, b, p) = color-mix(in srgb, a p%, b)
+export const mix = (a, b, p) => {
+  const x = hex(a), y = hex(b)
+  if (!x || !y) return a
+  return '#' + x.map((v, i) => Math.round(v * p / 100 + y[i] * (100 - p) / 100).toString(16).padStart(2, '0')).join('')
+}

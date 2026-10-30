@@ -3,7 +3,7 @@ import { registry, minHOf, wantH } from './lib/registry.js'
 import { alertOn } from './lib/alert.js'
 import { specialVisible } from './lib/special.js'
 import { isNight } from './lib/night.js'
-import { MON, p2 } from './lib/util.js'
+import { MON, p2, mix } from './lib/util.js'
 import Confetti from './lib/Confetti.jsx'
 import Fireworks from './lib/Fireworks.jsx'
 import { Balloons, Stars, Hearts, Petals, Flags, Frame } from './lib/Floaters.jsx'
@@ -115,6 +115,7 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
     edit.onChange(mods)
   }
 
+  const cr = cfg.c1 || '#b3262e', nv = cfg.c2 || '#1b2a5c'
   return (
     <div ref={sw} id={preview ? undefined : 'sw'} className={'stg' + (preview ? ' stg-pv' : '') + (edit ? ' edit' : '')}
       onPointerMove={edit ? move : undefined} onPointerUp={edit ? up : undefined} onPointerCancel={edit ? up : undefined}>
@@ -123,7 +124,7 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
         data-th={cfg.theme || 0}
         style={{
           background: cfg.bg, transform: `translate(${fit.x}px,${fit.y}px) scale(${fit.sc})`,
-          '--cr': cfg.c1 || '#b3262e', '--nv': cfg.c2 || '#1b2a5c', '--gd': cfg.c3 || '#dcb43c', '--sc': fit.sc,
+          '--cr': cr, '--nv': nv, '--crnv': mix(cr, nv, 50), '--nv75': mix(nv, '#000', 75), '--nv70': mix(nv, '#000', 70), '--gd': cfg.c3 || '#dcb43c', '--sc': fit.sc,
         }}
       >
         <div className="hdr">
@@ -135,7 +136,7 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
           const title = m.type === 'slides' ? m.showTitle : m.showTitle !== false
           return (
             <div key={m.id} className={`mod t-${m.type}${edit && edit.sel === m.id ? ' sel' : ''}${m.active ? '' : ' off'}`} data-id={m.id}
-              style={{ left: m.x, top: m.y, width: m.w, height: m.h, '--fs': (m.fs || 100) / 100, '--c': m.color }}
+              style={{ left: m.x, top: m.y, width: m.w, height: m.h, '--fs': (m.fs || 100) / 100, '--c': m.color || cr, '--c16': mix(m.color || cr, '#fff', 16), '--c70': mix(m.color || cr, '#000', 70), '--c85': mix(m.color || cr, '#000', 85) }}
               onPointerDown={edit ? (e) => down(e, m, 'move') : undefined}>
               {title && <div className="h">{m.type === 'quote' ? quoteTitle(m.data, now, m.title) : m.title}</div>}
               <div className="b" style={m.type === 'slides' ? { padding: 0 } : undefined}>
@@ -147,7 +148,7 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
         })}
         {FX_KINDS.includes(fxKind) && <Fx kind={fxKind} />}
         {sp && (
-          <div className={'ovl' + (spImg ? ' im' : '')} data-bf={!spImg && sp.bgfx ? sp.bgfx : undefined} style={{ '--f': (sp.fs || 100) / 100, '--f2': (sp.fs2 || sp.fs || 100) / 100, ...(sp.bg && !spImg ? { background: sp.bgfx === 'fade' ? `linear-gradient(120deg,${sp.bg},${sp.bg2 || '#000'},${sp.bg})` : `linear-gradient(120deg,${sp.bg},color-mix(in srgb,${sp.bg} 55%,#000))` } : {}) }}>
+          <div className={'ovl' + (spImg ? ' im' : '')} data-bf={!spImg && sp.bgfx ? sp.bgfx : undefined} style={{ '--f': (sp.fs || 100) / 100, '--f2': (sp.fs2 || sp.fs || 100) / 100, ...(sp.bg && !spImg ? { background: sp.bgfx === 'fade' ? `linear-gradient(120deg,${sp.bg},${sp.bg2 || '#000'},${sp.bg})` : `linear-gradient(120deg,${sp.bg},${mix(sp.bg, '#000', 55)})` } : {}) }}>
             {spImg ? <img src={spImg} /> : <><b>{sp.title}</b><span>{sp.sub}</span></>}
             {sp.conf && <Confetti />}
             {sp.fw && <Fireworks />}
