@@ -1,24 +1,37 @@
-# Elle çalıştırılır (Actions sekmesi → Run workflow). Firebase kurulumu bitince etkinleştirin.
-# Gerekli GitHub Secrets: VITE_FIREBASE_API_KEY, VITE_FIREBASE_AUTH_DOMAIN,
-# VITE_FIREBASE_PROJECT_ID, VITE_FIREBASE_APP_ID, FIREBASE_SERVICE_ACCOUNT
+# main dalına her gönderimde pano Firebase Hosting'e de yayınlanır:
+# https://digitalpano-84947.web.app (okul ağında github.io açılmadığı için)
+# Gerekli GitHub Secret: FIREBASE_SERVICE_ACCOUNT (Firebase > Proje ayarları > Hizmet hesapları > Yeni özel anahtar)
+# Elle de çalıştırılabilir: Actions > Deploy > Run workflow
 name: Deploy
-on: workflow_dispatch
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+concurrency:
+  group: firebase-hosting
+  cancel-in-progress: true
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      SA: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
     steps:
+      - name: Anahtar kontrolü
+        if: env.SA == ''
+        run: echo "::warning::FIREBASE_SERVICE_ACCOUNT secret'ı yok, Firebase yayını atlandı."
       - uses: actions/checkout@v4
+        if: env.SA != ''
       - uses: actions/setup-node@v4
-        with: { node-version: 20 }
+        if: env.SA != ''
+        with: { node-version: 20, cache: npm }
       - run: npm ci
+        if: env.SA != ''
+      # GITHUB_PAGES verilmediği için base '/' olur (Firebase kök dizinden açılır)
       - run: npm run build
-        env:
-          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
-          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
-          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
-          VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+        if: env.SA != ''
       - uses: FirebaseExtended/action-hosting-deploy@v0
+        if: env.SA != ''
         with:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          projectId: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+          projectId: digitalpano-84947
           channelId: live
