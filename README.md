@@ -6,9 +6,12 @@ Mehmet Karadeniz, 2026-2027
 
 ## Yapı
 - `legacy/Dijital_Pano.html` – çalışan tek dosyalı sürüm (yedek, kişisel veriler temizlenmiş örnek veriyle).
+- `src/panel/` – panel arayüzünün parçaları (`Panel.jsx` yalnızca ana kabuk).
 - `src/modules/` – her modül tek dosya. **Yeni modül = bu klasöre yeni `.jsx` eklemek**; otomatik kaydolur (`src/lib/registry.js`).
 - `src/lib/firebase.js` – Firestore canlı dinleme (`onSnapshot`). `.env` yoksa `src/defaults.js` kullanılır.
 - `firestore.rules` – okuma herkese açık, yazma yalnızca sahip hesap.
+
+Ayrıntılı rehber (yeni modül/tasarım/efekt ekleme, eski Chrome kuralları): **[ARCHITECTURE.md](ARCHITECTURE.md)**
 
 ## Çalıştırma
 ```
