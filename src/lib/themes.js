@@ -38,3 +38,32 @@ export const DESIGNS = [
   ['Çocuk Dünyası', 'Canlı renkler, yuvarlak şekiller, eğlenceli kartlar'],
   ['Prestij', 'Mat siyah, şampanya altını, ince çerçeveler; tören ve özel günler için'],
 ]
+
+// Tasarım küçük resimleri ve grupları: [grup, zemin, üst bant, kart, vurgu, yerleşim]
+// yerleşim: c = üç sütun (manşet ortada), l = manşet solda, r = manşet sağda, R = sağda yan panel, L = solda liste
+export const GROUPS = ['Açık', 'Koyu', 'Kurumsal', 'Eğlenceli']
+export const DESIGN_META = [
+  ['Kurumsal', '#e9eef5', '#12305c', '#ffffff', '#c8102e', 'c'],
+  ['Açık', '#f4f1ee', '#7b9acc', '#ffffff', '#7b9acc', 'c'],
+  ['Kurumsal', '#eef2f6', '#12305c', '#ffffff', '#f6d06f', 'c'],
+  ['Koyu', '#1a1250', '#2a1065', '#ffffff30', '#8be9ff', 'c'],
+  ['Açık', '#f1ead8', '#f1ead8', '#f7f1e1', '#222222', 'c'],
+  ['Eğlenceli', '#fff8e1', '#f6d06f', '#ffe0e6', '#14283a', 'c'],
+  ['Koyu', '#05060a', '#05060a', '#0d1117', '#00e5ff', 'c'],
+  ['Eğlenceli', '#c79b64', '#6b4220', '#f3e3c3', '#3e2610', 'c'],
+  ['Eğlenceli', '#fff4ea', '#dd2476', '#ffffff', '#5f27cd', 'c'],
+  ['Koyu', '#09090e', '#09090e', '#16161c', '#d4af37', 'l'],
+  ['Koyu', '#1d3829', '#5a3b1e', '#2a4a37', '#f4f1e0', 'r'],
+  ['Koyu', '#075e7a', '#032b44', '#ffffff30', '#7fe6ea', 'c'],
+  ['Koyu', '#000000', '#0d1b36', '#2a4a82', '#ffe08a', 'R'],
+  ['Kurumsal', '#ffffff', '#7a1233', '#ffffff', '#7a1233', 'L'],
+  ['Eğlenceli', '#f0364f', '#f0364f', '#ffffff', '#ff8a3d', 'L'],
+  ['Açık', '#f4f4f0', '#ffffff', '#f4f4f0', '#e30613', 'c'],
+  ['Kurumsal', '#f7f3e8', '#12284c', '#ffffff', '#c9a227', 'c'],
+  ['Açık', '#ffffff', '#ffffff', '#ffffff', '#111111', 'c'],
+  ['Açık', '#f3ecd9', '#4a6b32', '#fbf7ea', '#4a6b32', 'c'],
+  ['Koyu', '#050b1c', '#061330', '#0a1d44', '#00e5ff', 'c'],
+  ['Açık', '#f3f1ee', '#f3f1ee', '#ffffff', '#2f2f2f', 'c'],
+  ['Eğlenceli', '#fff7e0', '#ff6b6b', '#ffe3e3', '#4dabf7', 'c'],
+  ['Koyu', '#0b0b0c', '#000000', '#141416', '#d4af37', 'c'],
+]
