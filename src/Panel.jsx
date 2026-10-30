@@ -120,7 +120,7 @@ function AnnEditor({ draft, set }) {
   )
 }
 
-function SlideCard({ x, i, upd, mv, del, withSec }) {
+function SlideCard({ x, i, upd, mv, del, withSec, withFull }) {
   const [open, setOpen] = useState(false)
   const img = x.img || x.src, e = endOf(x), dead = e && e <= new Date(isoD(new Date()) + 'T00:00:00')
   const sum = (DUR.find(([a]) => a === (x.d || 0)) || [0, 'Süresiz'])[1] + (e ? (dead ? ' · süresi doldu' : ' · ' + trD(new Date(e.getTime() - 86400000)) + ' bitiş') : '')
@@ -145,12 +145,13 @@ function SlideCard({ x, i, upd, mv, del, withSec }) {
         {withSec && <div className="p-fld"><label>Ekranda kalma süresi (sn) — boşsa genel süre</label><NumIn min="2" value={x.sec || ''} onChange={(ev) => upd(i, { sec: +ev.target.value || 0 })} /></div>}
         <DurBar x={x} upd={(p) => upd(i, p)} />
         <div className="p-btns"><button onClick={() => mv(i, -1)}>↑</button><button onClick={() => mv(i, 1)}>↓</button><button className="p-danger" onClick={() => del(i)}>Sil</button></div>
+        {withFull && <label className="p-chk"><input type="checkbox" checked={!!x.full} onChange={(ev) => upd(i, { full: ev.target.checked })} /> ⭐ Öne çıkanlarda da göster (aralıklı tam ekran)</label>}
       </>}
     </div>
   )
 }
 
-function SlidesEditor({ value, set, say, withSec }) {
+function SlidesEditor({ value, set, say, withSec, withFull }) {
   const L = value || []
   const [dlg, setDlg] = useState(null)
   const upd = (i, p) => set(L.map((x, k) => (k === i ? { ...x, ...p } : x)))
@@ -212,7 +213,7 @@ function SlidesEditor({ value, set, say, withSec }) {
         </div>
       )}
       {L.length > 0 && <div className="p-h2">Eklenenler ({L.length})</div>}
-      {L.map((x, i) => <SlideCard key={i} x={x} i={i} upd={upd} mv={mv} del={del} withSec={withSec} />)}
+      {L.map((x, i) => <SlideCard key={i} x={x} i={i} upd={upd} mv={mv} del={del} withSec={withSec} withFull={withFull} />)}
     </div>
   )
 }
@@ -222,9 +223,9 @@ function FsaEditor({ draft, set, say }) {
   const put = (p) => set({ fsa: { ...f, ...p } })
   return (
     <div className="p-card p-pad">
-      <div className="p-h">🖥️ Tam ekran duyuru</div>
-      <p className="p-hint">Eklediğiniz görsel veya yazılar belirli aralıkla panoyu tam ekran kaplar, sırayla gösterilir, sonra pano normale döner.</p>
-      <label className="p-chk"><input type="checkbox" checked={f.on !== false} onChange={(e) => put({ on: e.target.checked })} /> Tam ekran duyurular açık</label>
+      <div className="p-h">⭐ Öne çıkan duyurular</div>
+      <p className="p-hint">Eklediğiniz görsel veya yazılar belirli aralıkla panoyu tam ekran kaplar, sırayla gösterilir, sonra pano normale döner. Manşet listesinde ⭐ ile işaretlediğiniz öğeler de burada gösterilir.</p>
+      <label className="p-chk"><input type="checkbox" checked={f.on !== false} onChange={(e) => put({ on: e.target.checked })} /> Öne çıkan duyurular açık</label>
       <div className="p-pos">
         <div className="p-fld"><label>Her … dakikada bir gir</label><NumIn min="1" value={f.every ?? 15} onChange={(e) => put({ every: +e.target.value })} /></div>
         <div className="p-fld"><label>Her öğe … sn kalsın</label><NumIn min="2" value={f.sec || 10} onChange={(e) => put({ sec: +e.target.value })} /></div>
@@ -264,7 +265,7 @@ function Field({ f, data, set, say, root, setRoot }) {
   else if (kind === 'quotes') input = <QuoteEditor data={data} set={set} />
   else if (kind === 'qpin') return null
   else if (kind === 'sched') input = <SchedEditor data={data} set={set} />
-  else if (kind === 'slides') input = <SlidesEditor value={v} set={(x) => set(k, x)} say={say} />
+  else if (kind === 'slides') input = <SlidesEditor value={v} set={(x) => set(k, x)} say={say} withFull />
   else if (kind === 'dgrid') {
     const P = rows({ rows: data.places }), g = data.g || {}
     const k = weekShift(data, new Date())
@@ -1100,7 +1101,7 @@ export default function Panel({ cfg, fresh, err }) {
         </div>
       )}
       <nav className="p-nav">
-        {[['news', '📰', 'Manşet'], ['duy', '📢', 'Duyuru'], ['fsa', '🖥️', 'Tam Ekran'], ['al', '🚨', 'Acil'], ['set', '⚙️', 'Ayarlar']].map(([k, i, l]) => <button key={k} className={(k === 'set' ? SETT.includes(tab) : tab === k) ? 'p-on' : ''} onClick={() => { setTab(k); if (k === 'set') { setOpenId(null); setSub(null) }; window.scrollTo(0, 0) }}><span>{i}</span>{l}</button>)}
+        {[['news', '📰', 'Manşet'], ['duy', '📢', 'Duyuru'], ['fsa', '⭐', 'Öne Çıkan'], ['al', '🚨', 'Acil'], ['set', '⚙️', 'Ayarlar']].map(([k, i, l]) => <button key={k} className={(k === 'set' ? SETT.includes(tab) : tab === k) ? 'p-on' : ''} onClick={() => { setTab(k); if (k === 'set') { setOpenId(null); setSub(null) }; window.scrollTo(0, 0) }}><span>{i}</span>{l}</button>)}
       </nav>
     </div>
   )

@@ -1,9 +1,10 @@
 import { liveImgs } from '../modules/slides.jsx'
 
 // Tam ekran duyuru: her "every" dakikada bir, öğeler sırayla tam ekran gösterilir (f.now açıksa sürekli).
-export function fsaState(f, n = new Date()) {
-  if (!f || f.on === false) return null
-  const items = liveImgs(f.items)
+export function fsaState(f0, n = new Date(), extra = []) {
+  const f = f0 || { on: true, every: 15, sec: 10 }
+  if (f.on === false) return null
+  const items = [...liveImgs(f.items), ...liveImgs(extra)]
   if (!items.length) return null
   const def = Math.max(2, +f.sec || 10), dur = items.map((x) => Math.max(2, +x.sec || def))
   const D = dur.reduce((a, b) => a + b, 0)

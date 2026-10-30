@@ -88,7 +88,7 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
   const sp = forceSp || (preview ? null : specialVisible(cfg.sd, now))
   const spImg = useImg(sp)
   const logo = useImg({ img: cfg.logo, imgId: cfg.logoId })
-  const fs = !preview && !sp ? fsaState(cfg.fsa, now) : null
+  const fs = !preview && !sp ? fsaState(cfg.fsa, now, (cfg.mods.find((m) => m.type === 'slides' && m.active)?.data?.imgs || []).filter((x) => x.full)) : null
   const night = !preview && !(cfg.sd || []).some((d) => d.now) && isNight(cfg, now)
 
   const sl = [cfg.slogan, cfg.city, cfg.url].filter(Boolean).join('  •  ')
@@ -163,8 +163,8 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
         {fs && (
           <div className="fsa"><div className="sl">
             {fs.items.map((x, k) => (x.src || x.img)
-              ? <Pic key={x.img || k} x={x} on={k === fs.idx} tr={trOf(cfg.fsa.trans, k)} />
-              : <div key={k} className={'st ' + (k === fs.idx ? 'on' : '')} data-tr={trOf(cfg.fsa.trans, k)} data-tn={x.tone || 'r'} style={{ '--f': (x.fs || 100) / 100 }}><b>{x.t}</b>{x.s ? <span>{x.s}</span> : null}</div>)}
+              ? <Pic key={x.img || k} x={x} on={k === fs.idx} tr={trOf(cfg.fsa?.trans, k)} />
+              : <div key={k} className={'st ' + (k === fs.idx ? 'on' : '')} data-tr={trOf(cfg.fsa?.trans, k)} data-tn={x.tone || 'r'} style={{ '--f': (x.fs || 100) / 100 }}><b>{x.t}</b>{x.s ? <span>{x.s}</span> : null}</div>)}
           </div></div>
         )}
         {sp && (
