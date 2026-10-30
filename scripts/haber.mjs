@@ -1,7 +1,8 @@
 // MEB haber başlıklarını RSS'ten çekip public/haber.json dosyasına yazar (derlemeden önce çalışır).
-// RSS adresi: NEWS_URL ortam değişkeni, yoksa panelde kaydedilen ayar (Firestore config/pano → newsUrl).
+// RSS adresi: NEWS_URL ortam değişkeni, yoksa panelde kaydedilen ayar (Firestore config/pano → newsUrl; boşsa Konya MEM varsayılanı).
 // Hata olursa derlemeyi ASLA bozmaz; önce yayındaki eski haber.json'u korumaya çalışır.
 import { writeFileSync, mkdirSync } from 'node:fs'
+import { NEWS_URL } from '../src/lib/newsDefault.js'
 const OUT = 'public/haber.json', LIVE = 'https://digitalpano-84947.web.app/haber.json'
 const log = (...a) => console.log('[haber]', ...a)
 const save = (o) => { mkdirSync('public', { recursive: true }); writeFileSync(OUT, JSON.stringify(o)) }
@@ -11,7 +12,7 @@ async function url() {
   if (process.env.NEWS_URL) return process.env.NEWS_URL
   const r = await get('https://firestore.googleapis.com/v1/projects/digitalpano-84947/databases/(default)/documents/config/pano?mask.fieldPaths=newsUrl&mask.fieldPaths=tkNews')
   const d = await r.json(), f = d.fields || {}
-  return f.tkNews?.booleanValue ? f.newsUrl?.stringValue || '' : ''
+  return f.tkNews?.booleanValue ? (f.newsUrl ? f.newsUrl.stringValue : NEWS_URL) : ''
 }
 try {
   const u = (await url()).trim()

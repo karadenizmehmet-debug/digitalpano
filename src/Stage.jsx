@@ -11,6 +11,7 @@ import { loadImage } from './lib/firebase.js'
 import { useLive } from './lib/weather.js'
 import { visibleTicker, effectiveTicker } from './lib/ticker.js'
 import { useNews } from './lib/news.js'
+import { NEWS_TAG } from './lib/newsDefault.js'
 import { colSnap, reflow, colsFor, slideFor, SIDE_DSG } from './lib/reflow.js'
 import { quoteTitle } from './modules/quote.jsx'
 import { Pic } from './modules/slides.jsx'
@@ -203,7 +204,7 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
         )}
         {tk.length > 0 && !SIDE_DSG[cfg.design] && (
           <div className="ftr">
-            <div className="tg">{isNews ? 'MEB HABER' : 'DUYURU'}</div>
+            <div className="tg">{isNews ? (cfg.newsTag ?? NEWS_TAG) : 'DUYURU'}</div>
             <div className="mq"><div style={{ '--d': Math.max(40, tk.join('').length * 0.6) + 's' }}>{[...Array(6)].flatMap(() => q)}</div></div>
           </div>
         )}

@@ -6,6 +6,7 @@ import { DESIGNS, DESIGN_META, GROUPS, THEMES } from './lib/themes.js'
 import { FsaEditor } from './panel/Slides.jsx'
 import { Mini, NumIn, Thumb, shrink } from './panel/common.jsx'
 import { ModEditor, ModList } from './panel/Modules.jsx'
+import { NewsEditor } from './panel/NewsEditor.jsx'
 import { SIDE_DSG, reflow, slideFor } from './lib/reflow.js'
 import { SpecialEditor } from './panel/SpecialEditor.jsx'
 import Stage from './Stage.jsx'
@@ -243,7 +244,8 @@ export default function Panel({ cfg, fresh, err }) {
       )}
       {view === 'mods' && (
         <div className="p-body">
-          {!openId && <><ModList pre={[{ i: '📢', t: 'Duyurular', s: 'Kayan yazı', go: () => { setTab('duy'); window.scrollTo(0, 0) } }, { i: '🚨', t: 'Acil duyuru', s: 'Tam ekran uyarı', go: () => { setTab('al'); window.scrollTo(0, 0) } }]} mods={draft.mods} go={setOpenId} toggle={(i, v) => updMod(i, { active: v })} /></>}
+          {!openId && <><ModList pre={[{ i: '📢', t: 'Duyurular', s: 'Kayan yazı', go: () => { setTab('duy'); window.scrollTo(0, 0) } }, { i: '🚨', t: 'Acil duyuru', s: 'Tam ekran uyarı', go: () => { setTab('al'); window.scrollTo(0, 0) } }, { i: '📰', t: 'Konya MEM Duyuruları', s: 'Kayan yazı', go: () => { setOpenId('news'); window.scrollTo(0, 0) } }]} mods={draft.mods} go={setOpenId} toggle={(i, v) => updMod(i, { active: v })} /></>}
+          {openId === 'news' && <NewsEditor draft={draft} set={set} back={() => setOpenId(null)} />}
           {draft.mods.map((m, i) => openId === m.id && <ModEditor key={m.id} m={m} upd={(p) => updMod(i, p)} del={() => delMod(i)} move={(s) => moveMod(i, s)} say={setMsg} root={draft} setRoot={set} open={openId === m.id} setOpen={setOpenId} />)}
           {!openId && <div className="p-card p-pad"><div className="p-h">➕ Yeni modül ekle</div>
             <select value="" onChange={(e) => { if (e.target.value) { addMod(e.target.value); window.scrollTo(0, 0) } }}>
