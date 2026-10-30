@@ -91,7 +91,7 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
   const sp = forceSp || (preview ? null : specialVisible(cfg.sd, now))
   const spImg = useImg(sp)
   const logo = useImg({ img: cfg.logo, imgId: cfg.logoId })
-  const fs = !preview && !sp ? fsaState(cfg.fsa, now, (cfg.mods.find((m) => m.type === 'slides' && m.active)?.data?.imgs || []).filter((x) => x.full)) : null
+  const fs = !preview && !sp ? fsaState(cfg.fsa, now, [...(cfg.mods.find((m) => m.type === 'slides' && m.active)?.data?.imgs || []).filter((x) => x.full), ...cfg.mods.filter((m) => m.fsFull && m.type !== 'slides' && registry[m.type]).map((m) => ({ mod: m.id, sec: m.fsSec }))]) : null
   const night = !preview && !(cfg.sd || []).some((d) => d.now) && isNight(cfg, now)
 
   const sl = [cfg.slogan, cfg.city, cfg.url].filter(Boolean).join('  •  ')
@@ -148,6 +148,22 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
     edit.onChange(mods)
   }
 
+  // Aralıklı tam ekranda gösterilecek modül: doğal boyutunda çizilip ekrana sığacak kadar büyütülür
+  const fsMod = (x, k) => {
+    const m = cfg.mods.find((q) => q.id === x.mod), R = m && registry[m.type]
+    if (!R) return null
+    const W = Math.max(m.w || 440, 420), H = Math.max(m.h || 0, minOf(m) || 100), sc = Math.min(1500 / W, 800 / H)
+    const color = m.color || cr, title = m.showTitle !== false
+    return (
+      <div key={'fm' + m.id} className={'fsm' + (k === fs.idx ? ' on' : '')} style={{ background: cfg.bg }}>
+        <div className={`mod t-${m.type}`} style={{ left: (1600 - W * sc) / 2, top: (900 - H * sc) / 2, width: W, height: H, transform: 'scale(' + sc + ')', transformOrigin: '0 0', '--fs': (m.fs || 100) / 100, '--c': color, '--c16': mix(color, '#fff', 16), '--c70': mix(color, '#000', 70), '--c85': mix(color, '#000', 85) }}>
+          {title && <div className="h">{m.type === 'quote' ? quoteTitle(m.data, now, m.title) : m.title}</div>}
+          <div className="b"><R.Component data={m.data} now={now} T={T} cfg={cfg} wx={wx} /></div>
+        </div>
+      </div>
+    )
+  }
+
   const cr = cfg.c1 || '#b3262e', nv = cfg.c2 || '#1b2a5c'
   return (
     <div ref={sw} id={preview ? undefined : 'sw'} className={'stg' + (preview ? ' stg-pv' : '') + (edit ? ' edit' : '')}
@@ -183,7 +199,7 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
         {FX_KINDS.includes(fxKind) && <Fx kind={fxKind} />}
         {fs && (
           <div className="fsa"><div className="sl">
-            {fs.items.map((x, k) => (x.src || x.img)
+            {fs.items.map((x, k) => x.mod ? fsMod(x, k) : (x.src || x.img)
               ? <Pic key={x.img || k} x={x} on={k === fs.idx} tr={trOf(cfg.fsa?.trans, k)} />
               : <div key={k} className={'st ' + (k === fs.idx ? 'on' : '')} data-tr={trOf(cfg.fsa?.trans, k)} data-tn={x.tone || 'r'} style={{ '--f': (x.fs || 100) / 100 }}><b>{x.t}</b>{x.s ? <span>{x.s}</span> : null}</div>)}
           </div></div>

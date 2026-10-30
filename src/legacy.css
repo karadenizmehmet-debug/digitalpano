@@ -861,13 +861,22 @@ html,body,#root{height:100%}
 .gm .gx.gs span{font-size:clamp(12px,min(26cqh,6.4cqw),38px)}
 .gm .gx.gmd span{font-size:clamp(11px,min(21cqh,5.2cqw),32px)}
 .gm .gx.gl span{font-size:clamp(11px,min(17cqh,4.2cqw),28px)}
-.gw{gap:2cqh}
-.gw .wr{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:0 4px;border-bottom:1px solid #00000014}
-.gw .wr:last-child{border-bottom:0}
-.gw .wr small{font-size:clamp(9px,min(8cqh,2.2cqw),13px);font-weight:700;letter-spacing:.08em;color:var(--cr);flex:none}
-.gw .wr b{font-size:clamp(14px,min(24cqh,7cqw),40px);color:var(--nv);font-weight:800;line-height:1.15;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.gw .ga b{font-family:'Noto Naskh Arabic','Segoe UI',Tahoma,Arial,sans-serif;font-size:clamp(16px,min(30cqh,8.5cqw),48px)}
+.gw{gap:2.5cqh}
+.gw .wh{text-align:center}
+.gw .wh small{display:block;font-size:clamp(9px,min(7cqh,2cqw),13px);font-weight:800;letter-spacing:.18em;color:var(--cr)}
+.gw .wh b{display:block;font-size:clamp(22px,min(30cqh,11cqw),66px);font-weight:900;line-height:1.1;color:var(--nv);overflow-wrap:anywhere}
+.gw .wh::after{content:"";display:block;width:56px;height:5px;margin:1.6cqh auto 0;border-radius:3px;background:linear-gradient(90deg,var(--cr),var(--gd))}
+.gw .wt2{display:flex;gap:2.2cqw}
+.gw .wc{flex:1;min-width:0;position:relative;padding:3.4cqh 1.5cqw 2.4cqh;border-radius:14px;background:var(--c16);border-top:4px solid var(--cr);text-align:center}
+.gw .wc i{position:absolute;left:50%;top:0;transform:translate(-50%,-55%);font-style:normal;font-size:clamp(9px,min(6.5cqh,1.9cqw),12px);font-weight:900;letter-spacing:.14em;padding:.15em .8em;border-radius:99px;background:var(--cr);color:#fff}
+.gw .wc b{display:block;font-size:clamp(14px,min(17cqh,5.6cqw),34px);font-weight:800;line-height:1.2;color:var(--nv);overflow-wrap:anywhere}
+.gw .wc.ar b{font-family:'Noto Naskh Arabic','Segoe UI',Tahoma,Arial,sans-serif;font-size:clamp(18px,min(24cqh,7.4cqw),46px);line-height:1.15}
 /* Geri sayım: dar modülde ad 1-2 satıra düşebilir; sayılar hizalı kalsın diye ad alanı iki satırlık yer ayırır */
 .cw{container-type:inline-size}
 @container (max-width:600px){.cw .cdc span{display:block;min-height:2.35em}.cw .cdc{justify-content:center}}
 .edit .mod.swp{outline:4px dashed #1e90ff;outline-offset:-4px;background:#e7f2ff}
+
+/* Tam ekran modül (aralıklı): modül doğal boyutunda çizilir, ekrana sığacak kadar büyütülür */
+.fsa .fsm{position:absolute;inset:0;opacity:0;transition:opacity .6s}
+.fsa .fsm.on{opacity:1}
+.fsa .fsm .mod{box-shadow:0 20px 60px #0008}

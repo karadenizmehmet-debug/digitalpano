@@ -53,6 +53,8 @@ export function ModEditor({ m, upd, del, move, say, root, setRoot, open, setOpen
         <div className="p-body p-dbody">
           {!noBack && <><div className="p-fld"><label>Başlık</label><input value={m.title || ''} onChange={(e) => upd({ title: e.target.value })} /></div>
           <label className="p-chk"><input type="checkbox" checked={m.showTitle !== false && (m.type !== 'slides' || m.showTitle)} onChange={(e) => upd({ showTitle: e.target.checked })} /> Başlığı göster</label></>}
+          {!noBack && m.type !== 'slides' && <><label className="p-chk"><input type="checkbox" checked={!!m.fsFull} onChange={(e) => upd({ fsFull: e.target.checked })} /> ⭐ Aralıklı tam ekran göster (Öne Çıkan ayarlarıyla)</label>
+          {m.fsFull && <div className="p-fld"><label>Tam ekranda kalma süresi (sn) — boşsa Öne Çıkan'daki süre</label><NumIn min="2" value={m.fsSec || ''} onChange={(e) => upd({ fsSec: +e.target.value || 0 })} /></div>}</>}
           {(R?.fields || []).filter((f) => !(noBack && m.type === 'slides' && f[1] !== 'slides')).map((f) => <Field key={f[0]} f={f} data={m.data} set={setData} say={say} root={root} setRoot={setRoot} />)}
           {!noBack && <details className="p-adv"><summary>Gelişmiş (boyut, renk, konum)</summary>
           <label className="p-chk" style={{ marginTop: 10 }}><input type="checkbox" checked={!!m.fixH} onChange={(e) => upd({ fixH: e.target.checked })} /> Yüksekliği sabitle (otomatik yerleşim değiştirmesin)</label>

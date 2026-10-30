@@ -37,6 +37,8 @@ Firestore `config/pano` belgesi tek kaynaktır; görseller `images/{id}`. Yazma 
 
 **Hazır içerikli modüller** (Günün Sözü, Kelimesi, Görevi, Tarihte Bugün): içerik `src/lib/*Data.js` dosyalarındadır (Firestore'a yazılmaz, belge küçük kalır); modül yalnızca günün sırasına göre seçer. Yeni hazır modül panelde bir kez KAPALI olarak otomatik listelenir: `Panel.jsx` içindeki `['word','task','history']` listesine tür ekle (`offered` alanı tekrar eklenmesini önler).
 
+**Aralıklı tam ekran modül:** Her modülün ayar sayfasındaki "⭐ Aralıklı tam ekran göster" kutusu `m.fsFull` alanını açar; `Stage.jsx` bu modülleri `fsaState` listesine `{mod: id}` olarak ekler ve `fsMod()` ile ekrana sığacak kadar büyütüp çizer. Süre/aralık Öne Çıkan sekmesinden gelir.
+
 **Yeni modül ayar türü:** `panel/Field.jsx` içindeki `Field` zincirine bir `kind` ekle.
 
 **Yeni renk paleti:** `THEMES` sonuna ekle. Tasarımlar rengi `--cr` (vurgu), `--nv` (koyu), `--gd` (ikinci vurgu) değişkenlerinden alır; yeni CSS'te sabit vurgu rengi yazma, bu değişkenleri kullan.

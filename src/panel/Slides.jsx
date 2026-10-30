@@ -127,6 +127,7 @@ export function FsaEditor({ draft, set, say }) {
       </div>
       <div className="p-fld"><label>Geçiş efekti</label><select value={f.trans || ''} onChange={(e) => put({ trans: e.target.value })}>{TRANS.map(([a, b]) => <option key={a} value={a}>{b}</option>)}</select></div>
       <div className="p-btns"><button className={f.now ? 'p-danger' : ''} onClick={() => put({ now: !f.now })}>{f.now ? 'Sürekli tam ekranı kapat' : 'Şimdi sürekli tam ekran yap'}</button></div>
+      {draft.mods.some((m) => m.fsFull && m.type !== 'slides') && <p className="p-hint">⭐ Tam ekranda gösterilen modüller: <b>{draft.mods.filter((m) => m.fsFull && m.type !== 'slides').map((m) => m.title).join(', ')}</b>. Bunlar her modülün kendi ayar sayfasından açılıp kapatılır.</p>}
       <SlidesEditor value={f.items || []} set={(items) => put({ items })} say={say} withSec />
       {sm && <>
         <div className="p-h2">Manşetteki öğeler</div>
