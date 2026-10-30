@@ -7,12 +7,12 @@ export const DESIGN_COLS = {
   10: [[20, 340], [372, 356], [740, 840]],
   11: [[20, 300], [332, 840], [1184, 396]],
   12: [[0, 1200], [1200, 400]],
-  13: [[20, 560], [600, 980]],
+  13: [[20, 540], [580, 1000]],
 }
 // Yan panelli tasarımlar: modüller seçilen tek sütuna (side) dizilir; alan [üst, alt]
-export const SIDE_DSG = { 12: { col: 1, top: 100, bot: 900 }, 13: { col: 0, top: 116, bot: 880 } }
+export const SIDE_DSG = { 12: { col: 1, top: 100, bot: 900, strip: 1 }, 13: { col: 0, top: 116, bot: 880, strip: 1 } }
 // Bazı tasarımlarda manşet boyutu farklıdır 
-export const DESIGN_SLIDE = { 12: { w: 1200, h: 800 }, 13: { w: 980, h: 764 } }
+export const DESIGN_SLIDE = { 12: { w: 1200, h: 657 }, 13: { w: 1000, h: 548 } }
 export const slideFor = (d) => DESIGN_SLIDE[d] || SLIDE
 export const colsFor = (d) => DESIGN_COLS[d] || COLS
 export const SLIDE = { w: 840, h: 460 }
@@ -34,9 +34,12 @@ export function reflow(mods, pref, minOf, wantOf, CL = COLS, SZ = SLIDE, order =
   const eff = (m) => (m.fixH ? Math.max(m.h, mn(m)) : mn(m))
   const need = (A) => A.reduce((q, m) => q + eff(m), 0) + G * Math.max(0, A.length - 1)
   // Sütuna tam oturmayan (ör. boyutlandırılmış) modülleri en yakın sütuna oturt; yoksa sütun dışında kalıp diğerleriyle üst üste biner
-  mods.forEach((m) => { if (m.type === 'slides') { const sc = CL.find((c) => c[1] === SZ.w) || CL[1]; m.x = sc[0]; m.w = SZ.w; m.h = SZ.h; m.fixH = true }; if (m.active && m.y >= 100) { if (order && m.type !== 'slides') { const L = CL[AR && AR.col != null ? AR.col : CL.length - 1]; m.x = L[0]; m.w = L[1] } else colSnap(m, CL) } })
+  mods.forEach((m) => { if (m.type === 'slides') { const sc = CL.find((c) => c[1] === SZ.w) || CL[1]; m.x = sc[0]; m.w = SZ.w; m.h = SZ.h; m.fixH = true }; if (m.active && m.y >= 100 && !(AR && AR.strip && m.type === 'quote')) { if (order && m.type !== 'slides') { const L = CL[AR && AR.col != null ? AR.col : CL.length - 1]; m.x = L[0]; m.w = L[1] } else colSnap(m, CL) } })
+  // Manşetin altındaki boşluk "Günün Sözü" şeridi olur (manşet 840:460 oranını korur)
+  const strip = AR && AR.strip ? mods.filter((m) => m.active && m.type === 'quote') : []
+  strip.forEach((m) => { const sc = CL.find((c) => c[1] === SZ.w) || CL[1]; m.x = sc[0]; m.w = SZ.w; m.y = TOP + SZ.h + G; m.h = BOT - m.y; m.fixH = true })
   const key = (m) => (m.type === 'slides' ? -1e9 : order && order.indexOf(m.id) >= 0 ? order.indexOf(m.id) : (order ? 1e4 : 0) + m.y + m.h / 2)
-  const cols = CL.map(([x, w]) => mods.filter((m) => m.active && m.x === x && m.w === w && m.y >= 100).sort((a, b) => key(a) - key(b)))
+  const cols = CL.map(([x, w]) => mods.filter((m) => m.active && !strip.includes(m) && m.x === x && m.w === w && m.y >= 100).sort((a, b) => key(a) - key(b)))
   for (let g = 0; g < 30; g++) {
     const o = order ? -1 : cols.findIndex((A) => need(A) > AV)
     if (o < 0) break

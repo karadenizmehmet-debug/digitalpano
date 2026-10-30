@@ -508,3 +508,6 @@ html,body,#root{height:100%}
 .stg .stage[data-dsg="13"] .mod:not(.t-slides) .b .pi b,.stg .stage[data-dsg="13"] .mod:not(.t-slides) .b .ci .cv,.stg .stage[data-dsg="13"] .mod:not(.t-slides) .b .cdc b{color:#7a1233!important}
 .stg .stage[data-dsg="13"] .mod:not(.t-slides) .b .pi.nx b{color:#fff!important}
 .stg .stage[data-dsg="13"] .mod .b b,.stg .stage[data-dsg="13"] .mod .b span{text-decoration:none!important}
+/* Manşet altı Günün Sözü şeridi */
+.stg .stage[data-dsg="12"] .mod.t-quote{background:#0d1b36!important}
+.stg .stage[data-dsg="12"] .mod.t-quote .h{margin:0 26px}
