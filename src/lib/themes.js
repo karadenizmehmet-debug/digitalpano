@@ -37,6 +37,7 @@ export const DESIGNS = [
   ['İskandinav', 'Bol beyaz alan, açık gri, bej ve antrasit; sade ve göz yormayan'],
   ['Çocuk Dünyası', 'Canlı renkler, yuvarlak şekiller, eğlenceli kartlar'],
   ['Prestij', 'Mat siyah, şampanya altını, ince çerçeveler; tören ve özel günler için'],
+  ['Panoramik', 'Açık mavi-gri degrade zemin, beyaz yuvarlak kartlar, koyu kalın başlıklar; temiz ve ferah'],
 ]
 
 // Tasarım küçük resimleri ve grupları: [grup, zemin, üst bant, kart, vurgu, yerleşim]
@@ -66,4 +67,5 @@ export const DESIGN_META = [
   ['Açık', '#f3f1ee', '#f3f1ee', '#ffffff', '#2f2f2f', 'c'],
   ['Eğlenceli', '#fff7e0', '#ff6b6b', '#ffe3e3', '#4dabf7', 'c'],
   ['Koyu', '#0b0b0c', '#000000', '#141416', '#d4af37', 'c'],
+  ['Açık', '#e3ecf2', '#e3ecf2', '#ffffff', '#111827', 'c'],
 ]

@@ -834,3 +834,23 @@ html,body,#root{height:100%}
 .sl [data-tr=sr].on{animation:t-sr .8s cubic-bezier(.2,.8,.2,1) both}@keyframes t-sr{from{transform:translateX(-100%)}to{transform:none}}
 .sl [data-tr=su].on{animation:t-su .8s cubic-bezier(.2,.8,.2,1) both}@keyframes t-su{from{transform:translateY(100%)}to{transform:none}}
 .sl [data-tr=sd].on{animation:t-sd .8s cubic-bezier(.2,.8,.2,1) both}@keyframes t-sd{from{transform:translateY(-100%)}to{transform:none}}
+.stg .stage[data-dsg="23"]{background:#e3ecf2!important;background-image:linear-gradient(135deg,#dde8f0,#f3f6f9 55%,#e1eaf1)!important}
+.stg .stage[data-dsg="23"] .hdr{background:transparent!important;border-bottom:0;color:#111;text-align:center}
+.stg .stage[data-dsg="23"] .hdr .n{color:#111827!important}.stg .stage[data-dsg="23"] .hdr .s{color:#5d6b78!important}
+.stg .stage[data-dsg="23"] .mod.t-clock{background:transparent!important;border:0!important;box-shadow:none!important}
+.stg .stage[data-dsg="23"] .mod.t-clock .b .d{color:#5d6b78!important}.stg .stage[data-dsg="23"] .mod.t-clock .b .t{color:#111827!important}
+.stg .stage[data-dsg="23"] .mod.t-slides{border:0;border-radius:18px;overflow:hidden}
+.stg .stage[data-dsg="23"] .mod:not(.t-slides):not(.t-clock){background:#fff!important;border:0;border-radius:18px;box-shadow:0 6px 18px #3a516820;color:#111827;overflow:hidden}
+.stg .stage[data-dsg="23"] .mod:not(.t-slides):not(.t-clock) .h{height:46px;margin:0 18px;padding:0;background:none!important;border:0!important;border-bottom:0!important;color:#111827;text-transform:uppercase;letter-spacing:.03em;font-size:17px;font-weight:800;display:flex;align-items:center;white-space:nowrap}
+.stg .stage[data-dsg="23"] .mod .h::before{display:none}
+.stg .stage[data-dsg="23"] .mod:not(.t-slides):not(.t-clock) .b{padding:8px 18px 12px;color:#111827;font-weight:600}
+.stg .stage[data-dsg="23"] .mod:not(.t-slides) .b *{color:inherit!important}
+.stg .stage[data-dsg="23"] .ln,.stg .stage[data-dsg="23"] .dt{background:none!important;border:0!important;border-bottom:1px solid #e3eaf0!important;border-radius:0!important;padding:8px 0!important;margin:0!important}
+.stg .stage[data-dsg="23"] .pi,.stg .stage[data-dsg="23"] .cdc,.stg .stage[data-dsg="23"] .ci{background:#eaf0f5!important;border:0!important;border-radius:8px;box-shadow:none}
+.stg .stage[data-dsg="23"] .mod:not(.t-slides) .b .pi b,.stg .stage[data-dsg="23"] .mod:not(.t-slides) .b .ci .cv,.stg .stage[data-dsg="23"] .mod:not(.t-slides) .b .cdc b,.stg .stage[data-dsg="23"] .mod:not(.t-slides) .b .bn,.stg .stage[data-dsg="23"] .mod:not(.t-slides) .b .bt b{color:#111827!important}
+.stg .stage[data-dsg="23"] .mod .pi.nx{background:var(--cr)!important}.stg .stage[data-dsg="23"] .mod:not(.t-slides) .b .pi.nx *{color:#fff!important}
+.stg .stage[data-dsg="23"] .mod:not(.t-slides) .b .dt i{background:var(--cr)!important;color:#fff!important}
+.stg .stage[data-dsg="23"] .mod:not(.t-slides) .b .tb th{background:#eaf0f5!important;color:#111827!important}
+.stg .stage[data-dsg="23"] .tb td{border-bottom-color:#e3eaf0}.stg .stage[data-dsg="23"] .tb tr:nth-child(even) td{background:none!important}
+.stg .stage[data-dsg="23"] .mod .b b,.stg .stage[data-dsg="23"] .mod .b span{text-decoration:none!important}
+.stg .stage[data-dsg="23"] .ftr{background:#1f3347!important;border-top:3px solid var(--cr)}
