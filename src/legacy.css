@@ -867,3 +867,6 @@ html,body,#root{height:100%}
 .gw .wr small{font-size:clamp(9px,min(8cqh,2.2cqw),13px);font-weight:700;letter-spacing:.08em;color:var(--cr);flex:none}
 .gw .wr b{font-size:clamp(14px,min(24cqh,7cqw),40px);color:var(--nv);font-weight:800;line-height:1.15;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .gw .ga b{font-family:'Noto Naskh Arabic','Segoe UI',Tahoma,Arial,sans-serif;font-size:clamp(16px,min(30cqh,8.5cqw),48px)}
+/* Geri sayım: dar modülde ad 1-2 satıra düşebilir; sayılar hizalı kalsın diye ad alanı iki satırlık yer ayırır */
+.cw{container-type:inline-size}
+@container (max-width:600px){.cw .cdc span{display:block;min-height:2.35em}.cw .cdc{justify-content:center}}
