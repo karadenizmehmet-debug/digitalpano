@@ -1,20 +1,21 @@
 import { useEffect, useState } from 'react'
 import { loadImage } from '../lib/firebase.js'
+import { trOf } from '../lib/trans.js'
 
 export const meta = {
   label: 'Manşet haber', minH: 150, bare: true,
   def: { imgs: [], sec: 6 },
-  fields: [['sec', 'num', 'Geçiş süresi (sn)'], ['fill', 'check', 'Görseli bannera yay (kırpmaz, yatayda esnetir)'], ['imgs', 'slides', 'Görseller ve yazılı duyurular', 'Görseller küçültülerek yüklenir. Sırayla döner']],
+  fields: [['sec', 'num', 'Geçiş süresi (sn)'], ['trans', 'trans', 'Geçiş efekti'], ['fill', 'check', 'Görseli bannera yay (kırpmaz, yatayda esnetir)'], ['imgs', 'slides', 'Görseller ve yazılı duyurular', 'Görseller küçültülerek yüklenir. Sırayla döner']],
 }
 
-export function Pic({ x, on }) {
+export function Pic({ x, on, tr }) {
   const [src, setSrc] = useState(x.src || '')
   useEffect(() => {
     let dead = false
     if (!x.src && x.img) loadImage(x.img).then((v) => !dead && setSrc(v)).catch(() => {})
     return () => { dead = true }
   }, [x.img, x.src])
-  return src ? <div className={'pc ' + (on ? 'on' : '')}><img src={src} className="bg" alt="" /><img src={src} alt="" /></div> : null
+  return src ? <div className={'pc ' + (on ? 'on' : '')} data-tr={tr}><img src={src} className="bg" alt="" /><img src={src} alt="" /></div> : null
 }
 
 // Süresi dolmamış öğeler
@@ -27,8 +28,8 @@ export default function Slides({ data, T }) {
   return (
     <div className={'sl' + (data.fill ? ' fill' : '')}>
       {im.map((x, k) => (x.src || x.img)
-        ? <Pic key={x.img || k} x={x} on={k === on} />
-        : <div key={k} className={'st ' + (k === on ? 'on' : '')} data-tn={x.tone || 'r'} style={{ '--f': (x.fs || 100) / 100 }}>
+        ? <Pic key={x.img || k} x={x} on={k === on} tr={trOf(data.trans, k)} />
+        : <div key={k} className={'st ' + (k === on ? 'on' : '')} data-tr={trOf(data.trans, k)} data-tn={x.tone || 'r'} style={{ '--f': (x.fs || 100) / 100 }}>
             <b>{x.t}</b>{x.s ? <span>{x.s}</span> : null}
           </div>)}
     </div>

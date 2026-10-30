@@ -14,6 +14,7 @@ import { colSnap, reflow, colsFor, slideFor, SIDE_DSG } from './lib/reflow.js'
 import { quoteTitle } from './modules/quote.jsx'
 import { Pic } from './modules/slides.jsx'
 import { fsaState } from './lib/fsa.js'
+import { trOf } from './lib/trans.js'
 import Fx, { FX_KINDS } from './lib/Fx.jsx'
 
 export function useImg(d) {
@@ -162,8 +163,8 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
         {fs && (
           <div className="fsa"><div className="sl">
             {fs.items.map((x, k) => (x.src || x.img)
-              ? <Pic key={x.img || k} x={x} on={k === fs.idx} />
-              : <div key={k} className={'st ' + (k === fs.idx ? 'on' : '')} data-tn={x.tone || 'r'} style={{ '--f': (x.fs || 100) / 100 }}><b>{x.t}</b>{x.s ? <span>{x.s}</span> : null}</div>)}
+              ? <Pic key={x.img || k} x={x} on={k === fs.idx} tr={trOf(cfg.fsa.trans, k)} />
+              : <div key={k} className={'st ' + (k === fs.idx ? 'on' : '')} data-tr={trOf(cfg.fsa.trans, k)} data-tn={x.tone || 'r'} style={{ '--f': (x.fs || 100) / 100 }}><b>{x.t}</b>{x.s ? <span>{x.s}</span> : null}</div>)}
           </div></div>
         )}
         {sp && (

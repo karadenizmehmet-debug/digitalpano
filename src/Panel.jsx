@@ -10,6 +10,7 @@ import { parseQ, listOf, todayIx } from './modules/quote.jsx'
 import { SOZ, AYET } from './lib/quotesData.js'
 import { DG, mondayISO, weekShift } from './modules/duty.jsx'
 import { IHO_CLASSES, IHO_LESSONS, ihoProgram } from './lib/ihoSample.js'
+import { TRANS } from './lib/trans.js'
 import { reflow, colsFor, slideFor, SIDE_DSG } from './lib/reflow.js'
 import './panel.css'
 
@@ -228,6 +229,7 @@ function FsaEditor({ draft, set, say }) {
         <div className="p-fld"><label>Her … dakikada bir gir</label><NumIn min="1" value={f.every ?? 15} onChange={(e) => put({ every: +e.target.value })} /></div>
         <div className="p-fld"><label>Her öğe … sn kalsın</label><NumIn min="2" value={f.sec || 10} onChange={(e) => put({ sec: +e.target.value })} /></div>
       </div>
+      <div className="p-fld"><label>Geçiş efekti</label><select value={f.trans || ''} onChange={(e) => put({ trans: e.target.value })}>{TRANS.map(([a, b]) => <option key={a} value={a}>{b}</option>)}</select></div>
       <div className="p-btns"><button className={f.now ? 'p-danger' : ''} onClick={() => put({ now: !f.now })}>{f.now ? 'Sürekli tam ekranı kapat' : 'Şimdi sürekli tam ekran yap'}</button></div>
       <SlidesEditor value={f.items || []} set={(items) => put({ items })} say={say} withSec />
     </div>
@@ -251,6 +253,7 @@ function Field({ f, data, set, say, root, setRoot }) {
   }} />
   else if (kind === 'fx') input = <select value={v || 'auto'} onChange={(e) => set(k, e.target.value)}>{[['auto', 'Otomatik (hava durumuna göre)'], ['rain', 'Yağmur'], ['snow', 'Kar'], ['wind', 'Rüzgar'], ['storm', 'Fırtına'], ['fog', 'Sis']].map(([a, b]) => <option key={a} value={a}>{b}</option>)}</select>
   else if (kind === 'check') return <label className="p-chk"><input type="checkbox" checked={k === 'fxOn' ? v !== false : !!v} onChange={(e) => set(k, e.target.checked)} /> {label}</label>
+  else if (kind === 'trans') input = <select value={v || ''} onChange={(e) => set(k, e.target.value)}>{TRANS.map(([a, b]) => <option key={a} value={a}>{b}</option>)}</select>
   else if (kind === 'num') input = <NumIn value={v ?? ''} onChange={(e) => set(k, e.target.value === '' ? '' : +e.target.value)} />
   else if (kind === 'dt') input = <input type="datetime-local" value={v ?? ''} onChange={(e) => set(k, e.target.value)} />
   else if (kind === 'sel') input = <select value={v} onChange={(e) => set(k, e.target.value)}>{Object.entries(COND).map(([a, b]) => <option key={a} value={a}>{b}</option>)}</select>
