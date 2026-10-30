@@ -68,6 +68,9 @@ Hata vermemeli.
 4. Eski tasarımların bozulmadığını bir iki tanesinde kontrol et (özellikle `legacy.css`'e eklediysen)
 5. Push: `main`'e gidince GitHub Pages ve Firebase Hosting otomatik yenilenir (1–3 dk)
 
+## MEB haberleri (kayan yazı)
+Duyuru yokken kayan yazıda RSS başlıkları gösterilir. RSS tarayıcıdan doğrudan okunamaz (CORS), bu yüzden `scripts/haber.mjs` GitHub Actions'ta (`deploy.yml`, her 30 dk) RSS'i çekip `public/haber.json` yazar; pano bu dosyayı aynı alan adından okur. Firestore kotası kullanılmaz. Ayarlar panelde: Duyuru → MEB haberleri (`tkNews`, `newsUrl`).
+
 ## Bilinen sınırlar
 - Yan panelli tasarımlarda (12–14) sürükle-bırak düzen yok; sıra "Yan panel modülleri" kartından ayarlanır.
 - Sığmayan yan panel modülleri kırpılmaz, içeriğiyle birlikte küçültülür (`reflow.js` → `zs`).

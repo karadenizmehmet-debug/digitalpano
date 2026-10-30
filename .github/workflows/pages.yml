@@ -20,6 +20,8 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 20, cache: npm }
       - run: npm ci
+      - run: node scripts/haber.mjs
+        continue-on-error: true
       - run: npm run build
         env:
           GITHUB_PAGES: '1'

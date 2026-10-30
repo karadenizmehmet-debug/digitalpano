@@ -7,6 +7,8 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    - cron: '7,37 * * * *'   # MEB haber listesi için her 30 dakikada bir yeniden yayınla
 concurrency:
   group: firebase-hosting
   cancel-in-progress: true
@@ -27,6 +29,10 @@ jobs:
       - run: npm ci
         if: env.SA != ''
       # GITHUB_PAGES verilmediği için base '/' olur (Firebase kök dizinden açılır)
+      - name: MEB haberlerini çek (hata olursa derleme durmaz)
+        if: env.SA != ''
+        continue-on-error: true
+        run: node scripts/haber.mjs
       - run: npm run build
         if: env.SA != ''
       - name: Firebase Hosting'e yayınla

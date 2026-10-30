@@ -6,3 +6,4 @@ dist
 *.local
 serviceAccount*.json
 .firebase
+public/haber.json

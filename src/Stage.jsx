@@ -10,6 +10,7 @@ import { Balloons, Stars, Hearts, Petals, Flags, Frame } from './lib/Floaters.js
 import { loadImage } from './lib/firebase.js'
 import { useLive } from './lib/weather.js'
 import { visibleTicker, effectiveTicker } from './lib/ticker.js'
+import { useNews } from './lib/news.js'
 import { colSnap, reflow, colsFor, slideFor, SIDE_DSG } from './lib/reflow.js'
 import { quoteTitle } from './modules/quote.jsx'
 import { Pic } from './modules/slides.jsx'
@@ -92,7 +93,10 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
   const night = !preview && !(cfg.sd || []).some((d) => d.now) && isNight(cfg, now)
 
   const sl = [cfg.slogan, cfg.city, cfg.url].filter(Boolean).join('  •  ')
-  const tk = visibleTicker(effectiveTicker(cfg, now), now)
+  const tk0 = visibleTicker(effectiveTicker(cfg, now), now)
+  const news = useNews(!!cfg.tkNews && !tk0.length && !preview)  // duyuru yoksa MEB haberleri
+  const isNews = !tk0.length && news.length > 0
+  const tk = isNews ? news : tk0
   const q = tk.map((x, i) => <span key={i}>{x}</span>)
   const minOf = minHOf
 
@@ -199,7 +203,7 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
         )}
         {tk.length > 0 && !SIDE_DSG[cfg.design] && (
           <div className="ftr">
-            <div className="tg">DUYURU</div>
+            <div className="tg">{isNews ? 'MEB HABER' : 'DUYURU'}</div>
             <div className="mq"><div style={{ '--d': Math.max(40, tk.join('').length * 0.6) + 's' }}>{[...Array(6)].flatMap(() => q)}</div></div>
           </div>
         )}

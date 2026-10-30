@@ -17,6 +17,11 @@ export function AnnEditor({ draft, set }) {
           <button className="p-pri" disabled={!nt.trim()} onClick={() => { put([{ t: nt.trim(), d: nd, on: isoD(new Date()) }, ...L]); setNt('') }}>+ Ekle</button>
         </div>
       </div>
+      <div className="p-h2">📰 MEB haberleri</div>
+      <label className="p-chk"><input type="checkbox" checked={!!draft.tkNews} onChange={(e) => set({ tkNews: e.target.checked })} /> Yayında duyuru yokken kayan yazıda MEB haberlerini göster</label>
+      {draft.tkNews && <div className="p-fld"><label>Haber RSS adresi</label>
+        <input value={draft.newsUrl || ''} onChange={(e) => set({ newsUrl: e.target.value.trim() })} placeholder="https://…/rss.xml" />
+        <small className="p-hint">Haberler her 30 dakikada bir otomatik güncellenir; adresi değiştirirsen yeni haberler bir sonraki güncellemede gelir. Duyuru eklediğin anda kayan yazı yine duyuruları gösterir.</small></div>}
       <div className="p-h2">Yayındakiler ve eskiler ({L.length})</div>
       {!L.length && <small>Henüz duyuru yok.</small>}
       {L.map((x, i) => {
