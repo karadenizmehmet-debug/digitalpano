@@ -12,6 +12,8 @@ import { useLive } from './lib/weather.js'
 import { visibleTicker, effectiveTicker } from './lib/ticker.js'
 import { colSnap, reflow, colsFor, slideFor, SIDE_DSG } from './lib/reflow.js'
 import { quoteTitle } from './modules/quote.jsx'
+import { Pic } from './modules/slides.jsx'
+import { fsaState } from './lib/fsa.js'
 import Fx, { FX_KINDS } from './lib/Fx.jsx'
 
 export function useImg(d) {
@@ -77,6 +79,7 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
   const sp = forceSp || (preview ? null : specialVisible(cfg.sd, now))
   const spImg = useImg(sp)
   const logo = useImg({ img: cfg.logo, imgId: cfg.logoId })
+  const fs = !preview && !sp ? fsaState(cfg.fsa, now) : null
   const night = !preview && !(cfg.sd || []).some((d) => d.now) && isNight(cfg, now)
 
   const sl = [cfg.slogan, cfg.city, cfg.url].filter(Boolean).join('  •  ')
@@ -148,6 +151,13 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
           )
         })}
         {FX_KINDS.includes(fxKind) && <Fx kind={fxKind} />}
+        {fs && (
+          <div className="fsa"><div className="sl">
+            {fs.items.map((x, k) => (x.src || x.img)
+              ? <Pic key={x.img || k} x={x} on={k === fs.idx} />
+              : <div key={k} className={'st ' + (k === fs.idx ? 'on' : '')} data-tn={x.tone || 'r'} style={{ '--f': (x.fs || 100) / 100 }}><b>{x.t}</b>{x.s ? <span>{x.s}</span> : null}</div>)}
+          </div></div>
+        )}
         {sp && (
           <div className={'ovl' + (spImg ? ' im' : '')} data-bf={!spImg && sp.bgfx ? sp.bgfx : undefined} style={{ '--f': (sp.fs || 100) / 100, '--f2': (sp.fs2 || sp.fs || 100) / 100, ...(sp.bg && !spImg ? { background: sp.bgfx === 'fade' ? `linear-gradient(120deg,${sp.bg},${sp.bg2 || '#000'},${sp.bg})` : `linear-gradient(120deg,${sp.bg},${mix(sp.bg, '#000', 55)})` } : {}) }}>
             {spImg ? <img src={spImg} /> : <><b>{sp.title}</b><span>{sp.sub}</span></>}
