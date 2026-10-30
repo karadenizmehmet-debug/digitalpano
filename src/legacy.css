@@ -861,16 +861,20 @@ html,body,#root{height:100%}
 .gm .gx.gs span{font-size:clamp(12px,min(26cqh,6.4cqw),38px)}
 .gm .gx.gmd span{font-size:clamp(11px,min(21cqh,5.2cqw),32px)}
 .gm .gx.gl span{font-size:clamp(11px,min(17cqh,4.2cqw),28px)}
-.gw{gap:2.5cqh}
-.gw .wh{text-align:center}
-.gw .wh small{display:block;font-size:clamp(9px,min(7cqh,2cqw),13px);font-weight:800;letter-spacing:.18em;color:var(--cr)}
-.gw .wh b{display:block;font-size:clamp(22px,min(30cqh,11cqw),66px);font-weight:900;line-height:1.1;color:var(--nv);overflow-wrap:anywhere}
-.gw .wh::after{content:"";display:block;width:56px;height:5px;margin:1.6cqh auto 0;border-radius:3px;background:linear-gradient(90deg,var(--cr),var(--gd))}
-.gw .wt2{display:flex;gap:2.2cqw}
-.gw .wc{flex:1;min-width:0;position:relative;padding:3.4cqh 1.5cqw 2.4cqh;border-radius:14px;background:var(--c16);border-top:4px solid var(--cr);text-align:center}
-.gw .wc i{position:absolute;left:50%;top:0;transform:translate(-50%,-55%);font-style:normal;font-size:clamp(9px,min(6.5cqh,1.9cqw),12px);font-weight:900;letter-spacing:.14em;padding:.15em .8em;border-radius:99px;background:var(--cr);color:#fff}
-.gw .wc b{display:block;font-size:clamp(14px,min(17cqh,5.6cqw),34px);font-weight:800;line-height:1.2;color:var(--nv);overflow-wrap:anywhere}
-.gw .wc.ar b{font-family:'Noto Naskh Arabic','Segoe UI',Tahoma,Arial,sans-serif;font-size:clamp(18px,min(24cqh,7.4cqw),46px);line-height:1.15}
+.gw{perspective:900px;gap:2cqh;padding:0 4px}
+.gw .wcard{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5cqh;border-radius:16px;background:var(--c16);border-top:5px solid var(--cr);padding:2cqh 3cqw;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.gw .wcard.en{border-top-color:var(--nv)}.gw .wcard.ar{border-top-color:var(--gd)}
+.gw .wcard i{font-style:normal;font-size:clamp(10px,min(7cqh,2.2cqw),15px);font-weight:900;letter-spacing:.18em;padding:.2em 1em;border-radius:99px;background:var(--cr);color:#fff}
+.gw .wcard.en i{background:var(--nv)}.gw .wcard.ar i{background:var(--gd);color:#111}
+.gw .wcard b{display:block;max-width:100%;text-align:center;font-size:clamp(24px,min(36cqh,12cqw),84px);font-weight:900;line-height:1.1;color:var(--nv);overflow-wrap:anywhere}
+.gw .wcard.ar b{font-family:'Noto Naskh Arabic','Segoe UI',Tahoma,Arial,sans-serif;font-size:clamp(30px,min(44cqh,14cqw),100px);line-height:1.2}
+.gw .wcard.out{animation:wf-out .38s ease-in forwards}
+.gw .wcard.in{animation:wf-in .4s ease-out}
+.gw .wdots{display:flex;justify-content:center;gap:8px;height:1.4cqh;min-height:7px}
+.gw .wdots u{width:22px;height:100%;border-radius:4px;background:#00000026;text-decoration:none}
+.gw .wdots u.on{background:var(--cr)}
+@keyframes wf-out{from{transform:rotateY(0)}to{transform:rotateY(90deg)}}
+@keyframes wf-in{from{transform:rotateY(-90deg)}to{transform:rotateY(0)}}
 /* Geri sayım: dar modülde ad 1-2 satıra düşebilir; sayılar hizalı kalsın diye ad alanı iki satırlık yer ayırır */
 .cw{container-type:inline-size}
 @container (max-width:600px){.cw .cdc span{display:block;min-height:2.35em}.cw .cdc{justify-content:center}}
