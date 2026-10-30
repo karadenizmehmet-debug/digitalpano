@@ -11,7 +11,7 @@ import { loadImage } from './lib/firebase.js'
 import { useLive } from './lib/weather.js'
 import { visibleTicker, effectiveTicker } from './lib/ticker.js'
 import { useNews } from './lib/news.js'
-import { NEWS_TAG } from './lib/newsDefault.js'
+import { activeIds, tagOf } from './lib/newsDefault.js'
 import { colSnap, reflow, colsFor, slideFor, SIDE_DSG } from './lib/reflow.js'
 import { quoteTitle } from './modules/quote.jsx'
 import { Pic } from './modules/slides.jsx'
@@ -95,7 +95,7 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
 
   const sl = [cfg.slogan, cfg.city, cfg.url].filter(Boolean).join('  •  ')
   const tk0 = visibleTicker(effectiveTicker(cfg, now), now)
-  const news = useNews(!!cfg.tkNews && !tk0.length && !preview)  // duyuru yoksa MEB haberleri
+  const news = useNews(activeIds(cfg).length > 0 && !tk0.length && !preview)  // duyuru yoksa MEB haberleri
   const isNews = !tk0.length && news.length > 0
   const tk = isNews ? news : tk0
   const q = tk.map((x, i) => <span key={i}>{x}</span>)
@@ -204,7 +204,7 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
         )}
         {tk.length > 0 && !SIDE_DSG[cfg.design] && (
           <div className="ftr">
-            <div className="tg">{isNews ? (cfg.newsTag ?? NEWS_TAG) : 'DUYURU'}</div>
+            <div className="tg">{isNews ? tagOf(cfg) : 'DUYURU'}</div>
             <div className="mq"><div style={{ '--d': Math.max(40, tk.join('').length * 0.6) + 's' }}>{[...Array(6)].flatMap(() => q)}</div></div>
           </div>
         )}

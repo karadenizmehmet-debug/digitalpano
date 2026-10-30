@@ -69,7 +69,7 @@ Hata vermemeli.
 5. Push: `main`'e gidince GitHub Pages ve Firebase Hosting otomatik yenilenir (1–3 dk)
 
 ## MEB haberleri (kayan yazı)
-Duyuru yokken kayan yazıda (varsayılan: Konya MEM duyuruları, `src/lib/newsDefault.js`) RSS başlıkları gösterilir. RSS tarayıcıdan doğrudan okunamaz (CORS), bu yüzden `scripts/haber.mjs` GitHub Actions'ta (`deploy.yml`, her 30 dk) RSS'i çekip `public/haber.json` yazar; pano bu dosyayı aynı alan adından okur. Firestore kotası kullanılmaz. Ayarlar panelde: Ayarlar → Modüller → Konya MEM Duyuruları (`tkNews`, `newsUrl`).
+Duyuru yokken kayan yazıda (varsayılan: Konya MEM duyuruları, `src/lib/newsDefault.js`) RSS başlıkları gösterilir. RSS tarayıcıdan doğrudan okunamaz (CORS), bu yüzden `scripts/haber.mjs` GitHub Actions'ta (`deploy.yml`, her 30 dk) RSS'i çekip `public/haber.json` yazar; pano bu dosyayı aynı alan adından okur. Firestore kotası kullanılmaz. Ayarlar panelde: Ayarlar → Modüller → RSS (kaynak listesi `src/lib/newsDefault.js` → `SOURCES`) (`rssOn`, `rssCustom`).
 
 ## Bilinen sınırlar
 - Yan panelli tasarımlarda (12–14) sürükle-bırak düzen yok; sıra "Yan panel modülleri" kartından ayarlanır.
