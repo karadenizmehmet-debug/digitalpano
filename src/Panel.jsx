@@ -807,7 +807,7 @@ export default function Panel({ cfg, fresh, err }) {
   }
   const set = (p) => setDraft((d) => ({ ...d, ...p }))
   // Tasarım seçimi: "Yayın Ekranı" uygun modülleri açar, diğerlerini kapatır; başka tasarıma geçince eski durum geri gelir
-  const SIDE_KEEP = { 12: ['weather', 'bell', 'duty', 'pray', 'quote'], 13: ['schedule', 'duty', 'bell', 'pray', 'quote'] }
+  const SIDE_KEEP = { 12: ['weather', 'bell', 'duty', 'pray', 'quote'], 13: ['schedule', 'duty', 'bell', 'pray', 'quote'], 14: ['duty', 'bell', 'pray', 'weather', 'quote'] }
   const chooseDesign = (i) => setDraft((d) => {
     const cur = d.design || 0
     if (i === cur) return d

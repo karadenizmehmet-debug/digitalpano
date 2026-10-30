@@ -8,11 +8,12 @@ export const DESIGN_COLS = {
   11: [[20, 300], [332, 840], [1184, 396]],
   12: [[0, 1256], [1256, 344]],
   13: [[20, 420], [444, 1136]],
+  14: [[30, 440], [500, 1070]],
 }
 // Yan panelli tasarımlar: modüller seçilen tek sütuna (side) dizilir; alan [üst, alt]
-export const SIDE_DSG = { 12: { col: 1, top: 100, bot: 900, strip: 1 }, 13: { col: 0, top: 116, bot: 880, strip: 1 } }
+export const SIDE_DSG = { 12: { col: 1, top: 100, bot: 900, strip: 1 }, 13: { col: 0, top: 116, bot: 880, strip: 1 }, 14: { col: 0, top: 110, bot: 880, strip: 1 } }
 // Bazı tasarımlarda manşet boyutu farklıdır 
-export const DESIGN_SLIDE = { 12: { w: 1256, h: 688 }, 13: { w: 1136, h: 622 } }
+export const DESIGN_SLIDE = { 12: { w: 1256, h: 688 }, 13: { w: 1136, h: 622 }, 14: { w: 1070, h: 586 } }
 export const slideFor = (d) => DESIGN_SLIDE[d] || SLIDE
 export const colsFor = (d) => DESIGN_COLS[d] || COLS
 export const SLIDE = { w: 840, h: 460 }
