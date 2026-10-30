@@ -226,6 +226,7 @@ function Field({ f, data, set, say, root, setRoot }) {
     const k = weekShift(data, new Date())
     input = (
       <div>
+        <DutyPaste P={P} g={g} set={(x) => set('g', x)} />
         <div className="p-dgw"><table className="p-dgt"><tbody>
           <tr><th>Yer</th>{DG.map((d) => <th key={d}>{d}</th>)}</tr>
           {P.map((p, j) => (
@@ -605,6 +606,27 @@ function SpecialEditor({ list, set, say, cfg }) {
       )}
       {live >= 0 && <p className="p-hint">Şu an "Şimdi tam ekran" açık: Yayınla'dan sonra pano tam ekrana geçer.</p>}
     </div>
+  )
+}
+
+function DutyPaste({ P, g, set }) {
+  const [t, setT] = useState('')
+  const go = () => {
+    const L = t.replace(/\r\n?/g, '\n').split('\n').map((l) => l.trim()).filter(Boolean).slice(0, 5)
+    const N = { ...g }
+    L.forEach((l, i) => {
+      let c = l.split(/\t|;|\|/).map((x) => x.trim())
+      if (c.length > P.length && /^(pt|pa|sa|ça|çar|pe|per|cu)/i.test(c[0])) c = c.slice(1)
+      N[i] = Object.fromEntries(P.map((_, j) => [j, c[j] || '']))
+    })
+    set(N); setT('')
+  }
+  return (
+    <details className="p-adv"><summary>Toplu yapıştır</summary>
+      <textarea rows={5} value={t} onChange={(e) => setT(e.target.value)} placeholder={'Her satır bir gün (Pzt, Sal, Çar, Per, Cum).\nİsimleri yerlerin sırasına göre ; ile ayırın:\nÖmer OKUR; Ayten CEYLAN'} />
+      <div className="p-btns"><button className="p-pri" disabled={!t.trim() || !P.length} onClick={go}>Tabloya aktar</button></div>
+      <small>Excel'den kopyalayıp da yapıştırabilirsiniz.</small>
+    </details>
   )
 }
 
