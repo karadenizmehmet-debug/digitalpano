@@ -934,7 +934,7 @@ export default function Panel({ cfg, fresh, err }) {
       )}
       {tab === 'set' && !sub && (
         <div className="p-body"><div className="p-grid">
-          {[['gen', '🏫', 'Genel ayarlar'], ['mods', '🧩', 'Modüller'], ['lay', '🖼️', 'Düzen'], ['sd', '📅', 'Özel günler'], ['bak', '💾', 'Yedek'], ['pw', '🔑', 'Şifre']].map(([k, i, l]) => <button key={k} onClick={() => { if (k === 'mods' || k === 'lay') { setTab(k); setOpenId(null) } else setSub(k); window.scrollTo(0, 0) }}><span>{i}</span>{l}</button>)}
+          {[['gen', '🏫', 'Genel ayarlar'], ['thm', '🎨', 'Tema ve renkler'], ['mods', '🧩', 'Modüller'], ['lay', '🖼️', 'Düzen'], ['sd', '📅', 'Özel günler'], ['bak', '💾', 'Yedek'], ['pw', '🔑', 'Şifre']].map(([k, i, l]) => <button key={k} onClick={() => { if (k === 'mods' || k === 'lay') { setTab(k); setOpenId(null) } else setSub(k); window.scrollTo(0, 0) }}><span>{i}</span>{l}</button>)}
         </div></div>
       )}
       {SETT.includes(tab) && !(tab === 'set' && !sub) && !(tab === 'mods' && openId) && <div className="p-sub"><button onClick={() => { setTab('set'); setSub(null); setOpenId(null); window.scrollTo(0, 0) }}>← Ayarlar</button></div>}
@@ -974,6 +974,11 @@ export default function Panel({ cfg, fresh, err }) {
               <label className="p-chk"><input type="checkbox" checked={draft.nmWe !== false} onChange={(e) => set({ nmWe: e.target.checked })} /> Hafta sonu gece modu</label>
             </div>
           )}
+        </div>
+      )}
+      {view === 'thm' && (
+        <div className="p-body"><div className="p-card p-pad">
+          <div className="p-h">🎨 Tema ve renkler</div>
           <div className="p-fld"><label>Renk paleti</label>
             <button className="p-pick" onClick={() => setPk('pal')}>
               <span className="p-sw">{[1, 2, 3].map((n) => <i key={n} style={{ background: THEMES[draft.theme || 0][n] }} />)}</span>
@@ -986,7 +991,7 @@ export default function Panel({ cfg, fresh, err }) {
             </button>
             <small>Tasarım yalnızca görünümü değiştirir, bilgileriniz aynen kalır. İstediğiniz zaman eskisine dönebilirsiniz.</small>
           </div>
-        </div>
+        </div></div>
       )}
       {view === 'mods' && (
         <div className="p-body">
