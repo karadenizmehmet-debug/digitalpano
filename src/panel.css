@@ -256,3 +256,8 @@ body.panelbody{overflow-x:hidden;overflow-y:auto;max-width:100vw;background:#f3f
 .pnl .p-dsg,.pnl .p-pick{flex:none}
 .pnl .p-mbox>button{flex:none}
 .pnl .p-dsg{flex-direction:row;align-items:center;gap:12px}.pnl .p-dsg>span{display:flex;flex-direction:column;gap:2px;min-width:0}
+/* Liste satırlarında başlık kısalır, çöp kutusu ve ok hep sağda sabit durur */
+.pnl .p-slc>.p-slr:first-child{flex-wrap:nowrap}
+.pnl .p-slr>.p-ttl{flex:1 1 0;min-width:0;width:0;overflow:hidden}
+.pnl .p-slr>.p-ttl>b,.pnl .p-slr>.p-ttl>small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pnl .p-slc>.p-slr:first-child>span:last-child,.pnl .p-slc>.p-slr:first-child>button{flex:none}

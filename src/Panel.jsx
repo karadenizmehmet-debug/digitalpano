@@ -105,7 +105,7 @@ function AnnEditor({ draft, set }) {
         return (
           <div key={i} className={'p-slc' + (dead ? ' dead' : '')}>
             <div className="p-slr" onClick={() => setOp(op === i ? -1 : i)} style={{ cursor: 'pointer' }}>
-              <span style={{ flex: 1, minWidth: 0 }}><b style={{ display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{x.t || '(boş)'}</b><small style={{ color: dead ? '#b4232a' : '#5b6b7b' }}>{sum}</small></span>
+              <span className="p-ttl"><b style={{ display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{x.t || '(boş)'}</b><small style={{ color: dead ? '#b4232a' : '#5b6b7b' }}>{sum}</small></span>
               <button className="p-danger" onClick={(ev) => { ev.stopPropagation(); if (confirm('Bu duyuru silinsin mi?')) put(L.filter((_, k) => k !== i)) }}>🗑</button>
               <span>{op === i ? '▴' : '▾'}</span>
             </div>
@@ -128,7 +128,7 @@ function SlideCard({ x, i, upd, mv, del, withSec }) {
     <div className={'p-slc' + (dead ? ' dead' : '')}>
       <div className="p-slr" onClick={() => setOpen(!open)} style={{ cursor: 'pointer' }}>
         {img ? <Thumb x={x} /> : <span className="p-th" style={{ display: 'grid', placeItems: 'center' }}>📝</span>}
-        <span style={{ flex: 1, minWidth: 0 }}><b style={{ display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{img ? (x.name || 'Görsel') : (x.t || 'Yazılı duyuru')}</b><small style={{ color: dead ? '#b4232a' : '#5b6b7b' }}>{sum}</small></span>
+        <span className="p-ttl"><b style={{ display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{img ? (x.name || 'Görsel') : (x.t || 'Yazılı duyuru')}</b><small style={{ color: dead ? '#b4232a' : '#5b6b7b' }}>{sum}</small></span>
         <button className="p-danger" title="Sil" onClick={(ev) => { ev.stopPropagation(); del(i) }}>🗑</button>
         <span>{open ? '▴' : '▾'}</span>
       </div>
