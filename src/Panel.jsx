@@ -120,7 +120,7 @@ function AnnEditor({ draft, set }) {
   )
 }
 
-function SlideCard({ x, i, upd, mv, del, withSec, withFull }) {
+function SlideCard({ x, i, upd, mv, del, withSec }) {
   const [open, setOpen] = useState(false)
   const img = x.img || x.src, e = endOf(x), dead = e && e <= new Date(isoD(new Date()) + 'T00:00:00')
   const sum = (DUR.find(([a]) => a === (x.d || 0)) || [0, 'Süresiz'])[1] + (e ? (dead ? ' · süresi doldu' : ' · ' + trD(new Date(e.getTime() - 86400000)) + ' bitiş') : '')
@@ -145,13 +145,12 @@ function SlideCard({ x, i, upd, mv, del, withSec, withFull }) {
         {withSec && <div className="p-fld"><label>Ekranda kalma süresi (sn) — boşsa genel süre</label><NumIn min="2" value={x.sec || ''} onChange={(ev) => upd(i, { sec: +ev.target.value || 0 })} /></div>}
         <DurBar x={x} upd={(p) => upd(i, p)} />
         <div className="p-btns"><button onClick={() => mv(i, -1)}>↑</button><button onClick={() => mv(i, 1)}>↓</button><button className="p-danger" onClick={() => del(i)}>Sil</button></div>
-        {withFull && <label className="p-chk"><input type="checkbox" checked={!!x.full} onChange={(ev) => upd(i, { full: ev.target.checked })} /> ⭐ Öne çıkanlarda da göster (aralıklı tam ekran)</label>}
       </>}
     </div>
   )
 }
 
-function SlidesEditor({ value, set, say, withSec, withFull }) {
+function SlidesEditor({ value, set, say, withSec }) {
   const L = value || []
   const [dlg, setDlg] = useState(null)
   const upd = (i, p) => set(L.map((x, k) => (k === i ? { ...x, ...p } : x)))
@@ -213,7 +212,7 @@ function SlidesEditor({ value, set, say, withSec, withFull }) {
         </div>
       )}
       {L.length > 0 && <div className="p-h2">Eklenenler ({L.length})</div>}
-      {L.map((x, i) => <SlideCard key={i} x={x} i={i} upd={upd} mv={mv} del={del} withSec={withSec} withFull={withFull} />)}
+      {L.map((x, i) => <SlideCard key={i} x={x} i={i} upd={upd} mv={mv} del={del} withSec={withSec} />)}
     </div>
   )
 }
@@ -221,10 +220,12 @@ function SlidesEditor({ value, set, say, withSec, withFull }) {
 function FsaEditor({ draft, set, say }) {
   const f = draft.fsa || { on: true, every: 15, sec: 10, items: [] }
   const put = (p) => set({ fsa: { ...f, ...p } })
+  const sm = draft.mods.find((m) => m.type === 'slides')
+  const tick = (i, v) => set({ mods: draft.mods.map((m) => (m === sm ? { ...m, data: { ...m.data, imgs: m.data.imgs.map((x, k) => (k === i ? { ...x, full: v } : x)) } } : m)) })
   return (
     <div className="p-card p-pad">
       <div className="p-h">⭐ Öne çıkan duyurular</div>
-      <p className="p-hint">Eklediğiniz görsel veya yazılar belirli aralıkla panoyu tam ekran kaplar, sırayla gösterilir, sonra pano normale döner. Manşet listesinde ⭐ ile işaretlediğiniz öğeler de burada gösterilir.</p>
+      <p className="p-hint">Eklediğiniz görsel veya yazılar belirli aralıkla panoyu tam ekran kaplar, sırayla gösterilir, sonra pano normale döner. Aşağıdaki listeden manşetteki öğeleri de işaretleyip bu ekranda gösterebilirsiniz.</p>
       <label className="p-chk"><input type="checkbox" checked={f.on !== false} onChange={(e) => put({ on: e.target.checked })} /> Öne çıkan duyurular açık</label>
       <div className="p-pos">
         <div className="p-fld"><label>Her … dakikada bir gir</label><NumIn min="1" value={f.every ?? 15} onChange={(e) => put({ every: +e.target.value })} /></div>
@@ -233,6 +234,12 @@ function FsaEditor({ draft, set, say }) {
       <div className="p-fld"><label>Geçiş efekti</label><select value={f.trans || ''} onChange={(e) => put({ trans: e.target.value })}>{TRANS.map(([a, b]) => <option key={a} value={a}>{b}</option>)}</select></div>
       <div className="p-btns"><button className={f.now ? 'p-danger' : ''} onClick={() => put({ now: !f.now })}>{f.now ? 'Sürekli tam ekranı kapat' : 'Şimdi sürekli tam ekran yap'}</button></div>
       <SlidesEditor value={f.items || []} set={(items) => put({ items })} say={say} withSec />
+      {sm && <>
+        <div className="p-h2">Manşetteki öğeler</div>
+        <p className="p-hint">İşaretlediğiniz öğeler yukarıdaki süre ve aralıkla tam ekran gösterilir. Manşette de görünmeye devam ederler.</p>
+        {(sm.data?.imgs || []).length === 0 && <p className="p-hint">Manşette öğe yok.</p>}
+        {(sm.data?.imgs || []).map((x, i) => <label key={i} className="p-chk"><input type="checkbox" checked={!!x.full} onChange={(e) => tick(i, e.target.checked)} /> {x.img || x.src ? '🖼️ ' + (x.name || 'Görsel') : '📝 ' + (x.t || 'Yazılı duyuru')}</label>)}
+      </>}
     </div>
   )
 }
@@ -265,7 +272,7 @@ function Field({ f, data, set, say, root, setRoot }) {
   else if (kind === 'quotes') input = <QuoteEditor data={data} set={set} />
   else if (kind === 'qpin') return null
   else if (kind === 'sched') input = <SchedEditor data={data} set={set} />
-  else if (kind === 'slides') input = <SlidesEditor value={v} set={(x) => set(k, x)} say={say} withFull />
+  else if (kind === 'slides') input = <SlidesEditor value={v} set={(x) => set(k, x)} say={say} />
   else if (kind === 'dgrid') {
     const P = rows({ rows: data.places }), g = data.g || {}
     const k = weekShift(data, new Date())
