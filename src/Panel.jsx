@@ -27,7 +27,9 @@ export default function Panel({ cfg, fresh, err }) {
   const [em, setEm] = useState(''), [pw, setPw] = useState('')
 
   useEffect(() => onUser(setUser), [])
-  useEffect(() => { if (user && fresh && !draft) { const d0 = JSON.parse(JSON.stringify(cfg)); (d0.mods || []).forEach((m) => { if (m.type === 'slides' && m.title === 'Hoş Geldiniz') m.title = 'Manşet Haber' }); setDraft(d0); setSaved(JSON.stringify(cfg)) } }, [user, cfg, draft, fresh])
+  useEffect(() => { if (user && fresh && !draft) { const d0 = JSON.parse(JSON.stringify(cfg)); (d0.mods || []).forEach((m) => { if (m.type === 'slides' && m.title === 'Hoş Geldiniz') m.title = 'Manşet Haber' }); const off = new Set(d0.offered || []);  // yeni hazır modüller bir kez, KAPALI olarak listeye eklenir
+      ['word', 'task', 'history'].forEach((t) => { if (off.has(t)) return; off.add(t); const R = registry[t]; if (R && !(d0.mods || []).some((m) => m.type === t)) d0.mods.push({ id: 'm' + t, type: t, title: R.label, active: false, x: 380, y: 124, w: 440, h: R.minH || 150, color: '#0f9b8e', fs: 100, data: JSON.parse(JSON.stringify(R.def || {})) }) })
+      d0.offered = [...off]; setDraft(d0); setSaved(JSON.stringify(cfg)) } }, [user, cfg, draft, fresh])
 
   const doLogin = async (e) => {
     e.preventDefault()

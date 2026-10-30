@@ -10,7 +10,7 @@ export const DAYS = ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma']
 export const COND = { sun: 'Güneşli', partly: 'Parçalı bulutlu', cloud: 'Bulutlu', rain: 'Yağmurlu', wind: 'Rüzgarlı', snow: 'Karlı', storm: 'Gök gürültülü', fog: 'Sisli' }
 
 
-export const ICO = { schedule: '🗓️', clock: '🕒', text: '📝', table: '📋', slides: '🖼️', bell: '🔔', weather: '🌤️', duty: '🧑‍🏫', days: '📅', news: '📰', menu: '🍽️', bday: '🎂', cnt: '⏳', cd: '🗓️', pray: '🕌', quote: '💬' }
+export const ICO = { word: '🔤', task: '🎯', history: '📜', schedule: '🗓️', clock: '🕒', text: '📝', table: '📋', slides: '🖼️', bell: '🔔', weather: '🌤️', duty: '🧑‍🏫', days: '📅', news: '📰', menu: '🍽️', bday: '🎂', cnt: '⏳', cd: '🗓️', pray: '🕌', quote: '💬' }
 
 export const TONES = { r: 'Kırmızı', b: 'Mavi', g: 'Yeşil', o: 'Turuncu', p: 'Mor', k: 'Siyah' }
 

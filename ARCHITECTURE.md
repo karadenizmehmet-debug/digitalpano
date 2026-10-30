@@ -35,6 +35,8 @@ Firestore `config/pano` belgesi tek kaynaktır; görseller `images/{id}`. Yazma 
 ## Sık yapılan işler
 **Yeni modül:** `src/modules/` altına `ad.jsx` ekle. `export const meta = { label, minH, fields… }` ve `export default function ({data, now, T, cfg, wx})`. Başka dosyaya dokunma. Panelde simgesi için `ICO` (`panel/common.jsx`).
 
+**Hazır içerikli modüller** (Günün Sözü, Kelimesi, Görevi, Tarihte Bugün): içerik `src/lib/*Data.js` dosyalarındadır (Firestore'a yazılmaz, belge küçük kalır); modül yalnızca günün sırasına göre seçer. Yeni hazır modül panelde bir kez KAPALI olarak otomatik listelenir: `Panel.jsx` içindeki `['word','task','history']` listesine tür ekle (`offered` alanı tekrar eklenmesini önler).
+
 **Yeni modül ayar türü:** `panel/Field.jsx` içindeki `Field` zincirine bir `kind` ekle.
 
 **Yeni renk paleti:** `THEMES` sonuna ekle. Tasarımlar rengi `--cr` (vurgu), `--nv` (koyu), `--gd` (ikinci vurgu) değişkenlerinden alır; yeni CSS'te sabit vurgu rengi yazma, bu değişkenleri kullan.
