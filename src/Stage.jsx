@@ -10,7 +10,7 @@ import { Balloons, Stars, Hearts, Petals, Flags, Frame } from './lib/Floaters.js
 import { loadImage } from './lib/firebase.js'
 import { useLive } from './lib/weather.js'
 import { visibleTicker, effectiveTicker } from './lib/ticker.js'
-import { colSnap, reflow } from './lib/reflow.js'
+import { colSnap, reflow, colsFor } from './lib/reflow.js'
 import { quoteTitle } from './modules/quote.jsx'
 import Fx, { FX_KINDS } from './lib/Fx.jsx'
 
@@ -66,8 +66,8 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
   // Otomatik yerleşim açıkken ekran, kayıtlı boyutlardan bağımsız olarak içeriğe göre dengeli yerleştirir
   const mods0 = useMemo(() => {
     if (edit || cfg.autoFlow === false) return cfg.mods
-    const c = cfg.mods.map((m) => ({ ...m })); reflow(c, null, minHOf, wantH); return c
-  }, [cfg.mods, cfg.autoFlow, !!edit])
+    const c = cfg.mods.map((m) => ({ ...m })); reflow(c, null, minHOf, wantH, colsFor(cfg.design)); return c
+  }, [cfg.mods, cfg.autoFlow, cfg.design, !!edit])
   const wmod = mods0.find((m) => m.type === 'weather' && m.active)
   const wx = useLive(cfg.city, !!wmod && !!cfg.city)
   // Canlı veri açıksa yalnızca ona bakılır (yüklenirken elle girilen duruma düşmez); kapalıysa elle girilen durum kullanılır

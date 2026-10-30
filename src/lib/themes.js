@@ -23,4 +23,7 @@ export const DESIGNS = [
   ['Neon', 'Siyah zemin, neon parlayan çerçeveler, daktilo yazısı'],
   ['Mantar Pano', 'Mantar zemin, hafif eğik kâğıt notlar ve raptiyeler'],
   ['Pop', 'Canlı degrade renkli, çok yuvarlak beyaz yazılı kartlar'],
+  ['Sinema', 'Manşet solda büyük sahne, koyu zemin ve altın detaylar (yerleşim değişir)'],
+  ['Tahta', 'Manşet sağda, yeşil sınıf tahtası ve tebeşir görünümü (yerleşim değişir)'],
+  ['Dikey Başlık', 'Manşet ortada, sol sütun dar, sağ sütun geniş; başlıklar dikey şerit (yerleşim değişir)'],
 ]

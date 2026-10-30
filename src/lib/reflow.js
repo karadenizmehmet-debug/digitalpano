@@ -1,25 +1,34 @@
 // Otomatik yerleşim: modülleri 3 sütuna dizer, taşanı en boş sütuna alır, boşluğu esnek modüllerle doldurur.
 export const COLS = [[20, 348], [380, 840], [1232, 348]]
 // Manşet (slides) boyutu sabittir: görseller bu ölçüde hazırlanır
+// Bazı tasarımlar sütun düzenini değiştirir (manşet yeri ve sütun genişlikleri)
+export const DESIGN_COLS = {
+  9: [[20, 840], [872, 356], [1240, 340]],
+  10: [[20, 340], [372, 356], [740, 840]],
+  11: [[20, 280], [312, 840], [1164, 416]],
+}
+export const colsFor = (d) => DESIGN_COLS[d] || COLS
 export const SLIDE = { w: 840, h: 460 }
 const FLEX = ['slides', 'table', 'days', 'duty', 'news', 'menu', 'text', 'schedule']
 // Artan boşluğun öncelikle verildiği (içeriği uzayabilen / kaydırmalı) modüller
 const GROW = ['slides', 'schedule', 'table', 'days', 'news', 'menu', 'text']
 
-export function colSnap(m) {
-  const c = m.x + m.w / 2, i = c < 374 ? 0 : c < 1226 ? 1 : 2
-  m.x = COLS[i][0]; m.w = COLS[i][1]
+export function colSnap(m, CL = COLS) {
+  const c = m.x + m.w / 2
+  let i = 0, best = 1e9
+  CL.forEach(([x, w], k) => { const d = Math.abs(c - (x + w / 2)); if (d < best) { best = d; i = k } })
+  m.x = CL[i][0]; m.w = CL[i][1]
 }
 
 // mods: dizi (yerinde değiştirilir). pref: öncelikli modül. minOf(m): en küçük yükseklik
-export function reflow(mods, pref, minOf, wantOf) {
+export function reflow(mods, pref, minOf, wantOf, CL = COLS) {
   const TOP = 124, BOT = 832, G = 12, AV = BOT - TOP
   const mn = (m) => (m.type === 'slides' ? SLIDE.h : minOf(m) || 100)
   const eff = (m) => (m.fixH ? Math.max(m.h, mn(m)) : mn(m))
   const need = (A) => A.reduce((q, m) => q + eff(m), 0) + G * Math.max(0, A.length - 1)
   // Sütuna tam oturmayan (ör. boyutlandırılmış) modülleri en yakın sütuna oturt; yoksa sütun dışında kalıp diğerleriyle üst üste biner
-  mods.forEach((m) => { if (m.type === 'slides') { m.x = COLS[1][0]; m.w = SLIDE.w; m.h = SLIDE.h; m.fixH = true }; if (m.active && m.y >= 100) colSnap(m) })
-  const cols = COLS.map(([x, w]) => mods.filter((m) => m.active && m.x === x && m.w === w && m.y >= 100).sort((a, b) => (a.type === 'slides' ? -1e9 : a.y + a.h / 2) - (b.type === 'slides' ? -1e9 : b.y + b.h / 2)))
+  mods.forEach((m) => { if (m.type === 'slides') { const sc = CL.find((c) => c[1] === SLIDE.w) || CL[1]; m.x = sc[0]; m.w = SLIDE.w; m.h = SLIDE.h; m.fixH = true }; if (m.active && m.y >= 100) colSnap(m, CL) })
+  const cols = CL.map(([x, w]) => mods.filter((m) => m.active && m.x === x && m.w === w && m.y >= 100).sort((a, b) => (a.type === 'slides' ? -1e9 : a.y + a.h / 2) - (b.type === 'slides' ? -1e9 : b.y + b.h / 2)))
   for (let g = 0; g < 30; g++) {
     const o = cols.findIndex((A) => need(A) > AV)
     if (o < 0) break
@@ -28,7 +37,7 @@ export function reflow(mods, pref, minOf, wantOf) {
     let d = -1, best = -1
     cols.forEach((B, i) => { if (i === o) return; const rm = AV - need(B.concat([ev])); if (rm >= 0 && rm > best) { best = rm; d = i } })
     if (d < 0) break
-    A.splice(A.indexOf(ev), 1); cols[d].push(ev); ev.x = COLS[d][0]; ev.w = COLS[d][1]
+    A.splice(A.indexOf(ev), 1); cols[d].push(ev); ev.x = CL[d][0]; ev.w = CL[d][1]
   }
   cols.forEach((A) => {
     if (!A.length) return

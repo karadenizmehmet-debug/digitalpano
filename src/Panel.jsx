@@ -10,7 +10,7 @@ import { parseQ, listOf, todayIx } from './modules/quote.jsx'
 import { SOZ, AYET } from './lib/quotesData.js'
 import { DG, mondayISO, weekShift } from './modules/duty.jsx'
 import { IHO_CLASSES, IHO_LESSONS, ihoProgram } from './lib/ihoSample.js'
-import { reflow } from './lib/reflow.js'
+import { reflow, colsFor } from './lib/reflow.js'
 import './panel.css'
 
 const ALI = ['🚨','⚠️','🔥','🌍','🌧️','❄️','⚡','🌪️','📢','🏥','🚑','🚒','🚫','⛔','😷','🚸','🔒','📣','ℹ️','✅','🕌','🎓','🚌','⏰']
