@@ -445,7 +445,7 @@ html,body,#root{height:100%}
 .stg .stage[data-dsg="11"] .pi.nx{background:#d6254d!important}.stg .stage[data-dsg="11"] .pi.nx *{color:#fff!important}
 
 /* Tasarım 12: Yayın Ekranı (büyük manşet solda, sağda koyu mavi bilgi paneli) */
-.stg .stage[data-dsg="12"]{background:linear-gradient(90deg,#000 1256px,#2a4a82 1256px)!important}
+.stg .stage[data-dsg="12"]{background:linear-gradient(90deg,#000 1296px,#2a4a82 1296px)!important}
 .stg .stage[data-dsg="12"] .hdr{background:#0d1b36!important;border-bottom:2px solid #3d6fd1;color:#fff}
 .stg .stage[data-dsg="12"] .hdr .n,.stg .stage[data-dsg="12"] .hdr .s{color:#fff!important}
 .stg .stage[data-dsg="12"] .mod.t-clock{background:#ffffff1f!important;border:1px solid #ffffff44;border-radius:14px;color:#fff}
@@ -539,3 +539,11 @@ html,body,#root{height:100%}
 .stg .stage[data-dsg="14"] .mod .pi.nx{background:#e5384a!important}.stg .stage[data-dsg="14"] .mod:not(.t-slides) .b .pi.nx *{color:#fff!important}
 .stg .stage[data-dsg="14"] .mod:not(.t-slides) .b .dt i,.stg .stage[data-dsg="14"] .mod:not(.t-slides) .b .tb th{background:#e5384a!important;color:#fff!important}
 .stg .stage[data-dsg="14"] .mod .b b,.stg .stage[data-dsg="14"] .mod .b span{text-decoration:none!important}
+
+/* Yüksek üst bant (tasarım 12, 13, 14): manşet oranı korunur, boşluk kalmaz */
+.stg .stage[data-dsg="12"] .hdr,.stg .stage[data-dsg="13"] .hdr,.stg .stage[data-dsg="14"] .hdr{height:190px!important}
+.stg .stage[data-dsg="12"] .hdr .n,.stg .stage[data-dsg="13"] .hdr .n,.stg .stage[data-dsg="14"] .hdr .n{font-size:56px;line-height:1.1;white-space:normal;max-width:960px;overflow:visible}
+.stg .stage[data-dsg="12"] .hdr .s,.stg .stage[data-dsg="13"] .hdr .s,.stg .stage[data-dsg="14"] .hdr .s{font-size:26px;margin-top:8px}
+.stg .stage[data-dsg="12"] .mod.t-clock,.stg .stage[data-dsg="13"] .mod.t-clock,.stg .stage[data-dsg="14"] .mod.t-clock{left:1010px!important;top:12px!important;width:570px!important;height:166px!important}
+.stg .stage[data-dsg="12"] .mod.t-clock .b .t,.stg .stage[data-dsg="13"] .mod.t-clock .b .t,.stg .stage[data-dsg="14"] .mod.t-clock .b .t{font-size:96px!important}
+.stg .stage[data-dsg="12"] .mod.t-clock .b .d,.stg .stage[data-dsg="13"] .mod.t-clock .b .d,.stg .stage[data-dsg="14"] .mod.t-clock .b .d{font-size:30px!important;width:130px}

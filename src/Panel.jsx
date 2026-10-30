@@ -807,7 +807,7 @@ export default function Panel({ cfg, fresh, err }) {
   }
   const set = (p) => setDraft((d) => ({ ...d, ...p }))
   // Tasarım seçimi: "Yayın Ekranı" uygun modülleri açar, diğerlerini kapatır; başka tasarıma geçince eski durum geri gelir
-  const SIDE_KEEP = { 12: ['weather', 'bell', 'duty', 'pray', 'quote'], 13: ['schedule', 'duty', 'bell', 'pray', 'quote'], 14: ['duty', 'bell', 'pray', 'weather', 'quote'] }
+  const SIDE_KEEP = { 12: ['weather', 'bell', 'duty', 'pray'], 13: ['duty', 'bell', 'pray', 'quote'], 14: ['duty', 'bell', 'pray', 'weather'] }
   const chooseDesign = (i) => setDraft((d) => {
     const cur = d.design || 0
     if (i === cur) return d
@@ -1003,7 +1003,8 @@ export default function Panel({ cfg, fresh, err }) {
       {view === 'lay' && (
         <div className="p-body">
           {SIDE_DSG[draft.design] && (() => {
-            const stripM = draft.stripId === 'none' ? null : draft.mods.find((m) => (draft.stripId ? m.id === draft.stripId : m.type === 'quote'))
+            const hasStrip = SIDE_DSG[draft.design].strip
+            const stripM = !hasStrip || draft.stripId === 'none' ? null : draft.mods.find((m) => (draft.stripId ? m.id === draft.stripId : m.type === 'quote'))
             const side = draft.mods.filter((m) => m.type !== 'slides' && m.type !== 'clock' && m !== stripM)
             const ord = draft.sideOrder || []
             const list = [...side].sort((a, b) => { const ia = ord.indexOf(a.id), ib = ord.indexOf(b.id); return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) })
@@ -1012,13 +1013,13 @@ export default function Panel({ cfg, fresh, err }) {
             const tg = (id, on) => set({ mods: draft.mods.map((m) => (m.id === id ? { ...m, active: on } : m)), sideOrder: ids })
             const pickStrip = (id) => { if (id === 'none') set({ stripId: 'none' }); else set({ stripId: id, mods: draft.mods.map((m) => (m.id === id ? { ...m, active: true } : m)) }) }
             return (
-              <div className="p-card p-pad"><div className="p-h">📺 Manşet altı şeridi</div>
+              <div className="p-card p-pad">{hasStrip && <><div className="p-h">📺 Manşet altı şeridi</div>
                 <small>Manşetin altındaki boşlukta görünecek modül:</small>
                 <select value={stripM ? stripM.id : 'none'} onChange={(e) => pickStrip(e.target.value)}>
                   <option value="none">(Boş bırak)</option>
                   {draft.mods.filter((m) => m.type !== 'slides' && m.type !== 'clock').map((m) => <option key={m.id} value={m.id}>{m.title}</option>)}
-                </select>
-                <div className="p-h" style={{ marginTop: 14 }}>📺 Yan panel modülleri</div>
+                </select></>}
+                <div className="p-h" style={{ marginTop: hasStrip ? 14 : 0 }}>📺 Yan panel modülleri</div>
                 <small>İşaretlediğiniz modüller yan panelde yukarıdan aşağıya bu sırayla görünür. Çok modül seçerseniz birbirine sıkışır.</small>
                 {list.map((m, i) => (
                   <div key={m.id} className="p-slr" style={{ padding: '6px 0' }}>
