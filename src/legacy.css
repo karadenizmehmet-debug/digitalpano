@@ -369,3 +369,9 @@ html,body,#root{height:100%}
 .stg .stage[data-dsg="8"] .mod .dt i{background:#ffffff40!important;color:#fff!important}
 .stg .stage[data-dsg="8"] .hdr .s{color:#fff!important}
 .stg .stage[data-dsg="8"] .qx::before{color:#fff}
+
+/* Saatin altındaki tarih her tasarımda okunsun */
+.stg .stage[data-dsg="3"] .mod.t-clock .d,.stg .stage[data-dsg="8"] .mod.t-clock .d,.stg .stage[data-dsg="8"] .mod.t-clock .t{color:#fff!important}
+.stg .stage[data-dsg="4"] .mod.t-clock .d,.stg .stage[data-dsg="5"] .mod.t-clock .d,.stg .stage[data-dsg="7"] .mod.t-clock .d{color:#222!important}
+.stg .stage[data-dsg="5"] .mod.t-clock .t,.stg .stage[data-dsg="7"] .mod.t-clock .t{color:var(--cr)!important}
+.stg .stage[data-dsg="6"] .mod.t-clock .d{color:#00e5ff!important}
