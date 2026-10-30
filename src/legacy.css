@@ -443,3 +443,26 @@ html,body,#root{height:100%}
 .stg .stage[data-dsg="11"] .tb th{background:#d6f0f2!important;color:#075e7a}
 .stg .stage[data-dsg="11"] .ftr{background:#032b44!important;border-top:3px solid #7fe6ea}
 .stg .stage[data-dsg="11"] .pi.nx{background:#d6254d!important}.stg .stage[data-dsg="11"] .pi.nx *{color:#fff!important}
+
+/* Tasarım 12: Yayın Ekranı (büyük manşet solda, sağda koyu mavi bilgi paneli) */
+.stg .stage[data-dsg="12"]{background:linear-gradient(90deg,#0d1b36 1222px,#2a4a82 1222px)!important}
+.stg .stage[data-dsg="12"] .hdr{background:#0d1b36!important;border-bottom:2px solid #3d6fd1;color:#fff}
+.stg .stage[data-dsg="12"] .hdr .n,.stg .stage[data-dsg="12"] .hdr .s{color:#fff!important}
+.stg .stage[data-dsg="12"] .mod.t-clock{background:#ffffff1f!important;border:1px solid #ffffff44;border-radius:14px;color:#fff}
+.stg .stage[data-dsg="12"] .mod.t-clock .d,.stg .stage[data-dsg="12"] .mod.t-clock .t{color:#fff!important}
+.stg .stage[data-dsg="12"] .mod.t-slides{border:0;border-radius:14px;box-shadow:0 10px 30px #000a}
+.stg .stage[data-dsg="12"] .mod:not(.t-slides):not(.t-clock){background:transparent!important;border:0;box-shadow:none;border-radius:0;color:#fff}
+.stg .stage[data-dsg="12"] .mod:not(.t-slides) .b *{color:inherit!important}
+.stg .stage[data-dsg="12"] .mod:not(.t-slides):not(.t-clock) .h{height:38px;margin:0 6px;padding:0;border:0!important;border-bottom:1px solid #ffffff44!important;color:#a9c8ff!important;text-transform:uppercase;letter-spacing:.12em;font-size:14px;font-weight:700;white-space:nowrap}
+.stg .stage[data-dsg="12"] .mod .h::before{display:none}
+.stg .stage[data-dsg="12"] .mod:not(.t-slides):not(.t-clock) .b{padding:8px 6px 10px;font-weight:600}
+.stg .stage[data-dsg="12"] .ln,.stg .stage[data-dsg="12"] .dt{background:none!important;border:0!important;border-bottom:1px solid #ffffff2a!important;border-radius:0!important;padding:8px 0!important;margin:0!important}
+.stg .stage[data-dsg="12"] .pi,.stg .stage[data-dsg="12"] .cdc,.stg .stage[data-dsg="12"] .ci{background:#ffffff1c!important;border:0!important;border-radius:10px;box-shadow:none}
+.stg .stage[data-dsg="12"] .mod .ci .cv,.stg .stage[data-dsg="12"] .mod .cdc b,.stg .stage[data-dsg="12"] .mod .pi b{color:#ffe08a!important}
+.stg .stage[data-dsg="12"] .mod .pi.nx{background:#fff!important}.stg .stage[data-dsg="12"] .mod .pi.nx *{color:#0d1b36!important}
+.stg .stage[data-dsg="12"] .mod .dt i{background:#ffffff2e!important;color:#fff!important}
+.stg .stage[data-dsg="12"] .mod .bn,.stg .stage[data-dsg="12"] .mod .bt b{color:#ffe08a!important}
+.stg .stage[data-dsg="12"] .tb th{background:#2a4a82!important}
+.stg .stage[data-dsg="12"] .tb td,.stg .stage[data-dsg="12"] .tb th{border-bottom-color:#ffffff33}
+.stg .stage[data-dsg="12"] .tb tr:nth-child(even) td{background:none!important}
+.stg .stage[data-dsg="12"] .ftr{background:#0d1b36!important;border-top:2px solid #3d6fd1}

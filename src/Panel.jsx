@@ -10,7 +10,7 @@ import { parseQ, listOf, todayIx } from './modules/quote.jsx'
 import { SOZ, AYET } from './lib/quotesData.js'
 import { DG, mondayISO, weekShift } from './modules/duty.jsx'
 import { IHO_CLASSES, IHO_LESSONS, ihoProgram } from './lib/ihoSample.js'
-import { reflow, colsFor } from './lib/reflow.js'
+import { reflow, colsFor, slideFor } from './lib/reflow.js'
 import './panel.css'
 
 const ALI = ['🚨','⚠️','🔥','🌍','🌧️','❄️','⚡','🌪️','📢','🏥','🚑','🚒','🚫','⛔','😷','🚸','🔒','📣','ℹ️','✅','🕌','🎓','🚌','⏰']
@@ -787,6 +787,22 @@ export default function Panel({ cfg, fresh, err }) {
     catch (e) { setMsg('Kaydedilemedi: ' + e.message) }
   }
   const set = (p) => setDraft((d) => ({ ...d, ...p }))
+  // Tasarım seçimi: "Yayın Ekranı" uygun modülleri açar, diğerlerini kapatır; başka tasarıma geçince eski durum geri gelir
+  const SIDE_KEEP = ['weather', 'bell', 'duty', 'pray', 'quote']
+  const chooseDesign = (i) => setDraft((d) => {
+    const cur = d.design || 0
+    if (i === cur) return d
+    const o = { ...d, design: i }
+    if (i === 12) {
+      o.dsgBak = Object.fromEntries(d.mods.map((m) => [m.id, m.active !== false]))
+      o.mods = d.mods.map((m) => (m.type === 'slides' || m.type === 'clock' ? m : { ...m, active: SIDE_KEEP.includes(m.type) }))
+      o.sideOrder = SIDE_KEEP.map((t) => o.mods.find((m) => m.type === t)).filter(Boolean).map((m) => m.id)
+    } else if (cur === 12 && d.dsgBak) {
+      o.mods = d.mods.map((m) => (m.id in d.dsgBak ? { ...m, active: d.dsgBak[m.id] } : m))
+      o.dsgBak = null
+    }
+    return o
+  })
   const updMod = (i, p) => setDraft((d) => {
     const mods = d.mods.map((m, k) => (k === i ? { ...m, ...p } : { ...m }))
     if ('showTitle' in p) {  // başlık açılınca modül içeriğe yetecek kadar büyür
@@ -868,7 +884,7 @@ export default function Panel({ cfg, fresh, err }) {
                 </button>))}
               </div>
             ) : DESIGNS.map((d, i) => (
-              <button key={d[0]} className={'p-dsg' + ((draft.design || 0) === i ? ' p-on' : '')} onClick={() => { set({ design: i }); setPk(null) }}>
+              <button key={d[0]} className={'p-dsg' + ((draft.design || 0) === i ? ' p-on' : '')} onClick={() => { chooseDesign(i); setPk(null) }}>
                 <b>{d[0]}</b><small>{d[1]}</small>
               </button>))}
             <button onClick={() => setPk(null)}>Kapat</button>
@@ -887,7 +903,7 @@ export default function Panel({ cfg, fresh, err }) {
       {msg && <div className="p-toast" onClick={() => setMsg('')}>{msg}</div>}
       {tab === 'news' && (() => { const i = draft.mods.findIndex((x) => x.type === 'slides'); const m = draft.mods[i]; return (
         <div className="p-body">
-          <p className="p-hint">📐 Manşet alanı sabit boyuttadır: <b>840 × 460 piksel</b>. Görselleri bu ölçüde hazırlarsanız tam oturur.</p>
+          <p className="p-hint">📐 Manşet alanı sabit boyuttadır: <b>{slideFor(draft.design).w} × {slideFor(draft.design).h} piksel</b>. Görselleri bu ölçüde hazırlarsanız tam oturur.</p>
           {m ? <ModEditor key={m.id} m={m} upd={(p) => updMod(i, p)} del={() => delMod(i)} move={(sd) => moveMod(i, sd)} say={setMsg} root={draft} setRoot={set} open setOpen={() => {}} noBack />
             : <div className="p-card p-pad">Manşet haber modülü yok. Ayarlar > Modüller'den "Manşet haber" ekleyin.</div>}
         </div>) })()}
@@ -966,6 +982,23 @@ export default function Panel({ cfg, fresh, err }) {
       )}
       {view === 'lay' && (
         <div className="p-body">
+          {draft.design === 12 && (() => {
+            const side = draft.mods.filter((m) => m.type !== 'slides' && m.type !== 'clock')
+            const ord = draft.sideOrder || []
+            const list = [...side].sort((a, b) => { const ia = ord.indexOf(a.id), ib = ord.indexOf(b.id); return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) })
+            const ids = list.map((m) => m.id)
+            const mv = (i, d) => { const j = i + d; if (j < 0 || j >= ids.length) return; const a = [...ids]; [a[i], a[j]] = [a[j], a[i]]; set({ sideOrder: a }) }
+            const tg = (id, on) => set({ mods: draft.mods.map((m) => (m.id === id ? { ...m, active: on } : m)), sideOrder: ids })
+            return (
+              <div className="p-card p-pad"><div className="p-h">📺 Sağ panel (Yayın Ekranı)</div>
+                <small>İşaretlediğiniz modüller sağ panelde yukarıdan aşağıya bu sırayla görünür. Çok modül seçerseniz birbirine sıkışır.</small>
+                {list.map((m, i) => (
+                  <div key={m.id} className="p-slr" style={{ padding: '6px 0' }}>
+                    <label className="p-chk" style={{ flex: 1 }}><input type="checkbox" checked={m.active !== false} onChange={(e) => tg(m.id, e.target.checked)} /> {m.title}</label>
+                    <button onClick={() => mv(i, -1)} disabled={i === 0}>▲</button><button onClick={() => mv(i, 1)} disabled={i === list.length - 1}>▼</button>
+                  </div>))}
+              </div>)
+          })()}
           <div className="p-pvwrap">
             <Stage preview cfg={draft}
               edit={{ sel, onSelect: setSel, onChange: (mods) => set({ mods }) }} />

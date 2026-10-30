@@ -6,7 +6,11 @@ export const DESIGN_COLS = {
   9: [[20, 840], [872, 356], [1240, 340]],
   10: [[20, 340], [372, 356], [740, 840]],
   11: [[20, 300], [332, 840], [1184, 396]],
+  12: [[20, 1200], [1232, 348]],
 }
+// Bazı tasarımlarda manşet boyutu farklıdır (en/boy oranı 16:9)
+export const DESIGN_SLIDE = { 12: { w: 1200, h: 675 } }
+export const slideFor = (d) => DESIGN_SLIDE[d] || SLIDE
 export const colsFor = (d) => DESIGN_COLS[d] || COLS
 export const SLIDE = { w: 840, h: 460 }
 const FLEX = ['slides', 'table', 'days', 'duty', 'news', 'menu', 'text', 'schedule']
@@ -21,14 +25,15 @@ export function colSnap(m, CL = COLS) {
 }
 
 // mods: dizi (yerinde değiştirilir). pref: öncelikli modül. minOf(m): en küçük yükseklik
-export function reflow(mods, pref, minOf, wantOf, CL = COLS) {
+export function reflow(mods, pref, minOf, wantOf, CL = COLS, SZ = SLIDE, order = null) {
   const TOP = 124, BOT = 832, G = 12, AV = BOT - TOP
-  const mn = (m) => (m.type === 'slides' ? SLIDE.h : minOf(m) || 100)
+  const mn = (m) => (m.type === 'slides' ? SZ.h : minOf(m) || 100)
   const eff = (m) => (m.fixH ? Math.max(m.h, mn(m)) : mn(m))
   const need = (A) => A.reduce((q, m) => q + eff(m), 0) + G * Math.max(0, A.length - 1)
   // Sütuna tam oturmayan (ör. boyutlandırılmış) modülleri en yakın sütuna oturt; yoksa sütun dışında kalıp diğerleriyle üst üste biner
-  mods.forEach((m) => { if (m.type === 'slides') { const sc = CL.find((c) => c[1] === SLIDE.w) || CL[1]; m.x = sc[0]; m.w = SLIDE.w; m.h = SLIDE.h; m.fixH = true }; if (m.active && m.y >= 100) colSnap(m, CL) })
-  const cols = CL.map(([x, w]) => mods.filter((m) => m.active && m.x === x && m.w === w && m.y >= 100).sort((a, b) => (a.type === 'slides' ? -1e9 : a.y + a.h / 2) - (b.type === 'slides' ? -1e9 : b.y + b.h / 2)))
+  mods.forEach((m) => { if (m.type === 'slides') { const sc = CL.find((c) => c[1] === SZ.w) || CL[1]; m.x = sc[0]; m.w = SZ.w; m.h = SZ.h; m.fixH = true }; if (m.active && m.y >= 100) { if (order && m.type !== 'slides') { const L = CL[CL.length - 1]; m.x = L[0]; m.w = L[1] } else colSnap(m, CL) } })
+  const key = (m) => (m.type === 'slides' ? -1e9 : order && order.indexOf(m.id) >= 0 ? order.indexOf(m.id) : (order ? 1e4 : 0) + m.y + m.h / 2)
+  const cols = CL.map(([x, w]) => mods.filter((m) => m.active && m.x === x && m.w === w && m.y >= 100).sort((a, b) => key(a) - key(b)))
   for (let g = 0; g < 30; g++) {
     const o = cols.findIndex((A) => need(A) > AV)
     if (o < 0) break
