@@ -1,6 +1,6 @@
 // Manşet / tam ekran geçiş efektleri: [anahtar, ad]. Hepsi CSS ile çizilir (data-tr özniteliği).
 export const TRANS = [
-  ['', 'Yumuşak geçiş (varsayılan)'], ['mix', '🎲 Karışık (sırayla hepsi)'],
+  ['', 'Crossfade – yumuşak geçiş (varsayılan)'], ['fade', 'Soluklaşma (önce söner, sonra gelir)'], ['kenburns', 'Ken Burns – sinematik zoom'], ['zin', 'Yakınlaşma'], ['zout', 'Uzaklaşma'], ['sl', 'Sola kaydırma'], ['sr', 'Sağa kaydırma'], ['su', 'Yukarı kaydırma'], ['sd', 'Aşağı kaydırma'], ['mix', '🎲 Karışık (sırayla hepsi)'],
   ['sweep', 'Işık hüzmesi'], ['pixel', 'Piksel açılması'], ['mosaic', 'Mozaik açılması'], ['shatter', 'Parçalanarak açılma'],
   ['accordion', 'Akordeon'], ['page', 'Sayfa çevirme'], ['glitch', 'Dijital bozulma'], ['morph', 'Şekil dönüşümü'],
   ['xzoom', 'Çapraz yakınlaşma'], ['hblind', 'Yatay jaluzi'], ['vblind', 'Dikey jaluzi'], ['checker', 'Dama deseni'],

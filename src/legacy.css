@@ -824,3 +824,13 @@ html,body,#root{height:100%}
 .sl [data-tr=curtain].on::before{left:0;animation:t-cl 1.3s cubic-bezier(.6,0,.2,1) .15s both}
 .sl [data-tr=curtain].on::after{right:0;animation:t-cr2 1.3s cubic-bezier(.6,0,.2,1) .15s both}
 @keyframes t-cl{from{transform:none}to{transform:translateX(-100%)}}@keyframes t-cr2{from{transform:none}to{transform:translateX(100%)}}
+
+/* ===== Temel geçişler ===== */
+.sl [data-tr=fade]{transition:opacity .5s}.sl [data-tr=fade].on{transition:opacity .6s ease .5s}
+.sl [data-tr=kenburns].on{animation:t-kb 16s ease-out both}@keyframes t-kb{from{transform:scale(1) translate(0,0)}to{transform:scale(1.14) translate(-2%,-1.5%)}}
+.sl [data-tr=zin].on{animation:t-zi 1s ease-out both}@keyframes t-zi{from{transform:scale(.8);opacity:0}to{transform:none;opacity:1}}
+.sl [data-tr=zout].on{animation:t-zo 1s ease-out both}@keyframes t-zo{from{transform:scale(1.3);opacity:0}to{transform:none;opacity:1}}
+.sl [data-tr=sl].on{animation:t-sl .8s cubic-bezier(.2,.8,.2,1) both}@keyframes t-sl{from{transform:translateX(100%)}to{transform:none}}
+.sl [data-tr=sr].on{animation:t-sr .8s cubic-bezier(.2,.8,.2,1) both}@keyframes t-sr{from{transform:translateX(-100%)}to{transform:none}}
+.sl [data-tr=su].on{animation:t-su .8s cubic-bezier(.2,.8,.2,1) both}@keyframes t-su{from{transform:translateY(100%)}to{transform:none}}
+.sl [data-tr=sd].on{animation:t-sd .8s cubic-bezier(.2,.8,.2,1) both}@keyframes t-sd{from{transform:translateY(-100%)}to{transform:none}}
