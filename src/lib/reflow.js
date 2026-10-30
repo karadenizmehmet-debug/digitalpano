@@ -6,10 +6,10 @@ export const DESIGN_COLS = {
   9: [[20, 840], [872, 356], [1240, 340]],
   10: [[20, 340], [372, 356], [740, 840]],
   11: [[20, 300], [332, 840], [1184, 396]],
-  12: [[20, 1200], [1232, 348]],
+  12: [[0, 1200], [1200, 400]],
 }
-// Bazı tasarımlarda manşet boyutu farklıdır (en/boy oranı 16:9)
-export const DESIGN_SLIDE = { 12: { w: 1200, h: 675 } }
+// Bazı tasarımlarda manşet boyutu farklıdır 
+export const DESIGN_SLIDE = { 12: { w: 1200, h: 800 } }
 export const slideFor = (d) => DESIGN_SLIDE[d] || SLIDE
 export const colsFor = (d) => DESIGN_COLS[d] || COLS
 export const SLIDE = { w: 840, h: 460 }
@@ -26,7 +26,7 @@ export function colSnap(m, CL = COLS) {
 
 // mods: dizi (yerinde değiştirilir). pref: öncelikli modül. minOf(m): en küçük yükseklik
 export function reflow(mods, pref, minOf, wantOf, CL = COLS, SZ = SLIDE, order = null) {
-  const TOP = 124, BOT = 832, G = 12, AV = BOT - TOP
+  const TOP = order ? 100 : 124, BOT = order ? 900 : 832, G = 12, AV = BOT - TOP
   const mn = (m) => (m.type === 'slides' ? SZ.h : minOf(m) || 100)
   const eff = (m) => (m.fixH ? Math.max(m.h, mn(m)) : mn(m))
   const need = (A) => A.reduce((q, m) => q + eff(m), 0) + G * Math.max(0, A.length - 1)

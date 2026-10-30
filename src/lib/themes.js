@@ -26,5 +26,5 @@ export const DESIGNS = [
   ['Sinema', 'Manşet solda büyük sahne, koyu zemin ve altın detaylar (yerleşim değişir)'],
   ['Tahta', 'Manşet sağda, yeşil sınıf tahtası ve tebeşir görünümü (yerleşim değişir)'],
   ['Deniz', 'Manşet ortada, sol sütun dar, sağ geniş; deniz mavisi degrade zemin (yerleşim değişir)'],
-  ['Yayın Ekranı', 'Çok büyük manşet solda (1200 × 675), seçtiğiniz modüller sağ panelde. Seçince uygun modüller otomatik açılır'],
+  ['Yayın Ekranı', 'Manşet sol-alta tam yaslı (1200 × 800), sağ panel manşetle bütünleşik; duyuru şeridi yok. Uygun modüller otomatik açılır'],
 ]

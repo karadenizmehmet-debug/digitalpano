@@ -445,17 +445,17 @@ html,body,#root{height:100%}
 .stg .stage[data-dsg="11"] .pi.nx{background:#d6254d!important}.stg .stage[data-dsg="11"] .pi.nx *{color:#fff!important}
 
 /* Tasarım 12: Yayın Ekranı (büyük manşet solda, sağda koyu mavi bilgi paneli) */
-.stg .stage[data-dsg="12"]{background:linear-gradient(90deg,#0d1b36 1222px,#2a4a82 1222px)!important}
+.stg .stage[data-dsg="12"]{background:linear-gradient(90deg,#000 1200px,#2a4a82 1200px)!important}
 .stg .stage[data-dsg="12"] .hdr{background:#0d1b36!important;border-bottom:2px solid #3d6fd1;color:#fff}
 .stg .stage[data-dsg="12"] .hdr .n,.stg .stage[data-dsg="12"] .hdr .s{color:#fff!important}
 .stg .stage[data-dsg="12"] .mod.t-clock{background:#ffffff1f!important;border:1px solid #ffffff44;border-radius:14px;color:#fff}
 .stg .stage[data-dsg="12"] .mod.t-clock .d,.stg .stage[data-dsg="12"] .mod.t-clock .t{color:#fff!important}
-.stg .stage[data-dsg="12"] .mod.t-slides{border:0;border-radius:14px;box-shadow:0 10px 30px #000a}
+.stg .stage[data-dsg="12"] .mod.t-slides{border:0;border-radius:0;box-shadow:none}.stg .stage[data-dsg="12"] .mod.t-slides .b,.stg .stage[data-dsg="12"] .mod.t-slides .sl{border-radius:0}
 .stg .stage[data-dsg="12"] .mod:not(.t-slides):not(.t-clock){background:transparent!important;border:0;box-shadow:none;border-radius:0;color:#fff}
 .stg .stage[data-dsg="12"] .mod:not(.t-slides) .b *{color:inherit!important}
-.stg .stage[data-dsg="12"] .mod:not(.t-slides):not(.t-clock) .h{height:38px;margin:0 6px;padding:0;border:0!important;border-bottom:1px solid #ffffff44!important;color:#a9c8ff!important;text-transform:uppercase;letter-spacing:.12em;font-size:14px;font-weight:700;white-space:nowrap}
+.stg .stage[data-dsg="12"] .mod:not(.t-slides):not(.t-clock) .h{height:38px;margin:0 26px;padding:0;border:0!important;border-bottom:1px solid #ffffff44!important;color:#a9c8ff!important;text-transform:uppercase;letter-spacing:.12em;font-size:14px;font-weight:700;white-space:nowrap}
 .stg .stage[data-dsg="12"] .mod .h::before{display:none}
-.stg .stage[data-dsg="12"] .mod:not(.t-slides):not(.t-clock) .b{padding:8px 6px 10px;font-weight:600}
+.stg .stage[data-dsg="12"] .mod:not(.t-slides):not(.t-clock) .b{padding:8px 26px 10px;font-weight:600}
 .stg .stage[data-dsg="12"] .ln,.stg .stage[data-dsg="12"] .dt{background:none!important;border:0!important;border-bottom:1px solid #ffffff2a!important;border-radius:0!important;padding:8px 0!important;margin:0!important}
 .stg .stage[data-dsg="12"] .pi,.stg .stage[data-dsg="12"] .cdc,.stg .stage[data-dsg="12"] .ci{background:#ffffff1c!important;border:0!important;border-radius:10px;box-shadow:none}
 .stg .stage[data-dsg="12"] .mod .ci .cv,.stg .stage[data-dsg="12"] .mod .cdc b,.stg .stage[data-dsg="12"] .mod .pi b{color:#ffe08a!important}
@@ -467,7 +467,7 @@ html,body,#root{height:100%}
 .stg .stage[data-dsg="12"] .tb tr:nth-child(even) td{background:none!important}
 .stg .stage[data-dsg="12"] .ftr{background:#0d1b36!important;border-top:2px solid #3d6fd1}
 /* Yayın Ekranı: kayan şerit yerine manşet altında sabit duyuru; saat/tarih yeni düzen */
-.stg .stage[data-dsg="12"] .ann12{position:absolute;left:20px;top:810px;width:1200px;height:76px;display:flex;align-items:center;gap:20px;padding:0 24px;background:#ffffff1c;border-left:8px solid #ffe08a;border-radius:14px;color:#fff;overflow:hidden}
+.stg .stage[data-dsg="12"] .ann12-x{position:absolute;left:20px;top:810px;width:1200px;height:76px;display:flex;align-items:center;gap:20px;padding:0 24px;background:#ffffff1c;border-left:8px solid #ffe08a;border-radius:14px;color:#fff;overflow:hidden}
 .stg .stage[data-dsg="12"] .ann12 .tg{flex:none;padding:6px 14px;background:#ffe08a;color:#0d1b36;font-weight:800;letter-spacing:.12em;border-radius:6px;font-size:18px}
 .stg .stage[data-dsg="12"] .ann12 .tx{flex:1;font-size:34px;font-weight:700;line-height:1.15;max-height:70px;overflow:hidden;animation:a12 .6s}
 .stg .stage[data-dsg="12"] .ann12 .dots{flex:none;display:flex;flex-direction:column;gap:5px}
@@ -478,3 +478,4 @@ html,body,#root{height:100%}
 .stg .stage[data-dsg="12"] .mod.t-clock .clk{display:flex!important;flex-direction:row-reverse;align-items:center;justify-content:flex-end;gap:18px;height:100%}
 .stg .stage[data-dsg="12"] .mod.t-clock .t{font-size:62px!important;font-weight:800;letter-spacing:.02em;font-variant-numeric:tabular-nums;color:#ffe08a!important;line-height:1}
 .stg .stage[data-dsg="12"] .mod.t-clock .d{font-size:21px!important;font-weight:700;line-height:1.25;text-align:left;color:#fff!important;padding-left:16px;border-left:3px solid #3d6fd1;width:105px;white-space:normal}
+.stg .stage[data-dsg="12"] .hdr{height:100px!important;box-sizing:border-box;overflow:hidden}.stg .stage[data-dsg="12"] .mod.t-weather{padding-top:6px}
