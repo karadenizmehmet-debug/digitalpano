@@ -66,8 +66,8 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
   // Otomatik yerleşim açıkken ekran, kayıtlı boyutlardan bağımsız olarak içeriğe göre dengeli yerleştirir
   const mods0 = useMemo(() => {
     if (edit || cfg.autoFlow === false) return cfg.mods
-    const c = cfg.mods.map((m) => ({ ...m })); reflow(c, null, minHOf, wantH, colsFor(cfg.design), slideFor(cfg.design), SIDE_DSG[cfg.design] ? (cfg.sideOrder || []) : null, SIDE_DSG[cfg.design] || null); return c
-  }, [cfg.mods, cfg.autoFlow, cfg.design, cfg.sideOrder, !!edit])
+    const c = cfg.mods.map((m) => ({ ...m })); reflow(c, null, minHOf, wantH, colsFor(cfg.design), slideFor(cfg.design), SIDE_DSG[cfg.design] ? (cfg.sideOrder || []) : null, SIDE_DSG[cfg.design] ? { ...SIDE_DSG[cfg.design], stripId: cfg.stripId } : null); return c
+  }, [cfg.mods, cfg.autoFlow, cfg.design, cfg.sideOrder, cfg.stripId, !!edit])
   const wmod = mods0.find((m) => m.type === 'weather' && m.active)
   const wx = useLive(cfg.city, !!wmod && !!cfg.city)
   // Canlı veri açıksa yalnızca ona bakılır (yüklenirken elle girilen duruma düşmez); kapalıysa elle girilen durum kullanılır
@@ -136,7 +136,7 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
           const R = registry[m.type]
           const title = m.type === 'slides' ? m.showTitle : m.showTitle !== false
           return (
-            <div key={m.id} className={`mod t-${m.type}${edit && edit.sel === m.id ? ' sel' : ''}${m.active ? '' : ' off'}`} data-id={m.id}
+            <div key={m.id} className={`mod t-${m.type}${m.strp ? ' strp' : ''}${edit && edit.sel === m.id ? ' sel' : ''}${m.active ? '' : ' off'}`} data-id={m.id}
               style={{ left: m.x, top: m.y, width: m.w, height: m.h, '--fs': (m.fs || 100) / 100, '--c': m.color || cr, '--c16': mix(m.color || cr, '#fff', 16), '--c70': mix(m.color || cr, '#000', 70), '--c85': mix(m.color || cr, '#000', 85) }}
               onPointerDown={edit ? (e) => down(e, m, 'move') : undefined}>
               {title && <div className="h">{m.type === 'quote' ? quoteTitle(m.data, now, m.title) : m.title}</div>}

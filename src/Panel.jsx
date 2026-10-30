@@ -983,14 +983,22 @@ export default function Panel({ cfg, fresh, err }) {
       {view === 'lay' && (
         <div className="p-body">
           {SIDE_DSG[draft.design] && (() => {
-            const side = draft.mods.filter((m) => m.type !== 'slides' && m.type !== 'clock')
+            const stripM = draft.stripId === 'none' ? null : draft.mods.find((m) => (draft.stripId ? m.id === draft.stripId : m.type === 'quote'))
+            const side = draft.mods.filter((m) => m.type !== 'slides' && m.type !== 'clock' && m !== stripM)
             const ord = draft.sideOrder || []
             const list = [...side].sort((a, b) => { const ia = ord.indexOf(a.id), ib = ord.indexOf(b.id); return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) })
             const ids = list.map((m) => m.id)
             const mv = (i, d) => { const j = i + d; if (j < 0 || j >= ids.length) return; const a = [...ids]; [a[i], a[j]] = [a[j], a[i]]; set({ sideOrder: a }) }
             const tg = (id, on) => set({ mods: draft.mods.map((m) => (m.id === id ? { ...m, active: on } : m)), sideOrder: ids })
+            const pickStrip = (id) => { if (id === 'none') set({ stripId: 'none' }); else set({ stripId: id, mods: draft.mods.map((m) => (m.id === id ? { ...m, active: true } : m)) }) }
             return (
-              <div className="p-card p-pad"><div className="p-h">📺 Yan panel modülleri</div>
+              <div className="p-card p-pad"><div className="p-h">📺 Manşet altı şeridi</div>
+                <small>Manşetin altındaki boşlukta görünecek modül:</small>
+                <select value={stripM ? stripM.id : 'none'} onChange={(e) => pickStrip(e.target.value)}>
+                  <option value="none">(Boş bırak)</option>
+                  {draft.mods.filter((m) => m.type !== 'slides' && m.type !== 'clock').map((m) => <option key={m.id} value={m.id}>{m.title}</option>)}
+                </select>
+                <div className="p-h" style={{ marginTop: 14 }}>📺 Yan panel modülleri</div>
                 <small>İşaretlediğiniz modüller yan panelde yukarıdan aşağıya bu sırayla görünür. Çok modül seçerseniz birbirine sıkışır.</small>
                 {list.map((m, i) => (
                   <div key={m.id} className="p-slr" style={{ padding: '6px 0' }}>

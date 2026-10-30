@@ -34,10 +34,12 @@ export function reflow(mods, pref, minOf, wantOf, CL = COLS, SZ = SLIDE, order =
   const eff = (m) => (m.fixH ? Math.max(m.h, mn(m)) : mn(m))
   const need = (A) => A.reduce((q, m) => q + eff(m), 0) + G * Math.max(0, A.length - 1)
   // Sütuna tam oturmayan (ör. boyutlandırılmış) modülleri en yakın sütuna oturt; yoksa sütun dışında kalıp diğerleriyle üst üste biner
-  mods.forEach((m) => { if (m.type === 'slides') { const sc = CL.find((c) => c[1] === SZ.w) || CL[1]; m.x = sc[0]; m.w = SZ.w; m.h = SZ.h; m.fixH = true }; if (m.active && m.y >= 100 && !(AR && AR.strip && m.type === 'quote')) { if (order && m.type !== 'slides') { const L = CL[AR && AR.col != null ? AR.col : CL.length - 1]; m.x = L[0]; m.w = L[1] } else colSnap(m, CL) } })
+  mods.forEach((m) => { if (m.type === 'slides') { const sc = CL.find((c) => c[1] === SZ.w) || CL[1]; m.x = sc[0]; m.w = SZ.w; m.h = SZ.h; m.fixH = true }; if (m.active && m.y >= 100 && !(AR && AR.strip && (AR.stripId === 'none' ? false : AR.stripId ? m.id === AR.stripId : m.type === 'quote'))) { if (order && m.type !== 'slides') { const L = CL[AR && AR.col != null ? AR.col : CL.length - 1]; m.x = L[0]; m.w = L[1] } else colSnap(m, CL) } })
   // Manşetin altındaki boşluk "Günün Sözü" şeridi olur (manşet 840:460 oranını korur)
-  const strip = AR && AR.strip ? mods.filter((m) => m.active && m.type === 'quote') : []
-  strip.forEach((m) => { const sc = CL.find((c) => c[1] === SZ.w) || CL[1]; m.x = sc[0]; m.w = SZ.w; m.y = TOP + SZ.h + G; m.h = BOT - m.y; m.fixH = true })
+  const sid = AR && AR.stripId
+  const strip = AR && AR.strip && sid !== 'none' ? mods.filter((m) => m.active && (sid ? m.id === sid : m.type === 'quote')) : []
+  mods.forEach((m) => { delete m.strp })
+  strip.forEach((m) => { const sc = CL.find((c) => c[1] === SZ.w) || CL[1]; m.x = sc[0]; m.w = SZ.w; m.y = TOP + SZ.h + G; m.h = BOT - m.y; m.fixH = true; m.strp = true })
   const key = (m) => (m.type === 'slides' ? -1e9 : order && order.indexOf(m.id) >= 0 ? order.indexOf(m.id) : (order ? 1e4 : 0) + m.y + m.h / 2)
   const cols = CL.map(([x, w]) => mods.filter((m) => m.active && !strip.includes(m) && m.x === x && m.w === w && m.y >= 100).sort((a, b) => key(a) - key(b)))
   for (let g = 0; g < 30; g++) {

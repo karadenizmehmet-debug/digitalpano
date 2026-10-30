@@ -512,3 +512,6 @@ html,body,#root{height:100%}
 .stg .stage[data-dsg="12"] .mod.t-quote{background:#0d1b36!important}
 .stg .stage[data-dsg="12"] .mod.t-quote .h{margin:0 26px}
 .stg .stage[data-dsg="12"] .mod.t-quote .b{font-size:165%}
+.stg .stage[data-dsg="12"] .mod.strp{background:#0d1b36!important}
+.stg .stage[data-dsg="12"] .mod.strp .b{font-size:120%}
+.stg .stage[data-dsg="12"] .mod.t-quote.strp .b{font-size:165%}
