@@ -6,15 +6,17 @@ export const SOURCES = [
   { id: 'ntv', name: 'NTV Eğitim Haberleri', tag: 'EĞİTİM', url: 'https://www.ntv.com.tr/egitim.rss' },
   { id: 'hurriyet', name: 'Hürriyet Eğitim Haberleri', tag: 'EĞİTİM', url: 'https://www.hurriyet.com.tr/rss/egitim' },
 ]
-// İşaretli kaynak kimlikleri. Eski ayar (tkNews açık, kaynak seçimi yok) = yalnızca Konya MEM.
-export const activeIds = (c) => (Array.isArray(c.rssOn) ? c.rssOn : c.tkNews ? ['konya'] : [])
-export const activeUrls = (c) => {
-  const ids = activeIds(c), u = SOURCES.filter((s) => ids.includes(s.id)).map((s) => s.url)
-  if (ids.includes('custom') && String(c.rssCustom || '').trim()) u.push(String(c.rssCustom).trim())
-  return u
+// Kaynak listesi: panelde düzenlenmişse cfg.rssList, değilse hazır liste.
+// Eski ayarlar (tkNews / rssOn / rssCustom) otomatik karşılanır.
+export const listOf = (c) => {
+  if (Array.isArray(c.rssList)) return c.rssList
+  const on = Array.isArray(c.rssOn) ? c.rssOn : c.tkNews ? ['konya'] : []
+  const L = SOURCES.map((s) => ({ ...s, on: on.includes(s.id) }))
+  if (String(c.rssCustom || '').trim()) L.push({ id: 'custom', name: 'Kendi RSS adresim', url: String(c.rssCustom).trim(), on: on.includes('custom') })
+  return L
 }
+export const activeUrls = (c) => listOf(c).filter((s) => s.on && String(s.url || '').trim()).map((s) => String(s.url).trim())
 export const tagOf = (c) => {
-  const ids = activeIds(c)
-  if (ids.length === 1) { const s = SOURCES.find((x) => x.id === ids[0]); if (s) return s.tag }
-  return 'HABERLER'
+  const A = listOf(c).filter((s) => s.on && String(s.url || '').trim())
+  return A.length === 1 ? A[0].tag || 'HABER' : 'HABERLER'
 }

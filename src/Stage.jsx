@@ -11,7 +11,7 @@ import { loadImage } from './lib/firebase.js'
 import { useLive } from './lib/weather.js'
 import { visibleTicker, effectiveTicker } from './lib/ticker.js'
 import { useNews } from './lib/news.js'
-import { activeIds, tagOf } from './lib/newsDefault.js'
+import { activeUrls, tagOf } from './lib/newsDefault.js'
 import { colSnap, reflow, colsFor, slideFor, SIDE_DSG } from './lib/reflow.js'
 import { quoteTitle } from './modules/quote.jsx'
 import { Pic } from './modules/slides.jsx'
@@ -95,7 +95,7 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
 
   const sl = [cfg.slogan, cfg.city, cfg.url].filter(Boolean).join('  •  ')
   const tk0 = visibleTicker(effectiveTicker(cfg, now), now)
-  const news = useNews(activeIds(cfg).length > 0 && !tk0.length && !preview)  // duyuru yoksa MEB haberleri
+  const news = useNews(activeUrls(cfg).length > 0 && !tk0.length && !preview)  // duyuru yoksa MEB haberleri
   const isNews = !tk0.length && news.length > 0
   const tk = isNews ? news : tk0
   const q = tk.map((x, i) => <span key={i}>{x}</span>)

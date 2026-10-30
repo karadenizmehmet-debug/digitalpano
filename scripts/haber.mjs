@@ -10,10 +10,13 @@ const get = async (u, ms = 20000) => { const r = await fetch(u, { signal: AbortS
 const ent = (s) => s.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/&#(\d+);/g, (_, n) => String.fromCharCode(+n)).replace(/&amp;/g, '&').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
 async function urls() {
   if (process.env.NEWS_URL) return process.env.NEWS_URL.split(',')
-  const q = ['tkNews', 'rssOn', 'rssCustom'].map((f) => 'mask.fieldPaths=' + f).join('&')
+  const q = ['tkNews', 'rssOn', 'rssCustom', 'rssList'].map((f) => 'mask.fieldPaths=' + f).join('&')
   const r = await get('https://firestore.googleapis.com/v1/projects/digitalpano-84947/databases/(default)/documents/config/pano?' + q)
-  const f = (await r.json()).fields || {}
-  return activeUrls({ tkNews: !!f.tkNews?.booleanValue, rssOn: f.rssOn ? (f.rssOn.arrayValue.values || []).map((v) => v.stringValue) : undefined, rssCustom: f.rssCustom?.stringValue })
+  const f = (await r.json()).fields || {}, arr = (x) => (x?.arrayValue?.values || [])
+  return activeUrls({
+    tkNews: !!f.tkNews?.booleanValue, rssOn: f.rssOn ? arr(f.rssOn).map((v) => v.stringValue) : undefined, rssCustom: f.rssCustom?.stringValue,
+    rssList: f.rssList ? arr(f.rssList).map((v) => ({ url: v.mapValue?.fields?.url?.stringValue, on: !!v.mapValue?.fields?.on?.booleanValue })) : undefined,
+  })
 }
 async function feed(u) {
   const r = await get(u), buf = Buffer.from(await r.arrayBuffer())
