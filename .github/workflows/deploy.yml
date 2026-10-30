@@ -29,9 +29,11 @@ jobs:
       # GITHUB_PAGES verilmediği için base '/' olur (Firebase kök dizinden açılır)
       - run: npm run build
         if: env.SA != ''
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - name: Firebase Hosting'e yayınla
         if: env.SA != ''
-        with:
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          projectId: digitalpano-84947
-          channelId: live
+        run: |
+          printf '%s' "$SA" > "$RUNNER_TEMP/sa.json"
+          python3 -c "import json,sys;d=json.load(open(sys.argv[1]));print('Anahtar OK:',d.get('client_email'))" "$RUNNER_TEMP/sa.json"
+          export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/sa.json"
+          npx --yes firebase-tools@latest deploy --only hosting --project digitalpano-84947 --non-interactive
+          rm -f "$RUNNER_TEMP/sa.json"
