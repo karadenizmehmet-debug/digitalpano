@@ -479,3 +479,32 @@ html,body,#root{height:100%}
 .stg .stage[data-dsg="12"] .mod.t-clock .t{font-size:62px!important;font-weight:800;letter-spacing:.02em;font-variant-numeric:tabular-nums;color:#ffe08a!important;line-height:1}
 .stg .stage[data-dsg="12"] .mod.t-clock .d{font-size:21px!important;font-weight:700;line-height:1.25;text-align:left;color:#fff!important;padding-left:16px;border-left:3px solid #3d6fd1;width:105px;white-space:normal}
 .stg .stage[data-dsg="12"] .hdr{height:100px!important;box-sizing:border-box;overflow:hidden}.stg .stage[data-dsg="12"] .mod.t-weather{padding-top:6px}
+
+/* Tasarım 13: Menü Panosu (bordo şerit, beyaz zemin, solda liste, sağda büyük manşet) */
+.stg .stage[data-dsg="13"]{background:#fff!important}
+.stg .stage[data-dsg="13"] .hdr{height:100px!important;box-sizing:border-box;overflow:hidden;background:#7a1233!important;border:0!important;color:#fff}
+.stg .stage[data-dsg="13"] .hdr .n,.stg .stage[data-dsg="13"] .hdr .s{color:#fff!important}
+.stg .stage[data-dsg="13"] .mod.t-clock{background:transparent!important;border:0!important;box-shadow:none}
+.stg .stage[data-dsg="13"] .mod.t-clock .clk{display:flex!important;flex-direction:row-reverse;align-items:center;justify-content:flex-end;gap:16px;height:100%}
+.stg .stage[data-dsg="13"] .mod.t-clock .t{font-size:54px!important;font-weight:800;font-variant-numeric:tabular-nums;color:#fff!important;line-height:1}
+.stg .stage[data-dsg="13"] .mod.t-clock .d{font-size:21px!important;font-weight:600;line-height:1.25;color:#f3c9d4!important;text-align:left;padding-left:16px;border-left:3px solid #f3c9d4;width:105px;white-space:normal}
+.stg .stage[data-dsg="13"] .mod.t-slides{border:0;border-radius:0;box-shadow:0 4px 14px #0004}
+.stg .stage[data-dsg="13"] .mod:not(.t-slides):not(.t-clock){background:#fff!important;border:0!important;box-shadow:none!important;border-radius:0!important;color:#2a1620}
+.stg .stage[data-dsg="13"] .mod:not(.t-slides):not(.t-clock) .h{height:42px;margin:0 0 6px;padding:0 16px;background:#7a1233!important;color:#fff!important;border:0!important;text-transform:none;letter-spacing:.02em;font-size:21px;font-weight:800;display:flex;align-items:center}
+.stg .stage[data-dsg="13"] .mod .h::before{display:none}
+.stg .stage[data-dsg="13"] .mod:not(.t-slides):not(.t-clock) .b{padding:6px 8px;color:#2a1620;font-weight:600}
+.stg .stage[data-dsg="13"] .mod:not(.t-slides) .b *{color:inherit!important}
+.stg .stage[data-dsg="13"] .ln,.stg .stage[data-dsg="13"] .dt{background:none!important;border:0!important;border-bottom:2px solid #7a1233!important;border-radius:0!important;padding:8px 0!important;margin:0!important}
+.stg .stage[data-dsg="13"] .pi,.stg .stage[data-dsg="13"] .cdc,.stg .stage[data-dsg="13"] .ci{background:#f6e8ec!important;border:0!important;border-radius:6px;box-shadow:none}
+.stg .stage[data-dsg="13"] .mod .ci .cv,.stg .stage[data-dsg="13"] .mod .cdc b,.stg .stage[data-dsg="13"] .mod .pi b,.stg .stage[data-dsg="13"] .mod .bn,.stg .stage[data-dsg="13"] .mod .bt b{color:#7a1233!important}
+.stg .stage[data-dsg="13"] .mod .pi.nx{background:#7a1233!important}.stg .stage[data-dsg="13"] .mod .pi.nx *{color:#fff!important}
+.stg .stage[data-dsg="13"] .mod .dt i{background:#7a1233!important;color:#fff!important}
+.stg .stage[data-dsg="13"] .tb th{background:#7a1233!important;color:#fff!important}
+.stg .stage[data-dsg="13"] .tb td{border-bottom:1px solid #e3c6cf}
+.stg .stage[data-dsg="13"] .tb tr:nth-child(even) td{background:#fbf3f5!important}
+.stg .stage[data-dsg="13"] .mod.t-clock .b .t{color:#fff!important}
+.stg .stage[data-dsg="13"] .mod.t-clock .b .d{color:#f3c9d4!important}
+.stg .stage[data-dsg="13"] .mod:not(.t-slides) .b .tb th,.stg .stage[data-dsg="13"] .mod:not(.t-slides) .b .dt i,.stg .stage[data-dsg="13"] .mod:not(.t-slides) .b .pi.nx *{color:#fff!important}
+.stg .stage[data-dsg="13"] .mod:not(.t-slides) .b .pi b,.stg .stage[data-dsg="13"] .mod:not(.t-slides) .b .ci .cv,.stg .stage[data-dsg="13"] .mod:not(.t-slides) .b .cdc b{color:#7a1233!important}
+.stg .stage[data-dsg="13"] .mod:not(.t-slides) .b .pi.nx b{color:#fff!important}
+.stg .stage[data-dsg="13"] .mod .b b,.stg .stage[data-dsg="13"] .mod .b span{text-decoration:none!important}

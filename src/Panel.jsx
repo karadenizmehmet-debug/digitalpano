@@ -10,7 +10,7 @@ import { parseQ, listOf, todayIx } from './modules/quote.jsx'
 import { SOZ, AYET } from './lib/quotesData.js'
 import { DG, mondayISO, weekShift } from './modules/duty.jsx'
 import { IHO_CLASSES, IHO_LESSONS, ihoProgram } from './lib/ihoSample.js'
-import { reflow, colsFor, slideFor } from './lib/reflow.js'
+import { reflow, colsFor, slideFor, SIDE_DSG } from './lib/reflow.js'
 import './panel.css'
 
 const ALI = ['🚨','⚠️','🔥','🌍','🌧️','❄️','⚡','🌪️','📢','🏥','🚑','🚒','🚫','⛔','😷','🚸','🔒','📣','ℹ️','✅','🕌','🎓','🚌','⏰']
@@ -788,18 +788,18 @@ export default function Panel({ cfg, fresh, err }) {
   }
   const set = (p) => setDraft((d) => ({ ...d, ...p }))
   // Tasarım seçimi: "Yayın Ekranı" uygun modülleri açar, diğerlerini kapatır; başka tasarıma geçince eski durum geri gelir
-  const SIDE_KEEP = ['weather', 'bell', 'duty', 'pray', 'quote']
+  const SIDE_KEEP = { 12: ['weather', 'bell', 'duty', 'pray', 'quote'], 13: ['schedule', 'duty', 'bell', 'pray'] }
   const chooseDesign = (i) => setDraft((d) => {
     const cur = d.design || 0
     if (i === cur) return d
     const o = { ...d, design: i }
-    if (i === 12) {
-      o.dsgBak = Object.fromEntries(d.mods.map((m) => [m.id, m.active !== false]))
-      o.mods = d.mods.map((m) => (m.type === 'slides' || m.type === 'clock' ? m : { ...m, active: SIDE_KEEP.includes(m.type) }))
-      o.sideOrder = SIDE_KEEP.map((t) => o.mods.find((m) => m.type === t)).filter(Boolean).map((m) => m.id)
-    } else if (cur === 12 && d.dsgBak) {
-      o.mods = d.mods.map((m) => (m.id in d.dsgBak ? { ...m, active: d.dsgBak[m.id] } : m))
-      o.dsgBak = null
+    let ms = d.mods
+    if (SIDE_KEEP[cur] && d.dsgBak) { ms = ms.map((m) => (m.id in d.dsgBak ? { ...m, active: d.dsgBak[m.id] } : m)); o.dsgBak = null; o.mods = ms }
+    if (SIDE_KEEP[i]) {
+      const keep = SIDE_KEEP[i]
+      o.dsgBak = Object.fromEntries(ms.map((m) => [m.id, m.active !== false]))
+      o.mods = ms.map((m) => (m.type === 'slides' || m.type === 'clock' ? m : { ...m, active: keep.includes(m.type) }))
+      o.sideOrder = keep.map((t) => o.mods.find((m) => m.type === t)).filter(Boolean).map((m) => m.id)
     }
     return o
   })
@@ -982,7 +982,7 @@ export default function Panel({ cfg, fresh, err }) {
       )}
       {view === 'lay' && (
         <div className="p-body">
-          {draft.design === 12 && (() => {
+          {SIDE_DSG[draft.design] && (() => {
             const side = draft.mods.filter((m) => m.type !== 'slides' && m.type !== 'clock')
             const ord = draft.sideOrder || []
             const list = [...side].sort((a, b) => { const ia = ord.indexOf(a.id), ib = ord.indexOf(b.id); return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) })
@@ -990,8 +990,8 @@ export default function Panel({ cfg, fresh, err }) {
             const mv = (i, d) => { const j = i + d; if (j < 0 || j >= ids.length) return; const a = [...ids]; [a[i], a[j]] = [a[j], a[i]]; set({ sideOrder: a }) }
             const tg = (id, on) => set({ mods: draft.mods.map((m) => (m.id === id ? { ...m, active: on } : m)), sideOrder: ids })
             return (
-              <div className="p-card p-pad"><div className="p-h">📺 Sağ panel (Yayın Ekranı)</div>
-                <small>İşaretlediğiniz modüller sağ panelde yukarıdan aşağıya bu sırayla görünür. Çok modül seçerseniz birbirine sıkışır.</small>
+              <div className="p-card p-pad"><div className="p-h">📺 Yan panel modülleri</div>
+                <small>İşaretlediğiniz modüller yan panelde yukarıdan aşağıya bu sırayla görünür. Çok modül seçerseniz birbirine sıkışır.</small>
                 {list.map((m, i) => (
                   <div key={m.id} className="p-slr" style={{ padding: '6px 0' }}>
                     <label className="p-chk" style={{ flex: 1 }}><input type="checkbox" checked={m.active !== false} onChange={(e) => tg(m.id, e.target.checked)} /> {m.title}</label>

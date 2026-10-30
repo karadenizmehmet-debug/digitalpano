@@ -27,4 +27,5 @@ export const DESIGNS = [
   ['Tahta', 'Manşet sağda, yeşil sınıf tahtası ve tebeşir görünümü (yerleşim değişir)'],
   ['Deniz', 'Manşet ortada, sol sütun dar, sağ geniş; deniz mavisi degrade zemin (yerleşim değişir)'],
   ['Yayın Ekranı', 'Manşet sol-alta tam yaslı (1200 × 800), sağ panel manşetle bütünleşik; duyuru şeridi yok. Uygun modüller otomatik açılır'],
+  ['Menü Panosu', 'Bordo üst şerit, beyaz zemin; solda liste modülleri, sağda büyük manşet (980 × 764). Uygun modüller otomatik açılır'],
 ]

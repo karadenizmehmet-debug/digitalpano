@@ -10,7 +10,7 @@ import { Balloons, Stars, Hearts, Petals, Flags, Frame } from './lib/Floaters.js
 import { loadImage } from './lib/firebase.js'
 import { useLive } from './lib/weather.js'
 import { visibleTicker, effectiveTicker } from './lib/ticker.js'
-import { colSnap, reflow, colsFor, slideFor } from './lib/reflow.js'
+import { colSnap, reflow, colsFor, slideFor, SIDE_DSG } from './lib/reflow.js'
 import { quoteTitle } from './modules/quote.jsx'
 import Fx, { FX_KINDS } from './lib/Fx.jsx'
 
@@ -66,7 +66,7 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
   // Otomatik yerleşim açıkken ekran, kayıtlı boyutlardan bağımsız olarak içeriğe göre dengeli yerleştirir
   const mods0 = useMemo(() => {
     if (edit || cfg.autoFlow === false) return cfg.mods
-    const c = cfg.mods.map((m) => ({ ...m })); reflow(c, null, minHOf, wantH, colsFor(cfg.design), slideFor(cfg.design), cfg.design === 12 ? (cfg.sideOrder || []) : null); return c
+    const c = cfg.mods.map((m) => ({ ...m })); reflow(c, null, minHOf, wantH, colsFor(cfg.design), slideFor(cfg.design), SIDE_DSG[cfg.design] ? (cfg.sideOrder || []) : null, SIDE_DSG[cfg.design] || null); return c
   }, [cfg.mods, cfg.autoFlow, cfg.design, cfg.sideOrder, !!edit])
   const wmod = mods0.find((m) => m.type === 'weather' && m.active)
   const wx = useLive(cfg.city, !!wmod && !!cfg.city)
@@ -178,7 +178,7 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
             <span>{cfg.al.text}</span>
           </div>
         )}
-        {tk.length > 0 && cfg.design !== 12 && (
+        {tk.length > 0 && !SIDE_DSG[cfg.design] && (
           <div className="ftr">
             <div className="tg">DUYURU</div>
             <div className="mq"><div style={{ '--d': Math.max(40, tk.join('').length * 0.6) + 's' }}>{[...Array(6)].flatMap(() => q)}</div></div>
