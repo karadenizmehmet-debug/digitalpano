@@ -35,7 +35,7 @@ export function reflow(mods, pref, minOf, wantOf, CL = COLS, SZ = SLIDE, order =
   const key = (m) => (m.type === 'slides' ? -1e9 : order && order.indexOf(m.id) >= 0 ? order.indexOf(m.id) : (order ? 1e4 : 0) + m.y + m.h / 2)
   const cols = CL.map(([x, w]) => mods.filter((m) => m.active && m.x === x && m.w === w && m.y >= 100).sort((a, b) => key(a) - key(b)))
   for (let g = 0; g < 30; g++) {
-    const o = cols.findIndex((A) => need(A) > AV)
+    const o = order ? -1 : cols.findIndex((A) => need(A) > AV)
     if (o < 0) break
     const A = cols[o], mv = A.filter((m) => m.type !== 'slides'), ev = pref && mv.includes(pref) ? pref : mv[mv.length - 1]
     if (!ev) break
@@ -75,6 +75,7 @@ export function reflow(mods, pref, minOf, wantOf, CL = COLS, SZ = SLIDE, order =
         }
       }
     }
+    if (order && sum() > AV) { const k = (AV - G * (A.length - 1)) / (sum() - G * (A.length - 1)); D.forEach((v, i) => { D[i] = Math.floor(v * k) }) } // yan panelde hepsi sığsın diye orantılı sıkıştır
     let y = TOP
     A.forEach((m, i) => { m.y = y; m.h = D[i]; y += D[i] + G })
   })
