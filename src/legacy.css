@@ -426,15 +426,20 @@ html,body,#root{height:100%}
 .stg .stage[data-dsg="10"] .tb td,.stg .stage[data-dsg="10"] .tb th{border-bottom-color:#e9f1e433}
 .stg .stage[data-dsg="10"] .ftr{background:#3a2410!important;border-top:5px solid #5a3b1e}
 
-/* Tasarım 11: Dikey Başlık */
-.stg .stage[data-dsg="11"]{background:#e6ecf4!important}
-.stg .stage[data-dsg="11"] .hdr{background:var(--nv)!important;border-bottom:4px solid var(--gd)}
-.stg .stage[data-dsg="11"] .mod:not(.t-slides):not(.t-clock){flex-direction:row;background:#fff!important;border:0;border-radius:16px;box-shadow:0 6px 18px #1b2a5c22}
-.stg .stage[data-dsg="11"] .mod.t-slides{border:6px solid var(--nv);border-radius:10px;box-shadow:0 8px 22px #1b2a5c44}
-.stg .stage[data-dsg="11"] .mod:not(.t-slides):not(.t-clock) .h{flex:none;writing-mode:vertical-rl;transform:rotate(180deg);width:46px;height:auto;margin:0;padding:10px 0;border:0!important;border-left:4px solid var(--gd)!important;background:var(--nv)!important;color:#fff!important;justify-content:center;font-size:19px;font-weight:800;letter-spacing:.08em;white-space:nowrap}
-.stg .stage[data-dsg="11"] .mod .h::before{display:none}
-.stg .stage[data-dsg="11"] .mod:not(.t-slides):not(.t-clock) .b{flex:1;min-width:0;padding:10px 16px 12px}
-.stg .stage[data-dsg="11"] .ln,.stg .stage[data-dsg="11"] .dt{background:#f1f4fa!important;border:0!important;border-radius:10px!important;padding:8px 12px!important;margin-bottom:6px!important}
-.stg .stage[data-dsg="11"] .ftr{background:var(--nv)!important;border-top:4px solid var(--gd)}
+
+/* Tasarım 11: Okyanus (manşet ortada, sol dar, sağ geniş) */
+.stg .stage[data-dsg="11"]{background:radial-gradient(circle at 12% 90%,#2bb8c933 0,transparent 30%),radial-gradient(circle at 88% 20%,#56d9e033 0,transparent 28%),linear-gradient(160deg,#032b44,#075e7a 60%,#0a8a94)!important}
+.stg .stage[data-dsg="11"] .hdr{background:transparent!important;border-bottom:3px solid #7fe6ea}
 .stg .stage[data-dsg="11"] .hdr .n,.stg .stage[data-dsg="11"] .hdr .s{color:#fff!important}
-.stg .stage[data-dsg="11"] .mod:not(.t-slides):not(.t-clock) .h{display:block;text-align:center;overflow:hidden;text-overflow:ellipsis;font-size:15px;letter-spacing:0;line-height:46px;padding:8px 0;width:46px}
+.stg .stage[data-dsg="11"] .mod:not(.t-slides):not(.t-clock){background:#fff!important;border:0;border-radius:26px;box-shadow:0 10px 26px #00203a66}
+.stg .stage[data-dsg="11"] .mod.t-slides{border:5px solid #7fe6ea;border-radius:22px;box-shadow:0 10px 30px #00203aaa}
+.stg .stage[data-dsg="11"] .mod.t-clock{background:#ffffff26!important;border:2px solid #ffffff66;border-radius:22px}
+.stg .stage[data-dsg="11"] .mod.t-clock .d,.stg .stage[data-dsg="11"] .mod.t-clock .t{color:#fff!important}
+.stg .stage[data-dsg="11"] .mod:not(.t-slides):not(.t-clock) .h{height:52px;margin:0;padding:0 22px;border:0!important;background:#0a8a94!important;color:#fff!important;font-size:20px;font-weight:800;border-radius:0}
+.stg .stage[data-dsg="11"] .mod .h::before{display:none}
+.stg .stage[data-dsg="11"] .mod:not(.t-slides):not(.t-clock) .b{padding:10px 20px 14px}
+.stg .stage[data-dsg="11"] .ln,.stg .stage[data-dsg="11"] .dt{background:#e8f7f8!important;border:0!important;border-radius:14px!important;padding:8px 14px!important;margin-bottom:6px!important}
+.stg .stage[data-dsg="11"] .pi,.stg .stage[data-dsg="11"] .cdc{background:#e8f7f8!important;border:0!important;border-radius:14px}
+.stg .stage[data-dsg="11"] .tb th{background:#d6f0f2!important;color:#075e7a}
+.stg .stage[data-dsg="11"] .ftr{background:#032b44!important;border-top:3px solid #7fe6ea}
+.stg .stage[data-dsg="11"] .pi.nx{background:#d6254d!important}.stg .stage[data-dsg="11"] .pi.nx *{color:#fff!important}
