@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { DUR, NumIn, TONES, Thumb, endOf, isoD, shrink, trD } from './common.jsx'
+import { DUR, ICO, NumIn, TONES, Thumb, endOf, isoD, shrink, trD } from './common.jsx'
+import { registry } from '../lib/registry.js'
 import { TRANS } from '../lib/trans.js'
 import { removeImage, saveImage } from '../lib/firebase.js'
 
@@ -119,7 +120,7 @@ export function FsaEditor({ draft, set, say }) {
   return (
     <div className="p-card p-pad">
       <div className="p-h">⭐ Öne çıkan duyurular</div>
-      <p className="p-hint">Eklediğiniz görsel veya yazılar belirli aralıkla panoyu tam ekran kaplar, sırayla gösterilir, sonra pano normale döner. Aşağıdaki listeden manşetteki öğeleri de işaretleyip bu ekranda gösterebilirsiniz.</p>
+      <p className="p-hint">Eklediğiniz görsel veya yazılar belirli aralıkla panoyu tam ekran kaplar, sırayla gösterilir, sonra pano normale döner. Aşağıdaki listelerden manşet öğelerini ve modülleri de işaretleyip bu ekranda gösterebilirsiniz.</p>
       <label className="p-chk"><input type="checkbox" checked={f.on !== false} onChange={(e) => put({ on: e.target.checked })} /> Öne çıkan duyurular açık</label>
       <div className="p-pos">
         <div className="p-fld"><label>Her … dakikada bir gir</label><NumIn min="1" value={f.every ?? 15} onChange={(e) => put({ every: +e.target.value })} /></div>
@@ -127,7 +128,6 @@ export function FsaEditor({ draft, set, say }) {
       </div>
       <div className="p-fld"><label>Geçiş efekti</label><select value={f.trans || ''} onChange={(e) => put({ trans: e.target.value })}>{TRANS.map(([a, b]) => <option key={a} value={a}>{b}</option>)}</select></div>
       <div className="p-btns"><button className={f.now ? 'p-danger' : ''} onClick={() => put({ now: !f.now })}>{f.now ? 'Sürekli tam ekranı kapat' : 'Şimdi sürekli tam ekran yap'}</button></div>
-      {draft.mods.some((m) => m.fsFull && m.type !== 'slides') && <p className="p-hint">⭐ Tam ekranda gösterilen modüller: <b>{draft.mods.filter((m) => m.fsFull && m.type !== 'slides').map((m) => m.title).join(', ')}</b>. Bunlar her modülün kendi ayar sayfasından açılıp kapatılır.</p>}
       <SlidesEditor value={f.items || []} set={(items) => put({ items })} say={say} withSec />
       {sm && <>
         <div className="p-h2">Manşetteki öğeler</div>
@@ -135,6 +135,9 @@ export function FsaEditor({ draft, set, say }) {
         {(sm.data?.imgs || []).length === 0 && <p className="p-hint">Manşette öğe yok.</p>}
         {(sm.data?.imgs || []).map((x, i) => <label key={i} className="p-chk"><input type="checkbox" checked={!!x.full} onChange={(e) => tick(i, e.target.checked)} /> {x.img || x.src ? '🖼️ ' + (x.name || 'Görsel') : '📝 ' + (x.t || 'Yazılı duyuru')}</label>)}
       </>}
+      <div className="p-h2">Modüller</div>
+      <p className="p-hint">İşaretlediğiniz modüller de aynı süre, aralık ve geçiş efektiyle tam ekran gösterilir. Panoda pasif olan bir modül de işaretlenebilir; o zaman yalnızca tam ekranda görünür.</p>
+      {draft.mods.filter((m) => m.type !== 'slides').map((m) => <label key={m.id} className="p-chk"><input type="checkbox" checked={!!m.fsFull} onChange={(e) => set({ mods: draft.mods.map((q) => (q.id === m.id ? { ...q, fsFull: e.target.checked } : q)) })} /> {(ICO[m.type] || '🧩') + ' ' + (m.title || registry[m.type]?.label || m.type)}{m.active ? '' : ' (panoda pasif)'}</label>)}
     </div>
   )
 }

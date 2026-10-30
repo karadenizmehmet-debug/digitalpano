@@ -155,7 +155,7 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
     const W = Math.max(m.w || 440, 420), H = Math.max(m.h || 0, minOf(m) || 100), sc = Math.min(1500 / W, 800 / H)
     const color = m.color || cr, title = m.showTitle !== false
     return (
-      <div key={'fm' + m.id} className={'fsm' + (k === fs.idx ? ' on' : '')} style={{ background: cfg.bg }}>
+      <div key={'fm' + m.id} className={'fsm' + (k === fs.idx ? ' on' : '')} data-tr={trOf(cfg.fsa?.trans, k)} style={{ background: cfg.bg }}>
         <div className={`mod t-${m.type}`} style={{ left: (1600 - W * sc) / 2, top: (900 - H * sc) / 2, width: W, height: H, transform: 'scale(' + sc + ')', transformOrigin: '0 0', '--fs': (m.fs || 100) / 100, '--c': color, '--c16': mix(color, '#fff', 16), '--c70': mix(color, '#000', 70), '--c85': mix(color, '#000', 85) }}>
           {title && <div className="h">{m.type === 'quote' ? quoteTitle(m.data, now, m.title) : m.title}</div>}
           <div className="b"><R.Component data={m.data} now={now} T={T} cfg={cfg} wx={wx} /></div>

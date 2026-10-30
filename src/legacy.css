@@ -877,6 +877,6 @@ html,body,#root{height:100%}
 .edit .mod.swp{outline:4px dashed #1e90ff;outline-offset:-4px;background:#e7f2ff}
 
 /* Tam ekran modül (aralıklı): modül doğal boyutunda çizilir, ekrana sığacak kadar büyütülür */
-.fsa .fsm{position:absolute;inset:0;opacity:0;transition:opacity .6s}
+.fsa .fsm{position:absolute;inset:0;overflow:hidden;opacity:0;transition:opacity .9s}
 .fsa .fsm.on{opacity:1}
 .fsa .fsm .mod{box-shadow:0 20px 60px #0008}
