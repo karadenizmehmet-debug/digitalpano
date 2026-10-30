@@ -297,3 +297,75 @@ html,body,#root{height:100%}
 .stg .stage[data-dsg="5"] .ftr{background:#14283a!important;border-top:5px solid var(--gd)}
 .stg .stage[data-dsg="4"] .pi.nx,.stg .stage[data-dsg="5"] .pi.nx{background:var(--cr)!important}
 .stg .stage[data-dsg="4"] .pi.nx *,.stg .stage[data-dsg="5"] .pi.nx *{color:#fff!important}
+
+/* Tasarım 6: Neon */
+.stg .stage[data-dsg="6"]{background:#05060a linear-gradient(#00e5ff12 1px,transparent 1px) 0 0/100% 40px!important;font-family:ui-monospace,'Courier New',Consolas,monospace;color:#b8fff6}
+.stg .stage[data-dsg="6"] *{font-family:inherit}
+.stg .stage[data-dsg="6"] .hdr{background:#05060a!important;border-bottom:2px solid #00e5ff;box-shadow:0 0 18px #00e5ff99}
+.stg .stage[data-dsg="6"] .hdr .n{color:#00e5ff!important;text-shadow:0 0 12px #00e5ffcc}.stg .stage[data-dsg="6"] .hdr .s{color:#ff2bd6!important}
+.stg .stage[data-dsg="6"] .mod:not(.t-slides){background:#0a0d14!important;color:#b8fff6;border:2px solid #00e5ff;border-radius:4px;box-shadow:0 0 16px #00e5ff77,inset 0 0 16px #00e5ff22}
+.stg .stage[data-dsg="6"] .mod.t-slides{border:2px solid #ff2bd6;border-radius:4px;box-shadow:0 0 18px #ff2bd699}
+.stg .stage[data-dsg="6"] .mod .b *{color:inherit!important}
+.stg .stage[data-dsg="6"] .mod:not(.t-slides) .h{height:46px;margin:0 16px;padding:0;border:0!important;border-bottom:1px dashed #00e5ff88!important;color:#00e5ff!important;text-transform:uppercase;font-size:18px;letter-spacing:.06em;white-space:nowrap;font-weight:700}
+.stg .stage[data-dsg="6"] .mod .h::before{content:">";width:auto;height:auto;background:none!important;color:#ff2bd6;font-size:18px;border-radius:0}
+.stg .stage[data-dsg="6"] .mod:not(.t-slides) .b{padding:8px 16px 12px}
+.stg .stage[data-dsg="6"] .ln,.stg .stage[data-dsg="6"] .dt{background:none!important;border:0!important;border-bottom:1px dashed #00e5ff55!important;border-radius:0!important;padding:8px 0!important;margin:0!important}
+.stg .stage[data-dsg="6"] .pi,.stg .stage[data-dsg="6"] .cdc,.stg .stage[data-dsg="6"] .ci{background:#00e5ff14!important;border:1px solid #00e5ff88!important;border-radius:3px;box-shadow:none}
+.stg .stage[data-dsg="6"] .mod .ci .cv,.stg .stage[data-dsg="6"] .mod .cdc b,.stg .stage[data-dsg="6"] .mod .pi b{color:#ffe600!important;text-shadow:0 0 8px #ffe600aa}
+.stg .stage[data-dsg="6"] .mod .pi.nx{background:#ff2bd6!important;border-color:#ff2bd6!important}.stg .stage[data-dsg="6"] .mod .pi.nx *{color:#05060a!important;text-shadow:none}
+.stg .stage[data-dsg="6"] .tb th{background:#0a0d14!important;border-bottom:1px solid #00e5ff}
+.stg .stage[data-dsg="6"] .tb tr:nth-child(even) td{background:none!important}
+.stg .stage[data-dsg="6"] .tb td,.stg .stage[data-dsg="6"] .tb th{border-bottom-color:#00e5ff33}
+.stg .stage[data-dsg="6"] .mod.t-clock .d,.stg .stage[data-dsg="6"] .mod.t-clock .t{color:#ff2bd6!important;text-shadow:0 0 10px #ff2bd6aa}
+.stg .stage[data-dsg="6"] .ftr{background:#05060a!important;border-top:2px solid #ff2bd6;box-shadow:0 0 14px #ff2bd699}
+.stg .stage[data-dsg="6"] .ln.pst{opacity:.55}
+
+/* Tasarım 7: Mantar Pano */
+.stg .stage[data-dsg="7"]{background:#c79b64 radial-gradient(#00000014 2px,transparent 3px) 0 0/22px 22px!important;font-family:"Comic Sans MS","Segoe Print","Chalkboard SE",cursive,sans-serif}
+.stg .stage[data-dsg="7"] *{font-family:inherit}
+.stg .stage[data-dsg="7"] .hdr{background:linear-gradient(#8a5a2b,#6b4220)!important;border-bottom:6px solid #3e2610;color:#fff4dc}
+.stg .stage[data-dsg="7"] .hdr .n,.stg .stage[data-dsg="7"] .hdr .s{color:#fff4dc!important}
+.stg .stage[data-dsg="7"] .mod:not(.t-slides):not(.t-clock){background:#fffdf0!important;border:0;border-radius:3px;box-shadow:3px 6px 12px #00000055}
+.stg .stage[data-dsg="7"] .mod:nth-of-type(odd):not(.t-slides):not(.t-clock){transform:rotate(-.7deg)}
+.stg .stage[data-dsg="7"] .mod:nth-of-type(even):not(.t-slides):not(.t-clock){transform:rotate(.6deg)}
+.stg .stage[data-dsg="7"] .mod:nth-of-type(3n):not(.t-slides):not(.t-clock){background:#fff3a8!important}
+.stg .stage[data-dsg="7"] .mod:nth-of-type(5n):not(.t-slides):not(.t-clock){background:#dff1ff!important}
+.stg .stage[data-dsg="7"] .mod:not(.t-slides):not(.t-clock)::after{content:"";position:absolute;left:50%;top:6px;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ff9a9a,#d11 70%);box-shadow:1px 2px 3px #0006;z-index:3}
+.stg .stage[data-dsg="7"] .mod.t-slides{box-shadow:0 0 0 6px #fffdf0,4px 8px 14px #0008;border-radius:2px}
+.stg .stage[data-dsg="7"] .mod.t-clock{background:#fffdf0!important;border:0;box-shadow:3px 5px 10px #0006;color:#3e2610}
+.stg .stage[data-dsg="7"] .mod:not(.t-slides):not(.t-clock) .h{justify-content:center;height:52px;margin:6px 14px 0;padding:0;border:0!important;border-bottom:2px dashed #8a5a2b!important;color:#3e2610!important;font-size:21px;font-weight:700}
+.stg .stage[data-dsg="7"] .mod .h::before{display:none}
+.stg .stage[data-dsg="7"] .ln,.stg .stage[data-dsg="7"] .dt{background:none!important;border:0!important;border-bottom:1px dashed #b89a6a!important;border-radius:0!important;padding:7px 0!important;margin:0!important}
+.stg .stage[data-dsg="7"] .pi,.stg .stage[data-dsg="7"] .cdc{background:#fff!important;border:1px solid #d9c49a!important;border-radius:3px}
+.stg .stage[data-dsg="7"] .tb th{background:#fffdf0!important;color:#3e2610;border-bottom:2px solid #8a5a2b}
+.stg .stage[data-dsg="7"] .ftr{background:#3e2610!important;border-top:5px solid #6b4220}
+
+/* Tasarım 8: Pop */
+.stg .stage[data-dsg="8"]{background:#fff4ea!important}
+.stg .stage[data-dsg="8"] .hdr{background:linear-gradient(100deg,#ff512f,#dd2476 55%,#5f27cd)!important;border-bottom:0}
+.stg .stage[data-dsg="8"] .mod:not(.t-slides):not(.t-clock){border:0;border-radius:36px;color:#fff;box-shadow:0 10px 24px #00000030;background:linear-gradient(135deg,#8e2de2,#4a00e0)!important}
+.stg .stage[data-dsg="8"] .mod .b *{color:inherit!important}
+.stg .stage[data-dsg="8"] .mod.t-weather,.stg .stage[data-dsg="8"] .mod.t-pray{background:linear-gradient(135deg,#1fa2ff,#0a6bd6)!important}
+.stg .stage[data-dsg="8"] .mod.t-days,.stg .stage[data-dsg="8"] .mod.t-cd{background:linear-gradient(135deg,#fc4a1a,#e8741a)!important}
+.stg .stage[data-dsg="8"] .mod.t-duty,.stg .stage[data-dsg="8"] .mod.t-bell{background:linear-gradient(135deg,#11998e,#0b7a6e)!important}
+.stg .stage[data-dsg="8"] .mod.t-cnt,.stg .stage[data-dsg="8"] .mod.t-bday{background:linear-gradient(135deg,#f857a6,#d6336c)!important}
+.stg .stage[data-dsg="8"] .mod.t-slides{border-radius:30px;box-shadow:0 10px 24px #00000040}
+.stg .stage[data-dsg="8"] .mod.t-clock{background:#ffffff33!important;border:2px solid #ffffff88;border-radius:30px}
+.stg .stage[data-dsg="8"] .mod:not(.t-slides):not(.t-clock) .h{height:54px;margin:0;padding:0 26px;border:0!important;color:#fff!important;font-size:22px;font-weight:900}
+.stg .stage[data-dsg="8"] .mod .h::before{display:none}
+.stg .stage[data-dsg="8"] .mod:not(.t-slides):not(.t-clock) .b{padding:0 22px 16px}
+.stg .stage[data-dsg="8"] .ln,.stg .stage[data-dsg="8"] .dt{background:#ffffff2e!important;border:0!important;border-radius:20px!important;padding:9px 16px!important;margin-bottom:7px!important}
+.stg .stage[data-dsg="8"] .pi,.stg .stage[data-dsg="8"] .cdc,.stg .stage[data-dsg="8"] .ci{background:#ffffff2e!important;border:0!important;border-radius:20px;box-shadow:none}
+.stg .stage[data-dsg="8"] .mod .pi.nx{background:#fff!important}.stg .stage[data-dsg="8"] .mod .pi.nx *{color:#dd2476!important}
+.stg .stage[data-dsg="8"] .mod .ci .cv{color:#fff!important}
+.stg .stage[data-dsg="8"] .tb th{background:#6a2ae6!important;border-bottom:1px solid #ffffff66}
+.stg .stage[data-dsg="8"] .tb tr:nth-child(even) td{background:none!important}
+.stg .stage[data-dsg="8"] .tb td,.stg .stage[data-dsg="8"] .tb th{border-bottom-color:#ffffff40}
+.stg .stage[data-dsg="8"] .ftr{background:linear-gradient(90deg,#5f27cd,#dd2476)!important;border-top:0}
+.stg .stage[data-dsg="6"] .mod .dt i{background:#00e5ff22!important;border:1px solid #00e5ff88;border-radius:3px;color:#00e5ff!important}
+.stg .stage[data-dsg="7"] .mod .pi.nx{background:var(--cr)!important;border-color:var(--cr)!important}
+.stg .stage[data-dsg="7"] .mod .pi.nx *{color:#fff!important}
+.stg .stage[data-dsg="7"] .mod:not(.t-slides):not(.t-clock)::after{left:auto;right:18px;margin-left:0}
+.stg .stage[data-dsg="8"] .mod .dt i{background:#ffffff40!important;color:#fff!important}
+.stg .stage[data-dsg="8"] .hdr .s{color:#fff!important}
+.stg .stage[data-dsg="8"] .qx::before{color:#fff}

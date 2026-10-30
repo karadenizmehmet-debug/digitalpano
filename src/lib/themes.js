@@ -20,4 +20,7 @@ export const DESIGNS = [
   ['Cam', 'Koyu degrade zemin üzerinde buzlu cam kartlar'],
   ['Gazete', 'Kâğıt zemin, serif yazı, çift çizgili gazete düzeni'],
   ['Kalın Blok', 'Pastel renkli, kalın çerçeveli ve sert gölgeli bloklar'],
+  ['Neon', 'Siyah zemin, neon parlayan çerçeveler, daktilo yazısı'],
+  ['Mantar Pano', 'Mantar zemin, hafif eğik kâğıt notlar ve raptiyeler'],
+  ['Pop', 'Canlı degrade renkli, çok yuvarlak beyaz yazılı kartlar'],
 ]
