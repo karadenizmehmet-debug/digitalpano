@@ -242,3 +242,58 @@ html,body,#root{height:100%}
 .stg .stage[data-dsg="2"] .ln,.stg .stage[data-dsg="2"] .dt{background:none!important;border:0!important;border-bottom:1px solid #e3e9ef!important;border-radius:0!important;padding:8px 2px!important;margin:0!important}
 .stg .stage[data-dsg="2"] .ln:last-child,.stg .stage[data-dsg="2"] .dt:last-child{border-bottom:0!important}
 .stg .stage[data-dsg="2"] .pi,.stg .stage[data-dsg="2"] .cdc,.stg .stage[data-dsg="2"] .ci{border-radius:6px}
+
+/* Tasarım 3: Cam */
+.stg .stage[data-dsg="3"]{background:linear-gradient(135deg,#0b1437,#2a1065 55%,#0e4a6b)!important}
+.stg .stage[data-dsg="3"] .hdr{background:transparent!important;border-bottom:1px solid #ffffff40;color:#fff}
+.stg .stage[data-dsg="3"] .hdr .n,.stg .stage[data-dsg="3"] .hdr .s{color:#fff!important}
+.stg .stage[data-dsg="3"] .mod:not(.t-slides):not(.t-clock){background:#ffffffe0!important;border:1px solid #ffffff90;border-radius:30px;box-shadow:0 12px 40px #00000066,0 0 0 1px #ffffff22 inset;backdrop-filter:blur(10px)}
+.stg .stage[data-dsg="3"] .mod.t-clock{background:#ffffff26;border:1px solid #ffffff55;color:#fff}
+.stg .stage[data-dsg="3"] .mod.t-clock .d,.stg .stage[data-dsg="3"] .mod.t-clock .t{color:#fff!important}
+.stg .stage[data-dsg="3"] .mod.t-slides{border-radius:26px;box-shadow:0 12px 40px #000000aa}
+.stg .stage[data-dsg="3"] .mod:not(.t-slides):not(.t-clock) .h{border:0!important;margin:0 24px;height:56px;color:#14283a;font-weight:800;font-size:21px;position:relative}
+.stg .stage[data-dsg="3"] .mod .h::before{content:"";width:34px;height:5px;border-radius:3px;background:var(--cr);position:absolute;left:0;bottom:2px}
+.stg .stage[data-dsg="3"] .mod:not(.t-slides):not(.t-clock) .b{padding:4px 24px 16px}
+.stg .stage[data-dsg="3"] .ln,.stg .stage[data-dsg="3"] .dt{background:#eef2fa!important;border:0!important;border-radius:16px!important;padding:9px 14px!important;margin-bottom:7px!important}
+.stg .stage[data-dsg="3"] .ftr{background:#00000066!important;border-top:1px solid #ffffff40}
+
+/* Tasarım 4: Gazete */
+.stg .stage[data-dsg="4"]{background:#f1ead8!important;font-family:Georgia,'Times New Roman',serif}
+.stg .stage[data-dsg="4"] *{font-family:inherit}
+.stg .stage[data-dsg="4"] .hdr{background:#f1ead8!important;border-bottom:5px double #222;color:#111}
+.stg .stage[data-dsg="4"] .hdr .n,.stg .stage[data-dsg="4"] .hdr .s{color:#111!important}
+.stg .stage[data-dsg="4"] .mod:not(.t-slides):not(.t-clock){background:#f7f1e1!important;border:0;border-top:4px double #222;border-bottom:1px solid #222;border-radius:0;box-shadow:none}
+.stg .stage[data-dsg="4"] .mod.t-clock{background:transparent;border:0;color:#111}
+.stg .stage[data-dsg="4"] .mod.t-clock .d,.stg .stage[data-dsg="4"] .mod.t-clock .t{color:#111!important}
+.stg .stage[data-dsg="4"] .mod.t-slides{border:3px solid #222;border-radius:0}
+.stg .stage[data-dsg="4"] .mod:not(.t-slides):not(.t-clock) .h{justify-content:center;margin:0 18px;height:50px;border:0!important;border-bottom:1px solid #222!important;color:#111!important;text-transform:uppercase;letter-spacing:.08em;font-size:17px;font-weight:700;white-space:nowrap}
+.stg .stage[data-dsg="4"] .mod .h::before{display:none}
+.stg .stage[data-dsg="4"] .ln,.stg .stage[data-dsg="4"] .dt{background:none!important;border:0!important;border-bottom:1px dotted #555!important;border-radius:0!important;padding:8px 0!important;margin:0!important}
+.stg .stage[data-dsg="4"] .pi,.stg .stage[data-dsg="4"] .cdc,.stg .stage[data-dsg="4"] .ci{border-radius:0;background:#ece3cb!important;border:1px solid #222!important;box-shadow:none}
+.stg .stage[data-dsg="4"] .ci .cv{color:#222}.stg .stage[data-dsg="4"] .ci small{color:#222}
+.stg .stage[data-dsg="4"] .tb th{background:#f7f1e1!important;color:#111;border-bottom:2px solid #222}
+.stg .stage[data-dsg="4"] .ftr{background:#222!important;border-top:4px double #f1ead8}
+
+/* Tasarım 5: Kalın Blok */
+.stg .stage[data-dsg="5"]{background:#fff8e1!important}
+.stg .stage[data-dsg="5"] .hdr{background:var(--gd)!important;border-bottom:5px solid #14283a;color:#14283a}
+.stg .stage[data-dsg="5"] .hdr .n,.stg .stage[data-dsg="5"] .hdr .s{color:#14283a!important}
+.stg .stage[data-dsg="5"] .mod:not(.t-slides):not(.t-clock){border:3px solid #14283a;border-radius:14px;box-shadow:7px 7px 0 #14283a}
+.stg .stage[data-dsg="5"] .mod:nth-of-type(6n+1):not(.t-slides):not(.t-clock){background:#ffe0e6!important}
+.stg .stage[data-dsg="5"] .mod:nth-of-type(6n+2):not(.t-slides):not(.t-clock){background:#d9ecff!important}
+.stg .stage[data-dsg="5"] .mod:nth-of-type(6n+3):not(.t-slides):not(.t-clock){background:#dcf5d6!important}
+.stg .stage[data-dsg="5"] .mod:nth-of-type(6n+4):not(.t-slides):not(.t-clock){background:#fff3b0!important}
+.stg .stage[data-dsg="5"] .mod:nth-of-type(6n+5):not(.t-slides):not(.t-clock){background:#e8dcff!important}
+.stg .stage[data-dsg="5"] .mod:nth-of-type(6n):not(.t-slides):not(.t-clock){background:#ffe5cc!important}
+.stg .stage[data-dsg="5"] .mod.t-clock{background:#fff!important;border:3px solid #14283a;box-shadow:5px 5px 0 #14283a;color:#14283a}
+.stg .stage[data-dsg="5"] .mod.t-slides{border:4px solid #14283a;border-radius:14px;box-shadow:7px 7px 0 #14283a}
+.stg .stage[data-dsg="5"] .mod:not(.t-slides):not(.t-clock) .h{height:50px;margin:0;padding:0 18px;border:0!important;border-bottom:3px solid #14283a!important;color:#14283a!important;text-transform:uppercase;font-weight:900;font-size:18px;letter-spacing:0;white-space:nowrap}
+.stg .stage[data-dsg="5"] .mod .h::before{display:none}
+.stg .stage[data-dsg="5"] .mod:not(.t-slides):not(.t-clock) .b{padding:10px 16px 12px}
+.stg .stage[data-dsg="5"] .ln,.stg .stage[data-dsg="5"] .dt{background:#fff!important;border:2px solid #14283a!important;border-radius:10px!important;padding:7px 12px!important;margin-bottom:7px!important}
+.stg .stage[data-dsg="5"] .pi,.stg .stage[data-dsg="5"] .cdc{background:#fff!important;border:2px solid #14283a!important;border-radius:10px}
+.stg .stage[data-dsg="5"] .ci{border:2px solid #14283a;border-radius:10px}
+.stg .stage[data-dsg="5"] .tb th{background:#fff!important;color:#14283a;border-bottom:2px solid #14283a}
+.stg .stage[data-dsg="5"] .ftr{background:#14283a!important;border-top:5px solid var(--gd)}
+.stg .stage[data-dsg="4"] .pi.nx,.stg .stage[data-dsg="5"] .pi.nx{background:var(--cr)!important}
+.stg .stage[data-dsg="4"] .pi.nx *,.stg .stage[data-dsg="5"] .pi.nx *{color:#fff!important}

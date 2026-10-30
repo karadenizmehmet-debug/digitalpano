@@ -17,4 +17,7 @@ export const DESIGNS = [
   ['Klasik', 'Şu anki tasarım: altın çizgili başlıklar, beyaz kartlar'],
   ['Yumuşak', 'Yuvarlak, gölgeli kartlar; başlıklar renkli etiket şeklinde'],
   ['Şerit', 'Köşeli kartlar; başlıklar tam genişlikte renkli şerit'],
+  ['Cam', 'Koyu degrade zemin üzerinde buzlu cam kartlar'],
+  ['Gazete', 'Kâğıt zemin, serif yazı, çift çizgili gazete düzeni'],
+  ['Kalın Blok', 'Pastel renkli, kalın çerçeveli ve sert gölgeli bloklar'],
 ]
