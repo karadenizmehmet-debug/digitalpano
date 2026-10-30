@@ -178,7 +178,14 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
             <span>{cfg.al.text}</span>
           </div>
         )}
-        {tk.length > 0 && (
+        {tk.length > 0 && cfg.design === 12 && (
+          <div className="ann12">
+            <div className="tg">DUYURU</div>
+            <div className="tx" key={Math.floor(now.getTime() / 8000) % tk.length}>{tk[Math.floor(now.getTime() / 8000) % tk.length]}</div>
+            {tk.length > 1 && <div className="dots">{tk.map((_, i) => <i key={i} className={i === Math.floor(now.getTime() / 8000) % tk.length ? 'on' : ''} />)}</div>}
+          </div>
+        )}
+        {tk.length > 0 && cfg.design !== 12 && (
           <div className="ftr">
             <div className="tg">DUYURU</div>
             <div className="mq"><div style={{ '--d': Math.max(40, tk.join('').length * 0.6) + 's' }}>{[...Array(6)].flatMap(() => q)}</div></div>

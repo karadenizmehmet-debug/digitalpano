@@ -466,3 +466,15 @@ html,body,#root{height:100%}
 .stg .stage[data-dsg="12"] .tb td,.stg .stage[data-dsg="12"] .tb th{border-bottom-color:#ffffff33}
 .stg .stage[data-dsg="12"] .tb tr:nth-child(even) td{background:none!important}
 .stg .stage[data-dsg="12"] .ftr{background:#0d1b36!important;border-top:2px solid #3d6fd1}
+/* Yayın Ekranı: kayan şerit yerine manşet altında sabit duyuru; saat/tarih yeni düzen */
+.stg .stage[data-dsg="12"] .ann12{position:absolute;left:20px;top:810px;width:1200px;height:76px;display:flex;align-items:center;gap:20px;padding:0 24px;background:#ffffff1c;border-left:8px solid #ffe08a;border-radius:14px;color:#fff;overflow:hidden}
+.stg .stage[data-dsg="12"] .ann12 .tg{flex:none;padding:6px 14px;background:#ffe08a;color:#0d1b36;font-weight:800;letter-spacing:.12em;border-radius:6px;font-size:18px}
+.stg .stage[data-dsg="12"] .ann12 .tx{flex:1;font-size:34px;font-weight:700;line-height:1.15;max-height:70px;overflow:hidden;animation:a12 .6s}
+.stg .stage[data-dsg="12"] .ann12 .dots{flex:none;display:flex;flex-direction:column;gap:5px}
+.stg .stage[data-dsg="12"] .ann12 .dots i{width:8px;height:8px;border-radius:50%;background:#ffffff55}
+.stg .stage[data-dsg="12"] .ann12 .dots i.on{background:#ffe08a}
+@keyframes a12{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.stg .stage[data-dsg="12"] .mod.t-clock{background:transparent!important;border:0!important;box-shadow:none}
+.stg .stage[data-dsg="12"] .mod.t-clock .clk{display:flex!important;flex-direction:row-reverse;align-items:center;justify-content:flex-end;gap:18px;height:100%}
+.stg .stage[data-dsg="12"] .mod.t-clock .t{font-size:62px!important;font-weight:800;letter-spacing:.02em;font-variant-numeric:tabular-nums;color:#ffe08a!important;line-height:1}
+.stg .stage[data-dsg="12"] .mod.t-clock .d{font-size:21px!important;font-weight:700;line-height:1.25;text-align:left;color:#fff!important;padding-left:16px;border-left:3px solid #3d6fd1;width:105px;white-space:normal}
