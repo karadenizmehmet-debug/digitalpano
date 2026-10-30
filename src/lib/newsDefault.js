@@ -4,6 +4,7 @@ export const SOURCES = [
   { id: 'konya', name: 'Konya MEM Duyuruları', tag: 'KONYA MEM', url: 'https://konya.meb.gov.tr/meb_iys_dosyalar/xml/rss_duyurular.xml' },
   { id: 'personel', name: 'MEB Personel Genel Müdürlüğü Duyuruları', tag: 'MEB PERSONEL', url: 'https://personel.meb.gov.tr/meb_iys_dosyalar/xml/rss_duyurular.xml' },
   { id: 'basin', name: 'MEB Basın Müşavirliği Duyuruları', tag: 'MEB BASIN', url: 'https://basinmus.meb.gov.tr/meb_iys_dosyalar/xml/rss_duyurular.xml' },
+  { id: 'tubitak', name: 'TÜBİTAK Haberleri', tag: 'TÜBİTAK', url: 'https://tubitak.gov.tr/tr/rss.xml' },
   { id: 'ntv', name: 'NTV Eğitim Haberleri', tag: 'EĞİTİM', url: 'https://www.ntv.com.tr/egitim.rss' },
   { id: 'hurriyet', name: 'Hürriyet Eğitim Haberleri', tag: 'EĞİTİM', url: 'https://www.hurriyet.com.tr/rss/egitim' },
 ]
