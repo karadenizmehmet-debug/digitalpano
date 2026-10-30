@@ -1001,8 +1001,9 @@ export default function Panel({ cfg, fresh, err }) {
           })()}
           <div className="p-pvwrap">
             <Stage preview cfg={draft}
-              edit={{ sel, onSelect: setSel, onChange: (mods) => set({ mods }) }} />
+              edit={SIDE_DSG[draft.design] ? undefined : { sel, onSelect: setSel, onChange: (mods) => set({ mods }) }} />
           </div>
+          {SIDE_DSG[draft.design] ? <p className="p-hint">Bu tasarımda yerleşim otomatiktir: yukarıdaki önizleme panoda göründüğü gibidir. Modülleri üstteki kutudan açıp kapatın ve ▲▼ ile sıralayın. Elle sürükleme için başka bir tasarım seçin (Klasik gibi).</p> : <>
           <p className="p-hint">Modülü sürükleyip taşıyın, sağ alt köşedeki turuncu kareden boyutlandırın (boyutlandırdığınız modülün yüksekliği korunur). Bırakınca sütuna oturur{draft.autoFlow === false ? '' : ' ve boşluklar otomatik düzenlenir'}.</p>
           <label className="p-chk"><input type="checkbox" checked={draft.autoFlow !== false} onChange={(e) => set({ autoFlow: e.target.checked })} /> Otomatik yerleşim</label>
           <div className="p-btns">
@@ -1017,6 +1018,7 @@ export default function Panel({ cfg, fresh, err }) {
               </button>
             </div>
           )}
+          </>}
         </div>
       )}
       {view === 'sd' && <SpecialEditor list={draft.sd} set={(sd) => set({ sd })} say={setMsg} cfg={draft} />}
