@@ -870,3 +870,4 @@ html,body,#root{height:100%}
 /* Geri sayım: dar modülde ad 1-2 satıra düşebilir; sayılar hizalı kalsın diye ad alanı iki satırlık yer ayırır */
 .cw{container-type:inline-size}
 @container (max-width:600px){.cw .cdc span{display:block;min-height:2.35em}.cw .cdc{justify-content:center}}
+.edit .mod.swp{outline:4px dashed #1e90ff;outline-offset:-4px;background:#e7f2ff}

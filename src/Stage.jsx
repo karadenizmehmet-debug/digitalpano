@@ -47,6 +47,7 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
   const [now, setNow] = useState(new Date())
   const [T, setT] = useState(0)
   const [fit, setFit] = useState({ sc: 1, x: 0, y: 0 })
+  const [swId, setSwId] = useState(null)  // sürüklerken yer değiştirilecek modül
   const sw = useRef()
   const drag = useRef(null)
 
@@ -107,7 +108,15 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
     e.preventDefault(); e.stopPropagation()
     edit.onSelect(m.id)
     e.currentTarget.setPointerCapture?.(e.pointerId)
-    drag.current = { id: m.id, mode, sx: e.clientX, sy: e.clientY, o: { x: m.x, y: m.y, w: m.w, h: m.h } }
+    drag.current = { id: m.id, mode, sx: e.clientX, sy: e.clientY, fixH: m.fixH, o: { x: m.x, y: m.y, w: m.w, h: m.h } }
+  }
+  // Sürüklenen modülün merkezi başka bir modülün üstündeyse o modül hedeftir (yer değiştirme)
+  const swapTarget = (mods, id) => {
+    const a = mods.find((x) => x.id === id)
+    if (!a || !a.active || a.type === 'slides') return null
+    const cx = a.x + a.w / 2, cy = a.y + a.h / 2
+    const t = mods.find((x) => x.id !== id && x.active && x.type !== 'slides' && cx >= x.x && cx <= x.x + x.w && cy >= x.y && cy <= x.y + x.h)
+    return t ? t.id : null
   }
   const move = (e) => {
     const d = drag.current
@@ -118,6 +127,7 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
       if (d.mode === 'move') return { ...m, x: snap(d.o.x + dx), y: snap(d.o.y + dy) }
       return { ...m, w: Math.max(120, snap(d.o.w + dx)), h: Math.max(minOf(m) || 60, snap(d.o.h + dy)) }
     })
+    setSwId(d.mode === 'move' ? swapTarget(mods, d.id) : null)
     edit.onChange(mods)
   }
   const up = () => {
@@ -126,7 +136,13 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
     if (!d) return
     const mods = cfg.mods.map((m) => ({ ...m }))
     const m = mods.find((x) => x.id === d.id)
-    if (m && d.mode === 'move') colSnap(m)
+    setSwId(null)
+    const tid = d.mode === 'move' ? swapTarget(mods, d.id) : null, t = tid && mods.find((x) => x.id === tid)
+    if (m && t) {  // iki modülün yeri (konum, genişlik, yükseklik) değişir
+      const A = d.o, B = { x: t.x, y: t.y, w: t.w, h: t.h, fixH: t.fixH }
+      Object.assign(t, { x: A.x, y: A.y, w: A.w, h: A.h, fixH: d.fixH })
+      Object.assign(m, { x: B.x, y: B.y, w: B.w, h: B.h, fixH: B.fixH })
+    } else if (m && d.mode === 'move') colSnap(m)
     if (m && d.mode === 'size') m.fixH = true  // elle boyutlandırılan modülün yüksekliği korunur
     if (cfg.autoFlow !== false) reflow(mods, m, minOf, wantH)
     edit.onChange(mods)
@@ -153,7 +169,7 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
           const R = registry[m.type]
           const title = m.type === 'slides' ? m.showTitle : m.showTitle !== false
           return (
-            <div key={m.id} className={`mod t-${m.type}${m.strp ? ' strp' : ''}${edit && edit.sel === m.id ? ' sel' : ''}${m.active ? '' : ' off'}`} data-id={m.id}
+            <div key={m.id} className={`mod t-${m.type}${m.strp ? ' strp' : ''}${swId === m.id ? ' swp' : ''}${edit && edit.sel === m.id ? ' sel' : ''}${m.active ? '' : ' off'}`} data-id={m.id}
               style={{ left: m.x, top: m.y, width: m.zs ? m.w / m.zs : m.w, height: m.zs ? m.h / m.zs : m.h, ...(m.zs ? { transform: 'scale(' + m.zs + ')', transformOrigin: '0 0' } : null), '--fs': (m.fs || 100) / 100, '--c': m.color || cr, '--c16': mix(m.color || cr, '#fff', 16), '--c70': mix(m.color || cr, '#000', 70), '--c85': mix(m.color || cr, '#000', 85) }}
               onPointerDown={edit ? (e) => down(e, m, 'move') : undefined}>
               {title && <div className="h">{m.type === 'quote' ? quoteTitle(m.data, now, m.title) : m.title}</div>}
