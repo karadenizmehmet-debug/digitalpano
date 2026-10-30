@@ -29,4 +29,12 @@ export const DESIGNS = [
   ['Yayın Ekranı', 'Manşet sol-alta tam yaslı (1296 × 710), yüksek üst bant, dar sağ panel; boşluk yok, duyuru şeridi yok. Uygun modüller otomatik açılır'],
   ['Menü Panosu', 'Bordo üst şerit, beyaz zemin; solda liste modülleri, sağda büyük manşet (1245 × 682). Uygun modüller otomatik açılır'],
   ['Kampüs', 'Minimalist: renkli degrade zemin, solda yuvarlak beyaz kartlar, sağda büyük yuvarlak manşet (1245 × 682). Uygun modüller otomatik açılır'],
+  ['İsviçre', 'Asimetrik, bol beyaz alan, siyah çizgiler, kırmızı vurgu; Helvetica havası'],
+  ['Akademi', 'Lacivert, altın ve kırık beyaz; kurumsal okul kimliği'],
+  ['Editoryal', 'Dergi kapağı: büyük manşet, ince çizgiler, serif başlıklar, siyah-beyaz'],
+  ['Doğa', 'Adaçayı yeşili, krem ve doğal dokular; sıcak ve yumuşak'],
+  ['Gelecek', 'Koyu lacivert, elektrik mavisi, ince çizgiler; teknoloji teması'],
+  ['İskandinav', 'Bol beyaz alan, açık gri, bej ve antrasit; sade ve göz yormayan'],
+  ['Çocuk Dünyası', 'Canlı renkler, yuvarlak şekiller, eğlenceli kartlar'],
+  ['Prestij', 'Mat siyah, şampanya altını, ince çerçeveler; tören ve özel günler için'],
 ]
