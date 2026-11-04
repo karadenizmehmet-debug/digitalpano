@@ -34,3 +34,7 @@ npm run dev
 Eski tek dosyalı panonun tüm özellikleri taşındı: 15 modül, 6 tema, kayan zamanlanmış duyurular, acil duyuru, özel günler (tam ekran, aralıklı gösterim, konfeti, görsel), gece modu, hava efektleri, logo ve görsel yükleme, panel içi önizleme ve sürükle-bırak yerleşim (otomatik yerleşimle).
 Varsayılan ayarlar `src/defaults.json` içindedir; Firestore'daki `config/pano` belgesi bunun yerine geçer. Görseller `images/{id}` belgelerinde, küçültülmüş olarak saklanır.
 `legacy/` içindeki tek dosyalı sürüm yedek olarak kalır.
+
+## Lisans
+
+© Mehmet Karadeniz, 2026-2027. Tüm hakları saklıdır. Ayrıntı için [LICENSE](LICENSE) dosyasına bak.
