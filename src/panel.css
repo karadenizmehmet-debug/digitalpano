@@ -261,3 +261,7 @@ body.panelbody{overflow-x:hidden;overflow-y:auto;max-width:100vw;background:#f3f
 .pnl .p-slr>.p-ttl{flex:1 1 0;min-width:0;width:0;overflow:hidden}
 .pnl .p-slr>.p-ttl>b,.pnl .p-slr>.p-ttl>small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .pnl .p-slc>.p-slr:first-child>span:last-child,.pnl .p-slc>.p-slr:first-child>button{flex:none}
+
+/* Koyu mod (yalnızca panel; html.p-dark). Kök filtre + özgün renkli öğelerin yeniden çevrilmesi */
+html.p-dark{filter:invert(1) hue-rotate(180deg);background:#fff}
+html.p-dark .stg-pv,html.p-dark .p-th,html.p-dark .p-themes i,html.p-dark .p-sw i,html.p-dark .pnl img,html.p-dark .pnl button[style*="background"]{filter:invert(1) hue-rotate(180deg)}
