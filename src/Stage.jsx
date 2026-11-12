@@ -46,12 +46,14 @@ const snap = (v) => Math.round(v / 10) * 10
 const MAX_SH = 1200
 function stretchMods(mods, SH) {
   if (SH <= 900) return mods
-  const act = mods.filter((m) => m.active)
+  // Başlık şeridinde duran modüller (ör. saat) olduğu gibi kalır; yalnızca gövdedekiler uzar
+  const inHdr = (m) => m.y < 100
+  const act = mods.filter((m) => m.active && !inHdr(m))
   if (!act.length) return mods
   const A = Math.min(...act.map((m) => m.y)), B = Math.max(...act.map((m) => m.y + m.h))
   if (B <= A) return mods
   const k = (B + SH - 900 - A) / (B - A), Y = (v) => Math.round(A + (v - A) * k)
-  return mods.map((m) => { const y = Y(m.y); return { ...m, y, h: Y(m.y + m.h) - y } })
+  return mods.map((m) => { if (inHdr(m)) return m; const y = Y(m.y); return { ...m, y, h: Y(m.y + m.h) - y } })
 }
 
 // Pano sahnesi: 1600x900'lük sabit alan, kabına sığacak şekilde ölçeklenir.
