@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useLayoutEffect, useRef } from 'react'
 import { rows, useAutoScroll } from '../lib/util.js'
 export const DG = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum']
 const pad = (n) => String(n).padStart(2, '0')
@@ -23,6 +23,14 @@ export const meta = {
 export default function Duty({ data, now }) {
   const ref = useRef()
   useAutoScroll(ref, data.speed ?? 0)
+  // İsim kutuya sığmıyorsa yazı boyutunu küçült: isim tek satırda ve tam okunur kalır
+  useLayoutEffect(() => {
+    ref.current?.querySelectorAll('.dt b').forEach((b) => {
+      b.style.fontSize = ''
+      const fs = parseFloat(getComputedStyle(b).fontSize)
+      if (b.scrollWidth > b.clientWidth + 1) b.style.fontSize = Math.floor((fs * b.clientWidth) / b.scrollWidth) + 'px'
+    })
+  })
   const P = rows({ rows: data.places }), g = data.g || {}
   const w = (now.getDay() + 6) % 7, td = w > 4 ? 0 : w
   const k = weekShift(data, now), n = P.length
