@@ -41,12 +41,25 @@ function nameParts(n) {
 
 const snap = (v) => Math.round(v / 10) * 10
 
+// Pano ekranında sahne yüksekliği ekran oranına uyar (16:10, 4:3 ...): genişlik 1600 sabit, yükseklik 900..1200.
+// Modüller dikeyde orantılı uzatılır; böylece altta/üstte siyah boşluk kalmaz. Panel önizlemesi 16:9 kalır.
+const MAX_SH = 1200
+function stretchMods(mods, SH) {
+  if (SH <= 900) return mods
+  const act = mods.filter((m) => m.active)
+  if (!act.length) return mods
+  const A = Math.min(...act.map((m) => m.y)), B = Math.max(...act.map((m) => m.y + m.h))
+  if (B <= A) return mods
+  const k = (B + SH - 900 - A) / (B - A), Y = (v) => Math.round(A + (v - A) * k)
+  return mods.map((m) => { const y = Y(m.y); return { ...m, y, h: Y(m.y + m.h) - y } })
+}
+
 // Pano sahnesi: 1600x900'lük sabit alan, kabına sığacak şekilde ölçeklenir.
 // preview: panel içi önizleme (örtüler ve efektler kapalı). edit: { sel, onSelect, onChange(mods) } sürükle-bırak için.
 export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
   const [now, setNow] = useState(new Date())
   const [T, setT] = useState(0)
-  const [fit, setFit] = useState({ sc: 1, x: 0, y: 0 })
+  const [fit, setFit] = useState({ sc: 1, x: 0, y: 0, SH: 900 })
   const [swId, setSwId] = useState(null)  // sürüklerken yer değiştirilecek modül
   const sw = useRef()
   const drag = useRef(null)
@@ -66,8 +79,10 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
   useLayoutEffect(() => {
     const f = () => {
       if (!sw.current) return
-      const w = sw.current.clientWidth, h = sw.current.clientHeight, sc = Math.min(w / 1600, h / 900) || 1
-      setFit({ sc, x: (w - 1600 * sc) / 2, y: (h - 900 * sc) / 2 })
+      const w = sw.current.clientWidth, h = sw.current.clientHeight
+      const SH = preview || edit || !w || !h ? 900 : Math.max(900, Math.min(MAX_SH, Math.round(1600 * h / w)))
+      const sc = Math.min(w / 1600, h / SH) || 1
+      setFit({ sc, x: (w - 1600 * sc) / 2, y: (h - SH * sc) / 2, SH })
     }
     f()
     addEventListener('resize', f)
@@ -75,13 +90,14 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
     if (ro) ro.observe(sw.current)
     const t = setTimeout(f, 150)
     return () => { removeEventListener('resize', f); ro && ro.disconnect(); clearTimeout(t) }
-  }, [])
+  }, [preview, !!edit])
 
   // Otomatik yerleşim açıkken ekran, kayıtlı boyutlardan bağımsız olarak içeriğe göre dengeli yerleştirir
   const mods0 = useMemo(() => {
-    if (edit || cfg.autoFlow === false) return cfg.mods
-    const c = cfg.mods.map((m) => ({ ...m })); reflow(c, null, minHOf, wantH, colsFor(cfg.design), slideFor(cfg.design), SIDE_DSG[cfg.design] ? (cfg.sideOrder || []) : null, SIDE_DSG[cfg.design] ? { ...SIDE_DSG[cfg.design], stripId: cfg.stripId } : null); return c
-  }, [cfg.mods, cfg.autoFlow, cfg.design, cfg.sideOrder, cfg.stripId, !!edit])
+    if (edit) return cfg.mods
+    if (cfg.autoFlow === false) return stretchMods(cfg.mods, fit.SH)
+    const c = cfg.mods.map((m) => ({ ...m })); reflow(c, null, minHOf, wantH, colsFor(cfg.design), slideFor(cfg.design), SIDE_DSG[cfg.design] ? (cfg.sideOrder || []) : null, SIDE_DSG[cfg.design] ? { ...SIDE_DSG[cfg.design], stripId: cfg.stripId } : null); return stretchMods(c, fit.SH)
+  }, [cfg.mods, cfg.autoFlow, cfg.design, cfg.sideOrder, cfg.stripId, !!edit, fit.SH])
   const wmod = mods0.find((m) => m.type === 'weather' && m.active)
   const wx = useLive(cfg.city, !!wmod && !!cfg.city)
   // Canlı veri açıksa yalnızca ona bakılır (yüklenirken elle girilen duruma düşmez); kapalıysa elle girilen durum kullanılır
@@ -152,11 +168,11 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
   const fsMod = (x, k) => {
     const m = cfg.mods.find((q) => q.id === x.mod), R = m && registry[m.type]
     if (!R) return null
-    const W = Math.max(m.w || 440, 420), H = Math.max(m.h || 0, minOf(m) || 100), sc = Math.min(1500 / W, 800 / H)
+    const W = Math.max(m.w || 440, 420), H = Math.max(m.h || 0, minOf(m) || 100), sc = Math.min(1500 / W, (fit.SH - 100) / H)
     const color = m.color || cr, title = m.showTitle !== false
     return (
       <div key={'fm' + m.id} className={'fsm' + (k === fs.idx ? ' on' : '')} data-tr={trOf(cfg.fsa?.trans, k)} style={{ background: cfg.bg }}>
-        <div className={`mod t-${m.type}`} style={{ left: (1600 - W * sc) / 2, top: (900 - H * sc) / 2, width: W, height: H, transform: 'scale(' + sc + ')', transformOrigin: '0 0', '--fs': (m.fs || 100) / 100, '--c': color, '--c16': mix(color, '#fff', 16), '--c70': mix(color, '#000', 70), '--c85': mix(color, '#000', 85) }}>
+        <div className={`mod t-${m.type}`} style={{ left: (1600 - W * sc) / 2, top: (fit.SH - H * sc) / 2, width: W, height: H, transform: 'scale(' + sc + ')', transformOrigin: '0 0', '--fs': (m.fs || 100) / 100, '--c': color, '--c16': mix(color, '#fff', 16), '--c70': mix(color, '#000', 70), '--c85': mix(color, '#000', 85) }}>
           {title && <div className="h">{m.type === 'quote' ? quoteTitle(m.data, now, m.title) : m.title}</div>}
           <div className="b"><R.Component data={m.data} now={now} T={T} cfg={cfg} wx={wx} /></div>
         </div>
@@ -173,7 +189,7 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
         data-th={cfg.theme || 0}
         data-dsg={cfg.design || 0}
         style={{
-          background: cfg.bg, transform: `translate(${fit.x}px,${fit.y}px) scale(${fit.sc})`,
+          background: cfg.bg, height: fit.SH, transform: `translate(${fit.x}px,${fit.y}px) scale(${fit.sc})`,
           '--cr': cr, '--nv': nv, '--crnv': mix(cr, nv, 50), '--nv75': mix(nv, '#000', 75), '--nv70': mix(nv, '#000', 70), '--gd': cfg.c3 || '#dcb43c', '--sc': fit.sc,
         }}
       >

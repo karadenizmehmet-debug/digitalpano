@@ -467,7 +467,7 @@ html,body,#root{height:100%}
 .stg .stage[data-dsg="12"] .tb tr:nth-child(even) td{background:none!important}
 .stg .stage[data-dsg="12"] .ftr{background:#0d1b36!important;border-top:2px solid var(--cr)}
 /* Yayın Ekranı: kayan şerit yerine manşet altında sabit duyuru; saat/tarih yeni düzen */
-.stg .stage[data-dsg="12"] .ann12-x{position:absolute;left:20px;top:810px;width:1200px;height:76px;display:flex;align-items:center;gap:20px;padding:0 24px;background:#ffffff1c;border-left:8px solid var(--gd);border-radius:14px;color:#fff;overflow:hidden}
+.stg .stage[data-dsg="12"] .ann12-x{position:absolute;left:20px;bottom:14px;width:1200px;height:76px;display:flex;align-items:center;gap:20px;padding:0 24px;background:#ffffff1c;border-left:8px solid var(--gd);border-radius:14px;color:#fff;overflow:hidden}
 .stg .stage[data-dsg="12"] .ann12 .tg{flex:none;padding:6px 14px;background:var(--gd);color:#0d1b36;font-weight:800;letter-spacing:.12em;border-radius:6px;font-size:18px}
 .stg .stage[data-dsg="12"] .ann12 .tx{flex:1;font-size:34px;font-weight:700;line-height:1.15;max-height:70px;overflow:hidden;animation:a12 .6s}
 .stg .stage[data-dsg="12"] .ann12 .dots{flex:none;display:flex;flex-direction:column;gap:5px}
