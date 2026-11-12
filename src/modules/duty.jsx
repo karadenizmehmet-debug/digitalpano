@@ -39,7 +39,7 @@ export default function Duty({ data, now }) {
   return (
     <div className="du" ref={ref}>
       {w > 4 && <div className="dn">Hafta sonu · Pazartesi nöbetçileri</div>}
-      {P.map((p, j) => <div key={j} className="dt"><b>{who(j) || '—'}</b><i>{p}</i></div>)}
+      {P.map((p, j) => <div key={j} className="dt dt2"><i>{p}</i><b>{who(j) || '—'}</b></div>)}
     </div>
   )
 }
