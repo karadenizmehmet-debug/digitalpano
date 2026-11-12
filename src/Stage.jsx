@@ -31,12 +31,12 @@ export function useImg(d) {
   return src
 }
 
-// "… İmam Hatip Ortaokulu" kısmı iki satırlı başlıkta alt satıra geçsin (tek satırda görünmez)
+// Okul adı üstte, "İmam Hatip Ortaokulu" türü altta ayrı satırda gösterilir
 const IH = /\s+(?=[İIiı][Mm][Aa][Mm]\s+[Hh][Aa][Tt][İIiı][Pp])/
 function nameParts(n) {
   const m = IH.exec(n || '')
-  if (!m) return n
-  return <>{n.slice(0, m.index)}<span className="nb"> </span>{n.slice(m.index + m[0].length)}</>
+  if (!m) return <span className="nm">{n}</span>
+  return <><span className="nm">{n.slice(0, m.index)}</span><span className="ty">{n.slice(m.index + m[0].length)}</span></>
 }
 
 const snap = (v) => Math.round(v / 10) * 10
