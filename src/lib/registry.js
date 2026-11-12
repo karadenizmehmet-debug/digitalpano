@@ -15,6 +15,7 @@ export const hasTitle = (m) => (m.type === 'slides' ? !!m.showTitle : m.showTitl
 export const minHOf = (m) => {
   let b = registry[m.type]?.minH || 100
   if (m.type === 'duty') b = Math.min(b, wantH(m))  // az nöbet yeri varsa daha küçük olabilir
+  if (m.type === 'quote' && m.data?.mode === 'ayet') b = 150  // ayet/hadis uzun: yazı okunur kalsın
   return UNTITLED.includes(m.type) && hasTitle(m) ? b + 58 : b
 }
 

@@ -23,13 +23,13 @@ export const meta = {
 export default function Duty({ data, now }) {
   const ref = useRef()
   useAutoScroll(ref, data.speed ?? 0)
-  // İsim kutuya sığmıyorsa yazı boyutunu küçült: isim tek satırda ve tam okunur kalır
+  // İsim kutuya sığmıyorsa yazı boyutunu küçült; tüm isimler aynı boyutta kalsın (en uzun isme göre)
   useLayoutEffect(() => {
-    ref.current?.querySelectorAll('.dt b').forEach((b) => {
-      b.style.fontSize = ''
-      const fs = parseFloat(getComputedStyle(b).fontSize)
-      if (b.scrollWidth > b.clientWidth + 1) b.style.fontSize = Math.floor((fs * b.clientWidth) / b.scrollWidth) + 'px'
-    })
+    const B = [...(ref.current?.querySelectorAll('.dt b') || [])]
+    B.forEach((b) => { b.style.fontSize = '' })
+    let k = 1
+    B.forEach((b) => { if (b.scrollWidth > b.clientWidth + 1) k = Math.min(k, b.clientWidth / b.scrollWidth) })
+    if (k < 1) B.forEach((b) => { b.style.fontSize = Math.floor(parseFloat(getComputedStyle(b).fontSize) * k) + 'px' })
   })
   const P = rows({ rows: data.places }), g = data.g || {}
   const w = (now.getDay() + 6) % 7, td = w > 4 ? 0 : w
