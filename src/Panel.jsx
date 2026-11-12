@@ -31,6 +31,11 @@ export default function Panel({ cfg, fresh, err }) {
     return () => document.documentElement.classList.remove('p-dark')
   }, [user, dark])
   const toggleDark = () => { const n = !dark; setDark(n); try { localStorage.setItem('dpano-panel-tema', n ? 'dark' : 'light') } catch (e) {} }
+  const sharePanel = async () => {
+    const u = location.href.split(/[?#]/)[0]
+    if (navigator.share) { try { await navigator.share({ title: document.title, url: u }) } catch (e) {} return }
+    try { await navigator.clipboard.writeText(u); setMsg('Adres kopyalandı ✓') } catch (e) { setMsg('Adres: ' + u) }
+  }
   useEffect(() => { const t = setTimeout(() => setSlow(true), 8000); return () => clearTimeout(t) }, [])
   const [sel, setSel] = useState(null), [showPv, setShowPv] = useState(false), [pk, setPk] = useState(null)
   const [em, setEm] = useState(''), [pw, setPw] = useState('')
@@ -116,7 +121,7 @@ export default function Panel({ cfg, fresh, err }) {
     <div className="pnl p-lg">
       <div className="p-lgc">
         <div className="p-lgi">📺</div>
-        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.1.1</small></h1>
+        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.2</small></h1>
         <p className="p-lgs">Hoş geldiniz</p>
         <small className="p-lgo">{cfg?.name || ''}</small>
         <form onSubmit={doLogin}>
@@ -135,7 +140,7 @@ export default function Panel({ cfg, fresh, err }) {
   return (
     <div className="pnl">
       <div className="p-top">
-        <div className="p-tt"><b>Pano Paneli <span style={{ fontSize: '.75em', opacity: .6, fontWeight: 600 }}>v1.1.1</span></b><small>{dirty ? '● Yayınlanmamış değişiklik var' : '✓ Pano güncel'}</small></div>
+        <div className="p-tt"><b>Pano Paneli <span style={{ fontSize: '.75em', opacity: .6, fontWeight: 600 }}>v1.2</span></b><small>{dirty ? '● Yayınlanmamış değişiklik var' : '✓ Pano güncel'}</small></div>
         <button className="p-ib" title="Yayınlamadan önce önizle" onClick={() => setShowPv(true)}>👁</button>
         <a className="p-ib" href="#/" title="Panoyu aç">📺</a>
         <a className="p-ib" href="#/panel" onClick={logout} title="Çıkış">🚪</a>
@@ -192,6 +197,7 @@ export default function Panel({ cfg, fresh, err }) {
         <div className="p-body"><div className="p-grid">
           {[['gen', '🏫', 'Genel ayarlar'], ['thm', '🎨', 'Tema ve renkler'], ['mods', '🧩', 'Modüller'], ['lay', '🖼️', 'Düzen'], ['sd', '📅', 'Özel günler'], ['bak', '💾', 'Yedek'], ['pw', '🔑', 'Şifre']].map(([k, i, l]) => <button key={k} onClick={() => { if (k === 'mods' || k === 'lay') { setTab(k); setOpenId(null) } else setSub(k); window.scrollTo(0, 0) }}><span>{i}</span>{l}</button>)}
           <button onClick={toggleDark}><span>{dark ? '☀️' : '🌙'}</span>{dark ? 'Normal mod' : 'Koyu mod'}</button>
+          <button onClick={sharePanel}><span>🔗</span>Adresi paylaş</button>
         </div></div>
       )}
       {SETT.includes(tab) && !(tab === 'set' && !sub) && !(tab === 'mods' && openId) && <div className="p-sub"><button onClick={() => { setTab('set'); setSub(null); setOpenId(null); window.scrollTo(0, 0) }}>← Ayarlar</button></div>}
