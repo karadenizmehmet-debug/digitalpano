@@ -77,3 +77,12 @@ Duyuru yokken kayan yazıda (varsayılan: Konya MEM duyuruları, `src/lib/newsDe
 - Yan panelli tasarımlarda (12–14) sürükle-bırak düzen yok; sıra "Yan panel modülleri" kartından ayarlanır.
 - Sığmayan yan panel modülleri kırpılmaz, içeriğiyle birlikte küçültülür (`reflow.js` → `zs`).
 - Yayın/yükleme gibi Firebase'e bağlı işlemler yerel denemede çalışmaz; canlıda denenmelidir.
+
+## Haber başlıkları (RSS)
+- `scripts/haber.mjs` RSS'leri çeker. `.github/workflows/haber.yml` bunu 30 dakikada bir çalıştırıp sonucu Firestore `config/haber` belgesine yazar; site yeniden yayınlanmaz.
+- Pano `src/lib/news.js` ile bu belgeyi canlı dinler. Belge boşsa siteyle yayınlanan `haber.json` yedeği kullanılır.
+- Kaynak seçili değilken eski liste silinmez; RSS yeniden açılınca başlıklar hemen görünür.
+
+## Sınamalar
+- `npm test` (Node'un kendi sınayıcısı, ek paket yok). Dosyalar `test/*.test.mjs`.
+- `test/win7.test.mjs` Chrome 109'da olmayan özellikleri kodda arar. Deploy ve Pages işleri derlemeden önce `npm test` çalıştırır; kırmızıysa yayın durur.

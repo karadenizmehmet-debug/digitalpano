@@ -30,7 +30,7 @@ export function RssEditor({ draft, set, back }) {
       <div className="p-fld"><input value={url} onChange={(e) => setUrl(e.target.value)} placeholder="RSS adresi: https://…/rss.xml" /></div>
       <div className="p-btns"><button className="p-pri" disabled={!url.trim()} onClick={add}>+ Ekle</button>
         {missing.length > 0 && <button onClick={() => put([...L, ...missing.map((s) => ({ ...s, on: false }))])}>↩ Silinen hazır kaynakları geri getir</button>}</div>
-      <small className="p-hint">Haberler her 30 dakikada bir otomatik güncellenir; yeni seçim ve eklemeler bir sonraki güncellemede etkili olur. Yan panelli tasarımlarda (Yayın Ekranı, Menü Panosu, Kampüs) kayan yazı yoktur.</small>
+      <small className="p-hint">Haberler her 30 dakikada bir otomatik güncellenir. Kapatıp açtığınızda son başlıklar hemen geri gelir; yeni işaretlediğiniz veya eklediğiniz kaynağın başlıkları bir sonraki güncellemede eklenir. Yan panelli tasarımlarda (Yayın Ekranı, Menü Panosu, Kampüs) kayan yazı yoktur.</small>
     </div>
   )
 }

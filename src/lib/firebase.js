@@ -25,6 +25,10 @@ const ref = doc(db, 'config', 'pano')
 export const listenConfig = (cb) => onSnapshot(ref, { includeMetadataChanges: true },
   (s) => cb(s.exists() ? s.data() : null, { fromCache: s.metadata.fromCache }),
   (e) => console.warn('Firestore:', e.message))
+// Haber başlıkları (config/haber): scripts/haber.mjs yazar, pano canlı dinler.
+export const listenNews = (cb) => onSnapshot(doc(db, 'config', 'haber'),
+  (s) => { const d = s.exists() ? s.data() : null; cb(d && Array.isArray(d.items) ? d.items.filter((x) => typeof x === 'string' && x) : []) },
+  (e) => console.warn('Firestore haber:', e.message))
 // Sunucudan tek seferlik doğrulanmış okuma (önbellek değil). Panel yalnızca bundan sonra düzenlemeye açılır.
 export const fetchServerConfig = async () => { const s = await getDocFromServer(ref); return s.exists() ? s.data() : null }
 export const saveConfig = (data) => setDoc(ref, JSON.parse(JSON.stringify(data)))
