@@ -1,10 +1,11 @@
+import { Emo } from './emoji.jsx'
 // Balon ve yıldız efektleri (özel günler için)
 const BAL = ['🎈', '🎈', '🎈', '🎉', '🎈', '🎁']
 export function Balloons() {
   return (
     <div className="flo">
       {Array.from({ length: 16 }, (_, i) => (
-        <i key={i} style={{ left: ((i * 29 + 7) % 96) + '%', fontSize: 54 + (i % 4) * 14, animationDuration: (9 + (i % 5) * 1.7).toFixed(1) + 's', animationDelay: '-' + ((i * 1.3) % 9).toFixed(1) + 's' }}>{BAL[i % BAL.length]}</i>
+        <i key={i} style={{ left: ((i * 29 + 7) % 96) + '%', fontSize: 54 + (i % 4) * 14, animationDuration: (9 + (i % 5) * 1.7).toFixed(1) + 's', animationDelay: '-' + ((i * 1.3) % 9).toFixed(1) + 's' }}><Emo t={BAL[i % BAL.length]} /></i>
       ))}
     </div>
   )
@@ -13,7 +14,7 @@ export function Stars() {
   return (
     <div className="flo st">
       {Array.from({ length: 36 }, (_, i) => (
-        <i key={i} style={{ left: ((i * 41 + 5) % 97) + '%', top: ((i * 23 + 9) % 92) + '%', fontSize: 18 + (i % 4) * 10, animationDuration: (1.6 + (i % 5) * 0.5).toFixed(1) + 's', animationDelay: '-' + ((i * 0.7) % 4).toFixed(1) + 's' }}>{i % 3 ? '✦' : '✨'}</i>
+        <i key={i} style={{ left: ((i * 41 + 5) % 97) + '%', top: ((i * 23 + 9) % 92) + '%', fontSize: 18 + (i % 4) * 10, animationDuration: (1.6 + (i % 5) * 0.5).toFixed(1) + 's', animationDelay: '-' + ((i * 0.7) % 4).toFixed(1) + 's' }}>{i % 3 ? '✦' : <Emo t="✨" />}</i>
       ))}
     </div>
   )
@@ -24,7 +25,7 @@ export function Hearts() {
   return (
     <div className="flo">
       {Array.from({ length: 18 }, (_, i) => (
-        <i key={i} style={{ left: ((i * 31 + 3) % 96) + '%', fontSize: 40 + (i % 4) * 14, animationDuration: (8 + (i % 5) * 1.5).toFixed(1) + 's', animationDelay: '-' + ((i * 1.1) % 8).toFixed(1) + 's' }}>{HE[i % HE.length]}</i>
+        <i key={i} style={{ left: ((i * 31 + 3) % 96) + '%', fontSize: 40 + (i % 4) * 14, animationDuration: (8 + (i % 5) * 1.5).toFixed(1) + 's', animationDelay: '-' + ((i * 1.1) % 8).toFixed(1) + 's' }}><Emo t={HE[i % HE.length]} /></i>
       ))}
     </div>
   )
@@ -34,7 +35,7 @@ export function Petals() {
   return (
     <div className="flo dn">
       {Array.from({ length: 26 }, (_, i) => (
-        <i key={i} style={{ left: ((i * 37 + 9) % 98) + '%', fontSize: 28 + (i % 4) * 9, animationDuration: (7 + (i % 6) * 1.4).toFixed(1) + 's', animationDelay: '-' + ((i * 0.9) % 8).toFixed(1) + 's' }}>{PE[i % PE.length]}</i>
+        <i key={i} style={{ left: ((i * 37 + 9) % 98) + '%', fontSize: 28 + (i % 4) * 9, animationDuration: (7 + (i % 6) * 1.4).toFixed(1) + 's', animationDelay: '-' + ((i * 0.9) % 8).toFixed(1) + 's' }}><Emo t={PE[i % PE.length]} /></i>
       ))}
     </div>
   )

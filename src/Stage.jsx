@@ -11,6 +11,7 @@ import { loadImage } from './lib/firebase.js'
 import { useLive } from './lib/weather.js'
 import { visibleTicker, effectiveTicker } from './lib/ticker.js'
 import { useNews } from './lib/news.js'
+import { Emo } from './lib/emoji.jsx'
 import { activeUrls, tagOf } from './lib/newsDefault.js'
 import { colSnap, reflow, colsFor, slideFor, SIDE_DSG } from './lib/reflow.js'
 import { quoteTitle } from './modules/quote.jsx'
@@ -247,16 +248,16 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null, aler
         )}
         {!preview && alertOn(cfg.al, now.getTime()) && (
           <div className="alr" data-t={cfg.al.tone || 'r'} style={{ '--f': (cfg.al.fs || 100) / 100, '--i': (cfg.al.is || 100) / 100 }}>
-            {cfg.al.ic ? <i>{cfg.al.ic}</i> : null}
-            <b>{cfg.al.title}</b>
-            <span>{cfg.al.text}</span>
+            {cfg.al.ic ? <i><Emo t={cfg.al.ic} /></i> : null}
+            <b><Emo t={cfg.al.title} /></b>
+            <span><Emo t={cfg.al.text} /></span>
           </div>
         )}
         {alertPv && (
           <div className="alr" data-t={alertPv.tone || 'r'} style={{ '--f': (alertPv.fs || 100) / 100, '--i': (alertPv.is || 100) / 100, animation: 'none' }}>
-            {alertPv.ic ? <i>{alertPv.ic}</i> : null}
-            <b>{alertPv.title}</b>
-            <span>{alertPv.text}</span>
+            {alertPv.ic ? <i><Emo t={alertPv.ic} /></i> : null}
+            <b><Emo t={alertPv.title} /></b>
+            <span><Emo t={alertPv.text} /></span>
           </div>
         )}
         {tk.length > 0 && !SIDE_DSG[cfg.design] && (

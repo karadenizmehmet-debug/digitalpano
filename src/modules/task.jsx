@@ -1,3 +1,4 @@
+import { Emo } from '../lib/emoji.jsx'
 import { TASKS } from '../lib/tasksData.js'
 export const meta = {
   label: 'Günün Görevi', minH: 130,
@@ -12,7 +13,7 @@ export default function Task({ data, now }) {
   const len = t.length
   return (
     <div className="gm">
-      <div className={'gx ' + (len < 60 ? 'gs' : len < 110 ? 'gmd' : 'gl')}><em>⭐ BUGÜNÜN GÖREVİ</em><span>{t}</span></div>
+      <div className={'gx ' + (len < 60 ? 'gs' : len < 110 ? 'gmd' : 'gl')}><em><Emo t="⭐" /> BUGÜNÜN GÖREVİ</em><span>{t}</span></div>
     </div>
   )
 }
