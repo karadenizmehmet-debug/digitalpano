@@ -287,3 +287,11 @@ html.p-dark .stg-pv,html.p-dark .p-th,html.p-dark .p-themes i,html.p-dark .p-sw 
   .pnl .p-alwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:20px;align-items:start}
   .pnl .p-alpv{position:sticky;top:90px;order:2}
 }
+
+.pnl .p-lf{display:grid;gap:6px}
+.pnl .p-lt{width:100%;border-collapse:collapse;margin-top:12px;font-size:14px}
+.pnl .p-lt th{background:#fdf5df;text-align:left;padding:8px 6px}
+.pnl .p-lt td{padding:8px 6px;border-bottom:1px solid #dde5ec;vertical-align:middle}
+.pnl .p-lt tr.p-on td{background:#e4f3f1}
+.pnl .p-lt .p-la{display:flex;gap:6px;justify-content:flex-end;white-space:nowrap}
+.pnl .p-lt .p-la button{padding:6px 10px;font-size:13px}
