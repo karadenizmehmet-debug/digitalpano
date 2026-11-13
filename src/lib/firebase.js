@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager, doc, onSnapshot, setDoc, getDoc, getDocFromServer, deleteDoc } from 'firebase/firestore'
-import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, EmailAuthProvider, reauthenticateWithCredential, updatePassword } from 'firebase/auth'
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, EmailAuthProvider, reauthenticateWithCredential, updatePassword, updateProfile } from 'firebase/auth'
 
 // Web yapılandırması gizli değildir (güvenlik Firestore kurallarındadır).
 // API anahtarını Google Cloud > Credentials'tan kendi alan adınıza kısıtlayın.
@@ -39,6 +39,7 @@ export const changePassword = async (oldPw, newPw) => {
   await reauthenticateWithCredential(u, EmailAuthProvider.credential(u.email, oldPw))
   await updatePassword(u, newPw)
 }
+export const setDisplayName = (name) => updateProfile(auth.currentUser, { displayName: name })
 export const onUser = (cb) => onAuthStateChanged(auth, cb)
 
 // Görseller ayrı belgelerde tutulur (images/{id}); ayar belgesi 1 MB sınırına takılmasın diye.

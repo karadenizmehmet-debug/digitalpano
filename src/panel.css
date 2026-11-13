@@ -295,3 +295,4 @@ html.p-dark .stg-pv,html.p-dark .p-th,html.p-dark .p-themes i,html.p-dark .p-sw 
 .pnl .p-lt tr.p-on td{background:#e4f3f1}
 .pnl .p-lt .p-la{display:flex;gap:6px;justify-content:flex-end;white-space:nowrap}
 .pnl .p-lt .p-la button{padding:6px 10px;font-size:13px}
+.pnl .p-tt .p-acc{font-size:12px;color:#5b6b7a;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}

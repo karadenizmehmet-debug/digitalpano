@@ -10,12 +10,12 @@ import { RssEditor } from './panel/RssEditor.jsx'
 import { SIDE_DSG, reflow, slideFor } from './lib/reflow.js'
 import { SpecialEditor } from './panel/SpecialEditor.jsx'
 import Stage from './Stage.jsx'
-import { fetchServerConfig, login, logout, onUser, removeImage, saveConfig, saveImage } from './lib/firebase.js'
+import { fetchServerConfig, login, logout, onUser, removeImage, saveConfig, saveImage, setDisplayName } from './lib/firebase.js'
 import { minHOf, registry, wantH } from './lib/registry.js'
 import './panel.css'
 
 export default function Panel({ cfg, fresh, err }) {
-  const [user, setUser] = useState(undefined)
+  const [user, setUser] = useState(undefined), [uname, setUname] = useState('')
   const [draft, setDraft] = useState(null)
   const [msg, setMsg] = useState('')
   const [tab, setTab] = useState('news')
@@ -40,7 +40,7 @@ export default function Panel({ cfg, fresh, err }) {
   const [sel, setSel] = useState(null), [showPv, setShowPv] = useState(false), [pk, setPk] = useState(null)
   const [em, setEm] = useState(''), [pw, setPw] = useState('')
 
-  useEffect(() => onUser(setUser), [])
+  useEffect(() => onUser((u) => { setUser(u); setUname((u && u.displayName) || '') }), [])
   useEffect(() => { if (user && fresh && !draft) { const d0 = JSON.parse(JSON.stringify(cfg)); (d0.mods || []).forEach((m) => { if (m.type === 'slides' && m.title === 'Hoş Geldiniz') m.title = 'Manşet Haber' }); const off = new Set(d0.offered || []);  // yeni hazır modüller bir kez, KAPALI olarak listeye eklenir
       ['word', 'task', 'history'].forEach((t) => { if (off.has(t)) return; off.add(t); const R = registry[t]; if (R && !(d0.mods || []).some((m) => m.type === t)) d0.mods.push({ id: 'm' + t, type: t, title: R.label, active: false, x: 380, y: 124, w: 440, h: R.minH || 150, color: '#0f9b8e', fs: 100, data: JSON.parse(JSON.stringify(R.def || {})) }) })
       d0.offered = [...off]; setDraft(d0); setSaved(JSON.stringify(cfg)) } }, [user, cfg, draft, fresh])
@@ -121,7 +121,7 @@ export default function Panel({ cfg, fresh, err }) {
     <div className="pnl p-lg">
       <div className="p-lgc">
         <div className="p-lgi">📺</div>
-        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.3.4</small></h1>
+        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.3.5</small></h1>
         <p className="p-lgs">Hoş geldiniz</p>
         <small className="p-lgo">{cfg?.name || ''}</small>
         <form onSubmit={doLogin}>
@@ -140,7 +140,8 @@ export default function Panel({ cfg, fresh, err }) {
   return (
     <div className="pnl">
       <div className="p-top">
-        <div className="p-tt"><b>Pano Paneli <span style={{ fontSize: '.75em', opacity: .6, fontWeight: 600 }}>v1.3.4</span></b><small>{dirty ? '● Yayınlanmamış değişiklik var' : '✓ Pano güncel'}</small></div>
+        <div className="p-tt"><b>Pano Paneli <span style={{ fontSize: '.75em', opacity: .6, fontWeight: 600 }}>v1.3.5</span></b><small>{dirty ? '● Yayınlanmamış değişiklik var' : '✓ Pano güncel'}</small>
+          <span className="p-acc" title="Adı değiştirmek için dokunun" onClick={() => { const n = prompt('Adınız Soyadınız', uname); if (n && n.trim()) setDisplayName(n.trim()).then(() => setUname(n.trim())).catch(() => alert('Ad kaydedilemedi.')) }}>{uname || 'Adınızı ekleyin ✎'} · {user.email}</span></div>
         <button className="p-ib" title="Yayınlamadan önce önizle" onClick={() => setShowPv(true)}>👁</button>
         <a className="p-ib" href="#/" target="_blank" rel="noopener" title="Panoyu aç">📺</a>
         <a className="p-ib" href="#/panel" onClick={logout} title="Çıkış">🚪</a>
