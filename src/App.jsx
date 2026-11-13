@@ -1,8 +1,16 @@
-import { useEffect, useLayoutEffect, useState } from 'react'
+import { Suspense, lazy, useEffect, useLayoutEffect, useState } from 'react'
 import defaults from './defaults.json'
 import { listenConfig, fetchServerConfig } from './lib/firebase.js'
-import Panel from './Panel.jsx'
 import Stage from './Stage.jsx'
+
+// Panel kodu yalnızca #/panel açılınca indirilir; pano ekranı (eski PC) onu hiç yüklemez.
+// Yeni sürüm yayınlanınca eski parça dosyası silinir; indirilemezse sayfa bir kez yenilenir.
+const Panel = lazy(() => import('./Panel.jsx').then((m) => { try { sessionStorage.removeItem('pnlRetry') } catch {} return m }, (e) => {
+  let again = false
+  try { again = !sessionStorage.getItem('pnlRetry'); sessionStorage.setItem('pnlRetry', '1') } catch {}
+  if (again) { location.reload(); return new Promise(() => {}) }
+  throw e
+}))
 
 export default function App() {
   const [cfg, setCfg] = useState(defaults)
@@ -46,5 +54,5 @@ export default function App() {
     scrollTo(0, 0)
   }, [isPanel])
   if (!isPanel && !loaded) return null  // varsayılan ayarların bir an görünmesini önle
-  return isPanel ? <Panel cfg={cfg} fresh={fresh} err={err} /> : <Stage key="display" cfg={cfg} />
+  return isPanel ? <Suspense fallback={<div className="pnl"><p>Panel yükleniyor…</p></div>}><Panel cfg={cfg} fresh={fresh} err={err} /></Suspense> : <Stage key="display" cfg={cfg} />
 }
