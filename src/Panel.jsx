@@ -142,7 +142,7 @@ export default function Panel({ cfg, fresh, err }) {
       <div className="p-top">
         <div className="p-tt"><b>Pano Paneli <span style={{ fontSize: '.75em', opacity: .6, fontWeight: 600 }}>v1.2.9</span></b><small>{dirty ? '● Yayınlanmamış değişiklik var' : '✓ Pano güncel'}</small></div>
         <button className="p-ib" title="Yayınlamadan önce önizle" onClick={() => setShowPv(true)}>👁</button>
-        <a className="p-ib" href="#/" title="Panoyu aç">📺</a>
+        <a className="p-ib" href="#/" target="_blank" rel="noopener" title="Panoyu aç">📺</a>
         <a className="p-ib" href="#/panel" onClick={logout} title="Çıkış">🚪</a>
         <button className={'p-pri p-pub' + (dirty ? ' p-dirty' : '')} onClick={publish}>Yayınla</button>
       </div>
