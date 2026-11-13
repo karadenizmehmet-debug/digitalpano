@@ -15,7 +15,26 @@ export const ICO = { word: '🔤', task: '🎯', history: '📜', schedule: '�
 export const TONES = { r: 'Kırmızı', b: 'Mavi', g: 'Yeşil', o: 'Turuncu', p: 'Mor', k: 'Siyah' }
 
 // Görseli küçültüp JPEG'e çevirir (Firestore belgesi 1 MB'ı geçmesin)
-export async function shrink(file, maxDim = 1280, type = 'image/jpeg', limit = 700000) {
+// Kenardan başlayan beyaz zemini şeffaf yapar (logo içindeki kapalı beyaz alanlara dokunmaz)
+function clearWhite(c) {
+  const w = c.width, h = c.height, ctx = c.getContext('2d'), im = ctx.getImageData(0, 0, w, h), d = im.data
+  const white = (i) => d[i + 3] < 8 || (d[i] > 225 && d[i + 1] > 225 && d[i + 2] > 225)
+  const seen = new Uint8Array(w * h), st = []
+  const push = (x, y) => { const k = y * w + x; if (!seen[k] && white(k * 4)) { seen[k] = 1; st.push(k) } }
+  for (let x = 0; x < w; x++) { push(x, 0); push(x, h - 1) }
+  for (let y = 0; y < h; y++) { push(0, y); push(w - 1, y) }
+  while (st.length) {
+    const k = st.pop(), x = k % w, y = (k - x) / w
+    d[k * 4 + 3] = 0
+    if (x > 0) push(x - 1, y)
+    if (x < w - 1) push(x + 1, y)
+    if (y > 0) push(x, y - 1)
+    if (y < h - 1) push(x, y + 1)
+  }
+  ctx.putImageData(im, 0, 0)
+}
+
+export async function shrink(file, maxDim = 1280, type = 'image/jpeg', limit = 700000, noBg = false) {
   const bmp = await createImageBitmap(file)
   let max = maxDim, q = 0.8, out = ''
   for (let i = 0; i < 5; i++) {
@@ -23,6 +42,7 @@ export async function shrink(file, maxDim = 1280, type = 'image/jpeg', limit = 7
     const c = document.createElement('canvas')
     c.width = Math.round(bmp.width * r); c.height = Math.round(bmp.height * r)
     c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height)
+    if (noBg) clearWhite(c)
     out = c.toDataURL(type, q)
     if (out.length < limit) return out
     max *= 0.8; q -= 0.08

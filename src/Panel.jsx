@@ -121,7 +121,7 @@ export default function Panel({ cfg, fresh, err }) {
     <div className="pnl p-lg">
       <div className="p-lgc">
         <div className="p-lgi">📺</div>
-        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.2.6</small></h1>
+        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.2.7</small></h1>
         <p className="p-lgs">Hoş geldiniz</p>
         <small className="p-lgo">{cfg?.name || ''}</small>
         <form onSubmit={doLogin}>
@@ -140,7 +140,7 @@ export default function Panel({ cfg, fresh, err }) {
   return (
     <div className="pnl">
       <div className="p-top">
-        <div className="p-tt"><b>Pano Paneli <span style={{ fontSize: '.75em', opacity: .6, fontWeight: 600 }}>v1.2.6</span></b><small>{dirty ? '● Yayınlanmamış değişiklik var' : '✓ Pano güncel'}</small></div>
+        <div className="p-tt"><b>Pano Paneli <span style={{ fontSize: '.75em', opacity: .6, fontWeight: 600 }}>v1.2.7</span></b><small>{dirty ? '● Yayınlanmamış değişiklik var' : '✓ Pano güncel'}</small></div>
         <button className="p-ib" title="Yayınlamadan önce önizle" onClick={() => setShowPv(true)}>👁</button>
         <a className="p-ib" href="#/" title="Panoyu aç">📺</a>
         <a className="p-ib" href="#/panel" onClick={logout} title="Çıkış">🚪</a>
@@ -212,7 +212,7 @@ export default function Panel({ cfg, fresh, err }) {
                   if (!f) return
                   try {
                     setMsg('Logo hazırlanıyor…')
-                    const src = await shrink(f, 300, 'image/png', 250000), id = 'logo' + Date.now().toString(36)
+                    const src = await shrink(f, 300, 'image/png', 250000, true), id = 'logo' + Date.now().toString(36)
                     await saveImage(id, src)
                     set({ logoId: id, logo: '' })
                     setMsg('Logo yüklendi. Yayınla düğmesine basmayı unutmayın.')
