@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { IHO_CLASSES, IHO_LESSONS, ihoProgram } from '../lib/ihoSample.js'
 import { nMax, nOf } from '../modules/schedule.jsx'
-import { addProg5 } from '../lib/prog5.js'
+import { addHazirProg } from '../lib/hazirProg.js'
 
 export function SchedEditor({ data, set }) {
   const [sec, setSec] = useState('cls'), [c, setC] = useState(''), [ln, setLn] = useState(''), [lk, setLk] = useState('')
@@ -9,7 +9,7 @@ export function SchedEditor({ data, set }) {
   const classes = data.classes || [], lessons = data.lessons || [], N = nMax(data)
   const prog = data.prog || {}
   const load = () => { set({ classes: IHO_CLASSES, lessons: IHO_LESSONS, prog: ihoProgram(N), n: 8 }); setAsk(false) }
-  const load5 = () => { set(addProg5(data, N)); setAsk5(false) }
+  const load5 = () => { set(addHazirProg(data, N)); setAsk5(false) }
   const cur = classes.includes(pc) ? pc : classes[0]
   const addCls = () => {
     const a = c.split(/[,\n]/).map((x) => x.trim()).filter((x) => x && !classes.includes(x))
@@ -45,9 +45,9 @@ export function SchedEditor({ data, set }) {
       <div className="p-fld">
         {!ask ? <button className={classes.length || lessons.length ? '' : 'p-pri'} onClick={() => (classes.length || lessons.length ? setAsk(true) : load())}>⚡ İmam hatip ortaokulu örneğini yükle</button>
           : <div className="p-btns"><button className="p-danger" onClick={load}>Evet, mevcut sınıf/ders/programın yerine yükle</button><button onClick={() => setAsk(false)}>Vazgeç</button></div>}
-        {!ask5 ? <button onClick={() => setAsk5(true)}>5/A ve 5/B programını ekle</button>
-          : <div className="p-btns"><button className="p-danger" onClick={load5}>Evet, 5/A ve 5/B programını yaz</button><button onClick={() => setAsk5(false)}>Vazgeç</button></div>}
-        <small>Gerçek 5/A ve 5/B ders programı. Bu iki sınıfın mevcut programının yerine yazılır, diğer sınıflara dokunmaz. Örnek düğmesi: 5–8. sınıf A/B şubeleri, tüm dersler (kısaltmalı) ve rastgele örnek program.</small>
+        {!ask5 ? <button onClick={() => setAsk5(true)}>Hazır 5–8. sınıf programını ekle</button>
+          : <div className="p-btns"><button className="p-danger" onClick={load5}>Evet, 5/A–8/B programını yaz</button><button onClick={() => setAsk5(false)}>Vazgeç</button></div>}
+        <small>Gerçek 5/A–8/B ders programı (8 şube). Bu sınıfların mevcut programının yerine yazılır. Örnek düğmesi: 5–8. sınıf A/B şubeleri, tüm dersler (kısaltmalı) ve rastgele örnek program.</small>
       </div>
       <div className="p-sub">{[['cls', '1. Sınıflar'], ['les', '2. Dersler'], ['prg', '3. Program']].map(([k, l]) => <button key={k} className={sec === k ? 'p-on' : ''} onClick={() => setSec(k)}>{l}</button>)}</div>
       {sec === 'cls' && (
