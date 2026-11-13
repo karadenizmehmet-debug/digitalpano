@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { ALI, NumIn, isoLocal } from './common.jsx'
 import { alertStatus } from '../lib/alert.js'
+import Stage from '../Stage.jsx'
 import { changePassword } from '../lib/firebase.js'
 
 export function PwEditor({ say }) {
@@ -25,11 +26,15 @@ export function PwEditor({ say }) {
   )
 }
 
-export function AlertEditor({ al, set }) {
+export function AlertEditor({ al, set, draft }) {
   const a = { on: false, title: 'ACİL DUYURU', text: '', tone: 'r', ic: '', ...al }
   const up = (p) => set({ ...a, ...p })
   return (
-    <div className="p-body">
+    <div className="p-body p-alwrap">
+      <div className="p-alpv"><label>Önizleme (şu anki ayarlarla)</label>
+        <div className="stg-pv"><Stage preview cfg={draft} alertPv={a} /></div>
+      </div>
+      <div className="p-alform">
       <p className="p-hint">Açtığınız anda pano tam ekran acil duyuruya geçer (her şeyin üstünde görünür). Yayınla'dan sonra panoya yansır.</p>
       <div className="p-fld"><label>Simge</label>
         <div className="p-ico">
@@ -55,6 +60,7 @@ export function AlertEditor({ al, set }) {
         <button className={a.on ? 'p-danger' : 'p-pri'} onClick={() => up({ on: !a.on, pend: a.on ? 0 : 1 })}>
           {a.on ? 'Acil duyuruyu kapat' : 'Acil duyuruyu AÇ'}
         </button>
+      </div>
       </div>
     </div>
   )

@@ -58,7 +58,7 @@ function stretchMods(mods, SH) {
 
 // Pano sahnesi: 1600x900'lük sabit alan, kabına sığacak şekilde ölçeklenir.
 // preview: panel içi önizleme (örtüler ve efektler kapalı). edit: { sel, onSelect, onChange(mods) } sürükle-bırak için.
-export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
+export default function Stage({ forceSp, cfg, preview = false, edit = null, alertPv = null }) {
   const [now, setNow] = useState(new Date())
   const [T, setT] = useState(0)
   const [fit, setFit] = useState({ sc: 1, x: 0, y: 0, SH: 900 })
@@ -250,6 +250,13 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null }) {
             {cfg.al.ic ? <i>{cfg.al.ic}</i> : null}
             <b>{cfg.al.title}</b>
             <span>{cfg.al.text}</span>
+          </div>
+        )}
+        {alertPv && (
+          <div className="alr" data-t={alertPv.tone || 'r'} style={{ '--f': (alertPv.fs || 100) / 100, '--i': (alertPv.is || 100) / 100, animation: 'none' }}>
+            {alertPv.ic ? <i>{alertPv.ic}</i> : null}
+            <b>{alertPv.title}</b>
+            <span>{alertPv.text}</span>
           </div>
         )}
         {tk.length > 0 && !SIDE_DSG[cfg.design] && (
