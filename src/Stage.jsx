@@ -240,6 +240,7 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null, aler
         )}
         {night && (
           <div className="nmo">
+            {FX_KINDS.includes(fxKind) && <Fx kind={fxKind} />}
             <div className="nmc">
               <div className="nt">{p2(now.getHours())}<span className="nc">:</span>{p2(now.getMinutes())}<small>{p2(now.getSeconds())}</small></div>
               <div className="nd"><b>{GUN[now.getDay()]}</b>{now.getDate()} {MON[now.getMonth()]} {now.getFullYear()}</div>

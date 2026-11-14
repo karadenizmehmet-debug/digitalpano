@@ -121,7 +121,7 @@ export default function Panel({ cfg, fresh, err }) {
     <div className="pnl p-lg">
       <div className="p-lgc">
         <div className="p-lgi">📺</div>
-        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.3.6</small></h1>
+        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.3.7</small></h1>
         <p className="p-lgs">Hoş geldiniz</p>
         <small className="p-lgo">{cfg?.name || ''}</small>
         <form onSubmit={doLogin}>
@@ -140,7 +140,7 @@ export default function Panel({ cfg, fresh, err }) {
   return (
     <div className="pnl">
       <div className="p-top">
-        <div className="p-tt"><b>Pano Paneli <span style={{ fontSize: '.75em', opacity: .6, fontWeight: 600 }}>v1.3.6</span></b><small>{dirty ? '● Yayınlanmamış değişiklik var' : '✓ Pano güncel'}</small>
+        <div className="p-tt"><b>Pano Paneli <span style={{ fontSize: '.75em', opacity: .6, fontWeight: 600 }}>v1.3.7</span></b><small>{dirty ? '● Yayınlanmamış değişiklik var' : '✓ Pano güncel'}</small>
           <span className="p-acc" title="Adı değiştirmek için dokunun" onClick={() => { const n = prompt('Adınız Soyadınız', uname); if (n && n.trim()) setDisplayName(n.trim()).then(() => setUname(n.trim())).catch(() => alert('Ad kaydedilemedi.')) }}>{uname || 'Adınızı ekleyin ✎'} · {user.email}</span></div>
         <button className="p-ib" title="Yayınlamadan önce önizle" onClick={() => setShowPv(true)}>👁</button>
         <a className="p-ib" href="#/" target="_blank" rel="noopener" title="Panoyu aç">📺</a>
