@@ -4,6 +4,7 @@ import { alertOn } from './lib/alert.js'
 import { specialVisible } from './lib/special.js'
 import { isNight } from './lib/night.js'
 import { MON, p2, mix } from './lib/util.js'
+const GUN = ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi']
 import Confetti from './lib/Confetti.jsx'
 import Fireworks from './lib/Fireworks.jsx'
 import { Balloons, Stars, Hearts, Petals, Flags, Frame } from './lib/Floaters.jsx'
@@ -240,8 +241,9 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null, aler
         {night && (
           <div className="nmo">
             <div className="nmc">
-              <div className="nt">{p2(now.getHours())}:{p2(now.getMinutes())}</div>
-              <div className="nd">{now.getDate()} {MON[now.getMonth()]} {now.getFullYear()}</div>
+              <div className="nt">{p2(now.getHours())}<span className="nc">:</span>{p2(now.getMinutes())}<small>{p2(now.getSeconds())}</small></div>
+              <div className="nd"><b>{GUN[now.getDay()]}</b>{now.getDate()} {MON[now.getMonth()]} {now.getFullYear()}</div>
+              <i className="nl" />
               <div className="nn">{cfg.name}</div>
             </div>
           </div>
