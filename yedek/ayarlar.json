@@ -1,59 +1,56 @@
 {
   "name": "projects/digitalpano-84947/databases/(default)/documents/config/pano",
   "fields": {
-    "al": {
-      "mapValue": {
-        "fields": {
-          "is": {
-            "integerValue": "50"
+    "c1": {
+      "stringValue": "#8e1b3a"
+    },
+    "slogan": {
+      "stringValue": ""
+    },
+    "nmMode": {
+      "stringValue": "day"
+    },
+    "ticker": {
+      "stringValue": "Okulumuza hoş geldiniz\nDuyurular panelden düzenlenebilir"
+    },
+    "offered": {
+      "arrayValue": {
+        "values": [
+          {
+            "stringValue": "word"
           },
-          "ic": {
-            "stringValue": "🚨"
+          {
+            "stringValue": "task"
           },
-          "on": {
-            "booleanValue": false
-          },
-          "at": {
-            "integerValue": "1793403856061"
-          },
-          "pend": {
-            "integerValue": "0"
-          },
-          "fs": {
-            "integerValue": "200"
-          },
-          "title": {
-            "stringValue": "Duyuru"
-          },
-          "tone": {
-            "stringValue": "o"
-          },
-          "text": {
-            "stringValue": "Deprem Tatbikatı"
+          {
+            "stringValue": "history"
           }
-        }
+        ]
       }
+    },
+    "nmPost": {
+      "integerValue": "60"
+    },
+    "stripId": {
+      "stringValue": "m10"
+    },
+    "rev": {
+      "integerValue": "1794653403595"
+    },
+    "fx": {
+      "stringValue": "auto"
     },
     "tkNews": {
       "booleanValue": true
     },
     "c3": {
-      "stringValue": "#2ec4b6"
+      "stringValue": "#e0b24a"
     },
-    "ticker": {
-      "stringValue": "Okulumuza hoş geldiniz\nDuyurular panelden düzenlenebilir"
+    "theme": {
+      "integerValue": "0"
     },
-    "nmMode": {
-      "stringValue": "day"
-    },
-    "nmWe": {
-      "booleanValue": true
-    },
-    "c1": {
-      "stringValue": "#0b6fb3"
-    },
-    "stripId": {
-      "stringValue": "m10"
+    "bg": {
+      "stringValue": "#f6eef0"
     },
     "rssOn": {
       "arrayValue": {
@@ -63,6 +60,237 @@
           }
         ]
       }
+    },
+    "name": {
+      "stringValue": "Şehit Coşkun Karabulut İmam Hatip Ortaokulu"
+    },
+    "sd": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "now": {
+                  "booleanValue": false
+                },
+                "bl": {
+                  "booleanValue": false
+                },
+                "pt": {
+                  "booleanValue": true
+                },
+                "fr": {
+                  "booleanValue": true
+                },
+                "date": {
+                  "stringValue": "29.10"
+                },
+                "sn": {
+                  "booleanValue": false
+                },
+                "img": {
+                  "stringValue": ""
+                },
+                "ht": {
+                  "booleanValue": true
+                },
+                "bgfx": {
+                  "stringValue": "pulse"
+                },
+                "fw": {
+                  "booleanValue": false
+                },
+                "id": {
+                  "stringValue": "s0"
+                },
+                "conf": {
+                  "booleanValue": false
+                },
+                "ds": {
+                  "integerValue": "20"
+                },
+                "fl": {
+                  "booleanValue": false
+                },
+                "title": {
+                  "stringValue": "Cumhuriyet Bayramımız\n Kutlu Olsun!"
+                },
+                "st": {
+                  "booleanValue": false
+                },
+                "bg": {
+                  "stringValue": "#6b46c1"
+                },
+                "fs": {
+                  "integerValue": "200"
+                },
+                "sub": {
+                  "stringValue": "Deneme"
+                },
+                "iv": {
+                  "doubleValue": 0.1
+                },
+                "on": {
+                  "booleanValue": true
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "now": {
+                  "booleanValue": false
+                },
+                "id": {
+                  "stringValue": "s1"
+                },
+                "date": {
+                  "stringValue": "10.11"
+                },
+                "title": {
+                  "stringValue": "Ulu Önder Atatürk'ü \nSaygı ve Özlemle Anıyoruz"
+                },
+                "sub": {
+                  "stringValue": "10 Kasım"
+                },
+                "img": {
+                  "stringValue": ""
+                },
+                "on": {
+                  "booleanValue": true
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "title": {
+                  "stringValue": "Öğretmenler Günümüz Kutlu Olsun!"
+                },
+                "conf": {
+                  "booleanValue": true
+                },
+                "on": {
+                  "booleanValue": true
+                },
+                "now": {
+                  "booleanValue": false
+                },
+                "date": {
+                  "stringValue": "24.11"
+                },
+                "id": {
+                  "stringValue": "s2"
+                },
+                "sub": {
+                  "stringValue": ""
+                },
+                "img": {
+                  "stringValue": ""
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "now": {
+                  "booleanValue": false
+                },
+                "id": {
+                  "stringValue": "s3"
+                },
+                "conf": {
+                  "booleanValue": true
+                },
+                "sub": {
+                  "stringValue": ""
+                },
+                "img": {
+                  "stringValue": ""
+                },
+                "title": {
+                  "stringValue": "23 Nisan Ulusal Egemenlik ve Çocuk Bayramı Kutlu Olsun!"
+                },
+                "date": {
+                  "stringValue": "23.04"
+                },
+                "on": {
+                  "booleanValue": true
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "conf": {
+                  "booleanValue": true
+                },
+                "on": {
+                  "booleanValue": true
+                },
+                "date": {
+                  "stringValue": "19.05"
+                },
+                "now": {
+                  "booleanValue": false
+                },
+                "id": {
+                  "stringValue": "s4"
+                },
+                "title": {
+                  "stringValue": "19 Mayıs Atatürk'ü Anma, Gençlik ve Spor Bayramı Kutlu Olsun!"
+                },
+                "sub": {
+                  "stringValue": ""
+                },
+                "img": {
+                  "stringValue": ""
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "conf": {
+                  "booleanValue": true
+                },
+                "on": {
+                  "booleanValue": true
+                },
+                "now": {
+                  "booleanValue": false
+                },
+                "date": {
+                  "stringValue": "30.08"
+                },
+                "id": {
+                  "stringValue": "s5"
+                },
+                "title": {
+                  "stringValue": "Zafer Bayramımız Kutlu Olsun!"
+                },
+                "sub": {
+                  "stringValue": ""
+                },
+                "img": {
+                  "stringValue": ""
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "city": {
+      "stringValue": "Konya / Akşehir"
+    },
+    "logo": {
+      "stringValue": ""
     },
     "sideOrder": {
       "arrayValue": {
@@ -77,268 +305,25 @@
             "stringValue": "m11"
           },
           {
-            "stringValue": "m2"
+            "stringValue": "m12"
           }
         ]
       }
     },
-    "sd": {
-      "arrayValue": {
-        "values": [
-          {
-            "mapValue": {
-              "fields": {
-                "bl": {
-                  "booleanValue": false
-                },
-                "fs": {
-                  "integerValue": "200"
-                },
-                "bg": {
-                  "stringValue": "#6b46c1"
-                },
-                "ds": {
-                  "integerValue": "20"
-                },
-                "title": {
-                  "stringValue": "Cumhuriyet Bayramımız\n Kutlu Olsun!"
-                },
-                "id": {
-                  "stringValue": "s0"
-                },
-                "bgfx": {
-                  "stringValue": "pulse"
-                },
-                "iv": {
-                  "doubleValue": 0.1
-                },
-                "now": {
-                  "booleanValue": false
-                },
-                "sn": {
-                  "booleanValue": false
-                },
-                "img": {
-                  "stringValue": ""
-                },
-                "sub": {
-                  "stringValue": "Deneme"
-                },
-                "fr": {
-                  "booleanValue": true
-                },
-                "on": {
-                  "booleanValue": true
-                },
-                "fw": {
-                  "booleanValue": false
-                },
-                "conf": {
-                  "booleanValue": false
-                },
-                "date": {
-                  "stringValue": "29.10"
-                },
-                "fl": {
-                  "booleanValue": false
-                },
-                "ht": {
-                  "booleanValue": true
-                },
-                "pt": {
-                  "booleanValue": true
-                },
-                "st": {
-                  "booleanValue": false
-                }
-              }
-            }
-          },
-          {
-            "mapValue": {
-              "fields": {
-                "title": {
-                  "stringValue": "Ulu Önder Atatürk'ü \nSaygı ve Özlemle Anıyoruz"
-                },
-                "on": {
-                  "booleanValue": true
-                },
-                "date": {
-                  "stringValue": "10.11"
-                },
-                "now": {
-                  "booleanValue": false
-                },
-                "img": {
-                  "stringValue": ""
-                },
-                "id": {
-                  "stringValue": "s1"
-                },
-                "sub": {
-                  "stringValue": "10 Kasım"
-                }
-              }
-            }
-          },
-          {
-            "mapValue": {
-              "fields": {
-                "now": {
-                  "booleanValue": false
-                },
-                "conf": {
-                  "booleanValue": true
-                },
-                "id": {
-                  "stringValue": "s2"
-                },
-                "title": {
-                  "stringValue": "Öğretmenler Günümüz Kutlu Olsun!"
-                },
-                "date": {
-                  "stringValue": "24.11"
-                },
-                "sub": {
-                  "stringValue": ""
-                },
-                "on": {
-                  "booleanValue": true
-                },
-                "img": {
-                  "stringValue": ""
-                }
-              }
-            }
-          },
-          {
-            "mapValue": {
-              "fields": {
-                "title": {
-                  "stringValue": "23 Nisan Ulusal Egemenlik ve Çocuk Bayramı Kutlu Olsun!"
-                },
-                "date": {
-                  "stringValue": "23.04"
-                },
-                "on": {
-                  "booleanValue": true
-                },
-                "now": {
-                  "booleanValue": false
-                },
-                "id": {
-                  "stringValue": "s3"
-                },
-                "conf": {
-                  "booleanValue": true
-                },
-                "img": {
-                  "stringValue": ""
-                },
-                "sub": {
-                  "stringValue": ""
-                }
-              }
-            }
-          },
-          {
-            "mapValue": {
-              "fields": {
-                "sub": {
-                  "stringValue": ""
-                },
-                "date": {
-                  "stringValue": "19.05"
-                },
-                "img": {
-                  "stringValue": ""
-                },
-                "id": {
-                  "stringValue": "s4"
-                },
-                "title": {
-                  "stringValue": "19 Mayıs Atatürk'ü Anma, Gençlik ve Spor Bayramı Kutlu Olsun!"
-                },
-                "now": {
-                  "booleanValue": false
-                },
-                "on": {
-                  "booleanValue": true
-                },
-                "conf": {
-                  "booleanValue": true
-                }
-              }
-            }
-          },
-          {
-            "mapValue": {
-              "fields": {
-                "sub": {
-                  "stringValue": ""
-                },
-                "title": {
-                  "stringValue": "Zafer Bayramımız Kutlu Olsun!"
-                },
-                "img": {
-                  "stringValue": ""
-                },
-                "date": {
-                  "stringValue": "30.08"
-                },
-                "id": {
-                  "stringValue": "s5"
-                },
-                "on": {
-                  "booleanValue": true
-                },
-                "now": {
-                  "booleanValue": false
-                },
-                "conf": {
-                  "booleanValue": true
-                }
-              }
-            }
-          }
-        ]
-      }
+    "logoId": {
+      "stringValue": "logomwen75ox"
     },
-    "theme": {
-      "integerValue": "0"
+    "anns": {
+      "arrayValue": {}
     },
-    "name": {
-      "stringValue": "Şehit Coşkun karabulut İmam Hatip Ortaokulu"
+    "dsgBak": {
+      "nullValue": null
     },
     "design": {
       "integerValue": "0"
     },
-    "fsa": {
-      "mapValue": {
-        "fields": {
-          "every": {
-            "integerValue": "15"
-          },
-          "items": {
-            "arrayValue": {}
-          },
-          "now": {
-            "booleanValue": false
-          },
-          "trans": {
-            "stringValue": "mix"
-          },
-          "on": {
-            "booleanValue": false
-          },
-          "sec": {
-            "integerValue": "20"
-          }
-        }
-      }
-    },
-    "rev": {
-      "integerValue": "1793432041876"
+    "newsUrl": {
+      "stringValue": "https://personel.meb.gov.tr/meb _iys_dosyalar/xml/rss_duyurular.xml"
     },
     "rssList": {
       "arrayValue": {
@@ -346,11 +331,8 @@
           {
             "mapValue": {
               "fields": {
-                "id": {
-                  "stringValue": "konya"
-                },
-                "on": {
-                  "booleanValue": false
+                "name": {
+                  "stringValue": "Konya MEM Duyuruları"
                 },
                 "tag": {
                   "stringValue": "KONYA MEM"
@@ -358,8 +340,11 @@
                 "url": {
                   "stringValue": "https://konya.meb.gov.tr/meb_iys_dosyalar/xml/rss_duyurular.xml"
                 },
-                "name": {
-                  "stringValue": "Konya MEM Duyuruları"
+                "on": {
+                  "booleanValue": false
+                },
+                "id": {
+                  "stringValue": "konya"
                 }
               }
             }
@@ -370,14 +355,14 @@
                 "id": {
                   "stringValue": "personel"
                 },
+                "on": {
+                  "booleanValue": false
+                },
                 "name": {
                   "stringValue": "MEB Personel Genel Müdürlüğü Duyuruları"
                 },
                 "tag": {
                   "stringValue": "MEB PERSONEL"
-                },
-                "on": {
-                  "booleanValue": false
                 },
                 "url": {
                   "stringValue": "https://personel.meb.gov.tr/meb_iys_dosyalar/xml/rss_duyurular.xml"
@@ -391,6 +376,9 @@
                 "on": {
                   "booleanValue": true
                 },
+                "name": {
+                  "stringValue": "MEB Basın Müşavirliği Duyuruları"
+                },
                 "id": {
                   "stringValue": "basin"
                 },
@@ -399,9 +387,6 @@
                 },
                 "tag": {
                   "stringValue": "MEB BASIN"
-                },
-                "name": {
-                  "stringValue": "MEB Basın Müşavirliği Duyuruları"
                 }
               }
             }
@@ -409,8 +394,8 @@
           {
             "mapValue": {
               "fields": {
-                "id": {
-                  "stringValue": "ntv"
+                "url": {
+                  "stringValue": "https://www.ntv.com.tr/egitim.rss"
                 },
                 "name": {
                   "stringValue": "NTV Eğitim Haberleri"
@@ -421,8 +406,8 @@
                 "on": {
                   "booleanValue": false
                 },
-                "url": {
-                  "stringValue": "https://www.ntv.com.tr/egitim.rss"
+                "id": {
+                  "stringValue": "ntv"
                 }
               }
             }
@@ -430,20 +415,20 @@
           {
             "mapValue": {
               "fields": {
+                "on": {
+                  "booleanValue": false
+                },
                 "tag": {
                   "stringValue": "EĞİTİM"
                 },
                 "url": {
                   "stringValue": "https://www.hurriyet.com.tr/rss/egitim"
                 },
-                "id": {
-                  "stringValue": "hurriyet"
-                },
-                "on": {
-                  "booleanValue": false
-                },
                 "name": {
                   "stringValue": "Hürriyet Eğitim Haberleri"
+                },
+                "id": {
+                  "stringValue": "hurriyet"
                 }
               }
             }
@@ -451,14 +436,71 @@
         ]
       }
     },
-    "newsUrl": {
-      "stringValue": "https://personel.meb.gov.tr/meb _iys_dosyalar/xml/rss_duyurular.xml"
+    "al": {
+      "mapValue": {
+        "fields": {
+          "text": {
+            "stringValue": "Deprem Tatbikatı"
+          },
+          "fs": {
+            "integerValue": "200"
+          },
+          "pend": {
+            "integerValue": "0"
+          },
+          "ic": {
+            "stringValue": "🚨"
+          },
+          "is": {
+            "integerValue": "50"
+          },
+          "tone": {
+            "stringValue": "o"
+          },
+          "on": {
+            "booleanValue": false
+          },
+          "at": {
+            "integerValue": "1794555284552"
+          },
+          "title": {
+            "stringValue": "Duyuru"
+          }
+        }
+      }
     },
-    "bg": {
-      "stringValue": "#e7f1f8"
+    "nmWe": {
+      "booleanValue": true
     },
-    "city": {
-      "stringValue": "Konya / Akşehir"
+    "c2": {
+      "stringValue": "#3b0f1c"
+    },
+    "fsa": {
+      "mapValue": {
+        "fields": {
+          "on": {
+            "booleanValue": true
+          },
+          "every": {
+            "integerValue": "15"
+          },
+          "now": {
+            "booleanValue": false
+          },
+          "sec": {
+            "integerValue": "20"
+          },
+          "trans": {
+            "stringValue": "mix"
+          },
+          "items": {
+            "arrayValue": {}
+          }
+        }
+      }
+    },
+    "nmPre": {
+      "integerValue": "60"
     },
     "mods": {
       "arrayValue": {
@@ -466,41 +508,41 @@
           {
             "mapValue": {
               "fields": {
-                "title": {
-                  "stringValue": "Tarih ve Saat"
-                },
-                "showTitle": {
-                  "booleanValue": false
-                },
-                "x": {
-                  "integerValue": "1180"
-                },
-                "id": {
-                  "stringValue": "m1"
-                },
-                "type": {
-                  "stringValue": "clock"
-                },
-                "data": {
-                  "mapValue": {}
+                "w": {
+                  "integerValue": "400"
                 },
                 "fs": {
                   "integerValue": "100"
                 },
-                "h": {
-                  "integerValue": "92"
-                },
                 "y": {
                   "integerValue": "12"
                 },
-                "active": {
-                  "booleanValue": true
+                "id": {
+                  "stringValue": "m1"
+                },
+                "data": {
+                  "mapValue": {}
                 },
                 "color": {
                   "stringValue": "#e6b34a"
                 },
-                "w": {
-                  "integerValue": "400"
+                "h": {
+                  "integerValue": "92"
+                },
+                "type": {
+                  "stringValue": "clock"
+                },
+                "title": {
+                  "stringValue": "Tarih ve Saat"
+                },
+                "x": {
+                  "integerValue": "1180"
+                },
+                "active": {
+                  "booleanValue": true
+                },
+                "showTitle": {
+                  "booleanValue": false
                 }
               }
             }
@@ -508,22 +550,37 @@
           {
             "mapValue": {
               "fields": {
-                "id": {
-                  "stringValue": "m2"
+                "type": {
+                  "stringValue": "weather"
                 },
-                "active": {
-                  "booleanValue": true
-                },
-                "x": {
-                  "integerValue": "20"
+                "w": {
+                  "integerValue": "348"
                 },
                 "fs": {
                   "integerValue": "100"
                 },
+                "id": {
+                  "stringValue": "m2"
+                },
+                "y": {
+                  "integerValue": "124"
+                },
+                "x": {
+                  "integerValue": "20"
+                },
+                "showTitle": {
+                  "booleanValue": true
+                },
+                "h": {
+                  "integerValue": "150"
+                },
+                "color": {
+                  "stringValue": "#2bb3a3"
+                },
                 "title": {
                   "stringValue": "Hava Durumu"
                 },
-                "showTitle": {
+                "active": {
                   "booleanValue": true
                 },
                 "data": {
@@ -538,29 +595,14 @@
                       "cond": {
                         "stringValue": "cloud"
                       },
-                      "t": {
-                        "integerValue": "16"
-                      },
                       "hi": {
                         "integerValue": "17"
+                      },
+                      "t": {
+                        "integerValue": "16"
                       }
                     }
                   }
-                },
-                "w": {
-                  "integerValue": "348"
-                },
-                "y": {
-                  "integerValue": "124"
-                },
-                "h": {
-                  "integerValue": "150"
-                },
-                "color": {
-                  "stringValue": "#2bb3a3"
-                },
-                "type": {
-                  "stringValue": "weather"
                 }
               }
             }
@@ -568,11 +610,17 @@
           {
             "mapValue": {
               "fields": {
+                "type": {
+                  "stringValue": "slides"
+                },
+                "y": {
+                  "integerValue": "124"
+                },
                 "active": {
                   "booleanValue": true
                 },
-                "title": {
-                  "stringValue": "Manşet Haber"
+                "h": {
+                  "integerValue": "460"
                 },
                 "showTitle": {
                   "booleanValue": false
@@ -580,41 +628,20 @@
                 "fs": {
                   "integerValue": "100"
                 },
-                "type": {
-                  "stringValue": "slides"
-                },
-                "h": {
-                  "integerValue": "460"
-                },
-                "id": {
-                  "stringValue": "m3"
-                },
-                "color": {
-                  "stringValue": "#4aa3e8"
+                "w": {
+                  "integerValue": "840"
                 },
                 "x": {
                   "integerValue": "380"
                 },
-                "fixH": {
-                  "booleanValue": true
-                },
-                "w": {
-                  "integerValue": "840"
-                },
-                "y": {
-                  "integerValue": "124"
+                "title": {
+                  "stringValue": "Manşet Haber"
                 },
                 "data": {
                   "mapValue": {
                     "fields": {
-                      "sec": {
-                        "integerValue": "15"
-                      },
                       "trans": {
-                        "stringValue": "mix"
-                      },
-                      "fill": {
-                        "booleanValue": true
+                        "stringValue": "sl"
                       },
                       "imgs": {
                         "arrayValue": {
@@ -622,20 +649,20 @@
                             {
                               "mapValue": {
                                 "fields": {
-                                  "on": {
-                                    "stringValue": "2026-10-30"
+                                  "d": {
+                                    "integerValue": "30"
+                                  },
+                                  "full": {
+                                    "booleanValue": false
                                   },
                                   "img": {
                                     "stringValue": "imvvaud9a"
                                   },
+                                  "on": {
+                                    "stringValue": "2026-10-30"
+                                  },
                                   "name": {
                                     "stringValue": "Eba şifresi nasıl alınır"
-                                  },
-                                  "d": {
-                                    "integerValue": "30"
-                                  },
-                                  "full": {
-                                    "booleanValue": false
                                   }
                                 }
                               }
@@ -643,20 +670,20 @@
                             {
                               "mapValue": {
                                 "fields": {
+                                  "d": {
+                                    "integerValue": "30"
+                                  },
+                                  "name": {
+                                    "stringValue": "Eba yenilendi"
+                                  },
+                                  "img": {
+                                    "stringValue": "imvuv8ii6"
+                                  },
                                   "on": {
                                     "stringValue": "2026-10-30"
                                   },
                                   "full": {
                                     "booleanValue": false
-                                  },
-                                  "d": {
-                                    "integerValue": "30"
-                                  },
-                                  "img": {
-                                    "stringValue": "imvuv8ii6"
-                                  },
-                                  "name": {
-                                    "stringValue": "Eba yenilendi"
                                   }
                                 }
                               }
@@ -664,8 +691,8 @@
                             {
                               "mapValue": {
                                 "fields": {
-                                  "name": {
-                                    "stringValue": "Hoşgeldiniz"
+                                  "full": {
+                                    "booleanValue": false
                                   },
                                   "on": {
                                     "stringValue": "2026-10-29"
@@ -673,20 +700,35 @@
                                   "img": {
                                     "stringValue": "imvu01zdd"
                                   },
+                                  "name": {
+                                    "stringValue": "Hoşgeldiniz"
+                                  },
                                   "d": {
                                     "integerValue": "0"
-                                  },
-                                  "full": {
-                                    "booleanValue": false
                                   }
                                 }
                               }
                             }
                           ]
                         }
+                      },
+                      "fill": {
+                        "booleanValue": true
+                      },
+                      "sec": {
+                        "integerValue": "15"
                       }
                     }
                   }
+                },
+                "color": {
+                  "stringValue": "#4aa3e8"
+                },
+                "id": {
+                  "stringValue": "m3"
+                },
+                "fixH": {
+                  "booleanValue": true
                 }
               }
             }
@@ -694,11 +736,29 @@
           {
             "mapValue": {
               "fields": {
-                "x": {
-                  "integerValue": "1232"
+                "id": {
+                  "stringValue": "m5"
+                },
+                "fs": {
+                  "integerValue": "100"
+                },
+                "active": {
+                  "booleanValue": true
+                },
+                "type": {
+                  "stringValue": "duty"
+                },
+                "h": {
+                  "integerValue": "186"
                 },
                 "showTitle": {
                   "booleanValue": true
+                },
+                "color": {
+                  "stringValue": "#4aa3e8"
+                },
+                "x": {
+                  "integerValue": "1232"
                 },
                 "title": {
                   "stringValue": "Nöbetçi Öğretmenler"
@@ -706,15 +766,9 @@
                 "y": {
                   "integerValue": "290"
                 },
-                "h": {
-                  "integerValue": "186"
-                },
                 "data": {
                   "mapValue": {
                     "fields": {
-                      "rot": {
-                        "stringValue": "2026-10-26"
-                      },
                       "g": {
                         "mapValue": {
                           "fields": {
@@ -781,11 +835,14 @@
                           }
                         }
                       },
+                      "places": {
+                        "stringValue": "Bahçe\nBina"
+                      },
                       "speed": {
                         "integerValue": "0"
                       },
-                      "places": {
-                        "stringValue": "Bahçe\nBina"
+                      "rot": {
+                        "stringValue": "2026-10-26"
                       },
                       "header": {
                         "booleanValue": false
@@ -793,23 +850,8 @@
                     }
                   }
                 },
-                "id": {
-                  "stringValue": "m5"
-                },
-                "active": {
-                  "booleanValue": true
-                },
                 "w": {
                   "integerValue": "348"
-                },
-                "type": {
-                  "stringValue": "duty"
-                },
-                "color": {
-                  "stringValue": "#4aa3e8"
-                },
-                "fs": {
-                  "integerValue": "100"
                 }
               }
             }
@@ -817,17 +859,8 @@
           {
             "mapValue": {
               "fields": {
-                "active": {
-                  "booleanValue": true
-                },
-                "type": {
-                  "stringValue": "days"
-                },
-                "title": {
-                  "stringValue": "Belirli Gün ve Haftalar"
-                },
-                "x": {
-                  "integerValue": "20"
+                "w": {
+                  "integerValue": "348"
                 },
                 "showTitle": {
                   "booleanValue": true
@@ -841,23 +874,32 @@
                     }
                   }
                 },
-                "color": {
-                  "stringValue": "#2bb3a3"
+                "fs": {
+                  "integerValue": "100"
                 },
                 "y": {
                   "integerValue": "286"
                 },
-                "h": {
-                  "integerValue": "170"
-                },
-                "w": {
-                  "integerValue": "348"
-                },
                 "id": {
                   "stringValue": "m6"
                 },
-                "fs": {
-                  "integerValue": "100"
+                "h": {
+                  "integerValue": "170"
+                },
+                "color": {
+                  "stringValue": "#2bb3a3"
+                },
+                "x": {
+                  "integerValue": "20"
+                },
+                "title": {
+                  "stringValue": "Belirli Gün ve Haftalar"
+                },
+                "active": {
+                  "booleanValue": true
+                },
+                "type": {
+                  "stringValue": "days"
                 }
               }
             }
@@ -865,26 +907,17 @@
           {
             "mapValue": {
               "fields": {
-                "active": {
-                  "booleanValue": false
-                },
                 "y": {
                   "integerValue": "722"
-                },
-                "h": {
-                  "integerValue": "110"
-                },
-                "showTitle": {
-                  "booleanValue": true
-                },
-                "title": {
-                  "stringValue": "Doğum Günün Kutlu Olsun"
                 },
                 "w": {
                   "integerValue": "360"
                 },
-                "fs": {
-                  "integerValue": "100"
+                "type": {
+                  "stringValue": "bday"
+                },
+                "showTitle": {
+                  "booleanValue": true
                 },
                 "data": {
                   "mapValue": {
@@ -898,14 +931,23 @@
                 "id": {
                   "stringValue": "m7"
                 },
-                "type": {
-                  "stringValue": "bday"
-                },
-                "color": {
-                  "stringValue": "#9a86f2"
+                "h": {
+                  "integerValue": "110"
                 },
                 "x": {
                   "integerValue": "20"
+                },
+                "title": {
+                  "stringValue": "Doğum Günün Kutlu Olsun"
+                },
+                "fs": {
+                  "integerValue": "100"
+                },
+                "active": {
+                  "booleanValue": false
+                },
+                "color": {
+                  "stringValue": "#9a86f2"
                 }
               }
             }
@@ -913,17 +955,17 @@
           {
             "mapValue": {
               "fields": {
-                "y": {
-                  "integerValue": "658"
+                "x": {
+                  "integerValue": "20"
+                },
+                "type": {
+                  "stringValue": "cnt"
                 },
                 "active": {
                   "booleanValue": false
                 },
                 "h": {
                   "integerValue": "174"
-                },
-                "showTitle": {
-                  "booleanValue": true
                 },
                 "data": {
                   "mapValue": {
@@ -937,26 +979,26 @@
                     }
                   }
                 },
-                "w": {
-                  "integerValue": "360"
-                },
-                "title": {
-                  "stringValue": "Lgs"
-                },
-                "type": {
-                  "stringValue": "cnt"
-                },
-                "color": {
-                  "stringValue": "#e6b34a"
+                "id": {
+                  "stringValue": "m9"
                 },
                 "fs": {
                   "integerValue": "100"
                 },
-                "x": {
-                  "integerValue": "20"
+                "y": {
+                  "integerValue": "658"
                 },
-                "id": {
-                  "stringValue": "m9"
+                "showTitle": {
+                  "booleanValue": true
+                },
+                "title": {
+                  "stringValue": "Lgs"
+                },
+                "color": {
+                  "stringValue": "#e6b34a"
+                },
+                "w": {
+                  "integerValue": "360"
                 }
               }
             }
@@ -964,20 +1006,29 @@
           {
             "mapValue": {
               "fields": {
+                "y": {
+                  "integerValue": "486"
+                },
                 "active": {
                   "booleanValue": false
                 },
-                "showTitle": {
-                  "booleanValue": true
-                },
-                "type": {
-                  "stringValue": "cd"
+                "color": {
+                  "stringValue": "#e6b34a"
                 },
                 "title": {
                   "stringValue": "Geri Sayım"
                 },
-                "x": {
-                  "integerValue": "20"
+                "showTitle": {
+                  "booleanValue": true
+                },
+                "id": {
+                  "stringValue": "m10"
+                },
+                "w": {
+                  "integerValue": "360"
+                },
+                "fs": {
+                  "integerValue": "80"
                 },
                 "data": {
                   "mapValue": {
@@ -988,23 +1039,14 @@
                     }
                   }
                 },
-                "color": {
-                  "stringValue": "#e6b34a"
+                "type": {
+                  "stringValue": "cd"
                 },
                 "h": {
                   "integerValue": "160"
                 },
-                "y": {
-                  "integerValue": "486"
-                },
-                "id": {
-                  "stringValue": "m10"
-                },
-                "w": {
-                  "integerValue": "360"
-                },
-                "fs": {
-                  "integerValue": "80"
+                "x": {
+                  "integerValue": "20"
                 }
               }
             }
@@ -1012,6 +1054,27 @@
           {
             "mapValue": {
               "fields": {
+                "type": {
+                  "stringValue": "bell"
+                },
+                "h": {
+                  "integerValue": "144"
+                },
+                "showTitle": {
+                  "booleanValue": true
+                },
+                "x": {
+                  "integerValue": "1232"
+                },
+                "y": {
+                  "integerValue": "488"
+                },
+                "id": {
+                  "stringValue": "m8"
+                },
+                "fs": {
+                  "integerValue": "100"
+                },
                 "data": {
                   "mapValue": {
                     "fields": {
@@ -1021,38 +1084,17 @@
                     }
                   }
                 },
-                "color": {
-                  "stringValue": "#ef6f61"
-                },
-                "showTitle": {
-                  "booleanValue": true
-                },
-                "type": {
-                  "stringValue": "bell"
-                },
-                "x": {
-                  "integerValue": "1232"
-                },
-                "id": {
-                  "stringValue": "m8"
-                },
                 "title": {
                   "stringValue": "Zile Ne Kadar Kaldı?"
                 },
-                "y": {
-                  "integerValue": "488"
+                "w": {
+                  "integerValue": "348"
                 },
-                "h": {
-                  "integerValue": "144"
+                "color": {
+                  "stringValue": "#ef6f61"
                 },
                 "active": {
                   "booleanValue": true
-                },
-                "fs": {
-                  "integerValue": "100"
-                },
-                "w": {
-                  "integerValue": "348"
                 }
               }
             }
@@ -1060,6 +1102,33 @@
           {
             "mapValue": {
               "fields": {
+                "y": {
+                  "integerValue": "644"
+                },
+                "type": {
+                  "stringValue": "pray"
+                },
+                "w": {
+                  "integerValue": "348"
+                },
+                "title": {
+                  "stringValue": "Namaz Vakitleri"
+                },
+                "color": {
+                  "stringValue": "#2bb3a3"
+                },
+                "showTitle": {
+                  "booleanValue": true
+                },
+                "active": {
+                  "booleanValue": true
+                },
+                "id": {
+                  "stringValue": "m11"
+                },
+                "h": {
+                  "integerValue": "189"
+                },
                 "data": {
                   "mapValue": {
                     "fields": {
@@ -1075,38 +1144,11 @@
                     }
                   }
                 },
-                "color": {
-                  "stringValue": "#2bb3a3"
-                },
-                "x": {
-                  "integerValue": "1232"
-                },
-                "type": {
-                  "stringValue": "pray"
-                },
-                "showTitle": {
-                  "booleanValue": true
-                },
-                "id": {
-                  "stringValue": "m11"
-                },
-                "title": {
-                  "stringValue": "Namaz Vakitleri"
-                },
-                "w": {
-                  "integerValue": "348"
-                },
                 "fs": {
                   "integerValue": "100"
                 },
-                "active": {
-                  "booleanValue": true
-                },
-                "h": {
-                  "integerValue": "189"
-                },
-                "y": {
-                  "integerValue": "644"
+                "x": {
+                  "integerValue": "1232"
                 }
               }
             }
@@ -1114,47 +1156,32 @@
           {
             "mapValue": {
               "fields": {
-                "id": {
-                  "stringValue": "m12"
-                },
-                "title": {
-                  "stringValue": "Günün Sözü"
-                },
-                "fs": {
-                  "integerValue": "100"
-                },
-                "showTitle": {
-                  "booleanValue": true
+                "type": {
+                  "stringValue": "quote"
                 },
                 "x": {
                   "integerValue": "1232"
                 },
-                "active": {
+                "showTitle": {
                   "booleanValue": true
-                },
-                "type": {
-                  "stringValue": "quote"
                 },
                 "h": {
                   "integerValue": "154"
                 },
+                "id": {
+                  "stringValue": "m12"
+                },
                 "y": {
                   "integerValue": "124"
                 },
-                "color": {
-                  "stringValue": "#9a86f2"
-                },
-                "w": {
-                  "integerValue": "348"
+                "fs": {
+                  "integerValue": "100"
                 },
                 "data": {
                   "mapValue": {
                     "fields": {
-                      "pin": {
-                        "integerValue": "0"
-                      },
-                      "rows2": {
-                        "stringValue": "Yaratan Rabbinin adıyla oku!|Alak Suresi, 1\nSizin en hayırlınız, Kur'an'ı öğrenen ve öğretendir.|Hz. Muhammed (s.a.v.) – Buhârî\nOku! Rabbin sonsuz kerem sahibidir. O, kalemle yazmayı öğretendir. İnsana bilmediğini öğretendir.|Alak Suresi, 3-5\nKim ilim öğrenmek için bir yola girerse, Allah ona cennetin yolunu kolaylaştırır.|Hz. Muhammed (s.a.v.) – Müslim\n\"Rabbim! İlmimi artır\" de.|Tâhâ Suresi, 114\nAmeller niyetlere göredir.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nDe ki: \"Hiç bilenlerle bilmeyenler bir olur mu?\"|Zümer Suresi, 9\nDoğruluğu kendinize ilke edinin. Çünkü doğruluk iyiliğe, iyilik de cennete götürür.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nAllah, sizden iman edenlerin ve kendilerine ilim verilenlerin derecelerini yükseltir.|Mücâdele Suresi, 11\nMüslüman, elinden ve dilinden diğer Müslümanların güvende olduğu kimsedir.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nKulları arasında Allah'tan ancak âlimler korkar.|Fâtır Suresi, 28\nHiçbiriniz, kendisi için istediğini kardeşi için de istemedikçe iman etmiş olmaz.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nHikmeti dilediğine verir. Kime hikmet verilmişse, ona çok hayır verilmiştir.|Bakara Suresi, 269\nKolaylaştırın, zorlaştırmayın; müjdeleyin, nefret ettirmeyin.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nRahmân, Kur'an'ı öğretti. İnsanı yarattı. Ona beyanı öğretti.|Rahmân Suresi, 1-4\nGüzel söz sadakadır.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nŞüphesiz sen büyük bir ahlâk üzerindesin.|Kalem Suresi, 4\nAllah'a ve ahiret gününe inanan kimse ya hayır söylesin ya da sussun.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nAllah kimseye gücünün yeteceğinden fazlasını yüklemez.|Bakara Suresi, 286\nSana fayda verecek şeye sarıl, Allah'tan yardım dile ve acze düşme.|Hz. Muhammed (s.a.v.) – Müslim\nElbette zorlukla beraber bir kolaylık vardır.|İnşirâh Suresi, 5-6\nAllah sizin suretlerinize ve mallarınıza değil, kalplerinize ve amellerinize bakar.|Hz. Muhammed (s.a.v.) – Müslim\nİnsan için kendi çalışmasından başka bir şey yoktur.|Necm Suresi, 39\nDin, nasihattir.|Hz. Muhammed (s.a.v.) – Müslim\nKim zerre kadar hayır işlerse onu görür.|Zilzâl Suresi, 7\nAsıl güçlü kişi, güreşte rakibini yenen değil, öfke anında kendine hâkim olandır.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nBir toplum kendi durumunu değiştirmedikçe Allah da onların durumunu değiştirmez.|Ra'd Suresi, 11\nKim bir hayra vesile olursa, o hayrı yapan gibi sevap alır.|Hz. Muhammed (s.a.v.) – Müslim\nAsra yemin olsun ki insan gerçekten ziyandadır. Ancak iman edip salih ameller işleyenler, birbirlerine hakkı ve sabrı tavsiye edenler müstesnadır.|Asr Suresi, 1-3\nİnsan ölünce ameli kesilir; ancak üç şey hariç: sürekli sadaka, kendisinden faydalanılan ilim ve kendisine dua eden hayırlı evlat.|Hz. Muhammed (s.a.v.) – Müslim\nAllah'tan bir rahmet sayesinde onlara yumuşak davrandın. Eğer kaba ve katı yürekli olsaydın, çevrenden dağılıp giderlerdi.|Âl-i İmrân Suresi, 159\nMerhamet etmeyene merhamet edilmez.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nAllah adaleti, iyiliği ve akrabaya yardım etmeyi emreder.|Nahl Suresi, 90\nHaya imandandır.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nAdaletli olun; bu, takvaya daha yakındır.|Mâide Suresi, 8\nMümin, mümine karşı, parçaları birbirini destekleyen bir bina gibidir.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nİyilik ve takva üzerinde yardımlaşın; günah ve düşmanlık üzerinde yardımlaşmayın.|Mâide Suresi, 2\nİki nimet vardır ki insanların çoğu bunlarda aldanmıştır: sağlık ve boş vakit.|Hz. Muhammed (s.a.v.) – Buhârî\nAllah katında en değerli olanınız, takvaca en ileri olanınızdır.|Hucurât Suresi, 13\nDünyada bir garip, hatta bir yolcu gibi ol.|Hz. Muhammed (s.a.v.) – Buhârî\nMüminler ancak kardeştirler.|Hucurât Suresi, 10\nHiçbir iyiliği küçük görme; kardeşini güler yüzle karşılaman bile bir iyiliktir.|Hz. Muhammed (s.a.v.) – Müslim\nAllah, size emanetleri ehline vermenizi emreder.|Nisâ Suresi, 58\nYarım hurma ile de olsa kendinizi ateşten koruyun. Onu da bulamayan, güzel bir sözle korunsun.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nHakkında bilgi sahibi olmadığın şeyin peşine düşme.|İsrâ Suresi, 36\nKalbinde zerre kadar kibir bulunan kimse cennete giremez.|Hz. Muhammed (s.a.v.) – Müslim\nRabbin, yalnızca kendisine ibadet etmenizi ve anne babaya iyilik etmenizi emretti.|İsrâ Suresi, 23\nBirbirinize haset etmeyin, buğzetmeyin, sırt çevirmeyin. Ey Allah'ın kulları, kardeş olun.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nİnsanlardan yüz çevirme, yeryüzünde böbürlenerek yürüme.|Lokmân Suresi, 18\nZandan sakının; çünkü zan sözlerin en yalanıdır.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nRahmân'ın kulları, yeryüzünde alçakgönüllülükle yürürler. Cahiller kendilerine laf attığında \"selam\" derler.|Furkân Suresi, 63\nBir Müslüman bir ağaç diker veya ekin eker de ondan insan, kuş ya da hayvan yerse, bu onun için sadaka olur.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nİyilikle kötülük bir olmaz. Sen kötülüğü en güzel olan davranışla sav.|Fussilet Suresi, 34\nAllah'a en sevimli amel, az da olsa devamlı olanıdır.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nSabredenlerin mükâfatı hesapsız ödenir.|Zümer Suresi, 10\nHiç kimse, elinin emeğinden daha hayırlı bir yemek yememiştir.|Hz. Muhammed (s.a.v.) – Buhârî\nOnlar öfkelerini yutanlar ve insanları affedenlerdir. Allah iyilik edenleri sever.|Âl-i İmrân Suresi, 134\nVeren el, alan elden daha hayırlıdır.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nSabır ve namazla yardım dileyin.|Bakara Suresi, 153\nKim sabretmeye çalışırsa Allah ona sabır verir. Hiç kimseye sabırdan daha hayırlı ve daha geniş bir nimet verilmemiştir.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nİyilik yapın. Şüphesiz Allah iyilik yapanları sever.|Bakara Suresi, 195\nZenginlik, mal çokluğu değil, gönül zenginliğidir.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nKim bir insanı yaşatırsa, bütün insanları yaşatmış gibi olur.|Mâide Suresi, 32\nKim bir Müslümanın ayıbını örterse, Allah da dünyada ve ahirette onun ayıbını örter.|Hz. Muhammed (s.a.v.) – Müslim\nOnlar boş şeylerden yüz çevirirler.|Mü'minûn Suresi, 3\nTemizlik imanın yarısıdır.|Hz. Muhammed (s.a.v.) – Müslim\nDe ki: \"Çalışın! Allah, Resulü ve müminler yaptığınız işi görecektir.\"|Tevbe Suresi, 105\nİyilik, güzel ahlâktır.|Hz. Muhammed (s.a.v.) – Müslim\nNamaz kılınınca yeryüzüne dağılın ve Allah'ın lütfundan nasibinizi arayın.|Cuma Suresi, 10\nHepiniz çobansınız ve hepiniz, sorumluluğunuz altındakilerden sorumlusunuz.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nO, hanginizin daha güzel davranacağını denemek için ölümü ve hayatı yaratandır.|Mülk Suresi, 2\nBizi aldatan bizden değildir.|Hz. Muhammed (s.a.v.) – Müslim\nYapmayacağınız şeyi niçin söylüyorsunuz?|Saf Suresi, 2\nMünafığın alameti üçtür: Konuşunca yalan söyler, söz verince sözünden döner, kendisine güvenilince ihanet eder.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nAllah'tan korkun ve doğru söz söyleyin.|Ahzâb Suresi, 70\nMümin, aynı delikten iki defa ısırılmaz.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nEy iman edenler! Allah'tan korkun ve doğrularla beraber olun.|Tevbe Suresi, 119\nAkrabalık bağını koparan kimse cennete giremez.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nRabbinin yoluna hikmetle ve güzel öğütle çağır.|Nahl Suresi, 125\nBirbirinizi sevmedikçe iman etmiş olamazsınız. Aranızda selamı yayın.|Hz. Muhammed (s.a.v.) – Müslim\nBizim uğrumuzda çaba gösterenleri, elbette yollarımıza ileteceğiz.|Ankebût Suresi, 69\nKim doğru yola davet ederse, kendisine uyanların sevabı kadar sevap alır.|Hz. Muhammed (s.a.v.) – Müslim\nAllah'ın rahmetinden ümit kesmeyin.|Zümer Suresi, 53\nAllah kimin için hayır dilerse, onu dinde derin anlayış sahibi kılar.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nAllah sizi annelerinizin karnından hiçbir şey bilmez halde çıkardı; size kulak, göz ve gönüller verdi.|Nahl Suresi, 78\nAllah ilmi, insanların kalbinden bir çırpıda çekip almaz; âlimleri alarak ilmi kaldırır.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nKalpler ancak Allah'ı anmakla huzur bulur.|Ra'd Suresi, 28\nAncak iki kişiye imrenilir: Allah'ın kendisine mal verdiği ve onu hak yolunda harcayan ile Allah'ın kendisine hikmet verdiği ve onunla hükmedip onu öğreten kimse.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nKullarıma söyle: Sözün en güzelini söylesinler.|İsrâ Suresi, 53\nBenden bir âyet de olsa tebliğ edin.|Hz. Muhammed (s.a.v.) – Buhârî\nSen yine de öğüt ver; çünkü öğüt müminlere fayda verir.|Zâriyât Suresi, 55\nMüslüman, Müslümanın kardeşidir; ona zulmetmez, onu yardımsız bırakmaz.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nEy iman edenler! Allah'tan korkun; herkes yarın için ne hazırladığına baksın.|Haşr Suresi, 18\nBir adam Peygamberimizden vasiyet istedi; \"Öfkelenme\" buyurdu ve bunu birkaç kez tekrarladı.|Hz. Muhammed (s.a.v.) – Buhârî\nYeryüzünde böbürlenerek yürüme.|İsrâ Suresi, 37\nAllah'a ve ahiret gününe inanan kimse komşusuna eziyet etmesin.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nAllah sabredenlerle beraberdir.|Enfâl Suresi, 46\nAllah, güçlüğün ardından bir kolaylık verecektir.|Talâk Suresi, 7\nİnsanlara güzel söz söyleyin.|Bakara Suresi, 83\nGüzel bir söz ve bağışlama, arkasından eziyet gelen sadakadan daha hayırlıdır.|Bakara Suresi, 263"
+                      "mode": {
+                        "stringValue": "ayet"
                       },
                       "rnd": {
                         "mapValue": {
@@ -1168,14 +1195,29 @@
                           }
                         }
                       },
-                      "mode": {
-                        "stringValue": "ayet"
+                      "pin": {
+                        "integerValue": "0"
                       },
                       "rows": {
                         "stringValue": "Dünyada her şey için, maddiyat için, maneviyat için, muvaffakiyet için en hakiki mürşit ilimdir, fendir.|M. Kemal Atatürk\nÖğretmenler! Yeni nesil sizin eseriniz olacaktır.|M. Kemal Atatürk\nEğitimdir ki bir milleti ya özgür, bağımsız, şanlı, yüksek bir toplum halinde yaşatır; ya da milleti esarete ve sefalete terk eder.|M. Kemal Atatürk\nBilim ve fen nerede ise oradan alacağız ve her millet ferdinin kafasına koyacağız.|M. Kemal Atatürk\nÖğrenip de zamanı geldikçe uygulamak ne büyük mutluluktur!|Konfüçyüs\nİlim ilim bilmektir, ilim kendin bilmektir.|Yunus Emre\nHiç bilenlerle bilmeyenler bir olur mu?|Zümer Suresi, 9\nRabbim, ilmimi artır.|Tâhâ Suresi, 114\nYaratan Rabbinin adıyla oku!|Alak Suresi, 1\nSizin en hayırlınız, Kur'an'ı öğrenen ve öğretendir.|Hz. Muhammed (s.a.v.)\nKim ilim öğrenmek için bir yola girerse, Allah ona cennetin yolunu kolaylaştırır.|Hz. Muhammed (s.a.v.)\nEğitim, dünyayı değiştirmek için kullanabileceğiniz en güçlü silahtır.|Nelson Mandela\nBir çocuk, bir öğretmen, bir kitap ve bir kalem dünyayı değiştirebilir.|Malala Yousafzai\nÖnemli olan sorgulamayı bırakmamaktır.|Albert Einstein\nBir bahçen ve bir kütüphanen varsa, ihtiyacın olan her şeye sahipsin.|Cicero\nBin millik yolculuk tek bir adımla başlar.|Lao Tzu\nBilgi güçtür.|Francis Bacon\nDahi, yüzde bir ilham, yüzde doksan dokuz terdir.|Thomas Edison\nDamlaya damlaya göl olur.|Atasözü\nAğaç yaşken eğilir.|Atasözü\nBugünün işini yarına bırakma.|Atasözü\nHer kitap yeni bir dünyaya açılan kapıdır.\nHata yapmak öğrenmenin bir parçasıdır; önemli olan yeniden denemektir.\nBaşarı, her gün tekrarlanan küçük çabaların toplamıdır.\nMerak et, sor, araştır; öğrenmenin anahtarı sorudur.\nBugün öğrendiğin her yeni bilgi, yarının cesaretidir.\nHayalin kadar çalış, çalıştığın kadar ulaşırsın.\nVazgeçmeyenler, kazananlardır.\nÖğrenmenin yaşı yoktur; her gün yeni bir başlangıçtır.\nDüşmek başarısızlık değildir; kalkmamak başarısızlıktır.\nKitap okuyan, bin hayat yaşar.\nZor olan başlamaktır; gerisi gelir.\nSabır ve çalışkanlık, en büyük yetenektir.\nÖğrendiğini paylaştıkça bilgin çoğalır.\nSaygı, sevgi ve çalışkanlık; başarının üç anahtarıdır.\nKendine inan; yarının başarısı bugünkü emeğindedir.\nDürüstlük, insanın en değerli sermayesidir.\nBugün yapabileceğinin en iyisini yap; yarın daha iyisini yaparsın.\nİyi bir arkadaş, iyi bir kitap gibidir: seni geliştirir.\nBirlikte çalışmak, tek başına çalışmaktan daha ileri götürür.\nPlanlı çalışan, yorulmadan ilerler.\nKüçük adımlar, büyük başarıların habercisidir.\nDinlemek, öğrenmenin yarısıdır.\nZamanı iyi kullanan, hayatı iyi kullanır.\nBir öğretmen, bir ömür boyu iz bırakır.\nHedefi olan, yolunu bulur.\nBaşarı tesadüf değil; emek ve istikrarın sonucudur.\nGüzel ahlak, ilmin tacıdır.\nGülümse; güzel bir gün, güzel bir başlangıçla başlar.\nBugün yeni bir sayfa; onu en güzel şekilde yaz.\nEn hakiki mürşit ilimdir, fendir.|M. Kemal Atatürk\nİlim ve fen nerede ise oradan bulup alacağız ve her millet ferdinin kafasına koyacağız.|M. Kemal Atatürk\nYurtta sulh, cihanda sulh.|M. Kemal Atatürk\nEmek olmadan yemek olmaz.|Atasözü\nSabreden derviş muradına ermiş.|Atasözü\nBirlikten kuvvet doğar.|Atasözü\nNe ekersen onu biçersin.|Atasözü\nAcele işe şeytan karışır.|Atasözü\nSöz gümüşse sükût altındır.|Atasözü\nZararın neresinden dönülürse kârdır.|Atasözü\nGülü seven dikenine katlanır.|Atasözü\nBir elin nesi var, iki elin sesi var.|Atasözü\nAk akçe kara gün içindir.|Atasözü\nSakla samanı, gelir zamanı.|Atasözü\nTatlı dil yılanı deliğinden çıkarır.|Atasözü\nKomşu komşunun külüne muhtaçtır.|Atasözü\nİyilik eden iyilik bulur.|Atasözü\nSabır acıdır, meyvesi tatlıdır.|Atasözü\nBaşlamak işin yarısıdır.|Atasözü\nBilmemek ayıp değil, öğrenmemek ayıptır.|Atasözü\nEl eli yıkar, iki el yüzü yıkar.|Atasözü\nSöz uçar, yazı kalır.|Atasözü\nAkıl akıldan üstündür.|Atasözü\nAyağını yorganına göre uzat.|Atasözü\nRüzgâr eken fırtına biçer.|Atasözü\nDoğruluk, her kapıyı açan anahtardır.\nSöz verdiysen tutmak, güvenin ilk adımıdır.\nOkumak, kendini yeniden keşfetmektir.\nHer gün bir şey öğrenen, hiç yaşlanmaz.\nÇalışkan öğrenci, bugün yorulur; yarın gülümser.\nBir hatayı kabul etmek, büyümenin başlangıcıdır.\nÖdevini zamanında yapmak, kendine saygıdır.\nSabırla öğrenen, sağlam öğrenir.\nArkadaşına yardım etmek, bilginin en güzel paylaşımıdır.\nZorluklar, güçlenmen için birer basamaktır.\nSoru sormaktan çekinme; bilmek isteyen cesur olandır.\nKendine güvenen, öğrenmeye açık olandır.\nBugünkü emeğin, yarınki gururundur.\nDoğru olmak, her zaman kazandırır.\nYalan bir an kurtarır, doğruluk ömür boyu.\nBir kitabı bitirmek, bir dağ aşmak gibidir.\nNazik bir söz, kapalı kapıları açar.\nDüzenli çalışmak, yeteneği aşar.\nÖğretmenine saygı, ilme saygıdır.\nBaşkalarının başarısına sevinmek, olgunluğun işaretidir.\nHer sabah bir hedefle uyan.\nÇalışmak, hayalleri gerçeğe çeviren köprüdür.\nSınıf, birlikte öğrenmenin ve paylaşmanın evidir.\nEmeğin karşılığı, çabanın sonunda gelir.\nHer yeni gün, yeni bir şey öğrenme fırsatıdır.\nDisiplin, hedefle başarı arasındaki köprüdür.\nDoğru bildiğini yap, geri kalanı zaman gösterir.\nBilgi paylaşıldıkça değer kazanır.\nBaşarıya giden yolda her hata bir öğretmendir.\nDüşün, araştır, sorgula; sonra karar ver.\nGüzel davranış, en güzel süstür.\nDürüst olmak, kimse görmese de doğruyu yapmaktır.\nÖğrenmek bir yolculuktur; varış değil, yol güzeldir.\nOkumak, bir insanı hem bilgili hem alçakgönüllü yapar.\nBaşkasına öğretmek, en iyi öğrenme yoludur."
+                      },
+                      "rows2": {
+                        "stringValue": "Yaratan Rabbinin adıyla oku!|Alak Suresi, 1\nSizin en hayırlınız, Kur'an'ı öğrenen ve öğretendir.|Hz. Muhammed (s.a.v.) – Buhârî\nOku! Rabbin sonsuz kerem sahibidir. O, kalemle yazmayı öğretendir. İnsana bilmediğini öğretendir.|Alak Suresi, 3-5\nKim ilim öğrenmek için bir yola girerse, Allah ona cennetin yolunu kolaylaştırır.|Hz. Muhammed (s.a.v.) – Müslim\n\"Rabbim! İlmimi artır\" de.|Tâhâ Suresi, 114\nAmeller niyetlere göredir.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nDe ki: \"Hiç bilenlerle bilmeyenler bir olur mu?\"|Zümer Suresi, 9\nDoğruluğu kendinize ilke edinin. Çünkü doğruluk iyiliğe, iyilik de cennete götürür.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nAllah, sizden iman edenlerin ve kendilerine ilim verilenlerin derecelerini yükseltir.|Mücâdele Suresi, 11\nMüslüman, elinden ve dilinden diğer Müslümanların güvende olduğu kimsedir.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nKulları arasında Allah'tan ancak âlimler korkar.|Fâtır Suresi, 28\nHiçbiriniz, kendisi için istediğini kardeşi için de istemedikçe iman etmiş olmaz.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nHikmeti dilediğine verir. Kime hikmet verilmişse, ona çok hayır verilmiştir.|Bakara Suresi, 269\nKolaylaştırın, zorlaştırmayın; müjdeleyin, nefret ettirmeyin.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nRahmân, Kur'an'ı öğretti. İnsanı yarattı. Ona beyanı öğretti.|Rahmân Suresi, 1-4\nGüzel söz sadakadır.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nŞüphesiz sen büyük bir ahlâk üzerindesin.|Kalem Suresi, 4\nAllah'a ve ahiret gününe inanan kimse ya hayır söylesin ya da sussun.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nAllah kimseye gücünün yeteceğinden fazlasını yüklemez.|Bakara Suresi, 286\nSana fayda verecek şeye sarıl, Allah'tan yardım dile ve acze düşme.|Hz. Muhammed (s.a.v.) – Müslim\nElbette zorlukla beraber bir kolaylık vardır.|İnşirâh Suresi, 5-6\nAllah sizin suretlerinize ve mallarınıza değil, kalplerinize ve amellerinize bakar.|Hz. Muhammed (s.a.v.) – Müslim\nİnsan için kendi çalışmasından başka bir şey yoktur.|Necm Suresi, 39\nDin, nasihattir.|Hz. Muhammed (s.a.v.) – Müslim\nKim zerre kadar hayır işlerse onu görür.|Zilzâl Suresi, 7\nAsıl güçlü kişi, güreşte rakibini yenen değil, öfke anında kendine hâkim olandır.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nBir toplum kendi durumunu değiştirmedikçe Allah da onların durumunu değiştirmez.|Ra'd Suresi, 11\nKim bir hayra vesile olursa, o hayrı yapan gibi sevap alır.|Hz. Muhammed (s.a.v.) – Müslim\nAsra yemin olsun ki insan gerçekten ziyandadır. Ancak iman edip salih ameller işleyenler, birbirlerine hakkı ve sabrı tavsiye edenler müstesnadır.|Asr Suresi, 1-3\nİnsan ölünce ameli kesilir; ancak üç şey hariç: sürekli sadaka, kendisinden faydalanılan ilim ve kendisine dua eden hayırlı evlat.|Hz. Muhammed (s.a.v.) – Müslim\nAllah'tan bir rahmet sayesinde onlara yumuşak davrandın. Eğer kaba ve katı yürekli olsaydın, çevrenden dağılıp giderlerdi.|Âl-i İmrân Suresi, 159\nMerhamet etmeyene merhamet edilmez.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nAllah adaleti, iyiliği ve akrabaya yardım etmeyi emreder.|Nahl Suresi, 90\nHaya imandandır.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nAdaletli olun; bu, takvaya daha yakındır.|Mâide Suresi, 8\nMümin, mümine karşı, parçaları birbirini destekleyen bir bina gibidir.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nİyilik ve takva üzerinde yardımlaşın; günah ve düşmanlık üzerinde yardımlaşmayın.|Mâide Suresi, 2\nİki nimet vardır ki insanların çoğu bunlarda aldanmıştır: sağlık ve boş vakit.|Hz. Muhammed (s.a.v.) – Buhârî\nAllah katında en değerli olanınız, takvaca en ileri olanınızdır.|Hucurât Suresi, 13\nDünyada bir garip, hatta bir yolcu gibi ol.|Hz. Muhammed (s.a.v.) – Buhârî\nMüminler ancak kardeştirler.|Hucurât Suresi, 10\nHiçbir iyiliği küçük görme; kardeşini güler yüzle karşılaman bile bir iyiliktir.|Hz. Muhammed (s.a.v.) – Müslim\nAllah, size emanetleri ehline vermenizi emreder.|Nisâ Suresi, 58\nYarım hurma ile de olsa kendinizi ateşten koruyun. Onu da bulamayan, güzel bir sözle korunsun.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nHakkında bilgi sahibi olmadığın şeyin peşine düşme.|İsrâ Suresi, 36\nKalbinde zerre kadar kibir bulunan kimse cennete giremez.|Hz. Muhammed (s.a.v.) – Müslim\nRabbin, yalnızca kendisine ibadet etmenizi ve anne babaya iyilik etmenizi emretti.|İsrâ Suresi, 23\nBirbirinize haset etmeyin, buğzetmeyin, sırt çevirmeyin. Ey Allah'ın kulları, kardeş olun.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nİnsanlardan yüz çevirme, yeryüzünde böbürlenerek yürüme.|Lokmân Suresi, 18\nZandan sakının; çünkü zan sözlerin en yalanıdır.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nRahmân'ın kulları, yeryüzünde alçakgönüllülükle yürürler. Cahiller kendilerine laf attığında \"selam\" derler.|Furkân Suresi, 63\nBir Müslüman bir ağaç diker veya ekin eker de ondan insan, kuş ya da hayvan yerse, bu onun için sadaka olur.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nİyilikle kötülük bir olmaz. Sen kötülüğü en güzel olan davranışla sav.|Fussilet Suresi, 34\nAllah'a en sevimli amel, az da olsa devamlı olanıdır.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nSabredenlerin mükâfatı hesapsız ödenir.|Zümer Suresi, 10\nHiç kimse, elinin emeğinden daha hayırlı bir yemek yememiştir.|Hz. Muhammed (s.a.v.) – Buhârî\nOnlar öfkelerini yutanlar ve insanları affedenlerdir. Allah iyilik edenleri sever.|Âl-i İmrân Suresi, 134\nVeren el, alan elden daha hayırlıdır.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nSabır ve namazla yardım dileyin.|Bakara Suresi, 153\nKim sabretmeye çalışırsa Allah ona sabır verir. Hiç kimseye sabırdan daha hayırlı ve daha geniş bir nimet verilmemiştir.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nİyilik yapın. Şüphesiz Allah iyilik yapanları sever.|Bakara Suresi, 195\nZenginlik, mal çokluğu değil, gönül zenginliğidir.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nKim bir insanı yaşatırsa, bütün insanları yaşatmış gibi olur.|Mâide Suresi, 32\nKim bir Müslümanın ayıbını örterse, Allah da dünyada ve ahirette onun ayıbını örter.|Hz. Muhammed (s.a.v.) – Müslim\nOnlar boş şeylerden yüz çevirirler.|Mü'minûn Suresi, 3\nTemizlik imanın yarısıdır.|Hz. Muhammed (s.a.v.) – Müslim\nDe ki: \"Çalışın! Allah, Resulü ve müminler yaptığınız işi görecektir.\"|Tevbe Suresi, 105\nİyilik, güzel ahlâktır.|Hz. Muhammed (s.a.v.) – Müslim\nNamaz kılınınca yeryüzüne dağılın ve Allah'ın lütfundan nasibinizi arayın.|Cuma Suresi, 10\nHepiniz çobansınız ve hepiniz, sorumluluğunuz altındakilerden sorumlusunuz.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nO, hanginizin daha güzel davranacağını denemek için ölümü ve hayatı yaratandır.|Mülk Suresi, 2\nBizi aldatan bizden değildir.|Hz. Muhammed (s.a.v.) – Müslim\nYapmayacağınız şeyi niçin söylüyorsunuz?|Saf Suresi, 2\nMünafığın alameti üçtür: Konuşunca yalan söyler, söz verince sözünden döner, kendisine güvenilince ihanet eder.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nAllah'tan korkun ve doğru söz söyleyin.|Ahzâb Suresi, 70\nMümin, aynı delikten iki defa ısırılmaz.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nEy iman edenler! Allah'tan korkun ve doğrularla beraber olun.|Tevbe Suresi, 119\nAkrabalık bağını koparan kimse cennete giremez.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nRabbinin yoluna hikmetle ve güzel öğütle çağır.|Nahl Suresi, 125\nBirbirinizi sevmedikçe iman etmiş olamazsınız. Aranızda selamı yayın.|Hz. Muhammed (s.a.v.) – Müslim\nBizim uğrumuzda çaba gösterenleri, elbette yollarımıza ileteceğiz.|Ankebût Suresi, 69\nKim doğru yola davet ederse, kendisine uyanların sevabı kadar sevap alır.|Hz. Muhammed (s.a.v.) – Müslim\nAllah'ın rahmetinden ümit kesmeyin.|Zümer Suresi, 53\nAllah kimin için hayır dilerse, onu dinde derin anlayış sahibi kılar.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nAllah sizi annelerinizin karnından hiçbir şey bilmez halde çıkardı; size kulak, göz ve gönüller verdi.|Nahl Suresi, 78\nAllah ilmi, insanların kalbinden bir çırpıda çekip almaz; âlimleri alarak ilmi kaldırır.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nKalpler ancak Allah'ı anmakla huzur bulur.|Ra'd Suresi, 28\nAncak iki kişiye imrenilir: Allah'ın kendisine mal verdiği ve onu hak yolunda harcayan ile Allah'ın kendisine hikmet verdiği ve onunla hükmedip onu öğreten kimse.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nKullarıma söyle: Sözün en güzelini söylesinler.|İsrâ Suresi, 53\nBenden bir âyet de olsa tebliğ edin.|Hz. Muhammed (s.a.v.) – Buhârî\nSen yine de öğüt ver; çünkü öğüt müminlere fayda verir.|Zâriyât Suresi, 55\nMüslüman, Müslümanın kardeşidir; ona zulmetmez, onu yardımsız bırakmaz.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nEy iman edenler! Allah'tan korkun; herkes yarın için ne hazırladığına baksın.|Haşr Suresi, 18\nBir adam Peygamberimizden vasiyet istedi; \"Öfkelenme\" buyurdu ve bunu birkaç kez tekrarladı.|Hz. Muhammed (s.a.v.) – Buhârî\nYeryüzünde böbürlenerek yürüme.|İsrâ Suresi, 37\nAllah'a ve ahiret gününe inanan kimse komşusuna eziyet etmesin.|Hz. Muhammed (s.a.v.) – Buhârî, Müslim\nAllah sabredenlerle beraberdir.|Enfâl Suresi, 46\nAllah, güçlüğün ardından bir kolaylık verecektir.|Talâk Suresi, 7\nİnsanlara güzel söz söyleyin.|Bakara Suresi, 83\nGüzel bir söz ve bağışlama, arkasından eziyet gelen sadakadan daha hayırlıdır.|Bakara Suresi, 263"
                       }
                     }
                   }
+                },
+                "title": {
+                  "stringValue": "Günün Sözü"
+                },
+                "color": {
+                  "stringValue": "#9a86f2"
+                },
+                "active": {
+                  "booleanValue": true
+                },
+                "w": {
+                  "integerValue": "348"
                 }
               }
             }
@@ -1183,8 +1225,17 @@
           {
             "mapValue": {
               "fields": {
-                "x": {
-                  "integerValue": "380"
+                "w": {
+                  "integerValue": "840"
+                },
+                "type": {
+                  "stringValue": "schedule"
+                },
+                "fs": {
+                  "integerValue": "100"
+                },
+                "y": {
+                  "integerValue": "596"
                 },
                 "active": {
                   "booleanValue": true
@@ -1192,348 +1243,30 @@
                 "id": {
                   "stringValue": "mmvttaae0"
                 },
-                "title": {
-                  "stringValue": "Ders Programı"
-                },
                 "showTitle": {
                   "booleanValue": true
-                },
-                "fs": {
-                  "integerValue": "100"
-                },
-                "w": {
-                  "integerValue": "840"
                 },
                 "h": {
                   "integerValue": "236"
                 },
-                "y": {
-                  "integerValue": "596"
-                },
-                "type": {
-                  "stringValue": "schedule"
+                "x": {
+                  "integerValue": "380"
                 },
                 "color": {
                   "stringValue": "#0f9b8e"
                 },
+                "title": {
+                  "stringValue": "Ders Programı"
+                },
                 "data": {
                   "mapValue": {
                     "fields": {
+                      "n": {
+                        "integerValue": "8"
+                      },
                       "prog": {
                         "mapValue": {
                           "fields": {
-                            "6/B": {
-                              "mapValue": {
-                                "fields": {
-                                  "0": {
-                                    "arrayValue": {
-                                      "values": [
-                                        {
-                                          "stringValue": "İngilizce"
-                                        },
-                                        {
-                                          "stringValue": "Türkçe"
-                                        },
-                                        {
-                                          "stringValue": "Matematik"
-                                        },
-                                        {
-                                          "stringValue": "Türkçe"
-                                        },
-                                        {
-                                          "stringValue": "Matematik"
-                                        },
-                                        {
-                                          "stringValue": "Bilişim Teknolojileri ve Yazılım"
-                                        },
-                                        {
-                                          "stringValue": "Kur'an-ı Kerim"
-                                        },
-                                        {
-                                          "stringValue": ""
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  "1": {
-                                    "arrayValue": {
-                                      "values": [
-                                        {
-                                          "stringValue": "Fen Bilimleri"
-                                        },
-                                        {
-                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
-                                        },
-                                        {
-                                          "stringValue": "Arapça"
-                                        },
-                                        {
-                                          "stringValue": "Peygamberimizin Hayatı"
-                                        },
-                                        {
-                                          "stringValue": "Sosyal Bilgiler"
-                                        },
-                                        {
-                                          "stringValue": "Görsel Sanatlar"
-                                        },
-                                        {
-                                          "stringValue": "Matematik"
-                                        },
-                                        {
-                                          "stringValue": ""
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  "2": {
-                                    "arrayValue": {
-                                      "values": [
-                                        {
-                                          "stringValue": "Sosyal Bilgiler"
-                                        },
-                                        {
-                                          "stringValue": "Beden Eğitimi ve Spor"
-                                        },
-                                        {
-                                          "stringValue": "Türkçe"
-                                        },
-                                        {
-                                          "stringValue": "Kur'an-ı Kerim"
-                                        },
-                                        {
-                                          "stringValue": "Türkçe"
-                                        },
-                                        {
-                                          "stringValue": "Matematik"
-                                        },
-                                        {
-                                          "stringValue": "Matematik"
-                                        },
-                                        {
-                                          "stringValue": "Arapça"
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  "3": {
-                                    "arrayValue": {
-                                      "values": [
-                                        {
-                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
-                                        },
-                                        {
-                                          "stringValue": "Sosyal Bilgiler"
-                                        },
-                                        {
-                                          "stringValue": "Fen Bilimleri"
-                                        },
-                                        {
-                                          "stringValue": "İngilizce"
-                                        },
-                                        {
-                                          "stringValue": "Türkçe"
-                                        },
-                                        {
-                                          "stringValue": "İngilizce"
-                                        },
-                                        {
-                                          "stringValue": "Türkçe"
-                                        },
-                                        {
-                                          "stringValue": ""
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  "4": {
-                                    "arrayValue": {
-                                      "values": [
-                                        {
-                                          "stringValue": "Müzik"
-                                        },
-                                        {
-                                          "stringValue": "Temel Dini Bilgiler"
-                                        },
-                                        {
-                                          "stringValue": "Peygamberimizin Hayatı"
-                                        },
-                                        {
-                                          "stringValue": "Seçmeli Ders"
-                                        },
-                                        {
-                                          "stringValue": "Fen Bilimleri"
-                                        },
-                                        {
-                                          "stringValue": "Fen Bilimleri"
-                                        },
-                                        {
-                                          "stringValue": "Bilişim Teknolojileri ve Yazılım"
-                                        },
-                                        {
-                                          "stringValue": ""
-                                        }
-                                      ]
-                                    }
-                                  }
-                                }
-                              }
-                            },
-                            "7/B": {
-                              "mapValue": {
-                                "fields": {
-                                  "0": {
-                                    "arrayValue": {
-                                      "values": [
-                                        {
-                                          "stringValue": "İngilizce"
-                                        },
-                                        {
-                                          "stringValue": "Beden Eğitimi ve Spor"
-                                        },
-                                        {
-                                          "stringValue": "Görsel Sanatlar"
-                                        },
-                                        {
-                                          "stringValue": "Matematik"
-                                        },
-                                        {
-                                          "stringValue": "Matematik"
-                                        },
-                                        {
-                                          "stringValue": "Sosyal Bilgiler"
-                                        },
-                                        {
-                                          "stringValue": "Sosyal Bilgiler"
-                                        },
-                                        {
-                                          "stringValue": "Türkçe"
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  "1": {
-                                    "arrayValue": {
-                                      "values": [
-                                        {
-                                          "stringValue": "Türkçe"
-                                        },
-                                        {
-                                          "stringValue": "Müzik"
-                                        },
-                                        {
-                                          "stringValue": "Seçmeli Ders"
-                                        },
-                                        {
-                                          "stringValue": "İngilizce"
-                                        },
-                                        {
-                                          "stringValue": "Kur'an-ı Kerim"
-                                        },
-                                        {
-                                          "stringValue": "Matematik"
-                                        },
-                                        {
-                                          "stringValue": "Matematik"
-                                        },
-                                        {
-                                          "stringValue": ""
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  "2": {
-                                    "arrayValue": {
-                                      "values": [
-                                        {
-                                          "stringValue": "İngilizce"
-                                        },
-                                        {
-                                          "stringValue": "Peygamberimizin Hayatı"
-                                        },
-                                        {
-                                          "stringValue": "Teknoloji ve Tasarım"
-                                        },
-                                        {
-                                          "stringValue": "Arapça"
-                                        },
-                                        {
-                                          "stringValue": "Matematik"
-                                        },
-                                        {
-                                          "stringValue": "Fen Bilimleri"
-                                        },
-                                        {
-                                          "stringValue": "Teknoloji ve Tasarım"
-                                        },
-                                        {
-                                          "stringValue": "Kur'an-ı Kerim"
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  "3": {
-                                    "arrayValue": {
-                                      "values": [
-                                        {
-                                          "stringValue": "Türkçe"
-                                        },
-                                        {
-                                          "stringValue": "Beden Eğitimi ve Spor"
-                                        },
-                                        {
-                                          "stringValue": "İngilizce"
-                                        },
-                                        {
-                                          "stringValue": "Fen Bilimleri"
-                                        },
-                                        {
-                                          "stringValue": "Sosyal Bilgiler"
-                                        },
-                                        {
-                                          "stringValue": "Fen Bilimleri"
-                                        },
-                                        {
-                                          "stringValue": "Türkçe"
-                                        },
-                                        {
-                                          "stringValue": ""
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  "4": {
-                                    "arrayValue": {
-                                      "values": [
-                                        {
-                                          "stringValue": "Türkçe"
-                                        },
-                                        {
-                                          "stringValue": "Temel Dini Bilgiler"
-                                        },
-                                        {
-                                          "stringValue": "Peygamberimizin Hayatı"
-                                        },
-                                        {
-                                          "stringValue": "Arapça"
-                                        },
-                                        {
-                                          "stringValue": "Fen Bilimleri"
-                                        },
-                                        {
-                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
-                                        },
-                                        {
-                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
-                                        },
-                                        {
-                                          "stringValue": ""
-                                        }
-                                      ]
-                                    }
-                                  }
-                                }
-                              }
-                            },
                             "5/A": {
                               "mapValue": {
                                 "fields": {
@@ -1541,181 +1274,25 @@
                                     "arrayValue": {
                                       "values": [
                                         {
-                                          "stringValue": "Sosyal Bilgiler"
-                                        },
-                                        {
-                                          "stringValue": "Türkçe"
-                                        },
-                                        {
-                                          "stringValue": "Fen Bilimleri"
-                                        },
-                                        {
-                                          "stringValue": "Beden Eğitimi ve Spor"
-                                        },
-                                        {
-                                          "stringValue": "Sosyal Bilgiler"
-                                        },
-                                        {
-                                          "stringValue": "Matematik"
-                                        },
-                                        {
-                                          "stringValue": "Türkçe"
-                                        },
-                                        {
-                                          "stringValue": "Peygamberimizin Hayatı"
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  "1": {
-                                    "arrayValue": {
-                                      "values": [
-                                        {
-                                          "stringValue": "Matematik"
-                                        },
-                                        {
-                                          "stringValue": "Beden Eğitimi ve Spor"
-                                        },
-                                        {
-                                          "stringValue": "Kur'an-ı Kerim"
-                                        },
-                                        {
-                                          "stringValue": "Fen Bilimleri"
-                                        },
-                                        {
-                                          "stringValue": "Türkçe"
-                                        },
-                                        {
-                                          "stringValue": "Peygamberimizin Hayatı"
-                                        },
-                                        {
-                                          "stringValue": "Türkçe"
-                                        },
-                                        {
-                                          "stringValue": ""
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  "2": {
-                                    "arrayValue": {
-                                      "values": [
-                                        {
-                                          "stringValue": "Fen Bilimleri"
-                                        },
-                                        {
-                                          "stringValue": "İngilizce"
-                                        },
-                                        {
-                                          "stringValue": "İngilizce"
-                                        },
-                                        {
-                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
-                                        },
-                                        {
                                           "stringValue": "Türkçe"
                                         },
                                         {
                                           "stringValue": "Türkçe"
                                         },
                                         {
-                                          "stringValue": "Seçmeli Ders"
-                                        },
-                                        {
-                                          "stringValue": ""
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  "3": {
-                                    "arrayValue": {
-                                      "values": [
-                                        {
-                                          "stringValue": "Sosyal Bilgiler"
-                                        },
-                                        {
-                                          "stringValue": "Müzik"
+                                          "stringValue": "Rehberlik ve Kariyer Planlama"
                                         },
                                         {
                                           "stringValue": "Arapça"
                                         },
                                         {
-                                          "stringValue": "Bilişim Teknolojileri ve Yazılım"
+                                          "stringValue": "Görgü Kuralları ve Nezaket"
                                         },
                                         {
-                                          "stringValue": "Fen Bilimleri"
+                                          "stringValue": "Sosyal Bilgiler"
                                         },
                                         {
-                                          "stringValue": "Arapça"
-                                        },
-                                        {
-                                          "stringValue": "Matematik"
-                                        },
-                                        {
-                                          "stringValue": ""
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  "4": {
-                                    "arrayValue": {
-                                      "values": [
-                                        {
-                                          "stringValue": "Matematik"
-                                        },
-                                        {
-                                          "stringValue": "Matematik"
-                                        },
-                                        {
-                                          "stringValue": "Bilişim Teknolojileri ve Yazılım"
-                                        },
-                                        {
-                                          "stringValue": "Görsel Sanatlar"
-                                        },
-                                        {
-                                          "stringValue": "İngilizce"
-                                        },
-                                        {
-                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
-                                        },
-                                        {
-                                          "stringValue": "Kur'an-ı Kerim"
-                                        },
-                                        {
-                                          "stringValue": ""
-                                        }
-                                      ]
-                                    }
-                                  }
-                                }
-                              }
-                            },
-                            "6/A": {
-                              "mapValue": {
-                                "fields": {
-                                  "0": {
-                                    "arrayValue": {
-                                      "values": [
-                                        {
-                                          "stringValue": "Matematik"
-                                        },
-                                        {
-                                          "stringValue": "Türkçe"
-                                        },
-                                        {
-                                          "stringValue": "Matematik"
-                                        },
-                                        {
-                                          "stringValue": "Fen Bilimleri"
-                                        },
-                                        {
-                                          "stringValue": "Fen Bilimleri"
-                                        },
-                                        {
-                                          "stringValue": "İngilizce"
-                                        },
-                                        {
-                                          "stringValue": "Türkçe"
+                                          "stringValue": "Sosyal Bilgiler"
                                         },
                                         {
                                           "stringValue": ""
@@ -1727,25 +1304,25 @@
                                     "arrayValue": {
                                       "values": [
                                         {
-                                          "stringValue": "Türkçe"
+                                          "stringValue": "İngilizce"
                                         },
                                         {
-                                          "stringValue": "Beden Eğitimi ve Spor"
-                                        },
-                                        {
-                                          "stringValue": "Temel Dini Bilgiler"
+                                          "stringValue": "Matematik"
                                         },
                                         {
                                           "stringValue": "Fen Bilimleri"
                                         },
                                         {
-                                          "stringValue": "Peygamberimizin Hayatı"
+                                          "stringValue": "Fen Bilimleri"
                                         },
                                         {
-                                          "stringValue": "Müzik"
+                                          "stringValue": "Bilişim Teknolojileri ve Yazılım"
                                         },
                                         {
-                                          "stringValue": "Sosyal Bilgiler"
+                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
+                                        },
+                                        {
+                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
                                         },
                                         {
                                           "stringValue": ""
@@ -1757,28 +1334,28 @@
                                     "arrayValue": {
                                       "values": [
                                         {
-                                          "stringValue": "Sosyal Bilgiler"
+                                          "stringValue": "Peygamberimizin Hayatı"
                                         },
                                         {
-                                          "stringValue": "İngilizce"
+                                          "stringValue": "Peygamberimizin Hayatı"
                                         },
                                         {
-                                          "stringValue": "Bilişim Teknolojileri ve Yazılım"
+                                          "stringValue": "Fen Bilimleri"
                                         },
                                         {
-                                          "stringValue": "Matematik"
-                                        },
-                                        {
-                                          "stringValue": "Kur'an-ı Kerim"
+                                          "stringValue": "Fen Bilimleri"
                                         },
                                         {
                                           "stringValue": "Kur'an-ı Kerim"
                                         },
                                         {
-                                          "stringValue": "Matematik"
+                                          "stringValue": "Kur'an-ı Kerim"
                                         },
                                         {
-                                          "stringValue": "Seçmeli Ders"
+                                          "stringValue": "Müzik"
+                                        },
+                                        {
+                                          "stringValue": ""
                                         }
                                       ]
                                     }
@@ -1787,25 +1364,25 @@
                                     "arrayValue": {
                                       "values": [
                                         {
-                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
-                                        },
-                                        {
-                                          "stringValue": "İngilizce"
-                                        },
-                                        {
-                                          "stringValue": "Türkçe"
+                                          "stringValue": "Matematik"
                                         },
                                         {
                                           "stringValue": "Matematik"
                                         },
                                         {
-                                          "stringValue": "Peygamberimizin Hayatı"
+                                          "stringValue": "Beden Eğitimi ve Spor"
+                                        },
+                                        {
+                                          "stringValue": "Beden Eğitimi ve Spor"
                                         },
                                         {
                                           "stringValue": "Türkçe"
                                         },
                                         {
-                                          "stringValue": "Fen Bilimleri"
+                                          "stringValue": "Türkçe"
+                                        },
+                                        {
+                                          "stringValue": "Görsel Sanatlar"
                                         },
                                         {
                                           "stringValue": ""
@@ -1817,28 +1394,28 @@
                                     "arrayValue": {
                                       "values": [
                                         {
-                                          "stringValue": "Sosyal Bilgiler"
-                                        },
-                                        {
-                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
-                                        },
-                                        {
-                                          "stringValue": "Arapça"
-                                        },
-                                        {
-                                          "stringValue": "Arapça"
+                                          "stringValue": "Türkçe"
                                         },
                                         {
                                           "stringValue": "Türkçe"
                                         },
                                         {
-                                          "stringValue": "Bilişim Teknolojileri ve Yazılım"
+                                          "stringValue": "İngilizce"
                                         },
                                         {
-                                          "stringValue": "Görsel Sanatlar"
+                                          "stringValue": "İngilizce"
                                         },
                                         {
-                                          "stringValue": ""
+                                          "stringValue": "Matematik"
+                                        },
+                                        {
+                                          "stringValue": "Matematik"
+                                        },
+                                        {
+                                          "stringValue": "Arapça"
+                                        },
+                                        {
+                                          "stringValue": "Sosyal Bilgiler"
                                         }
                                       ]
                                     }
@@ -1856,22 +1433,22 @@
                                           "stringValue": "Matematik"
                                         },
                                         {
-                                          "stringValue": "Peygamberimizin Hayatı"
+                                          "stringValue": "Müzik"
                                         },
                                         {
-                                          "stringValue": "İngilizce"
+                                          "stringValue": "Teknoloji ve Tasarım"
+                                        },
+                                        {
+                                          "stringValue": "Teknoloji ve Tasarım"
+                                        },
+                                        {
+                                          "stringValue": "Görgü Kuralları ve Nezaket"
+                                        },
+                                        {
+                                          "stringValue": "Görgü Kuralları ve Nezaket"
                                         },
                                         {
                                           "stringValue": "Arapça"
-                                        },
-                                        {
-                                          "stringValue": "T.C. İnkılap Tarihi ve Atatürkçülük"
-                                        },
-                                        {
-                                          "stringValue": "İngilizce"
-                                        },
-                                        {
-                                          "stringValue": "Matematik"
                                         },
                                         {
                                           "stringValue": ""
@@ -1883,25 +1460,25 @@
                                     "arrayValue": {
                                       "values": [
                                         {
-                                          "stringValue": "Fen Bilimleri"
+                                          "stringValue": "Arapça"
                                         },
                                         {
-                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
+                                          "stringValue": "Arapça"
                                         },
                                         {
-                                          "stringValue": "Türkçe"
+                                          "stringValue": "İngilizce"
                                         },
                                         {
                                           "stringValue": "Beden Eğitimi ve Spor"
                                         },
                                         {
-                                          "stringValue": "Matematik"
+                                          "stringValue": "Çevre Eğitimi ve İklim"
                                         },
                                         {
-                                          "stringValue": "Görsel Sanatlar"
+                                          "stringValue": "Türkçe"
                                         },
                                         {
-                                          "stringValue": "Seçmeli Ders"
+                                          "stringValue": "Türkçe"
                                         },
                                         {
                                           "stringValue": ""
@@ -1913,19 +1490,7 @@
                                     "arrayValue": {
                                       "values": [
                                         {
-                                          "stringValue": "T.C. İnkılap Tarihi ve Atatürkçülük"
-                                        },
-                                        {
-                                          "stringValue": "Matematik"
-                                        },
-                                        {
-                                          "stringValue": "Türkçe"
-                                        },
-                                        {
-                                          "stringValue": "Fen Bilimleri"
-                                        },
-                                        {
-                                          "stringValue": "Teknoloji ve Tasarım"
+                                          "stringValue": "İngilizce"
                                         },
                                         {
                                           "stringValue": "İngilizce"
@@ -1934,7 +1499,19 @@
                                           "stringValue": "Fen Bilimleri"
                                         },
                                         {
-                                          "stringValue": "Peygamberimizin Hayatı"
+                                          "stringValue": "Fen Bilimleri"
+                                        },
+                                        {
+                                          "stringValue": "Türkçe"
+                                        },
+                                        {
+                                          "stringValue": "T.C. İnkılap Tarihi ve Atatürkçülük"
+                                        },
+                                        {
+                                          "stringValue": "T.C. İnkılap Tarihi ve Atatürkçülük"
+                                        },
+                                        {
+                                          "stringValue": ""
                                         }
                                       ]
                                     }
@@ -1943,28 +1520,28 @@
                                     "arrayValue": {
                                       "values": [
                                         {
-                                          "stringValue": "Teknoloji ve Tasarım"
+                                          "stringValue": "Peygamberimizin Hayatı"
                                         },
                                         {
-                                          "stringValue": "Seçmeli Ders"
+                                          "stringValue": "Peygamberimizin Hayatı"
                                         },
                                         {
                                           "stringValue": "Matematik"
                                         },
                                         {
-                                          "stringValue": "Müzik"
+                                          "stringValue": "Matematik"
                                         },
                                         {
-                                          "stringValue": "Türkçe"
+                                          "stringValue": "Kur'an-ı Kerim"
+                                        },
+                                        {
+                                          "stringValue": "Kur'an-ı Kerim"
                                         },
                                         {
                                           "stringValue": "Rehberlik ve Kariyer Planlama"
                                         },
                                         {
-                                          "stringValue": "İngilizce"
-                                        },
-                                        {
-                                          "stringValue": "Türkçe"
+                                          "stringValue": ""
                                         }
                                       ]
                                     }
@@ -1973,7 +1550,7 @@
                                     "arrayValue": {
                                       "values": [
                                         {
-                                          "stringValue": "Beden Eğitimi ve Spor"
+                                          "stringValue": "Fen Bilimleri"
                                         },
                                         {
                                           "stringValue": "Fen Bilimleri"
@@ -1982,19 +1559,19 @@
                                           "stringValue": "Din Kültürü ve Ahlak Bilgisi"
                                         },
                                         {
-                                          "stringValue": "Kur'an-ı Kerim"
+                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
                                         },
                                         {
                                           "stringValue": "Türkçe"
                                         },
                                         {
-                                          "stringValue": "Arapça"
+                                          "stringValue": "Türkçe"
                                         },
                                         {
-                                          "stringValue": "Kur'an-ı Kerim"
+                                          "stringValue": "Matematik"
                                         },
                                         {
-                                          "stringValue": ""
+                                          "stringValue": "Matematik"
                                         }
                                       ]
                                     }
@@ -2009,10 +1586,7 @@
                                     "arrayValue": {
                                       "values": [
                                         {
-                                          "stringValue": "Arapça"
-                                        },
-                                        {
-                                          "stringValue": "İngilizce"
+                                          "stringValue": "Teknoloji ve Tasarım"
                                         },
                                         {
                                           "stringValue": "Teknoloji ve Tasarım"
@@ -2021,13 +1595,16 @@
                                           "stringValue": "Kur'an-ı Kerim"
                                         },
                                         {
-                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
+                                          "stringValue": "Peygamberimizin Hayatı"
                                         },
                                         {
-                                          "stringValue": "İngilizce"
+                                          "stringValue": "Peygamberimizin Hayatı"
                                         },
                                         {
-                                          "stringValue": "Matematik"
+                                          "stringValue": "Arapça"
+                                        },
+                                        {
+                                          "stringValue": "Görsel Sanatlar"
                                         },
                                         {
                                           "stringValue": ""
@@ -2039,28 +1616,28 @@
                                     "arrayValue": {
                                       "values": [
                                         {
-                                          "stringValue": "Matematik"
+                                          "stringValue": "T.C. İnkılap Tarihi ve Atatürkçülük"
                                         },
                                         {
-                                          "stringValue": "Türkçe"
+                                          "stringValue": "T.C. İnkılap Tarihi ve Atatürkçülük"
                                         },
                                         {
-                                          "stringValue": "Matematik"
+                                          "stringValue": "Beden Eğitimi ve Spor"
                                         },
                                         {
-                                          "stringValue": "Görsel Sanatlar"
+                                          "stringValue": "Temel Dini Bilgiler"
+                                        },
+                                        {
+                                          "stringValue": "Rehberlik ve Kariyer Planlama"
                                         },
                                         {
                                           "stringValue": "İngilizce"
                                         },
                                         {
-                                          "stringValue": "Seçmeli Ders"
+                                          "stringValue": "İngilizce"
                                         },
                                         {
-                                          "stringValue": "Türkçe"
-                                        },
-                                        {
-                                          "stringValue": "Seçmeli Ders"
+                                          "stringValue": ""
                                         }
                                       ]
                                     }
@@ -2069,25 +1646,25 @@
                                     "arrayValue": {
                                       "values": [
                                         {
-                                          "stringValue": "Türkçe"
+                                          "stringValue": "Matematik"
                                         },
                                         {
-                                          "stringValue": "Beden Eğitimi ve Spor"
-                                        },
-                                        {
-                                          "stringValue": "Teknoloji ve Tasarım"
+                                          "stringValue": "Matematik"
                                         },
                                         {
                                           "stringValue": "Türkçe"
                                         },
                                         {
-                                          "stringValue": "Arapça"
+                                          "stringValue": "Türkçe"
                                         },
                                         {
-                                          "stringValue": "Peygamberimizin Hayatı"
+                                          "stringValue": "Görgü Kuralları ve Nezaket"
                                         },
                                         {
-                                          "stringValue": "T.C. İnkılap Tarihi ve Atatürkçülük"
+                                          "stringValue": "İngilizce"
+                                        },
+                                        {
+                                          "stringValue": "İngilizce"
                                         },
                                         {
                                           "stringValue": ""
@@ -2099,28 +1676,28 @@
                                     "arrayValue": {
                                       "values": [
                                         {
-                                          "stringValue": "Matematik"
-                                        },
-                                        {
-                                          "stringValue": "Müzik"
-                                        },
-                                        {
-                                          "stringValue": "Rehberlik ve Kariyer Planlama"
-                                        },
-                                        {
-                                          "stringValue": "Fen Bilimleri"
-                                        },
-                                        {
-                                          "stringValue": "Fen Bilimleri"
-                                        },
-                                        {
-                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
-                                        },
-                                        {
-                                          "stringValue": "İngilizce"
+                                          "stringValue": "Türkçe"
                                         },
                                         {
                                           "stringValue": "Türkçe"
+                                        },
+                                        {
+                                          "stringValue": "Kur'an-ı Kerim"
+                                        },
+                                        {
+                                          "stringValue": "T.C. İnkılap Tarihi ve Atatürkçülük"
+                                        },
+                                        {
+                                          "stringValue": "Fen Bilimleri"
+                                        },
+                                        {
+                                          "stringValue": "Fen Bilimleri"
+                                        },
+                                        {
+                                          "stringValue": "Çevre Eğitimi ve İklim"
+                                        },
+                                        {
+                                          "stringValue": ""
                                         }
                                       ]
                                     }
@@ -2129,28 +1706,28 @@
                                     "arrayValue": {
                                       "values": [
                                         {
-                                          "stringValue": "Fen Bilimleri"
+                                          "stringValue": "Arapça"
                                         },
                                         {
-                                          "stringValue": "Peygamberimizin Hayatı"
-                                        },
-                                        {
-                                          "stringValue": "Beden Eğitimi ve Spor"
+                                          "stringValue": "Müzik"
                                         },
                                         {
                                           "stringValue": "Fen Bilimleri"
                                         },
                                         {
-                                          "stringValue": "Kur'an-ı Kerim"
+                                          "stringValue": "Fen Bilimleri"
                                         },
                                         {
                                           "stringValue": "Matematik"
                                         },
                                         {
-                                          "stringValue": "T.C. İnkılap Tarihi ve Atatürkçülük"
+                                          "stringValue": "Matematik"
                                         },
                                         {
-                                          "stringValue": ""
+                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
+                                        },
+                                        {
+                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
                                         }
                                       ]
                                     }
@@ -2165,25 +1742,25 @@
                                     "arrayValue": {
                                       "values": [
                                         {
-                                          "stringValue": "Fen Bilimleri"
+                                          "stringValue": "Kur'an-ı Kerim"
+                                        },
+                                        {
+                                          "stringValue": "Kur'an-ı Kerim"
+                                        },
+                                        {
+                                          "stringValue": "Sosyal Bilgiler"
                                         },
                                         {
                                           "stringValue": "Fen Bilimleri"
                                         },
                                         {
-                                          "stringValue": "Matematik"
+                                          "stringValue": "Fen Bilimleri"
                                         },
                                         {
-                                          "stringValue": "Türkçe"
+                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
                                         },
                                         {
-                                          "stringValue": "Matematik"
-                                        },
-                                        {
-                                          "stringValue": "Türkçe"
-                                        },
-                                        {
-                                          "stringValue": "İngilizce"
+                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
                                         },
                                         {
                                           "stringValue": ""
@@ -2195,25 +1772,25 @@
                                     "arrayValue": {
                                       "values": [
                                         {
-                                          "stringValue": "Arapça"
-                                        },
-                                        {
                                           "stringValue": "Türkçe"
                                         },
                                         {
-                                          "stringValue": "İngilizce"
-                                        },
-                                        {
-                                          "stringValue": "Beden Eğitimi ve Spor"
-                                        },
-                                        {
-                                          "stringValue": "İngilizce"
+                                          "stringValue": "Temel Dini Bilgiler"
                                         },
                                         {
                                           "stringValue": "Matematik"
                                         },
                                         {
-                                          "stringValue": "Kur'an-ı Kerim"
+                                          "stringValue": "Matematik"
+                                        },
+                                        {
+                                          "stringValue": "Arapça"
+                                        },
+                                        {
+                                          "stringValue": "Görsel Sanatlar"
+                                        },
+                                        {
+                                          "stringValue": "Teknoloji ve Tasarım"
                                         },
                                         {
                                           "stringValue": ""
@@ -2225,28 +1802,28 @@
                                     "arrayValue": {
                                       "values": [
                                         {
-                                          "stringValue": "Arapça"
-                                        },
-                                        {
                                           "stringValue": "Fen Bilimleri"
                                         },
                                         {
                                           "stringValue": "Fen Bilimleri"
                                         },
                                         {
-                                          "stringValue": "Sosyal Bilgiler"
+                                          "stringValue": "Matematik"
                                         },
                                         {
-                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
+                                          "stringValue": "Matematik"
+                                        },
+                                        {
+                                          "stringValue": "Peygamberimizin Hayatı"
+                                        },
+                                        {
+                                          "stringValue": "Peygamberimizin Hayatı"
                                         },
                                         {
                                           "stringValue": "Türkçe"
                                         },
                                         {
-                                          "stringValue": "Müzik"
-                                        },
-                                        {
-                                          "stringValue": "Sosyal Bilgiler"
+                                          "stringValue": ""
                                         }
                                       ]
                                     }
@@ -2258,25 +1835,25 @@
                                           "stringValue": "İngilizce"
                                         },
                                         {
-                                          "stringValue": "Temel Dini Bilgiler"
+                                          "stringValue": "İngilizce"
+                                        },
+                                        {
+                                          "stringValue": "Görgü Kuralları ve Nezaket"
+                                        },
+                                        {
+                                          "stringValue": "Türkçe"
+                                        },
+                                        {
+                                          "stringValue": "Türkçe"
+                                        },
+                                        {
+                                          "stringValue": "Rehberlik ve Kariyer Planlama"
                                         },
                                         {
                                           "stringValue": "Beden Eğitimi ve Spor"
                                         },
                                         {
-                                          "stringValue": "Peygamberimizin Hayatı"
-                                        },
-                                        {
-                                          "stringValue": "Kur'an-ı Kerim"
-                                        },
-                                        {
-                                          "stringValue": "Teknoloji ve Tasarım"
-                                        },
-                                        {
-                                          "stringValue": "Peygamberimizin Hayatı"
-                                        },
-                                        {
-                                          "stringValue": "Türkçe"
+                                          "stringValue": ""
                                         }
                                       ]
                                     }
@@ -2285,28 +1862,28 @@
                                     "arrayValue": {
                                       "values": [
                                         {
-                                          "stringValue": "Matematik"
-                                        },
-                                        {
-                                          "stringValue": "Teknoloji ve Tasarım"
+                                          "stringValue": "Sosyal Bilgiler"
                                         },
                                         {
                                           "stringValue": "Sosyal Bilgiler"
                                         },
                                         {
+                                          "stringValue": "Temel Dini Bilgiler"
+                                        },
+                                        {
+                                          "stringValue": "İngilizce"
+                                        },
+                                        {
+                                          "stringValue": "İngilizce"
+                                        },
+                                        {
+                                          "stringValue": "Arapça"
+                                        },
+                                        {
                                           "stringValue": "Matematik"
                                         },
                                         {
-                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
-                                        },
-                                        {
-                                          "stringValue": "Görsel Sanatlar"
-                                        },
-                                        {
-                                          "stringValue": "Seçmeli Ders"
-                                        },
-                                        {
-                                          "stringValue": ""
+                                          "stringValue": "Müzik"
                                         }
                                       ]
                                     }
@@ -2321,7 +1898,13 @@
                                     "arrayValue": {
                                       "values": [
                                         {
-                                          "stringValue": "Matematik"
+                                          "stringValue": "Fen Bilimleri"
+                                        },
+                                        {
+                                          "stringValue": "Fen Bilimleri"
+                                        },
+                                        {
+                                          "stringValue": "Türkçe"
                                         },
                                         {
                                           "stringValue": "Türkçe"
@@ -2330,13 +1913,163 @@
                                           "stringValue": "Arapça"
                                         },
                                         {
+                                          "stringValue": "İngilizce"
+                                        },
+                                        {
+                                          "stringValue": "İngilizce"
+                                        },
+                                        {
+                                          "stringValue": ""
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "1": {
+                                    "arrayValue": {
+                                      "values": [
+                                        {
+                                          "stringValue": "Beden Eğitimi ve Spor"
+                                        },
+                                        {
+                                          "stringValue": "Beden Eğitimi ve Spor"
+                                        },
+                                        {
+                                          "stringValue": "Arapça"
+                                        },
+                                        {
+                                          "stringValue": "İngilizce"
+                                        },
+                                        {
+                                          "stringValue": "Sosyal Bilgiler"
+                                        },
+                                        {
+                                          "stringValue": "Sosyal Bilgiler"
+                                        },
+                                        {
+                                          "stringValue": "Matematik"
+                                        },
+                                        {
+                                          "stringValue": ""
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "2": {
+                                    "arrayValue": {
+                                      "values": [
+                                        {
+                                          "stringValue": "Matematik"
+                                        },
+                                        {
                                           "stringValue": "Matematik"
                                         },
                                         {
                                           "stringValue": "Türkçe"
                                         },
                                         {
+                                          "stringValue": "Türkçe"
+                                        },
+                                        {
+                                          "stringValue": "Görgü Kuralları ve Nezaket"
+                                        },
+                                        {
+                                          "stringValue": "Müzik"
+                                        },
+                                        {
+                                          "stringValue": "Bilişim Teknolojileri ve Yazılım"
+                                        },
+                                        {
+                                          "stringValue": ""
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "3": {
+                                    "arrayValue": {
+                                      "values": [
+                                        {
                                           "stringValue": "Peygamberimizin Hayatı"
+                                        },
+                                        {
+                                          "stringValue": "Peygamberimizin Hayatı"
+                                        },
+                                        {
+                                          "stringValue": "Görsel Sanatlar"
+                                        },
+                                        {
+                                          "stringValue": "Kur'an-ı Kerim"
+                                        },
+                                        {
+                                          "stringValue": "Kur'an-ı Kerim"
+                                        },
+                                        {
+                                          "stringValue": "Rehberlik ve Kariyer Planlama"
+                                        },
+                                        {
+                                          "stringValue": "Sosyal Bilgiler"
+                                        },
+                                        {
+                                          "stringValue": ""
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "4": {
+                                    "arrayValue": {
+                                      "values": [
+                                        {
+                                          "stringValue": "Fen Bilimleri"
+                                        },
+                                        {
+                                          "stringValue": "Fen Bilimleri"
+                                        },
+                                        {
+                                          "stringValue": "Matematik"
+                                        },
+                                        {
+                                          "stringValue": "Matematik"
+                                        },
+                                        {
+                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
+                                        },
+                                        {
+                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
+                                        },
+                                        {
+                                          "stringValue": "Türkçe"
+                                        },
+                                        {
+                                          "stringValue": "Türkçe"
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "6/B": {
+                              "mapValue": {
+                                "fields": {
+                                  "0": {
+                                    "arrayValue": {
+                                      "values": [
+                                        {
+                                          "stringValue": "İngilizce"
+                                        },
+                                        {
+                                          "stringValue": "İngilizce"
+                                        },
+                                        {
+                                          "stringValue": "Beden Eğitimi ve Spor"
+                                        },
+                                        {
+                                          "stringValue": "Görgü Kuralları ve Nezaket"
+                                        },
+                                        {
+                                          "stringValue": "Görsel Sanatlar"
+                                        },
+                                        {
+                                          "stringValue": "Fen Bilimleri"
                                         },
                                         {
                                           "stringValue": "Fen Bilimleri"
@@ -2351,25 +2084,25 @@
                                     "arrayValue": {
                                       "values": [
                                         {
-                                          "stringValue": "Müzik"
-                                        },
-                                        {
-                                          "stringValue": "Bilişim Teknolojileri ve Yazılım"
-                                        },
-                                        {
-                                          "stringValue": "Kur'an-ı Kerim"
-                                        },
-                                        {
                                           "stringValue": "Matematik"
                                         },
                                         {
-                                          "stringValue": "İngilizce"
+                                          "stringValue": "Arapça"
                                         },
                                         {
                                           "stringValue": "Sosyal Bilgiler"
                                         },
                                         {
-                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
+                                          "stringValue": "Kur'an-ı Kerim"
+                                        },
+                                        {
+                                          "stringValue": "Kur'an-ı Kerim"
+                                        },
+                                        {
+                                          "stringValue": "Türkçe"
+                                        },
+                                        {
+                                          "stringValue": "Türkçe"
                                         },
                                         {
                                           "stringValue": ""
@@ -2381,25 +2114,25 @@
                                     "arrayValue": {
                                       "values": [
                                         {
-                                          "stringValue": "Kur'an-ı Kerim"
-                                        },
-                                        {
-                                          "stringValue": "Bilişim Teknolojileri ve Yazılım"
-                                        },
-                                        {
-                                          "stringValue": "Arapça"
-                                        },
-                                        {
-                                          "stringValue": "Fen Bilimleri"
+                                          "stringValue": "Türkçe"
                                         },
                                         {
                                           "stringValue": "Türkçe"
                                         },
                                         {
-                                          "stringValue": "İngilizce"
+                                          "stringValue": "Matematik"
                                         },
                                         {
-                                          "stringValue": "Türkçe"
+                                          "stringValue": "Matematik"
+                                        },
+                                        {
+                                          "stringValue": "Peygamberimizin Hayatı"
+                                        },
+                                        {
+                                          "stringValue": "Peygamberimizin Hayatı"
+                                        },
+                                        {
+                                          "stringValue": "Temel Dini Bilgiler"
                                         },
                                         {
                                           "stringValue": ""
@@ -2411,28 +2144,28 @@
                                     "arrayValue": {
                                       "values": [
                                         {
-                                          "stringValue": "Seçmeli Ders"
-                                        },
-                                        {
-                                          "stringValue": "Beden Eğitimi ve Spor"
-                                        },
-                                        {
-                                          "stringValue": "İngilizce"
-                                        },
-                                        {
-                                          "stringValue": "Peygamberimizin Hayatı"
-                                        },
-                                        {
-                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
-                                        },
-                                        {
-                                          "stringValue": "Fen Bilimleri"
+                                          "stringValue": "Sosyal Bilgiler"
                                         },
                                         {
                                           "stringValue": "Sosyal Bilgiler"
                                         },
                                         {
+                                          "stringValue": "Müzik"
+                                        },
+                                        {
+                                          "stringValue": "Bilişim Teknolojileri ve Yazılım"
+                                        },
+                                        {
                                           "stringValue": "Matematik"
+                                        },
+                                        {
+                                          "stringValue": "Matematik"
+                                        },
+                                        {
+                                          "stringValue": "Rehberlik ve Kariyer Planlama"
+                                        },
+                                        {
+                                          "stringValue": ""
                                         }
                                       ]
                                     }
@@ -2441,28 +2174,340 @@
                                     "arrayValue": {
                                       "values": [
                                         {
+                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
+                                        },
+                                        {
+                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
+                                        },
+                                        {
+                                          "stringValue": "Türkçe"
+                                        },
+                                        {
+                                          "stringValue": "Türkçe"
+                                        },
+                                        {
+                                          "stringValue": "Arapça"
+                                        },
+                                        {
+                                          "stringValue": "İngilizce"
+                                        },
+                                        {
+                                          "stringValue": "Fen Bilimleri"
+                                        },
+                                        {
+                                          "stringValue": "Fen Bilimleri"
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "6/A": {
+                              "mapValue": {
+                                "fields": {
+                                  "0": {
+                                    "arrayValue": {
+                                      "values": [
+                                        {
+                                          "stringValue": "Temel Dini Bilgiler"
+                                        },
+                                        {
+                                          "stringValue": "Kur'an-ı Kerim"
+                                        },
+                                        {
+                                          "stringValue": "Kur'an-ı Kerim"
+                                        },
+                                        {
+                                          "stringValue": "İngilizce"
+                                        },
+                                        {
+                                          "stringValue": "Türkçe"
+                                        },
+                                        {
+                                          "stringValue": "Türkçe"
+                                        },
+                                        {
+                                          "stringValue": "Bilişim Teknolojileri ve Yazılım"
+                                        },
+                                        {
+                                          "stringValue": ""
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "1": {
+                                    "arrayValue": {
+                                      "values": [
+                                        {
+                                          "stringValue": "Fen Bilimleri"
+                                        },
+                                        {
+                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
+                                        },
+                                        {
+                                          "stringValue": "Kur'an-ı Kerim"
+                                        },
+                                        {
+                                          "stringValue": "Matematik"
+                                        },
+                                        {
+                                          "stringValue": "Görgü Kuralları ve Nezaket"
+                                        },
+                                        {
+                                          "stringValue": "Arapça"
+                                        },
+                                        {
+                                          "stringValue": "Sosyal Bilgiler"
+                                        },
+                                        {
+                                          "stringValue": ""
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "2": {
+                                    "arrayValue": {
+                                      "values": [
+                                        {
+                                          "stringValue": "Sosyal Bilgiler"
+                                        },
+                                        {
+                                          "stringValue": "Sosyal Bilgiler"
+                                        },
+                                        {
+                                          "stringValue": "Peygamberimizin Hayatı"
+                                        },
+                                        {
+                                          "stringValue": "Müzik"
+                                        },
+                                        {
+                                          "stringValue": "Türkçe"
+                                        },
+                                        {
+                                          "stringValue": "Türkçe"
+                                        },
+                                        {
+                                          "stringValue": "Rehberlik ve Kariyer Planlama"
+                                        },
+                                        {
+                                          "stringValue": ""
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "3": {
+                                    "arrayValue": {
+                                      "values": [
+                                        {
+                                          "stringValue": "Kur'an-ı Kerim"
+                                        },
+                                        {
+                                          "stringValue": "Matematik"
+                                        },
+                                        {
+                                          "stringValue": "Fen Bilimleri"
+                                        },
+                                        {
+                                          "stringValue": "Fen Bilimleri"
+                                        },
+                                        {
+                                          "stringValue": "Beden Eğitimi ve Spor"
+                                        },
+                                        {
+                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
+                                        },
+                                        {
+                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
+                                        },
+                                        {
+                                          "stringValue": ""
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "4": {
+                                    "arrayValue": {
+                                      "values": [
+                                        {
+                                          "stringValue": "Matematik"
+                                        },
+                                        {
+                                          "stringValue": "Arapça"
+                                        },
+                                        {
+                                          "stringValue": "Görgü Kuralları ve Nezaket"
+                                        },
+                                        {
+                                          "stringValue": "Müzik"
+                                        },
+                                        {
+                                          "stringValue": "Türkçe"
+                                        },
+                                        {
+                                          "stringValue": "Türkçe"
+                                        },
+                                        {
+                                          "stringValue": "İngilizce"
+                                        },
+                                        {
+                                          "stringValue": "İngilizce"
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "7/B": {
+                              "mapValue": {
+                                "fields": {
+                                  "0": {
+                                    "arrayValue": {
+                                      "values": [
+                                        {
+                                          "stringValue": "Sosyal Bilgiler"
+                                        },
+                                        {
+                                          "stringValue": "Sosyal Bilgiler"
+                                        },
+                                        {
+                                          "stringValue": "Kur'an-ı Kerim"
+                                        },
+                                        {
+                                          "stringValue": "Beden Eğitimi ve Spor"
+                                        },
+                                        {
+                                          "stringValue": "Peygamberimizin Hayatı"
+                                        },
+                                        {
+                                          "stringValue": "Peygamberimizin Hayatı"
+                                        },
+                                        {
+                                          "stringValue": "Temel Dini Bilgiler"
+                                        },
+                                        {
+                                          "stringValue": ""
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "1": {
+                                    "arrayValue": {
+                                      "values": [
+                                        {
+                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
+                                        },
+                                        {
+                                          "stringValue": "Din Kültürü ve Ahlak Bilgisi"
+                                        },
+                                        {
+                                          "stringValue": "Türkçe"
+                                        },
+                                        {
+                                          "stringValue": "Arapça"
+                                        },
+                                        {
+                                          "stringValue": "Matematik"
+                                        },
+                                        {
+                                          "stringValue": "Matematik"
+                                        },
+                                        {
+                                          "stringValue": "Kur'an-ı Kerim"
+                                        },
+                                        {
+                                          "stringValue": ""
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "2": {
+                                    "arrayValue": {
+                                      "values": [
+                                        {
+                                          "stringValue": "Türkçe"
+                                        },
+                                        {
+                                          "stringValue": "Türkçe"
+                                        },
+                                        {
+                                          "stringValue": "Görgü Kuralları ve Nezaket"
+                                        },
+                                        {
+                                          "stringValue": "Müzik"
+                                        },
+                                        {
+                                          "stringValue": "Matematik"
+                                        },
+                                        {
+                                          "stringValue": "Matematik"
+                                        },
+                                        {
+                                          "stringValue": "Rehberlik ve Kariyer Planlama"
+                                        },
+                                        {
+                                          "stringValue": ""
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "3": {
+                                    "arrayValue": {
+                                      "values": [
+                                        {
+                                          "stringValue": "Fen Bilimleri"
+                                        },
+                                        {
+                                          "stringValue": "Fen Bilimleri"
+                                        },
+                                        {
+                                          "stringValue": "Matematik"
+                                        },
+                                        {
+                                          "stringValue": "Teknoloji ve Tasarım"
+                                        },
+                                        {
+                                          "stringValue": "Görsel Sanatlar"
+                                        },
+                                        {
+                                          "stringValue": "İngilizce"
+                                        },
+                                        {
+                                          "stringValue": "İngilizce"
+                                        },
+                                        {
+                                          "stringValue": ""
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "4": {
+                                    "arrayValue": {
+                                      "values": [
+                                        {
+                                          "stringValue": "İngilizce"
+                                        },
+                                        {
+                                          "stringValue": "İngilizce"
+                                        },
+                                        {
+                                          "stringValue": "Türkçe"
+                                        },
+                                        {
+                                          "stringValue": "Türkçe"
+                                        },
+                                        {
+                                          "stringValue": "Fen Bilimleri"
+                                        },
+                                        {
                                           "stringValue": "Fen Bilimleri"
                                         },
                                         {
                                           "stringValue": "Sosyal Bilgiler"
                                         },
                                         {
-                                          "stringValue": "Türkçe"
-                                        },
-                                        {
-                                          "stringValue": "Matematik"
-                                        },
-                                        {
-                                          "stringValue": "Türkçe"
-                                        },
-                                        {
-                                          "stringValue": "Görsel Sanatlar"
-                                        },
-                                        {
-                                          "stringValue": "Beden Eğitimi ve Spor"
-                                        },
-                                        {
-                                          "stringValue": ""
+                                          "stringValue": "Arapça"
                                         }
                                       ]
                                     }
@@ -2472,12 +2517,6 @@
                             }
                           }
                         }
-                      },
-                      "speed": {
-                        "integerValue": "1"
-                      },
-                      "n": {
-                        "integerValue": "8"
                       },
                       "classes": {
                         "arrayValue": {
@@ -2539,11 +2578,11 @@
                             {
                               "mapValue": {
                                 "fields": {
-                                  "k": {
-                                    "stringValue": "Fen"
-                                  },
                                   "n": {
                                     "stringValue": "Fen Bilimleri"
+                                  },
+                                  "k": {
+                                    "stringValue": "Fen"
                                   }
                                 }
                               }
@@ -2551,11 +2590,11 @@
                             {
                               "mapValue": {
                                 "fields": {
-                                  "k": {
-                                    "stringValue": "Sos"
-                                  },
                                   "n": {
                                     "stringValue": "Sosyal Bilgiler"
+                                  },
+                                  "k": {
+                                    "stringValue": "Sos"
                                   }
                                 }
                               }
@@ -2623,11 +2662,11 @@
                             {
                               "mapValue": {
                                 "fields": {
-                                  "n": {
-                                    "stringValue": "Peygamberimizin Hayatı"
-                                  },
                                   "k": {
                                     "stringValue": "Peyg"
+                                  },
+                                  "n": {
+                                    "stringValue": "Peygamberimizin Hayatı"
                                   }
                                 }
                               }
@@ -2671,11 +2710,11 @@
                             {
                               "mapValue": {
                                 "fields": {
-                                  "k": {
-                                    "stringValue": "Bed"
-                                  },
                                   "n": {
                                     "stringValue": "Beden Eğitimi ve Spor"
+                                  },
+                                  "k": {
+                                    "stringValue": "Bed"
                                   }
                                 }
                               }
@@ -2683,11 +2722,11 @@
                             {
                               "mapValue": {
                                 "fields": {
-                                  "n": {
-                                    "stringValue": "Bilişim Teknolojileri ve Yazılım"
-                                  },
                                   "k": {
                                     "stringValue": "Biliş"
+                                  },
+                                  "n": {
+                                    "stringValue": "Bilişim Teknolojileri ve Yazılım"
                                   }
                                 }
                               }
@@ -2719,17 +2758,44 @@
                             {
                               "mapValue": {
                                 "fields": {
-                                  "k": {
-                                    "stringValue": "Seç"
-                                  },
                                   "n": {
                                     "stringValue": "Seçmeli Ders"
+                                  },
+                                  "k": {
+                                    "stringValue": "Seç"
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "mapValue": {
+                                "fields": {
+                                  "n": {
+                                    "stringValue": "Görgü Kuralları ve Nezaket"
+                                  },
+                                  "k": {
+                                    "stringValue": "Görgü"
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "mapValue": {
+                                "fields": {
+                                  "k": {
+                                    "stringValue": "Çevre"
+                                  },
+                                  "n": {
+                                    "stringValue": "Çevre Eğitimi ve İklim"
                                   }
                                 }
                               }
                             }
                           ]
                         }
+                      },
+                      "speed": {
+                        "integerValue": "1"
                       }
                     }
                   }
@@ -2740,20 +2806,8 @@
           {
             "mapValue": {
               "fields": {
-                "color": {
-                  "stringValue": "#0f9b8e"
-                },
-                "type": {
-                  "stringValue": "word"
-                },
-                "x": {
-                  "integerValue": "20"
-                },
-                "fsFull": {
-                  "booleanValue": true
-                },
-                "active": {
-                  "booleanValue": true
+                "y": {
+                  "integerValue": "632"
                 },
                 "data": {
                   "mapValue": {
@@ -2764,23 +2818,35 @@
                     }
                   }
                 },
-                "h": {
-                  "integerValue": "200"
+                "w": {
+                  "integerValue": "348"
                 },
-                "y": {
-                  "integerValue": "632"
+                "active": {
+                  "booleanValue": true
+                },
+                "fsFull": {
+                  "booleanValue": true
                 },
                 "title": {
                   "stringValue": "Günün Kelimesi"
                 },
+                "color": {
+                  "stringValue": "#0f9b8e"
+                },
                 "id": {
                   "stringValue": "mword"
                 },
-                "w": {
-                  "integerValue": "348"
+                "h": {
+                  "integerValue": "200"
                 },
                 "fs": {
                   "integerValue": "100"
+                },
+                "type": {
+                  "stringValue": "word"
+                },
+                "x": {
+                  "integerValue": "20"
                 }
               }
             }
@@ -2788,18 +2854,6 @@
           {
             "mapValue": {
               "fields": {
-                "color": {
-                  "stringValue": "#0f9b8e"
-                },
-                "x": {
-                  "integerValue": "20"
-                },
-                "id": {
-                  "stringValue": "mtask"
-                },
-                "type": {
-                  "stringValue": "task"
-                },
                 "fsFull": {
                   "booleanValue": false
                 },
@@ -2812,14 +2866,23 @@
                     }
                   }
                 },
-                "h": {
-                  "integerValue": "152"
+                "w": {
+                  "integerValue": "348"
                 },
                 "y": {
                   "integerValue": "468"
                 },
+                "h": {
+                  "integerValue": "152"
+                },
+                "x": {
+                  "integerValue": "20"
+                },
                 "title": {
                   "stringValue": "Günün Görevi"
+                },
+                "color": {
+                  "stringValue": "#0f9b8e"
                 },
                 "fs": {
                   "integerValue": "100"
@@ -2827,8 +2890,11 @@
                 "active": {
                   "booleanValue": true
                 },
-                "w": {
-                  "integerValue": "348"
+                "id": {
+                  "stringValue": "mtask"
+                },
+                "type": {
+                  "stringValue": "task"
                 }
               }
             }
@@ -2836,11 +2902,26 @@
           {
             "mapValue": {
               "fields": {
+                "fs": {
+                  "integerValue": "100"
+                },
                 "h": {
                   "integerValue": "150"
                 },
-                "y": {
-                  "integerValue": "124"
+                "data": {
+                  "mapValue": {}
+                },
+                "x": {
+                  "integerValue": "380"
+                },
+                "id": {
+                  "stringValue": "mhistory"
+                },
+                "w": {
+                  "integerValue": "440"
+                },
+                "color": {
+                  "stringValue": "#0f9b8e"
                 },
                 "title": {
                   "stringValue": "Tarihte Bugün"
@@ -2848,70 +2929,19 @@
                 "type": {
                   "stringValue": "history"
                 },
-                "fs": {
-                  "integerValue": "100"
-                },
-                "w": {
-                  "integerValue": "440"
-                },
-                "id": {
-                  "stringValue": "mhistory"
-                },
-                "data": {
-                  "mapValue": {}
+                "y": {
+                  "integerValue": "124"
                 },
                 "active": {
                   "booleanValue": false
-                },
-                "color": {
-                  "stringValue": "#0f9b8e"
-                },
-                "x": {
-                  "integerValue": "380"
                 }
               }
             }
           }
         ]
       }
-    },
-    "slogan": {
-      "stringValue": ""
-    },
-    "offered": {
-      "arrayValue": {
-        "values": [
-          {
-            "stringValue": "word"
-          },
-          {
-            "stringValue": "task"
-          },
-          {
-            "stringValue": "history"
-          }
-        ]
-      }
-    },
-    "c2": {
-      "stringValue": "#072f57"
-    },
-    "nmPre": {
-      "integerValue": "60"
-    },
-    "fx": {
-      "stringValue": "auto"
-    },
-    "nmPost": {
-      "integerValue": "60"
-    },
-    "dsgBak": {
-      "nullValue": null
-    },
-    "anns": {
-      "arrayValue": {}
     }
   },
   "createTime": "2026-10-29T10:42:09.265626Z",
-  "updateTime": "2026-10-31T07:34:05.089540Z"
+  "updateTime": "2026-11-14T10:50:04.075419Z"
 }
