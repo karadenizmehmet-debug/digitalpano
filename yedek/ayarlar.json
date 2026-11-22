@@ -1,57 +1,6 @@
 {
   "name": "projects/digitalpano-84947/databases/(default)/documents/config/pano",
   "fields": {
-    "c1": {
-      "stringValue": "#8e1b3a"
-    },
-    "slogan": {
-      "stringValue": ""
-    },
-    "nmMode": {
-      "stringValue": "day"
-    },
-    "ticker": {
-      "stringValue": "Okulumuza hoş geldiniz\nDuyurular panelden düzenlenebilir"
-    },
-    "offered": {
-      "arrayValue": {
-        "values": [
-          {
-            "stringValue": "word"
-          },
-          {
-            "stringValue": "task"
-          },
-          {
-            "stringValue": "history"
-          }
-        ]
-      }
-    },
-    "nmPost": {
-      "integerValue": "60"
-    },
-    "stripId": {
-      "stringValue": "m10"
-    },
-    "rev": {
-      "integerValue": "1794653403595"
-    },
-    "fx": {
-      "stringValue": "auto"
-    },
-    "tkNews": {
-      "booleanValue": true
-    },
-    "c3": {
-      "stringValue": "#e0b24a"
-    },
-    "theme": {
-      "integerValue": "0"
-    },
-    "bg": {
-      "stringValue": "#f6eef0"
-    },
     "rssOn": {
       "arrayValue": {
         "values": [
@@ -60,237 +9,6 @@
           }
         ]
       }
-    },
-    "name": {
-      "stringValue": "Şehit Coşkun Karabulut İmam Hatip Ortaokulu"
-    },
-    "sd": {
-      "arrayValue": {
-        "values": [
-          {
-            "mapValue": {
-              "fields": {
-                "now": {
-                  "booleanValue": false
-                },
-                "bl": {
-                  "booleanValue": false
-                },
-                "pt": {
-                  "booleanValue": true
-                },
-                "fr": {
-                  "booleanValue": true
-                },
-                "date": {
-                  "stringValue": "29.10"
-                },
-                "sn": {
-                  "booleanValue": false
-                },
-                "img": {
-                  "stringValue": ""
-                },
-                "ht": {
-                  "booleanValue": true
-                },
-                "bgfx": {
-                  "stringValue": "pulse"
-                },
-                "fw": {
-                  "booleanValue": false
-                },
-                "id": {
-                  "stringValue": "s0"
-                },
-                "conf": {
-                  "booleanValue": false
-                },
-                "ds": {
-                  "integerValue": "20"
-                },
-                "fl": {
-                  "booleanValue": false
-                },
-                "title": {
-                  "stringValue": "Cumhuriyet Bayramımız\n Kutlu Olsun!"
-                },
-                "st": {
-                  "booleanValue": false
-                },
-                "bg": {
-                  "stringValue": "#6b46c1"
-                },
-                "fs": {
-                  "integerValue": "200"
-                },
-                "sub": {
-                  "stringValue": "Deneme"
-                },
-                "iv": {
-                  "doubleValue": 0.1
-                },
-                "on": {
-                  "booleanValue": true
-                }
-              }
-            }
-          },
-          {
-            "mapValue": {
-              "fields": {
-                "now": {
-                  "booleanValue": false
-                },
-                "id": {
-                  "stringValue": "s1"
-                },
-                "date": {
-                  "stringValue": "10.11"
-                },
-                "title": {
-                  "stringValue": "Ulu Önder Atatürk'ü \nSaygı ve Özlemle Anıyoruz"
-                },
-                "sub": {
-                  "stringValue": "10 Kasım"
-                },
-                "img": {
-                  "stringValue": ""
-                },
-                "on": {
-                  "booleanValue": true
-                }
-              }
-            }
-          },
-          {
-            "mapValue": {
-              "fields": {
-                "title": {
-                  "stringValue": "Öğretmenler Günümüz Kutlu Olsun!"
-                },
-                "conf": {
-                  "booleanValue": true
-                },
-                "on": {
-                  "booleanValue": true
-                },
-                "now": {
-                  "booleanValue": false
-                },
-                "date": {
-                  "stringValue": "24.11"
-                },
-                "id": {
-                  "stringValue": "s2"
-                },
-                "sub": {
-                  "stringValue": ""
-                },
-                "img": {
-                  "stringValue": ""
-                }
-              }
-            }
-          },
-          {
-            "mapValue": {
-              "fields": {
-                "now": {
-                  "booleanValue": false
-                },
-                "id": {
-                  "stringValue": "s3"
-                },
-                "conf": {
-                  "booleanValue": true
-                },
-                "sub": {
-                  "stringValue": ""
-                },
-                "img": {
-                  "stringValue": ""
-                },
-                "title": {
-                  "stringValue": "23 Nisan Ulusal Egemenlik ve Çocuk Bayramı Kutlu Olsun!"
-                },
-                "date": {
-                  "stringValue": "23.04"
-                },
-                "on": {
-                  "booleanValue": true
-                }
-              }
-            }
-          },
-          {
-            "mapValue": {
-              "fields": {
-                "conf": {
-                  "booleanValue": true
-                },
-                "on": {
-                  "booleanValue": true
-                },
-                "date": {
-                  "stringValue": "19.05"
-                },
-                "now": {
-                  "booleanValue": false
-                },
-                "id": {
-                  "stringValue": "s4"
-                },
-                "title": {
-                  "stringValue": "19 Mayıs Atatürk'ü Anma, Gençlik ve Spor Bayramı Kutlu Olsun!"
-                },
-                "sub": {
-                  "stringValue": ""
-                },
-                "img": {
-                  "stringValue": ""
-                }
-              }
-            }
-          },
-          {
-            "mapValue": {
-              "fields": {
-                "conf": {
-                  "booleanValue": true
-                },
-                "on": {
-                  "booleanValue": true
-                },
-                "now": {
-                  "booleanValue": false
-                },
-                "date": {
-                  "stringValue": "30.08"
-                },
-                "id": {
-                  "stringValue": "s5"
-                },
-                "title": {
-                  "stringValue": "Zafer Bayramımız Kutlu Olsun!"
-                },
-                "sub": {
-                  "stringValue": ""
-                },
-                "img": {
-                  "stringValue": ""
-                }
-              }
-            }
-          }
-        ]
-      }
-    },
-    "city": {
-      "stringValue": "Konya / Akşehir"
-    },
-    "logo": {
-      "stringValue": ""
     },
     "sideOrder": {
       "arrayValue": {
@@ -310,20 +28,8 @@
         ]
       }
     },
-    "logoId": {
-      "stringValue": "logomwen75ox"
-    },
-    "anns": {
-      "arrayValue": {}
-    },
-    "dsgBak": {
-      "nullValue": null
-    },
-    "design": {
-      "integerValue": "0"
-    },
-    "newsUrl": {
-      "stringValue": "https://personel.meb.gov.tr/meb _iys_dosyalar/xml/rss_duyurular.xml"
+    "fx": {
+      "stringValue": "auto"
     },
     "rssList": {
       "arrayValue": {
@@ -435,72 +141,6 @@
           }
         ]
       }
-    },
-    "al": {
-      "mapValue": {
-        "fields": {
-          "text": {
-            "stringValue": "Deprem Tatbikatı"
-          },
-          "fs": {
-            "integerValue": "200"
-          },
-          "pend": {
-            "integerValue": "0"
-          },
-          "ic": {
-            "stringValue": "🚨"
-          },
-          "is": {
-            "integerValue": "50"
-          },
-          "tone": {
-            "stringValue": "o"
-          },
-          "on": {
-            "booleanValue": false
-          },
-          "at": {
-            "integerValue": "1794555284552"
-          },
-          "title": {
-            "stringValue": "Duyuru"
-          }
-        }
-      }
-    },
-    "nmWe": {
-      "booleanValue": true
-    },
-    "c2": {
-      "stringValue": "#3b0f1c"
-    },
-    "fsa": {
-      "mapValue": {
-        "fields": {
-          "on": {
-            "booleanValue": true
-          },
-          "every": {
-            "integerValue": "15"
-          },
-          "now": {
-            "booleanValue": false
-          },
-          "sec": {
-            "integerValue": "20"
-          },
-          "trans": {
-            "stringValue": "mix"
-          },
-          "items": {
-            "arrayValue": {}
-          }
-        }
-      }
-    },
-    "nmPre": {
-      "integerValue": "60"
     },
     "mods": {
       "arrayValue": {
@@ -2940,6 +2580,366 @@
           }
         ]
       }
+    },
+    "logoId": {
+      "stringValue": "logomwen75ox"
+    },
+    "stripId": {
+      "stringValue": "m10"
+    },
+    "anns": {
+      "arrayValue": {}
+    },
+    "nmMode": {
+      "stringValue": "day"
+    },
+    "nmPre": {
+      "integerValue": "60"
+    },
+    "sd": {
+      "arrayValue": {
+        "values": [
+          {
+            "mapValue": {
+              "fields": {
+                "now": {
+                  "booleanValue": false
+                },
+                "bl": {
+                  "booleanValue": false
+                },
+                "pt": {
+                  "booleanValue": true
+                },
+                "fr": {
+                  "booleanValue": true
+                },
+                "date": {
+                  "stringValue": "29.10"
+                },
+                "sn": {
+                  "booleanValue": false
+                },
+                "img": {
+                  "stringValue": ""
+                },
+                "ht": {
+                  "booleanValue": true
+                },
+                "bgfx": {
+                  "stringValue": "pulse"
+                },
+                "fw": {
+                  "booleanValue": false
+                },
+                "id": {
+                  "stringValue": "s0"
+                },
+                "conf": {
+                  "booleanValue": false
+                },
+                "ds": {
+                  "integerValue": "20"
+                },
+                "fl": {
+                  "booleanValue": false
+                },
+                "title": {
+                  "stringValue": "Cumhuriyet Bayramımız\n Kutlu Olsun!"
+                },
+                "st": {
+                  "booleanValue": false
+                },
+                "bg": {
+                  "stringValue": "#6b46c1"
+                },
+                "fs": {
+                  "integerValue": "200"
+                },
+                "sub": {
+                  "stringValue": "Deneme"
+                },
+                "iv": {
+                  "doubleValue": 0.1
+                },
+                "on": {
+                  "booleanValue": true
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "now": {
+                  "booleanValue": false
+                },
+                "id": {
+                  "stringValue": "s1"
+                },
+                "date": {
+                  "stringValue": "10.11"
+                },
+                "title": {
+                  "stringValue": "Ulu Önder Atatürk'ü \nSaygı ve Özlemle Anıyoruz"
+                },
+                "sub": {
+                  "stringValue": "10 Kasım"
+                },
+                "img": {
+                  "stringValue": ""
+                },
+                "on": {
+                  "booleanValue": true
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "title": {
+                  "stringValue": "Öğretmenler Günümüz Kutlu Olsun!"
+                },
+                "conf": {
+                  "booleanValue": true
+                },
+                "on": {
+                  "booleanValue": true
+                },
+                "now": {
+                  "booleanValue": false
+                },
+                "date": {
+                  "stringValue": "24.11"
+                },
+                "id": {
+                  "stringValue": "s2"
+                },
+                "sub": {
+                  "stringValue": ""
+                },
+                "img": {
+                  "stringValue": ""
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "now": {
+                  "booleanValue": false
+                },
+                "id": {
+                  "stringValue": "s3"
+                },
+                "conf": {
+                  "booleanValue": true
+                },
+                "sub": {
+                  "stringValue": ""
+                },
+                "img": {
+                  "stringValue": ""
+                },
+                "title": {
+                  "stringValue": "23 Nisan Ulusal Egemenlik ve Çocuk Bayramı Kutlu Olsun!"
+                },
+                "date": {
+                  "stringValue": "23.04"
+                },
+                "on": {
+                  "booleanValue": true
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "conf": {
+                  "booleanValue": true
+                },
+                "on": {
+                  "booleanValue": true
+                },
+                "date": {
+                  "stringValue": "19.05"
+                },
+                "now": {
+                  "booleanValue": false
+                },
+                "id": {
+                  "stringValue": "s4"
+                },
+                "title": {
+                  "stringValue": "19 Mayıs Atatürk'ü Anma, Gençlik ve Spor Bayramı Kutlu Olsun!"
+                },
+                "sub": {
+                  "stringValue": ""
+                },
+                "img": {
+                  "stringValue": ""
+                }
+              }
+            }
+          },
+          {
+            "mapValue": {
+              "fields": {
+                "conf": {
+                  "booleanValue": true
+                },
+                "on": {
+                  "booleanValue": true
+                },
+                "now": {
+                  "booleanValue": false
+                },
+                "date": {
+                  "stringValue": "30.08"
+                },
+                "id": {
+                  "stringValue": "s5"
+                },
+                "title": {
+                  "stringValue": "Zafer Bayramımız Kutlu Olsun!"
+                },
+                "sub": {
+                  "stringValue": ""
+                },
+                "img": {
+                  "stringValue": ""
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "logo": {
+      "stringValue": ""
+    },
+    "tkNews": {
+      "booleanValue": true
+    },
+    "slogan": {
+      "stringValue": ""
+    },
+    "newsUrl": {
+      "stringValue": "https://personel.meb.gov.tr/meb _iys_dosyalar/xml/rss_duyurular.xml"
+    },
+    "al": {
+      "mapValue": {
+        "fields": {
+          "on": {
+            "booleanValue": false
+          },
+          "title": {
+            "stringValue": "Duyuru"
+          },
+          "at": {
+            "integerValue": "1794555284552"
+          },
+          "pend": {
+            "integerValue": "0"
+          },
+          "tone": {
+            "stringValue": "o"
+          },
+          "is": {
+            "integerValue": "50"
+          },
+          "text": {
+            "stringValue": "Deprem Tatbikatı"
+          },
+          "ic": {
+            "stringValue": "🚨"
+          },
+          "fs": {
+            "integerValue": "200"
+          }
+        }
+      }
+    },
+    "c3": {
+      "stringValue": "#e0b24a"
+    },
+    "nmWe": {
+      "booleanValue": true
+    },
+    "bg": {
+      "stringValue": "#f6eef0"
+    },
+    "name": {
+      "stringValue": "Şehit Coşkun Karabulut İmam Hatip Ortaokulu"
+    },
+    "design": {
+      "integerValue": "0"
+    },
+    "city": {
+      "stringValue": "Konya / Akşehir"
+    },
+    "theme": {
+      "integerValue": "0"
+    },
+    "nmPost": {
+      "integerValue": "60"
+    },
+    "ticker": {
+      "stringValue": "Okulumuza hoş geldiniz\nDuyurular panelden düzenlenebilir"
+    },
+    "offered": {
+      "arrayValue": {
+        "values": [
+          {
+            "stringValue": "word"
+          },
+          {
+            "stringValue": "task"
+          },
+          {
+            "stringValue": "history"
+          }
+        ]
+      }
+    },
+    "dsgBak": {
+      "nullValue": null
+    },
+    "c1": {
+      "stringValue": "#8e1b3a"
+    },
+    "fsa": {
+      "mapValue": {
+        "fields": {
+          "every": {
+            "integerValue": "15"
+          },
+          "items": {
+            "arrayValue": {}
+          },
+          "now": {
+            "booleanValue": false
+          },
+          "sec": {
+            "integerValue": "20"
+          },
+          "on": {
+            "booleanValue": true
+          },
+          "trans": {
+            "stringValue": "mix"
+          }
+        }
+      }
+    },
+    "c2": {
+      "stringValue": "#3b0f1c"
+    },
+    "rev": {
+      "integerValue": "1794653403595"
     }
   },
   "createTime": "2026-10-29T10:42:09.265626Z",
