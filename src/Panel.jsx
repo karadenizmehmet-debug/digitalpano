@@ -58,7 +58,7 @@ export default function Panel({ cfg, loaded, fresh, err }) {
   useEffect(() => { if (admin) return listenUsers(setUsers, (e) => setMsg('Kullanıcılar okunamadı: ' + e)); setUsers(null) }, [admin])
   const ok = !!user && (admin || (!!me && me.durum === 'onayli'))
   const pend = (users || []).filter((u) => u.durum === 'bekliyor').length
-  useEffect(() => { if (ok && fresh && !draft) { const d0 = JSON.parse(JSON.stringify(cfg || { name: '', mods: [], sd: [], al: { on: false } }));  // belge yoksa boş başla (d0.mods || []).forEach((m) => { if (m.type === 'slides' && m.title === 'Hoş Geldiniz') m.title = 'Manşet Haber' }); const off = new Set(d0.offered || []);  // yeni hazır modüller bir kez, KAPALI olarak listeye eklenir
+  useEffect(() => { if (ok && fresh && !draft) { const d0 = JSON.parse(JSON.stringify(cfg || { name: '', mods: [], sd: [], al: { on: false } }))  /* belge yoksa boş başla */; (d0.mods || []).forEach((m) => { if (m.type === 'slides' && m.title === 'Hoş Geldiniz') m.title = 'Manşet Haber' }); const off = new Set(d0.offered || []);  // yeni hazır modüller bir kez, KAPALI olarak listeye eklenir
       ['word', 'task', 'history'].forEach((t) => { if (off.has(t)) return; off.add(t); const R = registry[t]; if (R && !(d0.mods || []).some((m) => m.type === t)) d0.mods.push({ id: 'm' + t, type: t, title: R.label, active: false, x: 380, y: 124, w: 440, h: R.minH || 150, color: '#0f9b8e', fs: 100, data: JSON.parse(JSON.stringify(R.def || {})) }) })
       d0.offered = [...off]; setDraft(d0); setSaved(JSON.stringify(cfg || {})) } }, [ok, cfg, draft, fresh])
 
@@ -150,7 +150,7 @@ export default function Panel({ cfg, loaded, fresh, err }) {
     <div className="pnl p-lg">
       <div className="p-lgc">
         <div className="p-lgi">📺</div>
-        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.4.1</small></h1>
+        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.4.2</small></h1>
         <p className="p-lgs">Hoş geldiniz</p>
         <small className="p-lgo">{loaded ? cfg?.name || '' : ''}</small>
         <button className="p-gbtn" onClick={doGoogle}>
@@ -174,7 +174,7 @@ export default function Panel({ cfg, loaded, fresh, err }) {
     <div className="pnl p-lg">
       <div className="p-lgc">
         <div className="p-lgi">{me && me.durum === 'red' ? '⛔' : '⏳'}</div>
-        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.4.1</small></h1>
+        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.4.2</small></h1>
         {me === undefined ? <p className="p-lgs">Yetki kontrol ediliyor…</p>
           : me && me.durum === 'red' ? <><p className="p-lgs">Başvurunuz onaylanmadı</p><p>Panel erişimi için yöneticiyle görüşün.</p></>
           : me && me.durum === 'hata' ? <p className="p-err">Yetki okunamadı ({me.msg}). İnternet bağlantınızı kontrol edin.</p>
@@ -192,7 +192,7 @@ export default function Panel({ cfg, loaded, fresh, err }) {
   return (
     <div className="pnl">
       <div className="p-top">
-        <div className="p-tt"><b>Pano Paneli <span style={{ fontSize: '.75em', opacity: .6, fontWeight: 600 }}>v1.4.1</span></b><small>{dirty ? '● Yayınlanmamış değişiklik var' : '✓ Pano güncel'}</small>
+        <div className="p-tt"><b>Pano Paneli <span style={{ fontSize: '.75em', opacity: .6, fontWeight: 600 }}>v1.4.2</span></b><small>{dirty ? '● Yayınlanmamış değişiklik var' : '✓ Pano güncel'}</small>
           <span className="p-acc" title="Adı değiştirmek için dokunun" onClick={() => { const n = prompt('Adınız Soyadınız', uname); if (n && n.trim()) setDisplayName(n.trim()).then(() => setUname(n.trim())).catch(() => alert('Ad kaydedilemedi.')) }}>{uname || 'Adınızı ekleyin ✎'} · {user.email}</span></div>
         <button className="p-ib" title="Yayınlamadan önce önizle" onClick={() => setShowPv(true)}>👁</button>
         <a className="p-ib" href="#/" target="_blank" rel="noopener" title="Panoyu aç">📺</a>
