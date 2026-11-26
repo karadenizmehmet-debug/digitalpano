@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { NumIn } from './common.jsx'
 
-import { buildBell, guessGen, hhmm, joinBell, nextLesson, parseBell, tmin } from '../lib/bell.js'
+import { buildBell, guessGen, hhmm, joinBell, nextLesson, parseBell, setGap, tmin, LUNCH_MIN } from '../lib/bell.js'
 export { hhmm, joinBell, parseBell, tmin }
 
 export function BellEditor({ value, set }) {
@@ -29,7 +29,11 @@ export function BellEditor({ value, set }) {
                 <em>{du > 0 ? du + ' dk' : '⚠'}</em>
               </div>
             </div>
-            {br !== null && <div className={'p-bb' + (br < 0 ? ' p-bad' : '')}>{br >= 0 ? (br >= 30 ? '🍽️ ' + br + ' dk ara' : '☕ ' + br + ' dk teneffüs') : '⚠ Bir sonraki ders ile çakışıyor'}</div>}
+            {br !== null && <div className={'p-bb' + (br < 0 ? ' p-bad' : '')}>
+              {br >= LUNCH_MIN ? '🍽️ Öğle arası' : '☕ Teneffüs'}
+              <NumIn className="p-gap" inputMode="numeric" value={Math.max(0, br)} onChange={(e) => put(setGap(L, i, Math.max(0, Math.min(240, +e.target.value || 0))))} /> dk
+              {br < 0 ? ' ⚠ çakışıyor' : ''}
+            </div>}
           </div>)
       })}
       {!L.length && <p className="p-hint">Henüz ders saati yok. Aşağıdaki ayarları girip "Sonraki dersi ekle" ile tek tek ekleyin ya da hepsini birden oluşturun.</p>}
@@ -49,7 +53,7 @@ export function BellEditor({ value, set }) {
           <div className="p-fld"><label>&nbsp;</label>{!ask ? <button onClick={() => (L.length ? setAsk(true) : make())}>⚡ Hepsini oluştur</button> : null}</div>
         </div>
         {ask && <div className="p-btns"><button className="p-danger" onClick={make}>Evet, mevcut {L.length} dersin yerine {cnt} ders oluştur</button><button onClick={() => setAsk(false)}>Vazgeç</button></div>}
-        <small>Eklenen derslerin saatini ve adını yukarıdan tek tek değiştirebilirsiniz.</small>
+        <small>Eklenen derslerin saatini, adını ve aradaki teneffüs sürelerini yukarıdan tek tek değiştirebilirsiniz. Bir teneffüsü değiştirince sonraki dersler de kayar.</small>
       </div>
     </div>
   )

@@ -23,3 +23,10 @@ test('parse/join', () => {
   const t = '08:30-09:10 1. Ders\n09:20-10:00 2. Ders'
   assert.equal(joinBell(parseBell(t)), t)
 })
+import { setGap } from '../src/lib/bell.js'
+test('setGap sonraki dersleri kaydırır', () => {
+  const A = buildBell({ s: '08:30', d: 40, b: 10, l: 45, a: 4 }, 6)
+  const B = setGap(A, 1, 20)
+  assert.deepEqual(B.map((r) => r.s + '-' + r.e), ['08:30-09:10', '09:20-10:00', '10:20-11:00', '11:10-11:50', '12:35-13:15', '13:25-14:05'])
+  assert.equal(setGap(A, 5, 20), A)
+})

@@ -27,3 +27,9 @@ export const nextLesson = (L, g) => {
   return { s: hhmm(s), e: hhmm(s + g.d), n: (n + 1) + '. Ders' }
 }
 export const buildBell = (g, count) => { const A = []; for (let i = 0; i < count; i++) A.push(nextLesson(A, g)); return A }
+// i. dersten sonraki arayı "gap" dakika yap: sonraki ders ve ondan sonrakiler aynı miktarda kayar (süreler korunur)
+export const setGap = (L, i, gap) => {
+  if (i < 0 || i >= L.length - 1) return L
+  const delta = tmin(L[i].e) + gap - tmin(L[i + 1].s)
+  return L.map((r, k) => (k <= i ? r : { ...r, s: hhmm(tmin(r.s) + delta), e: hhmm(tmin(r.e) + delta) }))
+}
