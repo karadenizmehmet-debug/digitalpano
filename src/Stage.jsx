@@ -36,6 +36,9 @@ export function useImg(d) {
 // Okul adı üstte, "İmam Hatip Ortaokulu" türü altta ayrı satırda gösterilir
 const IH = /\s+(?=[İIiı][Mm][Aa][Mm]\s+[Hh][Aa][Tt][İIiı][Pp])/
 function nameParts(n) {
+  // Panelde Enter ile yazılmışsa: 1. satır okul adı (büyük), kalanı okul türü (küçük)
+  const nl = String(n || '').indexOf('\n')
+  if (nl >= 0) { const ty = n.slice(nl + 1).replace(/\s*\n\s*/g, ' ').trim(); return <><span className="nm">{n.slice(0, nl).trim()}</span>{ty ? <span className="ty">{ty}</span> : null}</> }
   const m = IH.exec(n || '')
   if (!m) return <span className="nm">{n}</span>
   return <><span className="nm">{n.slice(0, m.index)}</span><span className="ty">{n.slice(m.index + m[0].length)}</span></>
@@ -245,7 +248,7 @@ export default function Stage({ forceSp, cfg, preview = false, edit = null, aler
               <div className="nt">{p2(now.getHours())}<span className="nc">:</span>{p2(now.getMinutes())}<small>{p2(now.getSeconds())}</small></div>
               <div className="nd"><b>{GUN[now.getDay()]}</b>{now.getDate()} {MON[now.getMonth()]} {now.getFullYear()}</div>
               <i className="nl" />
-              <div className="nn">{cfg.name}</div>
+              <div className="nn">{String(cfg.name || '').replace(/\s*\n\s*/g, ' ')}</div>
             </div>
           </div>
         )}

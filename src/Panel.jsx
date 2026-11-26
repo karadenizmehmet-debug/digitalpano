@@ -154,7 +154,7 @@ export default function Panel({ cfg, loaded, fresh, err }) {
     <div className="pnl p-lg">
       <div className="p-lgc">
         <div className="p-lgi">📺</div>
-        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.5.1</small></h1>
+        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.6</small></h1>
         <p className="p-lgs">Hoş geldiniz</p>
         <small className="p-lgo">{loaded ? cfg?.name || '' : ''}</small>
         <button className="p-gbtn" onClick={doGoogle}>
@@ -171,7 +171,7 @@ export default function Panel({ cfg, loaded, fresh, err }) {
     <div className="pnl p-lg">
       <div className="p-lgc">
         <div className="p-lgi">{me && me.durum === 'red' ? '⛔' : '⏳'}</div>
-        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.5.1</small></h1>
+        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.6</small></h1>
         {me === undefined ? <p className="p-lgs">Yetki kontrol ediliyor…</p>
           : me && me.durum === 'red' ? <><p className="p-lgs">Başvurunuz onaylanmadı</p><p>Panel erişimi için yöneticiyle görüşün.</p></>
           : me && me.durum === 'onayli' ? <><p className="p-lgs">Bu okul için yetkiniz yok</p><p>Düzenleyebildiğiniz okullar:</p>{mine.map((x) => <p key={x.id}><a href={schoolUrl(x.yol) + '#/panel'}>{x.ad} paneline geç →</a></p>)}</>
@@ -190,7 +190,7 @@ export default function Panel({ cfg, loaded, fresh, err }) {
   return (
     <div className="pnl">
       <div className="p-top">
-        <div className="p-tt"><b>Pano Paneli <span style={{ fontSize: '.75em', opacity: .6, fontWeight: 600 }}>v1.5.1</span></b><small>{dirty ? '● Yayınlanmamış değişiklik var' : '✓ Pano güncel'}</small>
+        <div className="p-tt"><b>Pano Paneli <span style={{ fontSize: '.75em', opacity: .6, fontWeight: 600 }}>v1.6</span></b><small>{dirty ? '● Yayınlanmamış değişiklik var' : '✓ Pano güncel'}</small>
           {mine.length > 1 ? <select className="p-okl" value={CFG_ID} onChange={(e) => { const x = schools.find((k) => k.id === e.target.value); if (x && (!dirty || confirm('Yayınlanmamış değişiklikler kaybolacak. Okul değiştirilsin mi?'))) location.href = schoolUrl(x.yol) + '#/panel' }}>
             {mine.map((x) => <option key={x.id} value={x.id}>🏫 {x.ad}</option>)}</select>
             : here && schools.length > 1 ? <small>🏫 {here.ad}</small> : null}
@@ -257,7 +257,8 @@ export default function Panel({ cfg, loaded, fresh, err }) {
       {SETT.includes(tab) && !(tab === 'set' && !sub) && !(tab === 'mods' && openId) && <div className="p-sub"><button onClick={() => { setTab('set'); setSub(null); setOpenId(null); window.scrollTo(0, 0) }}>← Ayarlar</button></div>}
       {view === 'gen' && (
         <div className="p-body">
-          <div className="p-fld"><label>Okul adı</label><input value={draft.name || ''} onChange={(e) => set({ name: e.target.value })} /></div>
+          <div className="p-fld"><label>Okul adı</label><textarea rows={2} value={draft.name || ''} onChange={(e) => set({ name: e.target.value })} placeholder={'Karahüyük Ali Akkanat\nOrtaokulu'} />
+            <small>Enter ile alt satıra geçin: üst satır okul adı büyük, alt satır okul türü daha küçük yazılır.</small></div>
           <div className="p-fld"><label>Okul logosu</label>
             <div className="p-slr">
               {(draft.logoId || draft.logo) ? <><Thumb x={{ src: draft.logo, img: draft.logoId }} /><button onClick={() => { if (draft.logoId) removeImage(draft.logoId).catch(() => {}); set({ logoId: '', logo: '' }) }}>Kaldır</button></>
