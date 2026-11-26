@@ -86,3 +86,11 @@ Duyuru yokken kayan yazıda (varsayılan: Konya MEM duyuruları, `src/lib/newsDe
 ## Sınamalar
 - `npm test` (Node'un kendi sınayıcısı, ek paket yok). Dosyalar `test/*.test.mjs`.
 - `test/win7.test.mjs` Chrome 109'da olmayan özellikleri kodda arar. Deploy ve Pages işleri derlemeden önce `npm test` çalıştırır; kırmızıysa yayın durur.
+
+## Giriş ve yetki (v1.4)
+- Panel girişi **Google ile** (`loginGoogle`, açılır pencere; engellenirse yönlendirme). E-posta/şifre girişi "E-posta ve şifreyle giriş" altında yedek olarak durur.
+- **Yönetici** sabit UID'dir: `src/lib/firebase.js` → `ADMINS` ve `firestore.rules` → `admin()`. İkisi aynı tutulmalı.
+- Diğer herkes ilk girişte `kullanicilar/{uid}` kaydını `durum: 'bekliyor'` olarak açar ve "Onay bekleniyor" ekranını görür.
+- Yönetici Ayarlar > 👥 Kullanıcılar'dan **Onayla / Reddet / Yetkiyi kaldır / Sil** yapar. Karar canlı dinlenir; onaylanan kişinin paneli kendiliğinden açılır.
+- Kurallar: `config/*` ve `images/*` herkese açık okunur, yazma `admin() || onayli()`. `kullanicilar` kayıtlarını yalnızca yönetici ve kişinin kendisi okur; durumu yalnızca yönetici değiştirir.
+- `firestore.rules` otomatik yayınlanmaz (Deploy yalnızca hosting). Değişince Firebase Console > Firestore > Rules'a elle yapıştırılır.

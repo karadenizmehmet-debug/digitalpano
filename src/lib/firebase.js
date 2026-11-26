@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app'
-import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager, doc, onSnapshot, setDoc, getDoc, getDocFromServer, deleteDoc } from 'firebase/firestore'
-import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, EmailAuthProvider, reauthenticateWithCredential, updatePassword, updateProfile } from 'firebase/auth'
+import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager, doc, collection, onSnapshot, setDoc, updateDoc, getDoc, getDocFromServer, deleteDoc } from 'firebase/firestore'
+import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signInWithEmailAndPassword, signOut, onAuthStateChanged, EmailAuthProvider, reauthenticateWithCredential, updatePassword, updateProfile } from 'firebase/auth'
 
 // Web yapılandırması gizli değildir (güvenlik Firestore kurallarındadır).
 // API anahtarını Google Cloud > Credentials'tan kendi alan adınıza kısıtlayın.
@@ -33,6 +33,32 @@ export const listenNews = (cb) => onSnapshot(doc(db, 'config', 'haber'),
 export const fetchServerConfig = async () => { const s = await getDocFromServer(ref); return s.exists() ? s.data() : null }
 export const saveConfig = (data) => setDoc(ref, JSON.parse(JSON.stringify(data)))
 export const login = (email, pw) => signInWithEmailAndPassword(auth, email, pw)
+// Google ile giriş: önce açılır pencere; tarayıcı engellerse sayfa yönlendirmesine geçer.
+export const loginGoogle = async () => {
+  const p = new GoogleAuthProvider()
+  p.setCustomParameters({ prompt: 'select_account' })
+  try { return await signInWithPopup(auth, p) }
+  catch (e) { if (/popup-blocked|operation-not-supported/.test(e.code || '')) return signInWithRedirect(auth, p); throw e }
+}
+getRedirectResult(auth).catch(() => {})
+
+// Yönetici: firestore.rules içindeki admin() listesiyle AYNI olmalı.
+export const ADMINS = ['j9o0PbL1OHQfxgX4wDrdf1G1qXj2']
+export const isAdmin = (u) => !!u && ADMINS.includes(u.uid)
+export const hasPassword = (u) => !!u && (u.providerData || []).some((x) => x.providerId === 'password')
+
+// Yetki kayıtları (kullanicilar/{uid}): durum = bekliyor | onayli | red. Durumu yalnızca yönetici değiştirir.
+const uref = (uid) => doc(db, 'kullanicilar', uid)
+// cb(kayıt|null, fromCache). Hata olursa { durum: 'hata' } döner.
+export const listenMe = (uid, cb) => onSnapshot(uref(uid), { includeMetadataChanges: true },
+  (s) => cb(s.exists() ? s.data() : null, s.metadata.fromCache),
+  (e) => cb({ durum: 'hata', msg: e.code || e.message }, false))
+export const requestAccess = (u) => setDoc(uref(u.uid), { durum: 'bekliyor', ad: u.displayName || '', eposta: u.email || '', foto: u.photoURL || '', zaman: Date.now() })
+export const listenUsers = (cb, onErr) => onSnapshot(collection(db, 'kullanicilar'),
+  (s) => cb(s.docs.map((d) => ({ uid: d.id, ...d.data() }))),
+  (e) => { console.warn('Firestore kullanicilar:', e.message); if (onErr) onErr(e.code || e.message) })
+export const setUserStatus = (uid, durum) => updateDoc(uref(uid), { durum, karar: Date.now() })
+export const removeUser = (uid) => deleteDoc(uref(uid))
 export const logout = () => signOut(auth)
 export const changePassword = async (oldPw, newPw) => {
   const u = auth.currentUser

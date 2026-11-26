@@ -296,3 +296,19 @@ html.p-dark .stg-pv,html.p-dark .p-th,html.p-dark .p-themes i,html.p-dark .p-sw 
 .pnl .p-lt .p-la{display:flex;gap:6px;justify-content:flex-end;white-space:nowrap}
 .pnl .p-lt .p-la button{padding:6px 10px;font-size:13px}
 .pnl .p-tt .p-acc{font-size:12px;color:#5b6b7a;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* Google ile giriş + yetki ekranı + Kullanıcılar (v1.4) */
+.pnl .p-lgc .p-gbtn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:14px;font-size:17px;font-weight:700;border-radius:12px;background:#fff;color:#1f2d3d;border:1px solid #c9d3dd;box-shadow:0 2px 6px #0a2a4a1a}
+.pnl .p-lgc .p-gbtn svg{flex:none}
+.pnl .p-lgalt{margin-top:14px;text-align:left}
+.pnl .p-lgalt summary{cursor:pointer;color:#5b6b7b;font-size:14px;text-align:center}
+.pnl .p-lgalt form{margin-top:10px}
+.pnl .p-lgc>p{color:#3d4d5c;font-size:15px}
+.pnl .p-lgc>button{width:100%;margin-top:6px}
+.pnl .p-lgc code{font-size:11px;word-break:break-all}
+.pnl .p-usr{margin-bottom:12px}
+.pnl .p-usrh{display:flex;align-items:center;gap:12px}
+.pnl .p-usrh img,.pnl .p-usrh i{width:46px;height:46px;border-radius:50%;flex:none;object-fit:cover;display:grid;place-items:center;font-style:normal;font-size:26px;background:#e8eef4}
+.pnl .p-usrh span{display:flex;flex-direction:column;min-width:0}
+.pnl .p-usrh small{color:#6b7f92;overflow:hidden;text-overflow:ellipsis}
+.pnl .p-usr .p-btns{margin-top:10px}

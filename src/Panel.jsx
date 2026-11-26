@@ -9,8 +9,9 @@ import { ModEditor, ModList } from './panel/Modules.jsx'
 import { RssEditor } from './panel/RssEditor.jsx'
 import { SIDE_DSG, reflow, slideFor } from './lib/reflow.js'
 import { SpecialEditor } from './panel/SpecialEditor.jsx'
+import { UsersEditor } from './panel/Users.jsx'
 import Stage from './Stage.jsx'
-import { fetchServerConfig, login, logout, onUser, removeImage, saveConfig, saveImage, setDisplayName } from './lib/firebase.js'
+import { fetchServerConfig, hasPassword, isAdmin, listenMe, listenUsers, login, loginGoogle, logout, onUser, removeImage, requestAccess, saveConfig, saveImage, setDisplayName } from './lib/firebase.js'
 import { minHOf, registry, wantH } from './lib/registry.js'
 import './panel.css'
 
@@ -41,13 +42,41 @@ export default function Panel({ cfg, fresh, err }) {
   const [em, setEm] = useState(''), [pw, setPw] = useState('')
 
   useEffect(() => onUser((u) => { setUser(u); setUname((u && u.displayName) || '') }), [])
-  useEffect(() => { if (user && fresh && !draft) { const d0 = JSON.parse(JSON.stringify(cfg)); (d0.mods || []).forEach((m) => { if (m.type === 'slides' && m.title === 'Hoş Geldiniz') m.title = 'Manşet Haber' }); const off = new Set(d0.offered || []);  // yeni hazır modüller bir kez, KAPALI olarak listeye eklenir
+  // Yetki: yönetici sabit; diğerleri kullanicilar/{uid} kaydına bakar. Kayıt yoksa (sunucu doğruladıysa) başvuru açılır.
+  const [me, setMe] = useState(undefined), [users, setUsers] = useState(null)
+  const admin = isAdmin(user)
+  useEffect(() => {
+    setMe(undefined)
+    if (!user || admin) return
+    let asked = false
+    return listenMe(user.uid, (d, fromCache) => {
+      if (d === null && fromCache) return  // önbellek "yok" diyebilir; sunucuyu bekle
+      if (d === null && !asked) { asked = true; requestAccess(user).catch((e) => setMsg('Başvuru gönderilemedi: ' + (e.code || e.message))) }
+      setMe(d)
+    })
+  }, [user, admin])
+  useEffect(() => { if (admin) return listenUsers(setUsers, (e) => setMsg('Kullanıcılar okunamadı: ' + e)); setUsers(null) }, [admin])
+  const ok = !!user && (admin || (!!me && me.durum === 'onayli'))
+  const pend = (users || []).filter((u) => u.durum === 'bekliyor').length
+  useEffect(() => { if (ok && fresh && !draft) { const d0 = JSON.parse(JSON.stringify(cfg)); (d0.mods || []).forEach((m) => { if (m.type === 'slides' && m.title === 'Hoş Geldiniz') m.title = 'Manşet Haber' }); const off = new Set(d0.offered || []);  // yeni hazır modüller bir kez, KAPALI olarak listeye eklenir
       ['word', 'task', 'history'].forEach((t) => { if (off.has(t)) return; off.add(t); const R = registry[t]; if (R && !(d0.mods || []).some((m) => m.type === t)) d0.mods.push({ id: 'm' + t, type: t, title: R.label, active: false, x: 380, y: 124, w: 440, h: R.minH || 150, color: '#0f9b8e', fs: 100, data: JSON.parse(JSON.stringify(R.def || {})) }) })
-      d0.offered = [...off]; setDraft(d0); setSaved(JSON.stringify(cfg)) } }, [user, cfg, draft, fresh])
+      d0.offered = [...off]; setDraft(d0); setSaved(JSON.stringify(cfg)) } }, [ok, cfg, draft, fresh])
 
   const doLogin = async (e) => {
     e.preventDefault()
     try { await login(em, pw); setMsg('') } catch { setMsg('E-posta veya şifre hatalı.') }
+  }
+  const doGoogle = async () => {
+    setMsg('')
+    try { await loginGoogle() }
+    catch (e) {
+      const c = e.code || ''
+      if (/popup-closed|cancelled-popup/.test(c)) return
+      setMsg(c.includes('account-exists') ? 'Bu e-posta şifreyle kayıtlı. Aşağıdan "E-posta ve şifreyle giriş" ile girin.'
+        : c.includes('unauthorized-domain') ? 'Bu adres Firebase\'de yetkili değil (Authentication > Settings > Authorized domains).'
+        : c.includes('operation-not-allowed') ? 'Google ile giriş Firebase\'de henüz açılmamış.'
+        : 'Giriş yapılamadı: ' + (c || e.message))
+    }
   }
   const publish = async () => {
     try {
@@ -121,15 +150,38 @@ export default function Panel({ cfg, fresh, err }) {
     <div className="pnl p-lg">
       <div className="p-lgc">
         <div className="p-lgi">📺</div>
-        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.3.7</small></h1>
+        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.4</small></h1>
         <p className="p-lgs">Hoş geldiniz</p>
         <small className="p-lgo">{cfg?.name || ''}</small>
-        <form onSubmit={doLogin}>
-          <input type="email" placeholder="E-posta" value={em} onChange={(e) => setEm(e.target.value)} autoComplete="username" />
-          <input type="password" placeholder="Şifre" value={pw} onChange={(e) => setPw(e.target.value)} autoComplete="current-password" />
-          <button className="p-pri">Giriş yap</button>
-          {msg && <p className="p-err">{msg}</p>}
-        </form>
+        <button className="p-gbtn" onClick={doGoogle}>
+          <svg viewBox="0 0 48 48" width="22" height="22" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.6 5.4 2.6 13.2l7.9 6.2C12.4 13.7 17.7 9.5 24 9.5z" /><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.4c-.5 2.9-2.2 5.3-4.6 6.9l7.4 5.7c4.3-4 6.9-9.9 6.9-17.1z" /><path fill="#FBBC05" d="M10.5 28.6c-.5-1.4-.8-3-.8-4.6s.3-3.2.8-4.6l-7.9-6.2C1 16.5 0 20.1 0 24s1 7.5 2.6 10.8l7.9-6.2z" /><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.4-5.7c-2.1 1.4-4.8 2.3-8.5 2.3-6.3 0-11.6-4.2-13.5-10l-7.9 6.2C6.6 42.6 14.6 48 24 48z" /></svg>
+          Google ile giriş yap
+        </button>
+        {msg && <p className="p-err">{msg}</p>}
+        <details className="p-lgalt"><summary>E-posta ve şifreyle giriş</summary>
+          <form onSubmit={doLogin}>
+            <input type="email" placeholder="E-posta" value={em} onChange={(e) => setEm(e.target.value)} autoComplete="username" />
+            <input type="password" placeholder="Şifre" value={pw} onChange={(e) => setPw(e.target.value)} autoComplete="current-password" />
+            <button className="p-pri">Giriş yap</button>
+          </form>
+        </details>
+        <a className="p-lgb" href="#/">← Panoya dön</a>
+      </div>
+      <div className="p-lgf">Mehmet Karadeniz tarafından geliştirilmiştir<br /><span>© 2026-2027 · Dijital Pano Sistemi</span></div>
+    </div>
+  )
+  if (!ok) return (
+    <div className="pnl p-lg">
+      <div className="p-lgc">
+        <div className="p-lgi">{me && me.durum === 'red' ? '⛔' : '⏳'}</div>
+        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.4</small></h1>
+        {me === undefined ? <p className="p-lgs">Yetki kontrol ediliyor…</p>
+          : me && me.durum === 'red' ? <><p className="p-lgs">Başvurunuz onaylanmadı</p><p>Panel erişimi için yöneticiyle görüşün.</p></>
+          : me && me.durum === 'hata' ? <p className="p-err">Yetki okunamadı ({me.msg}). İnternet bağlantınızı kontrol edin.</p>
+          : <><p className="p-lgs">Onay bekleniyor</p><p>Başvurunuz yöneticiye iletildi. Onaylandığında bu sayfa kendiliğinden açılır.</p></>}
+        <small className="p-lgo">{user.displayName ? user.displayName + ' · ' : ''}{user.email}<br />Kullanıcı kodu: <code style={{ userSelect: 'all' }}>{user.uid}</code></small>
+        {msg && <p className="p-err">{msg}</p>}
+        <button onClick={logout}>Çıkış yap / başka hesap seç</button>
         <a className="p-lgb" href="#/">← Panoya dön</a>
       </div>
       <div className="p-lgf">Mehmet Karadeniz tarafından geliştirilmiştir<br /><span>© 2026-2027 · Dijital Pano Sistemi</span></div>
@@ -140,7 +192,7 @@ export default function Panel({ cfg, fresh, err }) {
   return (
     <div className="pnl">
       <div className="p-top">
-        <div className="p-tt"><b>Pano Paneli <span style={{ fontSize: '.75em', opacity: .6, fontWeight: 600 }}>v1.3.7</span></b><small>{dirty ? '● Yayınlanmamış değişiklik var' : '✓ Pano güncel'}</small>
+        <div className="p-tt"><b>Pano Paneli <span style={{ fontSize: '.75em', opacity: .6, fontWeight: 600 }}>v1.4</span></b><small>{dirty ? '● Yayınlanmamış değişiklik var' : '✓ Pano güncel'}</small>
           <span className="p-acc" title="Adı değiştirmek için dokunun" onClick={() => { const n = prompt('Adınız Soyadınız', uname); if (n && n.trim()) setDisplayName(n.trim()).then(() => setUname(n.trim())).catch(() => alert('Ad kaydedilemedi.')) }}>{uname || 'Adınızı ekleyin ✎'} · {user.email}</span></div>
         <button className="p-ib" title="Yayınlamadan önce önizle" onClick={() => setShowPv(true)}>👁</button>
         <a className="p-ib" href="#/" target="_blank" rel="noopener" title="Panoyu aç">📺</a>
@@ -196,7 +248,7 @@ export default function Panel({ cfg, fresh, err }) {
       )}
       {tab === 'set' && !sub && (
         <div className="p-body"><div className="p-grid">
-          {[['gen', '🏫', 'Genel ayarlar'], ['thm', '🎨', 'Tema ve renkler'], ['mods', '🧩', 'Modüller'], ['lay', '🖼️', 'Düzen'], ['sd', '📅', 'Özel günler'], ['bak', '💾', 'Yedek'], ['pw', '🔑', 'Şifre']].map(([k, i, l]) => <button key={k} onClick={() => { if (k === 'mods' || k === 'lay') { setTab(k); setOpenId(null) } else setSub(k); window.scrollTo(0, 0) }}><span>{i}</span>{l}</button>)}
+          {[['gen', '🏫', 'Genel ayarlar'], ['thm', '🎨', 'Tema ve renkler'], ['mods', '🧩', 'Modüller'], ['lay', '🖼️', 'Düzen'], ['sd', '📅', 'Özel günler'], ['bak', '💾', 'Yedek']].concat(admin ? [['usr', '👥', pend ? 'Kullanıcılar (' + pend + ')' : 'Kullanıcılar']] : [], hasPassword(user) ? [['pw', '🔑', 'Şifre']] : []).map(([k, i, l]) => <button key={k} onClick={() => { if (k === 'mods' || k === 'lay') { setTab(k); setOpenId(null) } else setSub(k); window.scrollTo(0, 0) }}><span>{i}</span>{l}</button>)}
           <button onClick={toggleDark}><span>{dark ? '☀️' : '🌙'}</span>{dark ? 'Normal mod' : 'Koyu mod'}</button>
           <button onClick={sharePanel}><span>🔗</span>Adresi paylaş</button>
         </div></div>
@@ -324,6 +376,7 @@ export default function Panel({ cfg, fresh, err }) {
       {view === 'sd' && <SpecialEditor list={draft.sd} set={(sd) => set({ sd })} say={setMsg} cfg={draft} />}
       {view === 'al' && <AlertEditor draft={draft} al={draft.al} set={(al) => set({ al })} />}
       {view === 'pw' && <PwEditor say={setMsg} />}
+      {view === 'usr' && admin && <UsersEditor list={users} say={setMsg} />}
       {view === 'bak' && (
         <div className="p-body">
           <p>Ayarları dosya olarak indirip saklayabilir, gerektiğinde geri yükleyebilirsiniz.</p>
