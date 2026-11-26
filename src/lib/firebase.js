@@ -68,7 +68,7 @@ export const setUserSchools = (uid, okullar) => updateDoc(uref(uid), { okullar }
 export const listenSchools = (cb) => onSnapshot(collection(db, 'okullar'),
   (s) => cb(s.docs.map((d) => ({ id: d.id, ...d.data() }))),
   (e) => { console.warn('Firestore okullar:', e.message); cb([]) })
-// Yeni okul: kaynak okulun ayarları kopyalanır (görseller de kopyalanır; biri silinince öbürü etkilenmesin), yalnızca ad değişir.
+// Yeni okul: kaynak okulun ayarları kopyalanır (görseller de kopyalanır; biri silinince öbürü etkilenmesin), ad değişir, logo gelmez.
 export async function createSchool(yol, ad, srcId) {
   const id = cfgIdOf(yol)
   if ((await getDocFromServer(doc(db, 'config', id))).exists()) throw new Error('Bu adreste zaten bir okul var.')
@@ -80,6 +80,7 @@ export async function createSchool(yol, ad, srcId) {
     await setDoc(doc(db, 'okullar', 'pano'), { ad: (m && m.name) || 'Ana okul', yol: '', zaman: 0 })
   }
   let cfg = src ? JSON.parse(JSON.stringify(src)) : { mods: [], sd: [], al: { on: false } }
+  delete cfg.logoId; delete cfg.logo  // logo okula özeldir; yeni okul logosuz başlar
   const map = {}
   let n = 0
   for (const old of imageRefs(cfg)) {

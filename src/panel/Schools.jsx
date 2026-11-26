@@ -51,7 +51,7 @@ export function SchoolsEditor({ schools, say }) {
             {schools.map((s) => <option key={s.id} value={s.id}>Kopyala: {s.ad}</option>)}
             <option value="">Boş başla</option>
           </select>
-          <small>Kopyalanan okulun tasarım, modül ve görselleri gelir; yalnızca okul adı değişir. Acil duyuru kapalı gelir.</small>
+          <small>Kopyalanan okulun tasarım, modül ve görselleri gelir; okul adı değişir. Logo gelmez, Genel ayarlar'dan yeni okulun logosunu yükleyin. Acil duyuru kapalı gelir.</small>
         </div>
         <div className="p-btns"><button className="p-pri" disabled={busy || !ad.trim() || !okY} onClick={add}>{busy ? 'Ekleniyor…' : 'Okulu ekle'}</button></div>
       </div>

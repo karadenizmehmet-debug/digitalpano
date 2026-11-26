@@ -165,7 +165,7 @@ export default function Panel({ cfg, loaded, fresh, err }) {
     <div className="pnl p-lg">
       <div className="p-lgc">
         <div className="p-lgi">📺</div>
-        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.7.1</small></h1>
+        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.7.2</small></h1>
         <p className="p-lgs">Dijital Okul Panosu Sistemine Hoş Geldiniz</p>
         <small className="p-lgo">Devam etmek için Google hesabınızla giriş yapın.</small>
         <button className="p-gbtn" onClick={doGoogle}>
@@ -182,7 +182,7 @@ export default function Panel({ cfg, loaded, fresh, err }) {
     <div className="pnl p-lg">
       <div className="p-lgc">
         <div className="p-lgi">{me && me.durum === 'red' ? '⛔' : '⏳'}</div>
-        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.7.1</small></h1>
+        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.7.2</small></h1>
         {me === undefined ? <p className="p-lgs">Yetki kontrol ediliyor…</p>
           : me && me.durum === 'red' ? <><p className="p-lgs">Başvurunuz onaylanmadı</p><p>Panel erişimi için yöneticiyle görüşün.</p></>
           : me && me.durum === 'onayli' ? <><p className="p-lgs">Bu okul için yetkiniz yok</p><p>Düzenleyebildiğiniz okullar:</p>{mine.map((x) => <p key={x.id}><a href={schoolUrl(x.yol) + '#/panel'}>{x.ad} paneline geç →</a></p>)}</>
@@ -201,7 +201,7 @@ export default function Panel({ cfg, loaded, fresh, err }) {
   return (
     <div className="pnl">
       <div className="p-top">
-        <div className="p-tt"><b>Pano Paneli <span style={{ fontSize: '.75em', opacity: .6, fontWeight: 600 }}>v1.7.1</span></b><small>{dirty ? '● Yayınlanmamış değişiklik var' : '✓ Pano güncel'}</small>
+        <div className="p-tt"><b>Pano Paneli <span style={{ fontSize: '.75em', opacity: .6, fontWeight: 600 }}>v1.7.2</span></b><small>{dirty ? '● Yayınlanmamış değişiklik var' : '✓ Pano güncel'}</small>
           {mine.length > 1 ? <select className="p-okl" value={CFG_ID} onChange={(e) => { const x = schools.find((k) => k.id === e.target.value); if (x && (!dirty || confirm('Yayınlanmamış değişiklikler kaybolacak. Okul değiştirilsin mi?'))) location.href = schoolUrl(x.yol) + '#/panel' }}>
             {mine.map((x) => <option key={x.id} value={x.id}>🏫 {x.ad}</option>)}</select>
             : here && schools.length > 1 ? <small>🏫 {here.ad}</small> : null}
