@@ -15,8 +15,19 @@ export function DurBar({ x, upd }) {
   )
 }
 
-export function SlideCard({ x, i, upd, mv, del, withSec }) {
-  const [open, setOpen] = useState(false)
+export function SlideCard({ x, i, upd, mv, del, withSec, say }) {
+  const [open, setOpen] = useState(false), [busy, setBusy] = useState(false)
+  // Görseli değiştir: yeni görsel yeni kimlikle kaydedilir. Eskisi silinmez; Yayınla'ya basılana kadar pano eskisini göstermeye devam eder.
+  const swap = async (f) => {
+    setBusy(true)
+    try {
+      const src = await shrink(f), id = 'i' + Date.now().toString(36)
+      await saveImage(id, src)
+      upd(i, { img: id, src: '' })
+      if (say) say('Görsel değiştirildi. Yayınla düğmesine basmayı unutmayın.')
+    } catch (er) { if (say) say('Görsel değiştirilemedi: ' + er.message) }
+    setBusy(false)
+  }
   const img = x.img || x.src, e = endOf(x), dead = e && e <= new Date(isoD(new Date()) + 'T00:00:00')
   const sum = (DUR.find(([a]) => a === (x.d || 0)) || [0, 'Süresiz'])[1] + (e ? (dead ? ' · süresi doldu' : ' · ' + trD(new Date(e.getTime() - 86400000)) + ' bitiş') : '')
   return (
@@ -29,6 +40,7 @@ export function SlideCard({ x, i, upd, mv, del, withSec }) {
       </div>
       {open && <>
         {img && <input placeholder="Görsel adı" value={x.name || ''} onChange={(ev) => upd(i, { name: ev.target.value })} />}
+        {img && <label className="p-fbtn" style={busy ? { opacity: .6, pointerEvents: 'none' } : null}>{busy ? 'Yükleniyor…' : '🔄 Görseli değiştir'}<input type="file" accept="image/*" hidden onChange={(ev) => { const f = ev.target.files[0]; ev.target.value = ''; if (f) swap(f) }} /></label>}
         {!img && <>
           <input placeholder="Başlık" value={x.t || ''} onChange={(ev) => upd(i, { t: ev.target.value })} />
           <textarea rows={2} placeholder="Alt yazı (isteğe bağlı)" value={x.s || ''} onChange={(ev) => upd(i, { s: ev.target.value })} />
@@ -107,7 +119,7 @@ export function SlidesEditor({ value, set, say, withSec }) {
         </div>
       )}
       {L.length > 0 && <div className="p-h2">Eklenenler ({L.length})</div>}
-      {L.map((x, i) => <SlideCard key={i} x={x} i={i} upd={upd} mv={mv} del={del} withSec={withSec} />)}
+      {L.map((x, i) => <SlideCard key={i} x={x} i={i} upd={upd} mv={mv} del={del} withSec={withSec} say={say} />)}
     </div>
   )
 }
