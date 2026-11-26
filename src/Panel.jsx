@@ -72,7 +72,7 @@ export default function Panel({ cfg, loaded, fresh, err }) {
 
   const doGoogle = async () => {
     setMsg('')
-    try { await loginGoogle() }
+    try { try { sessionStorage.setItem('dpHosgeldin', '1') } catch (e) {} await loginGoogle() }
     catch (e) {
       const c = e.code || ''
       if (/popup-closed|cancelled-popup/.test(c)) return
@@ -146,6 +146,17 @@ export default function Panel({ cfg, loaded, fresh, err }) {
 
   const dirty = !!draft && JSON.stringify(draft) !== saved
   const view = tab === 'set' ? sub : tab
+  // Girişten sonra bir kez "Hoş geldin" karşılaması (sayfa yenilemelerinde tekrar çıkmaz)
+  const [hg, setHg] = useState(false)
+  useEffect(() => {
+    if (!ok || !draft) return
+    let on = false
+    try { on = sessionStorage.getItem('dpHosgeldin') === '1'; sessionStorage.removeItem('dpHosgeldin') } catch (e) {}
+    if (!on) return
+    setHg(true)
+    const t = setTimeout(() => setHg(false), 2200)
+    return () => clearTimeout(t)
+  }, [ok, !!draft])
   const SETT = ['set', 'mods', 'lay']
   const goMod = (id) => { setTab('mods'); setOpenId(id); window.scrollTo(0, 0) }
 
@@ -154,9 +165,9 @@ export default function Panel({ cfg, loaded, fresh, err }) {
     <div className="pnl p-lg">
       <div className="p-lgc">
         <div className="p-lgi">📺</div>
-        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.6.1</small></h1>
-        <p className="p-lgs">Hoş geldiniz</p>
-        <small className="p-lgo">{loaded ? cfg?.name || '' : ''}</small>
+        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.7</small></h1>
+        <p className="p-lgs">Dijital Okul Panosu Sistemine Hoş Geldiniz</p>
+        <small className="p-lgo">Devam etmek için Google hesabınızla giriş yapın.</small>
         <button className="p-gbtn" onClick={doGoogle}>
           <svg viewBox="0 0 48 48" width="22" height="22" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.6 5.4 2.6 13.2l7.9 6.2C12.4 13.7 17.7 9.5 24 9.5z" /><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.4c-.5 2.9-2.2 5.3-4.6 6.9l7.4 5.7c4.3-4 6.9-9.9 6.9-17.1z" /><path fill="#FBBC05" d="M10.5 28.6c-.5-1.4-.8-3-.8-4.6s.3-3.2.8-4.6l-7.9-6.2C1 16.5 0 20.1 0 24s1 7.5 2.6 10.8l7.9-6.2z" /><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.4-5.7c-2.1 1.4-4.8 2.3-8.5 2.3-6.3 0-11.6-4.2-13.5-10l-7.9 6.2C6.6 42.6 14.6 48 24 48z" /></svg>
           Google ile giriş yap
@@ -171,7 +182,7 @@ export default function Panel({ cfg, loaded, fresh, err }) {
     <div className="pnl p-lg">
       <div className="p-lgc">
         <div className="p-lgi">{me && me.durum === 'red' ? '⛔' : '⏳'}</div>
-        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.6.1</small></h1>
+        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.7</small></h1>
         {me === undefined ? <p className="p-lgs">Yetki kontrol ediliyor…</p>
           : me && me.durum === 'red' ? <><p className="p-lgs">Başvurunuz onaylanmadı</p><p>Panel erişimi için yöneticiyle görüşün.</p></>
           : me && me.durum === 'onayli' ? <><p className="p-lgs">Bu okul için yetkiniz yok</p><p>Düzenleyebildiğiniz okullar:</p>{mine.map((x) => <p key={x.id}><a href={schoolUrl(x.yol) + '#/panel'}>{x.ad} paneline geç →</a></p>)}</>
@@ -190,7 +201,7 @@ export default function Panel({ cfg, loaded, fresh, err }) {
   return (
     <div className="pnl">
       <div className="p-top">
-        <div className="p-tt"><b>Pano Paneli <span style={{ fontSize: '.75em', opacity: .6, fontWeight: 600 }}>v1.6.1</span></b><small>{dirty ? '● Yayınlanmamış değişiklik var' : '✓ Pano güncel'}</small>
+        <div className="p-tt"><b>Pano Paneli <span style={{ fontSize: '.75em', opacity: .6, fontWeight: 600 }}>v1.7</span></b><small>{dirty ? '● Yayınlanmamış değişiklik var' : '✓ Pano güncel'}</small>
           {mine.length > 1 ? <select className="p-okl" value={CFG_ID} onChange={(e) => { const x = schools.find((k) => k.id === e.target.value); if (x && (!dirty || confirm('Yayınlanmamış değişiklikler kaybolacak. Okul değiştirilsin mi?'))) location.href = schoolUrl(x.yol) + '#/panel' }}>
             {mine.map((x) => <option key={x.id} value={x.id}>🏫 {x.ad}</option>)}</select>
             : here && schools.length > 1 ? <small>🏫 {here.ad}</small> : null}
@@ -235,6 +246,11 @@ export default function Panel({ cfg, loaded, fresh, err }) {
         </div>
       )}
       {msg && <div className="p-toast" onClick={() => setMsg('')}>{msg}</div>}
+      {hg && <div className="p-hg" onClick={() => setHg(false)}><div className="p-hgc">
+        {user.photoURL ? <img src={user.photoURL} alt="" referrerPolicy="no-referrer" /> : <i>👋</i>}
+        <small>Hoş geldin</small><b>{uname || user.displayName || user.email}</b>
+        {here && schools.length > 1 ? <span>🏫 {here.ad}</span> : null}
+      </div></div>}
       {tab === 'news' && (() => { const i = draft.mods.findIndex((x) => x.type === 'slides'); const m = draft.mods[i]; return (
         <div className="p-body">
           <p className="p-hint">📐 Manşet alanı sabit boyuttadır: <b>{slideFor(draft.design).w} × {slideFor(draft.design).h} piksel</b>. Görselleri bu ölçüde hazırlarsanız tam oturur.</p>

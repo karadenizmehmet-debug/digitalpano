@@ -314,3 +314,13 @@ html.p-dark .stg-pv,html.p-dark .p-th,html.p-dark .p-themes i,html.p-dark .p-sw 
 .pnl .p-okl{display:block;width:auto;max-width:100%;margin-top:4px;padding:4px 8px;font-size:14px;font-weight:700;border-radius:8px}
 .pnl .p-okc b{display:block}.pnl .p-okc small{display:block;color:#5d7083;word-break:break-all}
 .pnl a.p-btn{display:inline-block;padding:10px 14px;border-radius:10px;background:#dde6ee;font-weight:700;color:#0f2433;text-decoration:none}
+
+/* Girişten sonra karşılama (v1.7) */
+.pnl .p-hg{position:fixed;inset:0;z-index:200;background:#07132acc;display:flex;align-items:center;justify-content:center;animation:pHgBg 2.2s ease forwards}
+.pnl .p-hgc{background:#fff;border-radius:24px;padding:28px 34px;min-width:240px;max-width:86vw;text-align:center;box-shadow:0 24px 60px #0008;display:flex;flex-direction:column;align-items:center;gap:6px;animation:pHgIn .45s cubic-bezier(.2,.9,.3,1.2)}
+.pnl .p-hgc img,.pnl .p-hgc i{width:72px;height:72px;border-radius:50%;object-fit:cover;font-style:normal;font-size:44px;display:grid;place-items:center;margin-bottom:6px;box-shadow:0 6px 16px #0a2a4a33}
+.pnl .p-hgc small{color:#c8102e;font-weight:700;font-size:15px}
+.pnl .p-hgc b{font-size:22px;color:#0b2a5c}
+.pnl .p-hgc span{color:#5b6b7b;font-size:14px}
+@keyframes pHgIn{from{opacity:0;transform:scale(.8) translateY(20px)}to{opacity:1;transform:none}}
+@keyframes pHgBg{0%,80%{opacity:1}100%{opacity:0}}
