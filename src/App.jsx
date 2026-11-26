@@ -1,5 +1,5 @@
 import { Suspense, lazy, useEffect, useLayoutEffect, useState } from 'react'
-import { listenConfig, fetchServerConfig } from './lib/firebase.js'
+import { listenConfig, fetchServerConfig, OKUL } from './lib/firebase.js'
 import Stage from './Stage.jsx'
 
 // Panel kodu yalnızca #/panel açılınca indirilir; pano ekranı (eski PC) onu hiç yüklemez.
@@ -52,6 +52,6 @@ export default function App() {
     scrollTo(0, 0)
   }, [isPanel])
   // Ayar gelmeden pano çizilmez: eski/varsayılan tasarım hiç görünmez
-  if (!isPanel && !cfg) return <div style={{ position: 'fixed', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#888', font: '600 24px sans-serif' }}>{err ? 'Sunucuya bağlanılıyor…' : 'Pano yükleniyor…'}</div>
+  if (!isPanel && !cfg) return <div style={{ position: 'fixed', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#888', font: '600 24px sans-serif' }}>{fresh ? 'Bu adreste kayıtlı pano yok' + (OKUL ? ': /' + OKUL : '') : err ? 'Sunucuya bağlanılıyor…' : 'Pano yükleniyor…'}</div>
   return isPanel ? <Suspense fallback={<div className="pnl"><p>Panel yükleniyor…</p></div>}><Panel cfg={cfg} loaded={loaded} fresh={fresh} err={err} /></Suspense> : <Stage key="display" cfg={cfg} />
 }

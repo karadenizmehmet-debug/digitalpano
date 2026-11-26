@@ -312,3 +312,8 @@ html.p-dark .stg-pv,html.p-dark .p-th,html.p-dark .p-themes i,html.p-dark .p-sw 
 .pnl .p-usrh span{display:flex;flex-direction:column;min-width:0}
 .pnl .p-usrh small{color:#6b7f92;overflow:hidden;text-overflow:ellipsis}
 .pnl .p-usr .p-btns{margin-top:10px}
+
+/* Çoklu okul (v1.5) */
+.pnl .p-okl{display:block;width:auto;max-width:100%;margin-top:4px;padding:4px 8px;font-size:14px;font-weight:700;border-radius:8px}
+.pnl .p-okc b{display:block}.pnl .p-okc small{display:block;color:#5d7083;word-break:break-all}
+.pnl a.p-btn{display:inline-block;padding:10px 14px;border-radius:10px;background:#dde6ee;font-weight:700;color:#0f2433;text-decoration:none}

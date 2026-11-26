@@ -10,8 +10,10 @@ import { RssEditor } from './panel/RssEditor.jsx'
 import { SIDE_DSG, reflow, slideFor } from './lib/reflow.js'
 import { SpecialEditor } from './panel/SpecialEditor.jsx'
 import { UsersEditor } from './panel/Users.jsx'
+import { SchoolsEditor } from './panel/Schools.jsx'
+import { userSchools } from './lib/okul.js'
 import Stage from './Stage.jsx'
-import { fetchServerConfig, hasPassword, isAdmin, listenMe, listenUsers, login, loginGoogle, logout, onUser, removeImage, requestAccess, saveConfig, saveImage, setDisplayName } from './lib/firebase.js'
+import { CFG_ID, fetchServerConfig, hasPassword, isAdmin, listenMe, listenSchools, listenUsers, schoolUrl, login, loginGoogle, logout, onUser, removeImage, requestAccess, saveConfig, saveImage, setDisplayName } from './lib/firebase.js'
 import { minHOf, registry, wantH } from './lib/registry.js'
 import './panel.css'
 
@@ -56,7 +58,14 @@ export default function Panel({ cfg, loaded, fresh, err }) {
     })
   }, [user, admin])
   useEffect(() => { if (admin) return listenUsers(setUsers, (e) => setMsg('Kullanıcılar okunamadı: ' + e)); setUsers(null) }, [admin])
-  const ok = !!user && (admin || (!!me && me.durum === 'onayli'))
+  // Okullar: ana okul (config/pano) listede kayıtlı olmasa da her zaman vardır
+  const [okl, setOkl] = useState([])
+  useEffect(() => (user ? listenSchools(setOkl) : undefined), [user])
+  const schools = (okl.some((x) => x.id === 'pano') ? [] : [{ id: 'pano', yol: '', ad: (CFG_ID === 'pano' && cfg && cfg.name) || 'Ana okul', zaman: 0 }])
+    .concat(okl).sort((a, b) => (a.id === 'pano' ? -1 : b.id === 'pano' ? 1 : (a.zaman || 0) - (b.zaman || 0)))
+  const mine = admin ? schools : schools.filter((x) => me && me.durum === 'onayli' && userSchools(me).indexOf(x.id) >= 0)
+  const here = schools.find((x) => x.id === CFG_ID)
+  const ok = !!user && (admin || (!!me && me.durum === 'onayli' && userSchools(me).indexOf(CFG_ID) >= 0))
   const pend = (users || []).filter((u) => u.durum === 'bekliyor').length
   useEffect(() => { if (ok && fresh && !draft) { const d0 = JSON.parse(JSON.stringify(cfg || { name: '', mods: [], sd: [], al: { on: false } }))  /* belge yoksa boş başla */; (d0.mods || []).forEach((m) => { if (m.type === 'slides' && m.title === 'Hoş Geldiniz') m.title = 'Manşet Haber' }); const off = new Set(d0.offered || []);  // yeni hazır modüller bir kez, KAPALI olarak listeye eklenir
       ['word', 'task', 'history'].forEach((t) => { if (off.has(t)) return; off.add(t); const R = registry[t]; if (R && !(d0.mods || []).some((m) => m.type === t)) d0.mods.push({ id: 'm' + t, type: t, title: R.label, active: false, x: 380, y: 124, w: 440, h: R.minH || 150, color: '#0f9b8e', fs: 100, data: JSON.parse(JSON.stringify(R.def || {})) }) })
@@ -150,7 +159,7 @@ export default function Panel({ cfg, loaded, fresh, err }) {
     <div className="pnl p-lg">
       <div className="p-lgc">
         <div className="p-lgi">📺</div>
-        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.4.2</small></h1>
+        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.5</small></h1>
         <p className="p-lgs">Hoş geldiniz</p>
         <small className="p-lgo">{loaded ? cfg?.name || '' : ''}</small>
         <button className="p-gbtn" onClick={doGoogle}>
@@ -174,9 +183,10 @@ export default function Panel({ cfg, loaded, fresh, err }) {
     <div className="pnl p-lg">
       <div className="p-lgc">
         <div className="p-lgi">{me && me.durum === 'red' ? '⛔' : '⏳'}</div>
-        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.4.2</small></h1>
+        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.5</small></h1>
         {me === undefined ? <p className="p-lgs">Yetki kontrol ediliyor…</p>
           : me && me.durum === 'red' ? <><p className="p-lgs">Başvurunuz onaylanmadı</p><p>Panel erişimi için yöneticiyle görüşün.</p></>
+          : me && me.durum === 'onayli' ? <><p className="p-lgs">Bu okul için yetkiniz yok</p><p>Düzenleyebildiğiniz okullar:</p>{mine.map((x) => <p key={x.id}><a href={schoolUrl(x.yol) + '#/panel'}>{x.ad} paneline geç →</a></p>)}</>
           : me && me.durum === 'hata' ? <p className="p-err">Yetki okunamadı ({me.msg}). İnternet bağlantınızı kontrol edin.</p>
           : <><p className="p-lgs">Onay bekleniyor</p><p>Başvurunuz yöneticiye iletildi. Onaylandığında bu sayfa kendiliğinden açılır.</p></>}
         <small className="p-lgo">{user.displayName ? user.displayName + ' · ' : ''}{user.email}<br />Kullanıcı kodu: <code style={{ userSelect: 'all' }}>{user.uid}</code></small>
@@ -192,7 +202,10 @@ export default function Panel({ cfg, loaded, fresh, err }) {
   return (
     <div className="pnl">
       <div className="p-top">
-        <div className="p-tt"><b>Pano Paneli <span style={{ fontSize: '.75em', opacity: .6, fontWeight: 600 }}>v1.4.2</span></b><small>{dirty ? '● Yayınlanmamış değişiklik var' : '✓ Pano güncel'}</small>
+        <div className="p-tt"><b>Pano Paneli <span style={{ fontSize: '.75em', opacity: .6, fontWeight: 600 }}>v1.5</span></b><small>{dirty ? '● Yayınlanmamış değişiklik var' : '✓ Pano güncel'}</small>
+          {mine.length > 1 ? <select className="p-okl" value={CFG_ID} onChange={(e) => { const x = schools.find((k) => k.id === e.target.value); if (x && (!dirty || confirm('Yayınlanmamış değişiklikler kaybolacak. Okul değiştirilsin mi?'))) location.href = schoolUrl(x.yol) + '#/panel' }}>
+            {mine.map((x) => <option key={x.id} value={x.id}>🏫 {x.ad}</option>)}</select>
+            : here && schools.length > 1 ? <small>🏫 {here.ad}</small> : null}
           <span className="p-acc" title="Adı değiştirmek için dokunun" onClick={() => { const n = prompt('Adınız Soyadınız', uname); if (n && n.trim()) setDisplayName(n.trim()).then(() => setUname(n.trim())).catch(() => alert('Ad kaydedilemedi.')) }}>{uname || 'Adınızı ekleyin ✎'} · {user.email}</span></div>
         <button className="p-ib" title="Yayınlamadan önce önizle" onClick={() => setShowPv(true)}>👁</button>
         <a className="p-ib" href="#/" target="_blank" rel="noopener" title="Panoyu aç">📺</a>
@@ -248,7 +261,7 @@ export default function Panel({ cfg, loaded, fresh, err }) {
       )}
       {tab === 'set' && !sub && (
         <div className="p-body"><div className="p-grid">
-          {[['gen', '🏫', 'Genel ayarlar'], ['thm', '🎨', 'Tema ve renkler'], ['mods', '🧩', 'Modüller'], ['lay', '🖼️', 'Düzen'], ['sd', '📅', 'Özel günler'], ['bak', '💾', 'Yedek']].concat(admin ? [['usr', '👥', pend ? 'Kullanıcılar (' + pend + ')' : 'Kullanıcılar']] : [], hasPassword(user) ? [['pw', '🔑', 'Şifre']] : []).map(([k, i, l]) => <button key={k} onClick={() => { if (k === 'mods' || k === 'lay') { setTab(k); setOpenId(null) } else setSub(k); window.scrollTo(0, 0) }}><span>{i}</span>{l}</button>)}
+          {[['gen', '🏫', 'Genel ayarlar'], ['thm', '🎨', 'Tema ve renkler'], ['mods', '🧩', 'Modüller'], ['lay', '🖼️', 'Düzen'], ['sd', '📅', 'Özel günler'], ['bak', '💾', 'Yedek']].concat(admin ? [['usr', '👥', pend ? 'Kullanıcılar (' + pend + ')' : 'Kullanıcılar'], ['okl', '🏫', 'Okullar']] : [], hasPassword(user) ? [['pw', '🔑', 'Şifre']] : []).map(([k, i, l]) => <button key={k} onClick={() => { if (k === 'mods' || k === 'lay') { setTab(k); setOpenId(null) } else setSub(k); window.scrollTo(0, 0) }}><span>{i}</span>{l}</button>)}
           <button onClick={toggleDark}><span>{dark ? '☀️' : '🌙'}</span>{dark ? 'Normal mod' : 'Koyu mod'}</button>
           <button onClick={sharePanel}><span>🔗</span>Adresi paylaş</button>
         </div></div>
@@ -376,7 +389,8 @@ export default function Panel({ cfg, loaded, fresh, err }) {
       {view === 'sd' && <SpecialEditor list={draft.sd} set={(sd) => set({ sd })} say={setMsg} cfg={draft} />}
       {view === 'al' && <AlertEditor draft={draft} al={draft.al} set={(al) => set({ al })} />}
       {view === 'pw' && <PwEditor say={setMsg} />}
-      {view === 'usr' && admin && <UsersEditor list={users} say={setMsg} />}
+      {view === 'usr' && admin && <UsersEditor list={users} schools={schools} cur={CFG_ID} say={setMsg} />}
+      {view === 'okl' && admin && <SchoolsEditor schools={schools} say={setMsg} />}
       {view === 'bak' && (
         <div className="p-body">
           <p>Ayarları dosya olarak indirip saklayabilir, gerektiğinde geri yükleyebilirsiniz.</p>

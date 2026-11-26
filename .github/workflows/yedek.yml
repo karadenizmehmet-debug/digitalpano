@@ -1,4 +1,4 @@
-# Her pazar 03:00'te (TR 06:00) Firestore'daki pano ayarlarını ve görselleri yedek/ klasörüne kaydeder.
+# Her pazar 03:00'te (TR 06:00) Firestore'daki bütün okulların pano ayarlarını ve görselleri yedek/ klasörüne kaydeder.
 # Elle de çalıştırılabilir: Actions > Yedek > Run workflow
 name: Yedek
 on:
@@ -22,6 +22,11 @@ jobs:
           curl -fsS -H "$R" "$B/config/pano?key=$K" -o yedek/ayarlar.json
           curl -fsS -H "$R" "$B/images?pageSize=300&key=$K" -o yedek/gorseller.json
           python3 -c "import json;json.load(open('yedek/ayarlar.json'));json.load(open('yedek/gorseller.json'))"
+          # Diğer okullar: okullar listesindeki her okul için yedek/ayarlar-<yol>.json
+          curl -fsS -H "$R" "$B/okullar?pageSize=300&key=$K" -o /tmp/okullar.json || echo '{}' > /tmp/okullar.json
+          for Y in $(python3 -c "import json;d=json.load(open('/tmp/okullar.json'));print(' '.join(x['fields']['yol']['stringValue'] for x in d.get('documents',[]) if x.get('fields',{}).get('yol',{}).get('stringValue')))"); do
+            curl -fsS -H "$R" "$B/config/pano-$Y?key=$K" -o "yedek/ayarlar-$Y.json" && echo "Yedeklendi: $Y" || echo "::warning::$Y yedeklenemedi"
+          done
       - name: Değişiklik varsa kaydet
         run: |
           git config user.name "yedek-bot"

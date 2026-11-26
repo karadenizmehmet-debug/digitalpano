@@ -94,3 +94,13 @@ Duyuru yokken kayan yazıda (varsayılan: Konya MEM duyuruları, `src/lib/newsDe
 - Yönetici Ayarlar > 👥 Kullanıcılar'dan **Onayla / Reddet / Yetkiyi kaldır / Sil** yapar. Karar canlı dinlenir; onaylanan kişinin paneli kendiliğinden açılır.
 - Kurallar: `config/*` ve `images/*` herkese açık okunur, yazma `admin() || onayli()`. `kullanicilar` kayıtlarını yalnızca yönetici ve kişinin kendisi okur; durumu yalnızca yönetici değiştirir.
 - `firestore.rules` otomatik yayınlanmaz (Deploy yalnızca hosting). Değişince Firebase Console > Firestore > Rules'a elle yapıştırılır.
+
+## Çoklu okul (v1.5)
+- Okul adres yolundan seçilir: `digitalpano-84947.web.app/` = ana okul (`config/pano`), `/<yol>` = `config/pano-<yol>`. Panel aynı okulda `/<yol>#/panel`.
+- Saf mantık `src/lib/okul.js` (slugify, okulFromPath, görsel kimliği kopyalama), sınaması `test/okul.test.mjs`. `firebase.js` → `OKUL`, `CFG_ID`, `schoolUrl`.
+- Okul listesi `okullar/{CFG_ID}`: `{ ad, yol, zaman }`. Herkes okur, yalnızca yönetici yazar. Ana okul kaydı ilk okul eklenirken oluşur.
+- Ayarlar > 🏫 Okullar (yönetici): okul ekle (seçilen okulun ayarlarını ve görsellerini kopyalar, yalnızca ad değişir; acil duyuru kapalı), panoyu aç, paneline geç, adresi kopyala, sil.
+- Kullanıcı yetkisi `kullanicilar/{uid}.okullar` (CFG_ID listesi; alan yoksa `['pano']`). Onaylarken okul seçilir; sonradan Kullanıcılar ekranından değiştirilir. Kural: `okulYetki(id)`.
+- Panel üst çubuğunda yetkili olunan okullar arasında geçiş seçicisi (sayfa yeniden yüklenir).
+- Görseller ortak `images` koleksiyonunda; kopyalanan okul kendi kopyalarını alır.
+- Yedek iş akışı her okul için `yedek/ayarlar-<yol>.json` yazar; panelin yedek listesi açık okulun dosyasını okur.

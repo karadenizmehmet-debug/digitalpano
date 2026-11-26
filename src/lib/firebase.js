@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app'
+import { cfgIdOf, imageRefs, okulFromPath, replaceRefs } from './okul.js'
 import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager, doc, collection, onSnapshot, setDoc, updateDoc, getDoc, getDocFromServer, deleteDoc } from 'firebase/firestore'
 import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signInWithEmailAndPassword, signOut, onAuthStateChanged, EmailAuthProvider, reauthenticateWithCredential, updatePassword, updateProfile } from 'firebase/auth'
 
@@ -18,7 +19,12 @@ let db
 try { db = initializeFirestore(app, { localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() }), experimentalAutoDetectLongPolling: true }) }
 catch { db = initializeFirestore(app, { experimentalAutoDetectLongPolling: true }) }
 const auth = getAuth(app)
-const ref = doc(db, 'config', 'pano')
+// Hangi okul: adres yolundan (digitalpano-84947.web.app/okul2). Kök = ana okul (config/pano).
+const BASE = import.meta.env.BASE_URL || '/'
+export const OKUL = okulFromPath(location.pathname, BASE)
+export const CFG_ID = cfgIdOf(OKUL)
+export const schoolUrl = (yol) => location.origin + BASE + (yol || '')
+const ref = doc(db, 'config', CFG_ID)
 
 // Canlı dinleme: panelden yayınlanınca pano anında güncellenir.
 // cb(data|null, { fromCache }) — fromCache=false: ayarlar sunucudan doğrulandı (panelin yazması ancak bundan sonra güvenli)
@@ -57,7 +63,43 @@ export const requestAccess = (u) => setDoc(uref(u.uid), { durum: 'bekliyor', ad:
 export const listenUsers = (cb, onErr) => onSnapshot(collection(db, 'kullanicilar'),
   (s) => cb(s.docs.map((d) => ({ uid: d.id, ...d.data() }))),
   (e) => { console.warn('Firestore kullanicilar:', e.message); if (onErr) onErr(e.code || e.message) })
-export const setUserStatus = (uid, durum) => updateDoc(uref(uid), { durum, karar: Date.now() })
+export const setUserStatus = (uid, durum, extra) => updateDoc(uref(uid), { durum, karar: Date.now(), ...(extra || {}) })
+export const setUserSchools = (uid, okullar) => updateDoc(uref(uid), { okullar })
+
+// Okul listesi (okullar/{ayar belgesi kimliği}): { ad, yol, zaman }. Herkes okur, yalnızca yönetici yazar.
+export const listenSchools = (cb) => onSnapshot(collection(db, 'okullar'),
+  (s) => cb(s.docs.map((d) => ({ id: d.id, ...d.data() }))),
+  (e) => { console.warn('Firestore okullar:', e.message); cb([]) })
+// Yeni okul: kaynak okulun ayarları kopyalanır (görseller de kopyalanır; biri silinince öbürü etkilenmesin), yalnızca ad değişir.
+export async function createSchool(yol, ad, srcId) {
+  const id = cfgIdOf(yol)
+  if ((await getDocFromServer(doc(db, 'config', id))).exists()) throw new Error('Bu adreste zaten bir okul var.')
+  let src = null
+  if (srcId) { const s = await getDocFromServer(doc(db, 'config', srcId)); src = s.exists() ? s.data() : null }
+  // Ana okul listede yoksa adıyla birlikte bir kez kaydedilir (diğer okullardan bakınca da adı görünsün)
+  if (!(await getDocFromServer(doc(db, 'okullar', 'pano'))).exists()) {
+    const m = srcId === 'pano' ? src : (await getDocFromServer(doc(db, 'config', 'pano'))).data()
+    await setDoc(doc(db, 'okullar', 'pano'), { ad: (m && m.name) || 'Ana okul', yol: '', zaman: 0 })
+  }
+  let cfg = src ? JSON.parse(JSON.stringify(src)) : { mods: [], sd: [], al: { on: false } }
+  const map = {}
+  let n = 0
+  for (const old of imageRefs(cfg)) {
+    const v = await loadImage(old)
+    if (!v) continue
+    const nid = 'c' + Date.now().toString(36) + (n++).toString(36)
+    await saveImage(nid, v)
+    map[old] = nid
+  }
+  cfg = replaceRefs(cfg, map)
+  cfg.name = ad
+  cfg.rev = Date.now()
+  if (cfg.al) cfg.al = { ...cfg.al, on: false }  // acil duyuru yeni okula taşınmasın
+  await setDoc(doc(db, 'config', id), cfg)
+  await setDoc(doc(db, 'okullar', id), { ad, yol, zaman: Date.now() })
+  return id
+}
+export const removeSchool = async (id) => { await deleteDoc(doc(db, 'okullar', id)); await deleteDoc(doc(db, 'config', id)) }
 export const removeUser = (uid) => deleteDoc(uref(uid))
 export const logout = () => signOut(auth)
 export const changePassword = async (oldPw, newPw) => {

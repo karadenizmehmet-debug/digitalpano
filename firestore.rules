@@ -1,28 +1,31 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Giriş Google ile. Yönetici sabit UID; diğerleri panelden onaylanınca yazabilir.
+    // Giriş Google ile. Yönetici sabit UID; diğerleri panelden onaylanınca, onaylandıkları okulda yazabilir.
     // Yönetici listesi src/lib/firebase.js içindeki ADMINS ile AYNI olmalı.
     function girisli() { return request.auth != null; }
     function admin() { return girisli() && request.auth.uid in ['j9o0PbL1OHQfxgX4wDrdf1G1qXj2']; }
-    function onayli() {
-      return girisli()
-        && exists(/databases/$(database)/documents/kullanicilar/$(request.auth.uid))
-        && get(/databases/$(database)/documents/kullanicilar/$(request.auth.uid)).data.durum == 'onayli';
-    }
-    function yazar() { return admin() || onayli(); }
+    function kayit() { return /databases/$(database)/documents/kullanicilar/$(request.auth.uid); }
+    function onayli() { return girisli() && exists(kayit()) && get(kayit()).data.durum == 'onayli'; }
+    // okullar alanı yoksa yalnızca ana okul (config/pano)
+    function okulYetki(id) { return onayli() && id in get(kayit()).data.get('okullar', ['pano']); }
 
-    // Pano herkese açık okur; yazma yönetici ya da onaylı kullanıcı.
+    // Her okulun ayarı: config/pano (ana okul), config/pano-<yol> (diğerleri). Herkes okur.
     match /config/{id} {
       allow read: if true;
-      allow write: if yazar();
+      allow write: if admin() || okulYetki(id);
     }
+    // Görseller okullar arasında ortak koleksiyonda (kimlikler benzersiz).
     match /images/{id} {
       allow read: if true;
-      allow write: if yazar();
+      allow write: if admin() || onayli();
     }
-
-    // Başvurular: kişi yalnızca kendi kaydını "bekliyor" olarak açar; kararı yönetici verir.
+    // Okul listesi: herkes okur, yalnızca yönetici ekler/siler.
+    match /okullar/{id} {
+      allow read: if true;
+      allow write: if admin();
+    }
+    // Başvurular: kişi yalnızca kendi kaydını "bekliyor" olarak açar; karar ve okul seçimi yöneticide.
     match /kullanicilar/{uid} {
       allow read: if admin() || (girisli() && request.auth.uid == uid);
       allow create: if girisli() && request.auth.uid == uid

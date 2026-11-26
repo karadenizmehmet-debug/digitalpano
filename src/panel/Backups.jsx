@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { OKUL } from '../lib/firebase.js'
 
 // Firestore REST biçimini (stringValue, mapValue…) düz nesneye çevirir
 export const fsVal = (v) => {
@@ -14,13 +15,15 @@ export const fsVal = (v) => {
 }
 
 export const REPO = 'karadenizmehmet-debug/digitalpano'
+// Ana okul yedek/ayarlar.json, diğerleri yedek/ayarlar-<yol>.json (Yedek iş akışı yazar)
+const FILE = 'yedek/ayarlar' + (OKUL ? '-' + OKUL : '') + '.json'
 
 export function AutoBackups({ onLoad, say }) {
   const [list, setList] = useState(null), [busy, setBusy] = useState(false)
   const fetchList = async () => {
     setBusy(true)
     try {
-      const r = await fetch('https://api.github.com/repos/' + REPO + '/commits?path=yedek/ayarlar.json&per_page=20')
+      const r = await fetch('https://api.github.com/repos/' + REPO + '/commits?path=' + FILE + '&per_page=20')
       if (!r.ok) throw new Error('HTTP ' + r.status)
       setList((await r.json()).map((c) => ({ sha: c.sha, date: new Date(c.commit.committer.date) })))
     } catch (e) { say('Yedek listesi alınamadı: ' + e.message) }
@@ -29,7 +32,7 @@ export function AutoBackups({ onLoad, say }) {
   const load = async (c) => {
     setBusy(true)
     try {
-      const r = await fetch('https://raw.githubusercontent.com/' + REPO + '/' + c.sha + '/yedek/ayarlar.json')
+      const r = await fetch('https://raw.githubusercontent.com/' + REPO + '/' + c.sha + '/' + FILE)
       if (!r.ok) throw new Error('HTTP ' + r.status)
       const d = await r.json()
       onLoad(fsVal({ mapValue: { fields: d.fields } }))
