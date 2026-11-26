@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { AlertEditor, PwEditor } from './panel/Account.jsx'
+import { AlertEditor } from './panel/Account.jsx'
 import { AnnEditor } from './panel/AnnEditor.jsx'
 import { AutoBackups } from './panel/Backups.jsx'
 import { DESIGNS, DESIGN_META, GROUPS, THEMES } from './lib/themes.js'
@@ -13,7 +13,7 @@ import { UsersEditor } from './panel/Users.jsx'
 import { SchoolsEditor } from './panel/Schools.jsx'
 import { userSchools } from './lib/okul.js'
 import Stage from './Stage.jsx'
-import { CFG_ID, fetchServerConfig, hasPassword, isAdmin, listenMe, listenSchools, listenUsers, schoolUrl, login, loginGoogle, logout, onUser, removeImage, requestAccess, saveConfig, saveImage, setDisplayName } from './lib/firebase.js'
+import { CFG_ID, fetchServerConfig, isAdmin, listenMe, listenSchools, listenUsers, schoolUrl, loginGoogle, logout, onUser, removeImage, requestAccess, saveConfig, saveImage, setDisplayName } from './lib/firebase.js'
 import { minHOf, registry, wantH } from './lib/registry.js'
 import './panel.css'
 
@@ -41,7 +41,6 @@ export default function Panel({ cfg, loaded, fresh, err }) {
   }
   useEffect(() => { const t = setTimeout(() => setSlow(true), 8000); return () => clearTimeout(t) }, [])
   const [sel, setSel] = useState(null), [showPv, setShowPv] = useState(false), [pk, setPk] = useState(null)
-  const [em, setEm] = useState(''), [pw, setPw] = useState('')
 
   useEffect(() => onUser((u) => { setUser(u); setUname((u && u.displayName) || '') }), [])
   // Yetki: yönetici sabit; diğerleri kullanicilar/{uid} kaydına bakar. Kayıt yoksa (sunucu doğruladıysa) başvuru açılır.
@@ -71,17 +70,13 @@ export default function Panel({ cfg, loaded, fresh, err }) {
       ['word', 'task', 'history'].forEach((t) => { if (off.has(t)) return; off.add(t); const R = registry[t]; if (R && !(d0.mods || []).some((m) => m.type === t)) d0.mods.push({ id: 'm' + t, type: t, title: R.label, active: false, x: 380, y: 124, w: 440, h: R.minH || 150, color: '#0f9b8e', fs: 100, data: JSON.parse(JSON.stringify(R.def || {})) }) })
       d0.offered = [...off]; setDraft(d0); setSaved(JSON.stringify(cfg || {})) } }, [ok, cfg, draft, fresh])
 
-  const doLogin = async (e) => {
-    e.preventDefault()
-    try { await login(em, pw); setMsg('') } catch { setMsg('E-posta veya şifre hatalı.') }
-  }
   const doGoogle = async () => {
     setMsg('')
     try { await loginGoogle() }
     catch (e) {
       const c = e.code || ''
       if (/popup-closed|cancelled-popup/.test(c)) return
-      setMsg(c.includes('account-exists') ? 'Bu e-posta şifreyle kayıtlı. Aşağıdan "E-posta ve şifreyle giriş" ile girin.'
+      setMsg(c.includes('account-exists') ? 'Bu e-posta başka bir giriş yöntemiyle kayıtlı. Yöneticiyle görüşün.'
         : c.includes('unauthorized-domain') ? 'Bu adres Firebase\'de yetkili değil (Authentication > Settings > Authorized domains).'
         : c.includes('operation-not-allowed') ? 'Google ile giriş Firebase\'de henüz açılmamış.'
         : 'Giriş yapılamadı: ' + (c || e.message))
@@ -159,7 +154,7 @@ export default function Panel({ cfg, loaded, fresh, err }) {
     <div className="pnl p-lg">
       <div className="p-lgc">
         <div className="p-lgi">📺</div>
-        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.5</small></h1>
+        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.5.1</small></h1>
         <p className="p-lgs">Hoş geldiniz</p>
         <small className="p-lgo">{loaded ? cfg?.name || '' : ''}</small>
         <button className="p-gbtn" onClick={doGoogle}>
@@ -167,13 +162,6 @@ export default function Panel({ cfg, loaded, fresh, err }) {
           Google ile giriş yap
         </button>
         {msg && <p className="p-err">{msg}</p>}
-        <details className="p-lgalt"><summary>E-posta ve şifreyle giriş</summary>
-          <form onSubmit={doLogin}>
-            <input type="email" placeholder="E-posta" value={em} onChange={(e) => setEm(e.target.value)} autoComplete="username" />
-            <input type="password" placeholder="Şifre" value={pw} onChange={(e) => setPw(e.target.value)} autoComplete="current-password" />
-            <button className="p-pri">Giriş yap</button>
-          </form>
-        </details>
         <a className="p-lgb" href="#/">← Panoya dön</a>
       </div>
       <div className="p-lgf">Mehmet Karadeniz tarafından geliştirilmiştir<br /><span>© 2026-2027 · Dijital Pano Sistemi</span></div>
@@ -183,7 +171,7 @@ export default function Panel({ cfg, loaded, fresh, err }) {
     <div className="pnl p-lg">
       <div className="p-lgc">
         <div className="p-lgi">{me && me.durum === 'red' ? '⛔' : '⏳'}</div>
-        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.5</small></h1>
+        <h1>Dijital Pano <small style={{ fontSize: '.5em', opacity: .6, fontWeight: 600 }}>v1.5.1</small></h1>
         {me === undefined ? <p className="p-lgs">Yetki kontrol ediliyor…</p>
           : me && me.durum === 'red' ? <><p className="p-lgs">Başvurunuz onaylanmadı</p><p>Panel erişimi için yöneticiyle görüşün.</p></>
           : me && me.durum === 'onayli' ? <><p className="p-lgs">Bu okul için yetkiniz yok</p><p>Düzenleyebildiğiniz okullar:</p>{mine.map((x) => <p key={x.id}><a href={schoolUrl(x.yol) + '#/panel'}>{x.ad} paneline geç →</a></p>)}</>
@@ -202,7 +190,7 @@ export default function Panel({ cfg, loaded, fresh, err }) {
   return (
     <div className="pnl">
       <div className="p-top">
-        <div className="p-tt"><b>Pano Paneli <span style={{ fontSize: '.75em', opacity: .6, fontWeight: 600 }}>v1.5</span></b><small>{dirty ? '● Yayınlanmamış değişiklik var' : '✓ Pano güncel'}</small>
+        <div className="p-tt"><b>Pano Paneli <span style={{ fontSize: '.75em', opacity: .6, fontWeight: 600 }}>v1.5.1</span></b><small>{dirty ? '● Yayınlanmamış değişiklik var' : '✓ Pano güncel'}</small>
           {mine.length > 1 ? <select className="p-okl" value={CFG_ID} onChange={(e) => { const x = schools.find((k) => k.id === e.target.value); if (x && (!dirty || confirm('Yayınlanmamış değişiklikler kaybolacak. Okul değiştirilsin mi?'))) location.href = schoolUrl(x.yol) + '#/panel' }}>
             {mine.map((x) => <option key={x.id} value={x.id}>🏫 {x.ad}</option>)}</select>
             : here && schools.length > 1 ? <small>🏫 {here.ad}</small> : null}
@@ -261,7 +249,7 @@ export default function Panel({ cfg, loaded, fresh, err }) {
       )}
       {tab === 'set' && !sub && (
         <div className="p-body"><div className="p-grid">
-          {[['gen', '🏫', 'Genel ayarlar'], ['thm', '🎨', 'Tema ve renkler'], ['mods', '🧩', 'Modüller'], ['lay', '🖼️', 'Düzen'], ['sd', '📅', 'Özel günler'], ['bak', '💾', 'Yedek']].concat(admin ? [['usr', '👥', pend ? 'Kullanıcılar (' + pend + ')' : 'Kullanıcılar'], ['okl', '🏫', 'Okullar']] : [], hasPassword(user) ? [['pw', '🔑', 'Şifre']] : []).map(([k, i, l]) => <button key={k} onClick={() => { if (k === 'mods' || k === 'lay') { setTab(k); setOpenId(null) } else setSub(k); window.scrollTo(0, 0) }}><span>{i}</span>{l}</button>)}
+          {[['gen', '🏫', 'Genel ayarlar'], ['thm', '🎨', 'Tema ve renkler'], ['mods', '🧩', 'Modüller'], ['lay', '🖼️', 'Düzen'], ['sd', '📅', 'Özel günler'], ['bak', '💾', 'Yedek']].concat(admin ? [['usr', '👥', pend ? 'Kullanıcılar (' + pend + ')' : 'Kullanıcılar'], ['okl', '🏫', 'Okullar']] : []).map(([k, i, l]) => <button key={k} onClick={() => { if (k === 'mods' || k === 'lay') { setTab(k); setOpenId(null) } else setSub(k); window.scrollTo(0, 0) }}><span>{i}</span>{l}</button>)}
           <button onClick={toggleDark}><span>{dark ? '☀️' : '🌙'}</span>{dark ? 'Normal mod' : 'Koyu mod'}</button>
           <button onClick={sharePanel}><span>🔗</span>Adresi paylaş</button>
         </div></div>
@@ -388,7 +376,6 @@ export default function Panel({ cfg, loaded, fresh, err }) {
       )}
       {view === 'sd' && <SpecialEditor list={draft.sd} set={(sd) => set({ sd })} say={setMsg} cfg={draft} />}
       {view === 'al' && <AlertEditor draft={draft} al={draft.al} set={(al) => set({ al })} />}
-      {view === 'pw' && <PwEditor say={setMsg} />}
       {view === 'usr' && admin && <UsersEditor list={users} schools={schools} cur={CFG_ID} say={setMsg} />}
       {view === 'okl' && admin && <SchoolsEditor schools={schools} say={setMsg} />}
       {view === 'bak' && (

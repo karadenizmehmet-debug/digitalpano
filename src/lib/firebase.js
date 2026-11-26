@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app'
 import { cfgIdOf, imageRefs, okulFromPath, replaceRefs } from './okul.js'
 import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager, doc, collection, onSnapshot, setDoc, updateDoc, getDoc, getDocFromServer, deleteDoc } from 'firebase/firestore'
-import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signInWithEmailAndPassword, signOut, onAuthStateChanged, EmailAuthProvider, reauthenticateWithCredential, updatePassword, updateProfile } from 'firebase/auth'
+import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged, updateProfile } from 'firebase/auth'
 
 // Web yapılandırması gizli değildir (güvenlik Firestore kurallarındadır).
 // API anahtarını Google Cloud > Credentials'tan kendi alan adınıza kısıtlayın.
@@ -38,7 +38,6 @@ export const listenNews = (cb) => onSnapshot(doc(db, 'config', 'haber'),
 // Sunucudan tek seferlik doğrulanmış okuma (önbellek değil). Panel yalnızca bundan sonra düzenlemeye açılır.
 export const fetchServerConfig = async () => { const s = await getDocFromServer(ref); return s.exists() ? s.data() : null }
 export const saveConfig = (data) => setDoc(ref, JSON.parse(JSON.stringify(data)))
-export const login = (email, pw) => signInWithEmailAndPassword(auth, email, pw)
 // Google ile giriş: önce açılır pencere; tarayıcı engellerse sayfa yönlendirmesine geçer.
 export const loginGoogle = async () => {
   const p = new GoogleAuthProvider()
@@ -51,7 +50,6 @@ getRedirectResult(auth).catch(() => {})
 // Yönetici: firestore.rules içindeki admin() listesiyle AYNI olmalı.
 export const ADMINS = ['j9o0PbL1OHQfxgX4wDrdf1G1qXj2']
 export const isAdmin = (u) => !!u && ADMINS.includes(u.uid)
-export const hasPassword = (u) => !!u && (u.providerData || []).some((x) => x.providerId === 'password')
 
 // Yetki kayıtları (kullanicilar/{uid}): durum = bekliyor | onayli | red. Durumu yalnızca yönetici değiştirir.
 const uref = (uid) => doc(db, 'kullanicilar', uid)
@@ -102,11 +100,6 @@ export async function createSchool(yol, ad, srcId) {
 export const removeSchool = async (id) => { await deleteDoc(doc(db, 'okullar', id)); await deleteDoc(doc(db, 'config', id)) }
 export const removeUser = (uid) => deleteDoc(uref(uid))
 export const logout = () => signOut(auth)
-export const changePassword = async (oldPw, newPw) => {
-  const u = auth.currentUser
-  await reauthenticateWithCredential(u, EmailAuthProvider.credential(u.email, oldPw))
-  await updatePassword(u, newPw)
-}
 export const setDisplayName = (name) => updateProfile(auth.currentUser, { displayName: name })
 export const onUser = (cb) => onAuthStateChanged(auth, cb)
 

@@ -88,7 +88,7 @@ Duyuru yokken kayan yazıda (varsayılan: Konya MEM duyuruları, `src/lib/newsDe
 - `test/win7.test.mjs` Chrome 109'da olmayan özellikleri kodda arar. Deploy ve Pages işleri derlemeden önce `npm test` çalıştırır; kırmızıysa yayın durur.
 
 ## Giriş ve yetki (v1.4)
-- Panel girişi **Google ile** (`loginGoogle`, açılır pencere; engellenirse yönlendirme). E-posta/şifre girişi "E-posta ve şifreyle giriş" altında yedek olarak durur.
+- Panel girişi **Google ile** (`loginGoogle`, açılır pencere; engellenirse yönlendirme). E-posta/şifre girişi v1.5.1'de kaldırıldı (Firebase'de de kapalı).
 - **Yönetici** sabit UID'dir: `src/lib/firebase.js` → `ADMINS` ve `firestore.rules` → `admin()`. İkisi aynı tutulmalı.
 - Diğer herkes ilk girişte `kullanicilar/{uid}` kaydını `durum: 'bekliyor'` olarak açar ve "Onay bekleniyor" ekranını görür.
 - Yönetici Ayarlar > 👥 Kullanıcılar'dan **Onayla / Reddet / Yetkiyi kaldır / Sil** yapar. Karar canlı dinlenir; onaylanan kişinin paneli kendiliğinden açılır.

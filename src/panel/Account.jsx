@@ -1,30 +1,6 @@
-import { useState } from 'react'
 import { ALI, NumIn, isoLocal } from './common.jsx'
 import { alertStatus } from '../lib/alert.js'
 import Stage from '../Stage.jsx'
-import { changePassword } from '../lib/firebase.js'
-
-export function PwEditor({ say }) {
-  const [o, setO] = useState(''), [n, setN] = useState(''), [n2, setN2] = useState(''), [busy, setBusy] = useState(false)
-  const go = async () => {
-    if (n.length < 8) { say('Yeni şifre en az 8 karakter olmalı.'); return }
-    if (n !== n2) { say('Yeni şifreler aynı değil.'); return }
-    setBusy(true)
-    try { await changePassword(o, n); setO(''); setN(''); setN2(''); say('Şifre değiştirildi ✓') }
-    catch (e) { say(/wrong|invalid|credential/i.test(e.code + e.message) ? 'Mevcut şifre hatalı.' : /recent|requires/i.test(e.code) ? 'Güvenlik için çıkış yapıp tekrar giriş yapın, sonra deneyin.' : 'Değiştirilemedi: ' + (e.code || e.message)) }
-    setBusy(false)
-  }
-  return (
-    <div className="p-body"><div className="p-card p-pad">
-      <div className="p-h">🔑 Şifre değiştir</div>
-      <div className="p-fld"><label>Mevcut şifre</label><input type="password" value={o} onChange={(e) => setO(e.target.value)} autoComplete="current-password" /></div>
-      <div className="p-fld"><label>Yeni şifre (en az 8 karakter)</label><input type="password" value={n} onChange={(e) => setN(e.target.value)} autoComplete="new-password" /></div>
-      <div className="p-fld"><label>Yeni şifre (tekrar)</label><input type="password" value={n2} onChange={(e) => setN2(e.target.value)} autoComplete="new-password" /></div>
-      <div className="p-btns"><button className="p-pri" disabled={busy || !o || !n} onClick={go}>{busy ? 'Değiştiriliyor…' : 'Şifreyi değiştir'}</button></div>
-      <small>Şifre hemen değişir. Bu panelin Yayınla düğmesiyle ilgisi yoktur.</small>
-    </div></div>
-  )
-}
 
 export function AlertEditor({ al, set, draft }) {
   const a = { on: false, title: 'ACİL DUYURU', text: '', tone: 'r', ic: '', ...al }
