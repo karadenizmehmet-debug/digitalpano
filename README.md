@@ -1,14 +1,13 @@
 # Dijital Pano
 
-Nimetullah Nahçivani İmam Hatip Ortaokulu için dijital pano (Vite + React + Firebase).
+Şehit Coşkun Karabulut İmam Hatip Ortaokulu için dijital pano (Vite + React + Firebase).
 
 Mehmet Karadeniz, 2026-2027
 
 ## Yapı
-- `legacy/Dijital_Pano.html` – çalışan tek dosyalı sürüm (yedek, kişisel veriler temizlenmiş örnek veriyle).
 - `src/panel/` – panel arayüzünün parçaları (`Panel.jsx` yalnızca ana kabuk).
 - `src/modules/` – her modül tek dosya. **Yeni modül = bu klasöre yeni `.jsx` eklemek**; otomatik kaydolur (`src/lib/registry.js`).
-- `src/lib/firebase.js` – Firestore canlı dinleme (`onSnapshot`). `.env` yoksa `src/defaults.js` kullanılır.
+- `src/lib/firebase.js` – Firestore canlı dinleme (`onSnapshot`).
 - `firestore.rules` – okuma herkese açık, yazma yalnızca sahip hesap.
 
 Ayrıntılı rehber (yeni modül/tasarım/efekt ekleme, eski Chrome kuralları): **[ARCHITECTURE.md](ARCHITECTURE.md)**
@@ -32,8 +31,7 @@ npm run dev
 
 ## Taşıma durumu
 Eski tek dosyalı panonun tüm özellikleri taşındı: 15 modül, 6 tema, kayan zamanlanmış duyurular, acil duyuru, özel günler (tam ekran, aralıklı gösterim, konfeti, görsel), gece modu, hava efektleri, logo ve görsel yükleme, panel içi önizleme ve sürükle-bırak yerleşim (otomatik yerleşimle).
-Varsayılan ayarlar `src/defaults.json` içindedir; Firestore'daki `config/pano` belgesi bunun yerine geçer. Görseller `images/{id}` belgelerinde, küçültülmüş olarak saklanır.
-`legacy/` içindeki tek dosyalı sürüm yedek olarak kalır.
+Ayarlar yalnızca Firestore'daki `config/pano` belgesindedir (yerleşik varsayılan yok; pano veri gelene kadar "Pano yükleniyor…" gösterir). Görseller `images/{id}` belgelerinde, küçültülmüş olarak saklanır.
 
 ## Lisans
 

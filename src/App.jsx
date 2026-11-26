@@ -1,5 +1,4 @@
 import { Suspense, lazy, useEffect, useLayoutEffect, useState } from 'react'
-import defaults from './defaults.json'
 import { listenConfig, fetchServerConfig } from './lib/firebase.js'
 import Stage from './Stage.jsx'
 
@@ -13,7 +12,7 @@ const Panel = lazy(() => import('./Panel.jsx').then((m) => { try { sessionStorag
 }))
 
 export default function App() {
-  const [cfg, setCfg] = useState(defaults)
+  const [cfg, setCfg] = useState(null)  // yerleşik varsayılan yok: pano yalnızca Firestore'daki (ya da önbellekteki) ayarla çizilir
   const [loaded, setLoaded] = useState(false)  // ilk veri (önbellek ya da sunucu) geldi
   const [fresh, setFresh] = useState(false)    // sunucudan doğrulanmış güncel ayar
   const [err, setErr] = useState('')
@@ -29,13 +28,12 @@ export default function App() {
   }, [])
   useEffect(() => { const h = () => setHash(location.hash); addEventListener('hashchange', h); return () => removeEventListener('hashchange', h) }, [])
   useEffect(() => {
-    const t = setTimeout(() => setLoaded(true), 4000)  // hiç veri gelmezse yerleşik varsayılanlarla aç
     const un = listenConfig((d, meta) => {
       if (d) setCfg(d)
-      setLoaded(true)
+      if (d || !meta.fromCache) setLoaded(true)  // boş önbellek "belge yok" der; sunucu doğrulamadan yüklendi sayma
       if (!meta.fromCache) setFresh(true)
     })
-    return () => { clearTimeout(t); un() }
+    return () => un()
   }, [])
   // Panel için: sunucudan doğrulanana kadar (başarısızsa 5 sn'de bir yeniden deneyerek) bekle
   useEffect(() => {
@@ -53,6 +51,7 @@ export default function App() {
     document.body.classList.toggle('panelbody', isPanel)
     scrollTo(0, 0)
   }, [isPanel])
-  if (!isPanel && !loaded) return null  // varsayılan ayarların bir an görünmesini önle
-  return isPanel ? <Suspense fallback={<div className="pnl"><p>Panel yükleniyor…</p></div>}><Panel cfg={cfg} fresh={fresh} err={err} /></Suspense> : <Stage key="display" cfg={cfg} />
+  // Ayar gelmeden pano çizilmez: eski/varsayılan tasarım hiç görünmez
+  if (!isPanel && !cfg) return <div style={{ position: 'fixed', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#888', font: '600 24px sans-serif' }}>{err ? 'Sunucuya bağlanılıyor…' : 'Pano yükleniyor…'}</div>
+  return isPanel ? <Suspense fallback={<div className="pnl"><p>Panel yükleniyor…</p></div>}><Panel cfg={cfg} loaded={loaded} fresh={fresh} err={err} /></Suspense> : <Stage key="display" cfg={cfg} />
 }
